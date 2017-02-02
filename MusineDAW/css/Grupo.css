@@ -1,0 +1,72 @@
+<<<<<<< HEAD
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+body {
+    margin-top: -20px;
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+form{
+    
+    text-align:center;
+}
+
+a{
+    margin-left:10px;
+    margin-right:10px;
+}
+
+img{
+    
+   margin-left:10px;
+   margin-right:10px; 
+   width:178px;
+   height:180px;
+   text-align:left;
+    
+}
+
+.info a {
+    white-space: nowrap;
+}
+
+.info #img1 {
+    
+    
+    WIDTH:178px;
+    HEIGHT:50px;
+    text-align:center;
+}
+
+.col-md-6{
+  width:550px; 
+  margin-left:10px;  
+    
+}
+#playlists{
+   
+}
+
+#video{
+    WIDTH:500px;
+    HEIGHT:300px;
+}
+
+ul{
+       list-style:none;
+}
+
+li{
+       list-style:none;
+}
+list-group {
+    
+     width:500; 
+     height:315;
+    
+}
+
+>>>>>>> refs/remotes/DaniRibCha/master

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Titulo de la pagina -->
+    <title>Musine</title>
+<<<<<<< HEAD:indexUsuario.html
+    <link rel="icon" type="img/png" href="musine.png">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/styleUsuario.css">
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+=======
+
+    <!-- Icono del logo que sale en el navegador -->
+    <link rel="icon" type="image/png" href="musine.png">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    <link type="text/css" rel="stylesheet" href="./css/styleUsuario.css">
+    <script src="./js/jquery-2.1.3.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+>>>>>>> origin/master:Proyecto/indexUsuario.html
+</head>
+
+<body>
+
+    <!--Division que abarca toda la pagina -->
+    <div id="web" class="container">
+
+        <!-- Seccion donde va el nombre de la pagina y el logo -->
+        <div id="cabecera">
+            <div id="cabecera1" class="panel-heading">
+<<<<<<< HEAD:indexUsuario.html
+                <img src="img/musine.png" width="60" height="55" />
+=======
+                <!--Logo de la pagina configurado para tener cierto tamaño fijo -->
+                <img class="imgresponsive" src="./images/musine.png" width="60" height="55" />
+
+                <!-- Titulo de la pagina -->
+>>>>>>> origin/master:Proyecto/indexUsuario.html
+                <span>Musine</span>
+            </div>
+
+            <!--Seccion de la cabecera que contendra el buscador -->
+            <div id="cabecera2" class="panel-body">
+                <div id="busca">
+
+                    <!--Formulario para el buscador -->
+                    <form id="buscador" action="/search" style="display:inline;" method="get">
+
+                        <!--Seccion donde se inserta la caja del buscador. El placeholder permite desplegar un mensaje en su interior -->
+                        <input id="caja_de_busqueda" name="q" placeholder="Introduce tu búsqueda..." />
+
+                        <!--Se utilizan los iconos de Bootstrap para el icono del boton del buscador con glyphion-->
+                        <button id="boton_de_buscar" type="submit" class="btn btn">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra del navegador donde estaran los botones y tendra un fondo -->
+        <nav class="navbar navbar-default" id="navegacion">
+           
+            <!-- Grupo de botones para las canciones, playlist, grupos y likes con bootstrap-->
+            <div id="botones" class="btn-group">
+
+                <a href="#">
+                    <button type="button" class="btn btn-primary">Songs</button>
+                </a>
+
+                <a href="#">
+                    <button type="button" class="btn btn-primary">Playlist</button>
+                </a>
+
+                <a href="#">
+                    <button type="button" class="btn btn-primary">Groups</button>
+                </a>
+
+                <a href="#">
+                    <button type="button" class="btn btn-primary">Likes</button>
+                </a>
+            </div>
+
+        </nav>
+        
+        <!--Parte de la pagina que contiene todas las funcionalidades basicas del perfil del usuario -->
+        <div id="sombraContenido">
+<<<<<<< HEAD:indexUsuario.html
+            <div id="home">
+                <img src="img/+.png" width="20" height="20" />
+                <a href="#"><span class="glyphicon glyphicon-folder-open"></span>Nuevo Playlist</a>
+=======
+            
+            <!-- Agregar un nuevo playlist -->
+            <div id="new">
+                <img src="./images/+.png" width="20" height="20" />
+                <a href="#">Nuevo Playlist</a>
+>>>>>>> origin/master:Proyecto/indexUsuario.html
+            </div>
+            
+            <!--Seccion para las opciones que tiene el usuario desde su perfil -->
+            <div id="contenido" class="container-fluid">
+                
+                <!--Se utiliza bootstrap para posicionar dicha seccion en una parte especifica de la pantalla que variará segun el tamaño de la pantalla. El hidden-xs nos permitirá ocultar esta parte cuando la pantalla sea de cierto tamaño -->
+                <div class="col-md-2 col-sm-3 hidden-xs">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <!--Los badges nos permiten saber la cantidad de elementos nuevos sin revisar de cada seccion -->
+                            <span class="glyphicon glyphicon-flag"></span> Notificaciones <span class="badge">15</span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="glyphicon glyphicon-comment"></span> Mensajes <span class="badge">40</span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="glyphicon glyphicon-user"></span> Seguidores <span class="badge">150</span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="glyphicon glyphicon-signal"></span> Nivel <span class="badge">8</span>
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="glyphicon glyphicon-wrench"></span> Configuraciones
+                        </a>
+                    </div>
+                </div>
+                
+                <!--Nuevamente se utiliza la funcion de division por columnas de bootstrap para la parte de recomendacion musical y la foto con el nombre del usuario-->
+                <div class="col-md-10 col-sm-9">
+                    <div id="usuario">
+<<<<<<< HEAD:indexUsuario.html
+                        <img src="img/user.jpg" width="200" height="200" />
+                        <p>Elmer Homero</p>
+=======
+                        <!--Al alcanzar cierto tamaño tanto la foto como el nombre del perfil del usuario desapareceran para mantener la estetica de la pagina -->
+                        <img src="./images/user.jpg" class="hidden-xs" />
+                        <p class="hidden-xs">Elmer Homero</p>
+>>>>>>> origin/master:Proyecto/indexUsuario.html
+                    </div>
+                    <div id="Recomendacion">
+                        <!--Letrero que le indicara al usuario cual es la recomendacion semanal-->
+                        <p>Tu recomendacion musical de esta semana es...</p>
+<<<<<<< HEAD:indexUsuario.html
+                        <img src="img/closer.png" width="200" height="200" />
+                        <div id="boton-play">
+                            <a href="audio/closer.mp3"><img src="img/play.png" /></a>
+                        </div>
+                        <div id="song">"Closer" by The Chainsmokers</div>
+=======
+                        <!--Se coloca una imagen del album en cuestion, la cual es reproducible -->
+                        <a href="closer.mp3"><img src="./images/closer.png" width="180" height="180" /></a>
+                        <!--Se le atribuyen determinados estilos al resto de los headers con la informacion de la cancion -->
+                        <p style="font-size: 1em" class="hidden-xs">"Closer" by The Chainsmokers</p>
+                        <p style="font-size: 0.8em" class="hidden-xs">(Haz click en la imagen para reproducir la cancion)</p>
+>>>>>>> origin/master:Proyecto/indexUsuario.html
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--Cierre de pagina donde se encuentra el boton de cerrar sesion -->
+        <div id="pie" class="panel-body">
+<<<<<<< HEAD:indexUsuario.html
+            <p>Desarrollo de Aplicaciones Web</p>
+            <nav>
+                <a href="login.html"><img src="img/off.png" width="30" height="30" /></a>
+=======
+            <nav>
+                <a href="login.html"><img src="./images/off.png" width="30" height="30" /></a>
+>>>>>>> origin/master:Proyecto/indexUsuario.html
+            </nav>
+        </div>
+    </div>
+</body>
+
+</html>
