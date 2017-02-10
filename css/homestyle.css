@@ -1,0 +1,153 @@
+/*!
+ * Start Bootstrap - Blog Home (http://startbootstrap.com/)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+
+body {
+    padding-top: 10px;
+    /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+footer {
+    margin: 50px 0;
+    text-align: center;
+}
+
+
+/*navbar-header*/
+
+.navbar-inverse {
+    margin: 0;
+    background-color: #222;
+}
+
+#header {
+    display: -webkit-inline-box;
+}
+
+#header a {
+    color: aqua;
+    font-family: "trebuchet ms", "arial", sans-serif;
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.navbar>.container-fluid .navbar-brand {
+    margin-left: 15px;
+}
+
+.navbar-nav>li>.dropdown-menu {
+    background-color: #18BC9C;
+    border: 6px solid darkcyan;
+    color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: aqua;
+}
+
+#navbar li {
+    margin-right: 15px;
+    margin-left: 20px;
+    float: right;
+}
+
+#search {
+    position: relative;
+    left: 50px;
+    width: auto;
+}
+
+#search-button {
+    position: absolute;
+    left: 1px;
+    bottom: 0px;
+    width: initial;
+}
+
+
+/* final navabar*/
+
+
+/*widget home (cajas a la derecha) */
+
+.well {
+    margin-top: 4em;
+}
+
+
+/*final widget/*
+
+
+/*navbar default buttons*/
+
+.navbar-default {
+    margin-bottom: 0;
+    padding: 0px;
+}
+
+.btn-default.active {
+    font-family: 'Lobster', cursive;
+    width: 32%;
+    border-style: outset;
+}
+
+.btn-default {
+    font-family: 'Lobster', cursive;
+    width: 33%;
+    border-style: outset;
+}
+
+
+/*final navbar buttons*/
+
+
+/* cajas playlist*/
+
+table {
+    background-color: whitesmoke;
+    margin-bottom: 1em;
+    margin-top: 1em;
+    border-radius: 4px;
+}
+
+
+/*final cajas playlists*/
+
+
+/*tag*/
+
+a.tag {
+    padding: 10px 18px;
+    margin: 0 8px 8px 0;
+    border: 1px solid #120707;
+    border-radius: 30px;
+    display: inline-block;
+    color: #666;
+}
+
+
+/*final tag*/
+
+
+/*pie*/
+
+.footer {
+    text-align: center;
+    font-size: 1.25em;
+    font-weight: 300;
+    color: #222;
+    font-family: 'Lobster', cursive;
+}
+
+.intro-text .name {
+    display: block;
+}
+
+.star-light {
+    border: 1px solid #222;
+}
+
+
+/*final pie*/
