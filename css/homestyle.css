@@ -13,7 +13,16 @@ footer {
     margin: 50px 0;
     text-align: center;
 }
-
+.botonseguir{
+    text-align: center;
+    background-color: #18BC9C;
+    padding: 10px 18px;
+    margin: 0 8px 8px 0;
+    border: 1px solid #120707;
+    border-radius: 30px;
+    display: inline-block;
+    color: #666; 
+}
 
 /*navbar-header*/
 
@@ -125,6 +134,7 @@ a.tag {
     border-radius: 30px;
     display: inline-block;
     color: #666;
+    background-color: white;
 }
 
 
