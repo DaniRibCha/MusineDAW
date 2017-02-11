@@ -110,6 +110,8 @@ ul {
 
 
 /*final widget/*
+
+
 /*navbar default buttons*/
 
 .navbar-default {
@@ -133,84 +135,6 @@ ul {
     padding-right: 0;
 }
 
-
-/*Botones en el jumbotron del create playlist*/
-
-.btn-lg {
-    position: relative;
-    top: 80px;
-    left: 90px;
-    padding: 10px 20px;
-    font-size: 2em;
-    border-radius: 10px;
-}
-
-#nplay {
-    width: 130px;
-}
-
-#nfollowed {
-    width: 130px;
-    position: relative;
-    left: 2.2em;
-}
-
-#nfollowing {
-    width: 130px;
-    position: relative;
-    left: 1em;
-}
-
-
-/*Final de los botones*/
-
-
-/*Descripcion de los botones del jumbotron*/
-
-.description p {
-    font-family: sans-serif;
-    font-size: 2em;
-    font-weight: bold;
-    position: relative;
-    top: 3em;
-    left: 2em;
-    color: white;
-}
-
-#d2 {
-    position: relative;
-    left: 2.2em;
-}
-
-#d3 {
-    position: relative;
-    left: 1em;
-}
-
-/*fin de la descripcion de los botones*/
-
-/*Nombre del usuario*/
-
-#nombre{
-    font-size: 2.6em;
-    margin-left: 10em;
-    color: white;
-}
-
-/*Imagen del usuario*/
-
-#userlogo {
-    width: 250px;
-    height: 250px;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    border-radius: 50%;
-    background-size: 100% auto;
-    position: relative;
-    bottom: 4em;
-}
-
-/*final de edicion del nombre y logo del usuario*/
 
 /*final navbar buttons*/
 
