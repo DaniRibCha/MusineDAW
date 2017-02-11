@@ -44,26 +44,23 @@
     </nav>
     <div class="jumbotron" style="background-color:grey;">
         <div class="container">
-            <div class="col-md-6"> <img class="img-responsive" id="artistlogo" src="https://i1.sndcdn.com/avatars-000263373303-edxcgq-t500x500.jpg">
-                <h2>Marshmello</h2>
-                <br clear="all">
-                <p><a class="botonseguir" title="electronica" href="#">Seguir</a></p>
+            <div>
+                <p id="nombre">Name
+                    <button type="button" class="btn btn-success follow">Following<span class="glyphicon glyphicon-ok"></span> </p>
             </div>
-            <div class="col-md-6">
-                <div id="Caja1">
-                    <p>591K Followers</p>
-                </div>
-                <div id="Caja4">
-                    <p>Tags Relacionados:</p>
-                    <p><a class="tag" href="">Electrónica</a></p>
-                </div>
-                <div id="Caja5">
-                    <br clear="all">
-                    <p>Artistas Similares:</p>
-                    <p><a class="tag" href="">Skrillex</a></p>
-                    <p><a class="tag" href="">Slushii</a></p>
-                    <p><a class="tag" href="">DJ Snake</a></p>
-                </div>
+            <div class="col-md-3">
+                <p id="nombre"></p> <img class="img-responsive" id="userlogo" src="img/user.jpg" width="60" height="55"> </div>
+            <div class="col-md-3 description">
+                <button type="button" class="btn btn-primary btn-lg cajas" id="nplay">8</button>
+                <p>Created playlist</p>
+            </div>
+            <div class="col-md-3 description">
+                <button type="button" class="btn btn-primary btn-lg cajas" id="nfollowed">100</button>
+                <p id="d2">Following</p>
+            </div>
+            <div class="col-md-3 description">
+                <button type="button" class="btn btn-primary btn-lg cajas" id="nfollowing">200</button>
+                <p id="d3">Followers</p>
             </div>
         </div>
     </div>
