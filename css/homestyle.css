@@ -13,7 +13,8 @@ footer {
     margin: 50px 0;
     text-align: center;
 }
-.botonseguir{
+
+.botonseguir {
     position: relative;
     text-align: center;
     background-color: #18BC9C;
@@ -25,7 +26,8 @@ footer {
     color: #666;
     font-weight: bold;
 }
-#artistlogo{
+
+#artistlogo {
     width: 250px;
     height: 250px;
     background-repeat: no-repeat;
@@ -33,14 +35,18 @@ footer {
     border-radius: 50%;
     background-size: 100% auto;
 }
-ul{
-       list-style:none;
-       padding:10px;
-       }
-.list-group{
-    text-align: center;
-    list-style:none;
+
+ul {
+    list-style: none;
+    padding: 10px;
 }
+
+.list-group {
+    text-align: center;
+    list-style: none;
+}
+
+
 /*navbar-header*/
 
 .navbar-inverse {
@@ -114,15 +120,19 @@ ul{
 }
 
 .btn-default.active {
-    font-family: 'Lobster', cursive;
-    width: 32%;
+    width: 100%;
     border-style: outset;
 }
 
 .btn-default {
-    font-family: 'Lobster', cursive;
-    width: 33%;
+    width: 100%;
     border-style: outset;
+}
+
+.utent_button {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 
