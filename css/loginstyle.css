@@ -5,3 +5,8 @@
 #register {
     background-color: #18BC9C;
 }
+
+#logo-login {
+    position: relative;
+    top: 15px;
+}
