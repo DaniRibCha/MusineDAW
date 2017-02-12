@@ -48,24 +48,24 @@
         </div>
     </nav>
     <div class="jumbotron" style="background-color:grey;">
-        <div class="container">
-            <div class="col-md-6"> <img class="img-responsive" id="editlogo" src="/img/signo.jpg" width="250em">
-                <a><button type="button" class="btn btn-primary btn-lg uploadImg">Upload Image</button></a>
+        <div class="container uploadImg">
+            <div class="col-md-6"> <img class="img-responsive editlogo" src="/img/signo.jpg" width="250em">
+                <a>
+                    <button type="button" class="btn btn-primary btn-lg">Upload Image</button>
+                </a>
             </div>
             <div class="col-md-6">
-                <form>
+                <form class="form-playlist">
                     <div class="form-group">
                         <label for="email">Title for your playlist:</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
+                        <input type="email" class="form-control" id="email"> </div>
                     <div class="form-group">
                         <label for="comment">Description:</label>
                         <textarea class="form-control" rows="5" id="comment"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="email">Tags (at least one)</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
+                        <input type="email" class="form-control" id="email"> </div>
                 </form>
             </div>
         </div>
@@ -81,15 +81,13 @@
                 </div> -->
                 <div class="form-group">
                     <label for="email">Title of the song:</label>
-                    <input type="email" class="form-control" id="email">
-                </div><div class="form-group">
+                    <input type="email" class="form-control" id="email"> </div>
+                <div class="form-group">
                     <label for="email">Author:</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
+                    <input type="email" class="form-control" id="email"> </div>
                 <div class="form-group">
                     <label for="email">Copy the link of the song on Youtube:</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
+                    <input type="email" class="form-control" id="email"> </div>
                 <button type="button" class="btn btn-success newSong">Add new song</button>
             </div>
         </div>
@@ -97,7 +95,9 @@
     <a href="indexUtent_playlist.html">
         <button type="button" class="btn btn-primary" id="save">Save</button>
     </a>
-    <a href="indexUtent_playlist.html"><button type="button" class="btn btn-danger returnE">Return</button></a>
+    <a href="indexUtent_playlist.html">
+        <button type="button" class="btn btn-danger returnE">Return</button>
+    </a>
     <!-- /.row -->
     <!-- Footer -->
     <footer>
