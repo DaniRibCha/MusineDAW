@@ -227,6 +227,131 @@ ul {
 
 /*final de edicion del nombre y logo del usuario*/
 
+/*Configuracion del usuario*/
+.configUser{
+    position: relative;
+    left: 18em;
+}
+/*final */
+
+/*Enlace para new playlist*/
+#newPlay{
+    font-size: 1.5em;
+    position: relative;
+    top: 0.2em;
+}
+/*fin*/
+
+/*Opciones de los playlist*/
+.opcion_playlist{
+    position: relative;
+    left: 15em;
+}
+/*Fin*/
+
+/*Boton de upload image en create playlist*/
+.uploadImg{
+    position: relative;
+    top: 1em;
+    left: 2.7em;
+}
+/*fin*/
+
+/*Boton de add new song y return en create playlist*/
+
+.newSong{
+    position: relative;
+    left: 68em;
+}
+
+.return{
+    position: relative;
+    top: 2em;
+    left: 86em;
+}
+
+/*fin*/
+
+/*Editar link de youtube, en edit playlist*/
+.editLink{
+    position: relative;
+    left: 63.8em;
+}
+/*Fin*/
+
+/*Separar las canciones favoritas*/
+
+.eliminarFav{
+    position: relative;
+    left: 77em;
+    top: -2em;
+}
+/*Final*/
+
+/*Imagen de usuario en la pagina de seguidores*/
+#userImSeg{
+    width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    position: relative;
+    bottom: 1em;
+    left: 28em;
+}
+
+#nombreSeg{
+    font-size: 2.6em;
+    position: relative;
+    top: 7.2em;
+    left: 5.4em;
+    color: white;
+    width: 19em;
+}
+/*final*/
+
+/*Informacion de los seguidores*/
+
+.seguidores{
+    position: relative;
+    left: 15em;
+}
+
+.seguidores>span{
+    position: relative;
+    left: 10.6em;
+    font-family: cursive;
+    font-size: 2em;
+    font-weight: bold;
+}
+/*fin*/
+
+/*Editar el perfil del usuario*/
+
+#userEdit{
+    width: 250px;
+    height: 250px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    border-radius: 50%;
+    background-size: 100% auto;
+    position: relative;
+    bottom: 1em;
+    left: 6em;
+}
+
+#save{
+    position: relative;
+    left:77em;
+}
+
+.returnEdit{
+    position: relative;
+    left:70em;
+    bottom: 2.4em;
+}
+/*fin*/
 
 /*final navbar buttons*/
 
