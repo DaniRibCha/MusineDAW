@@ -230,17 +230,6 @@ ul {
 /*fin*/
 
 
-/*Opciones de los playlist*/
-
-.opcion_playlist {
-    position: relative;
-    left: 15em;
-}
-
-
-/*Fin*/
-
-
 /*Botones de modificaciones en create, edit, config*/
 
 .uploadImg {
