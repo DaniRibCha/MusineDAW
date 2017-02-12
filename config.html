@@ -30,14 +30,19 @@
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
+                        <button class="btn btn-default" type="submit" id="search-button"> <i class="glyphicon glyphicon-search"></i> </button>
                     </div>
                 </div>
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html#toregister"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><img class="img-responsive img-circle" src="./img/user.jpg" width="60" height="55"></li>
+                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="config.html">My Profile</a></li>
+                            <li><a href="indexUtent_playlist.html">My Playlists</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -45,32 +50,55 @@
     <div class="jumbotron" style="background-color:grey;">
         <div class="container">
             <div class="col-md-6"> <img class="img-responsive" id="userEdit" src="img/user.jpg" width="60" height="55">
-                <a>
-                    <button type="button" class="btn btn-primary btn-lg uploadImg">Change Image</button>
-                </a>
-                <a>
-                    <button type="button" class="btn btn-primary btn-lg uploadImg">Change Password</button>
-                </a>
+                <div class="dropdown">
+                <button class="btn btn-primary btn-lg dropdown-toggle uploadImg" type="button" data-toggle="dropdown">Change Image
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu changeImg">
+                    <li>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group" id="oldimgBox">
+                                <label for="Bio" id="oldimgBox">Direction of the new file</label>
+                                <input class="form-control" id="oldimgBox">
+                            </div>
+                        </form>
+                    </li>
+                    <a href="config.html">
+                        <button type="button" class="btn btn-primary" id="doneImg">Done</button>
+                    </a>
+                </ul>
+                </div>
+                <div class="dropdown">
+                <button class="btn btn-primary btn-lg dropdown-toggle uploadPass" type="button" data-toggle="dropdown">Change Password
+                    <span class="caret"></span></button>
+                <ul class="dropdown-menu changePass">
+                    <li>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group" id="oldpassBox">
+                                <label for="Bio">Put your current password</label>
+                                <input class="form-control">
+                            </div>
+                        </form>
+                    </li>
+                    <li>
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group" id="oldpassBox">
+                                <label for="Bio" id="city">Put the new password</label>
+                                <input type="email" class="form-control">
+                            </div>
+                        </form>
+                    </li>
+                    <a href="config.html">
+                        <button type="button" class="btn btn-primary" id="donePass">Done</button>
+                    </a>
+                </ul>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group" id="bio">
                     <label for="Bio">Biography</label>
                     <textarea class="form-control" rows="3"></textarea>
                 </div>
-                <form class="form-horizontal" role="form">
-                    <div class="form-group" id="bio">
-                        <label for="Bio">City</label>
-                        <input type="email" class="form-control" id="cityBox">
-                    </div>
-                </form>
-                <form class="form-horizontal" role="form">
-                    <div class="form-group" id="bio">
-                        <label for="Bio">State</label>
-                        <input type="email" class="form-control" id="stateBox">
-                    </div>
-                </form>
-
-                <div class="form-group" id="bio">
+                <div class="form-group" id="country">
                     <label for="Country">Country</label>
                     <select id="listaDeshabilitada" class="form-control">
                         <option></option>
@@ -86,9 +114,21 @@
                         <option>Venezuela</option>
                     </select>
                 </div>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group" id="cityBox">
+                        <label for="Bio" id="city">City</label>
+                        <input type="email" class="form-control">
+                    </div>
+                </form>
+                <form class="form-horizontal" role="form">
+                    <div class="form-group" id="stateBox">
+                        <label for="Bio" id="state">State</label>
+                        <input type="email" class="form-control">
+                    </div>
+                </form>
             </div>
             <div class="col-md-12">
-                <a href="indexUsuario.html">
+                <a href="indexUtent_playlist.html">
                     <button type="button" class="btn btn-primary" id="save">Save</button>
                 </a>
 

@@ -30,14 +30,19 @@
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
+                        <button class="btn btn-default" type="submit" id="search-button"> <i class="glyphicon glyphicon-search"></i> </button>
                     </div>
                 </div>
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html#toregister"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><img class="img-responsive img-circle" src="./img/user.jpg" width="60" height="55"></li>
+                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="config.html">My Profile</a></li>
+                            <li><a href="indexUtent_playlist.html">My Playlists</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -71,7 +76,7 @@
 
     <nav class="navbar navbar-default">
         <div class="col-md-4 utent_button">
-            <a href="searchUtent_playlist.html">
+            <a href="indexUtent_playlist.html">
                 <button type="button" class="btn btn-default btn-lg active"><span class="glyphicon glyphicon-cd"></span> PLAYLISTS</button>
             </a>
         </div>
@@ -80,12 +85,12 @@
                     <button type="button" class="btn btn-default btn-lg"><a href="">Genero</a></button>
                 </div>-->
         <div class="col-md-4 utent_button">
-            <a href="searchUtent_likes.html">
+            <a href="indexUtent_likes.html">
                 <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-thumbs-up"></span> LIKES</button>
             </a>
         </div>
         <div class="col-md-4 utent_button">
-            <a href="searchUtent_tracks.html">
+            <a href="indexUtent_favoritos.html">
                 <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-star-empty"></span> FAVORITE TRACKS</button>
             </a>
         </div>

@@ -30,14 +30,19 @@
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
+                        <button class="btn btn-default" type="submit" id="search-button"> <i class="glyphicon glyphicon-search"></i> </button>
                     </div>
                 </div>
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="login.html#toregister"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    <li><img class="img-responsive img-circle" src="./img/user.jpg" width="60" height="55"></li>
+                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="config.html">My Profile</a></li>
+                            <li><a href="indexUtent_playlist.html">My Playlists</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -74,13 +79,21 @@
             <div class="row">
 
                 <div class="col-md-12">
-                    <span>Title: </span>Lordly (feat. Alex Aiono) <a href="login.html#toregister"><span class="glyphicon glyphicon-pencil"></span></a> <a href="https://www.youtube.com/watch?v=RvK8SKZbBWg" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube <a href="login.html#toregister"><span class="glyphicon glyphicon-pencil editLink"></span></a><a href="login.html#toregister"></a>
-                    <p><span>Artist: </span>Federe feat. Alex Ionio <a href="login.html#toregister"><span class="glyphicon glyphicon-pencil"></span></a></p>
+                    <a class="opcion_playlist"><span class="glyphicon glyphicon-trash trash"></span></a>
+                    <span>Title: </span>Lordly (feat. Alex Aiono)<a href="https://www.youtube.com/watch?v=RvK8SKZbBWg" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube 
+                    <a href="login.html#toregister"></a>
+                    <p id="artist"><span>Artist: </span>Federe feat. Alex Ionio</p>
                 </div>
+                <button type="button" class="btn btn-success newSong">Add new song</button>
             </div>
         </div>
     </div>
-        <a href="indexUtent_playlist.html"><button type="button" class="btn btn-danger return">Return</button></a>
+    <a href="indexUtent_playlist.html">
+        <button type="button" class="btn btn-primary" id="save">Save</button>
+    </a>
+    <a href="indexUtent_playlist.html">
+        <button type="button" class="btn btn-danger returnE">Return</button>
+    </a>
     <!-- /.row -->
     <!-- Footer -->
     <footer>
