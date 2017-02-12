@@ -137,9 +137,6 @@ ul {
 /*Botones en el jumbotron del create playlist*/
 
 .cajas {
-    position: relative;
-    top: 80px;
-    left: 90px;
     padding: 10px 20px;
     font-size: 2em;
     border-radius: 10px;
@@ -151,14 +148,10 @@ ul {
 
 #nfollowed {
     width: 130px;
-    position: relative;
-    left: 2.2em;
 }
 
 #nfollowing {
     width: 130px;
-    position: relative;
-    left: 1em;
 }
 
 
@@ -182,169 +175,181 @@ ul {
     font-family: sans-serif;
     font-size: 2em;
     font-weight: bold;
-    position: relative;
-    top: 3em;
-    left: 2em;
     color: white;
+    text-align: center;
 }
 
-#d2 {
-    position: relative;
-    left: 2.2em;
+.description {
+    text-align: center;
+    margin: 6em 0 4em 0;
 }
 
-#d3 {
-    position: relative;
-    left: 1em;
+.description img {
+    text-align: center;
+}
+
+.description span {
+    color: white;
+    text-align: center;
+}
+
+.name-jumbotron p {
+    font-family: sans-serif;
+    font-size: 2em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
 }
 
 
 /*fin de la descripcion de los botones*/
 
 
-/*Nombre del usuario*/
-
-#nombre {
-    font-size: 2.6em;
-    margin-left: 10em;
-    color: white;
-}
-
-
-/*Imagen del usuario*/
+/*Imagen del usuario en el jumbotron*/
 
 #userlogo {
-    width: 250px;
-    height: 250px;
-    background-repeat: no-repeat;
-    background-position: 50%;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background-size: 100% auto;
-    position: relative;
-    bottom: 4em;
+    margin: auto;
 }
 
 
-/*final de edicion del nombre y logo del usuario*/
+/*final de edicion logo del usuario*/
 
-/*Configuracion del usuario*/
-.configUser{
-    position: relative;
-    left: 18em;
-}
-/*final */
 
 /*Enlace para new playlist*/
-#newPlay{
+
+#newPlay {
     font-size: 1.5em;
     position: relative;
     top: 0.2em;
 }
+
+
 /*fin*/
 
+
 /*Opciones de los playlist*/
-.opcion_playlist{
+
+.opcion_playlist {
     position: relative;
     left: 15em;
 }
+
+
 /*Fin*/
 
+
 /*Boton de upload image en create playlist*/
-.uploadImg{
+
+.uploadImg {
     position: relative;
     top: 1em;
     left: 2em;
 }
 
-.uploadPass{
+.uploadPass {
     position: relative;
     left: 12em;
     bottom: 1.5em;
 }
 
-.changePass{
+.changePass {
     margin-left: 15.5em;
     width: 20em;
     margin-top: -1em;
 }
 
-#oldpassBox{
+#oldpassBox {
     width: 17em;
     margin-left: 0.7em;
 }
 
-#donePass{
+#donePass {
     margin-left: 15em;
     margin-bottom: 1em;
 }
 
-.changeImg{
+.changeImg {
     margin-top: 2em;
     margin-left: 2.5em;
-    width: 18em; 
+    width: 18em;
 }
 
-#oldimgBox{
+#oldimgBox {
     width: 15em;
     margin-left: 0.4em;
 }
 
-#doneImg{
+#doneImg {
     margin-left: 13em;
     margin-bottom: 1em;
 }
+
+
 /*fin*/
+
 
 /*Boton de add new song y return en create playlist*/
 
-.newSong{
+.newSong {
     position: relative;
     left: 68em;
 }
 
-.return{
+.return {
     position: relative;
     top: 2em;
     left: 84em;
 }
 
+
 /*fin*/
+
 
 /*Editar link de youtube, en edit playlist*/
 
-.editLink{
+.editLink {
     position: relative;
     left: 63.8em;
 }
 
-.returnE{
+.returnE {
     position: relative;
     left: 79.5em;
 }
 
-.trash{
+.trash {
     position: relative;
     right: 15em;
     top: 0.7em;
 }
 
-#artist{
+#artist {
     position: relative;
     left: 1.4em;
 }
+
+
 /*Fin*/
+
 
 /*Separar las canciones favoritas*/
 
-.eliminarFav{
+.eliminarFav {
     position: relative;
     left: 77em;
     top: -2em;
 }
+
+
 /*Final*/
 
+
 /*Imagen de usuario en la pagina de seguidores*/
-#userImSeg{
+
+#userImSeg {
     width: 250px;
     height: 250px;
     background-repeat: no-repeat;
@@ -356,7 +361,7 @@ ul {
     left: 28em;
 }
 
-#nombreSeg{
+#nombreSeg {
     font-size: 2.6em;
     position: relative;
     top: 7.2em;
@@ -364,27 +369,33 @@ ul {
     color: white;
     width: 19em;
 }
+
+
 /*final*/
+
 
 /*Informacion de los seguidores*/
 
-.seguidores{
+.seguidores {
     position: relative;
     left: 15em;
 }
 
-.seguidores>span{
+.seguidores>span {
     position: relative;
     left: 10.6em;
     font-family: cursive;
     font-size: 2em;
     font-weight: bold;
 }
+
+
 /*fin*/
+
 
 /*Editar el perfil del usuario*/
 
-#userEdit{
+#userEdit {
     width: 250px;
     height: 250px;
     background-repeat: no-repeat;
@@ -396,30 +407,32 @@ ul {
     left: 6em;
 }
 
-#save{
+#save {
     position: relative;
-    left:77em;
+    left: 77em;
 }
 
-.returnEdit{
+.returnEdit {
     position: relative;
-    left:70em;
+    left: 70em;
     bottom: 2.4em;
 }
 
-#cityBox{
+#cityBox {
     position: relative;
     left: 1em;
 }
 
-#stateBox{
+#stateBox {
     position: relative;
     left: 1em;
 }
 
-.changePass{
-}
+.changePass {}
+
+
 /*fin*/
+
 
 /*final navbar buttons*/
 
