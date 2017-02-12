@@ -480,6 +480,43 @@ a.tag {
 .star-light {
     border: 1px solid #222;
 }
-
-
 /*final pie*/
+
+/*inicio playlist*/
+
+#reproductor {
+    text-align: center;
+}
+
+#reproductor>iframe {
+    width: 70%;
+    height: 100%;
+}
+
+.recomendaciones {
+    text-align: center;
+}
+
+#degradado {
+    background: -webkit-linear-gradient(#5f5f5f, white);
+    /*Safari*/
+    background: -o-linear-gradient(darkgrey, white);
+    /*Opera*/
+    background: -moz-linear-gradient(darkgrey, white);
+    /*Firefox*/
+    background: linear-gradient(#5f5f5f, white);
+    /*Standard*/
+}
+
+#degradadoinverso {
+    background: -webkit-linear-gradient(white, #5f5f5f);
+    /*Safari*/
+    background: -o-linear-gradient(white, #5f5f5f);
+    /*Opera*/
+    background: -moz-linear-gradient(white, #5f5f5f);
+    /*Firefox*/
+    background: linear-gradient(white, #5f5f5f);
+    /*Standard*/
+}
+/*fin playlist*/
+
