@@ -161,8 +161,16 @@ ul {
 /*boton follow jumbotron en las paginas searchUtent*/
 
 .follow {
-    padding: 5px 2px 5px 2px;
-    display: inline-flex;
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.follow-btn {
+    text-align: center;
+    font-family: sans-serif;
+    font-size: 0.7em;
 }
 
 
@@ -365,41 +373,10 @@ ul {
     background-position: 50%;
     border-radius: 50%;
     background-size: 100% auto;
-    position: relative;
-    bottom: 1em;
-    left: 28em;
-}
-
-#nombreSeg {
-    font-size: 2.6em;
-    position: relative;
-    top: 7.2em;
-    left: 5.4em;
-    color: white;
-    width: 19em;
 }
 
 
 /*final*/
-
-
-/*Informacion de los seguidores*/
-
-.seguidores {
-    position: relative;
-    left: 15em;
-}
-
-.seguidores>span {
-    position: relative;
-    left: 10.6em;
-    font-family: cursive;
-    font-size: 2em;
-    font-weight: bold;
-}
-
-
-/*fin*/
 
 
 /*Editar el perfil del usuario*/
