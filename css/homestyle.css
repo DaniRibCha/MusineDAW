@@ -169,7 +169,7 @@ ul {
 /*final boton */
 
 
-/*Descripcion de los botones del jumbotron*/
+/*Descripcion de los botones del jumbotron indexUtent*/
 
 .description p {
     font-family: sans-serif;
@@ -241,19 +241,18 @@ ul {
 /*Fin*/
 
 
-/*Boton de upload image en create playlist*/
+/*Botones de modificaciones en create, edit, config*/
 
 .uploadImg {
-    position: relative;
-    top: 1em;
-    left: 2em;
+    text-align: center;
+    margin: 1em 0 1em 0;
 }
 
-.uploadPass {
-    position: relative;
-    left: 12em;
-    bottom: 1.5em;
-}
+
+/*fin*/
+
+
+/*cortina de changePassword*/
 
 .changePass {
     margin-left: 15.5em;
@@ -288,7 +287,34 @@ ul {
 }
 
 
-/*fin*/
+/*fin cortina*/
+
+
+/* jumbotron editPlaylist y createPlaylist*/
+
+.form-playlist {
+    margin-top: 1em;
+    color: white;
+}
+
+.editlogo {
+    margin: auto;
+    margin-bottom: 2em;
+}
+
+
+/* fin  jumbotron editPlaylist y createPlaylist*/
+
+
+/* jumbotron config*/
+
+.form-utent {
+    margin-top: 1em;
+    color: white;
+}
+
+
+/*fin jumbotron config*/
 
 
 /*Boton de add new song y return en create playlist*/
