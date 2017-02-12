@@ -44,74 +44,64 @@
             <iframe src="https://www.youtube.com/embed/S7JcGThpR4E" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
-
-    <div class="container-fluid" id="degradadoinverso">
+    <div class="col-md-12" id="degradadoinverso">
         <div class="col-md-8">
-            <section>
-                <div class="info-playlist" id="general-info">
-                    <h3 id="titulo-playlist">Nombre de Playlist</h3>
-                    <div class="btn-group" id="suscripcion">
-                        <h4 id="nombre-usuario">Usuario</h4>
-                        <button type="button" class="btn btn-danger">Seguir</button>
-                        <button type="button" class="btn btn-default disabled"> 125.354 </button>
-                    </div>
-                    <p id="descripcion">Aquí irá una breve descripción con los datos relevantes a la playlist o cualquier información que quiera compartir el usuario propietario de la playlist</p>
-                    <div class="container">
-                        <div class="row" id="playlist-buttons">
-                            <div class="col-md-6" id="actions">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-warning">Favorito <span class="glyphicon glyphicon-star "></span></button>
-                                    <button type="button" class="btn btn-success">Comparte <span class="glyphicon glyphicon-send "></span> </button>
-                                </div>
-                            </div>
-                            <div class="col-md-6" id="likes">
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-info">Me gusta <span class="glyphicon glyphicon-thumbs-up"></span></button>
-                                    <button type="button" class="btn btn-info">No me gusta <span class="glyphicon glyphicon-thumbs-down"></span></button>
-                                </div>
+            <div class="well" id="general-info">
+                <h3 id="titulo-playlist">Playlist Name</h3>
+
+                <div class="btn-group" id="suscripcion">
+                    <span><a href="searchUtent_playlist.html">Username </a></span>
+                    <button type="button" class="btn btn-primary">Follow</button>
+                    <button type="button" class="btn  disabled"> 125.354 </button>
+                </div>
+
+                <p id="descripcion">Here goes a brief description of the playlist or any other information about the playlist</p>
+                <div class="container">
+                    <div class="row" id="playlist-buttons">
+                        <div class="col-md-6" id="actions">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-warning">Favorite <span class="glyphicon glyphicon-star "></span></button>
+                                <button type="button" class="btn btn-success">Share <span class="glyphicon glyphicon-send "></span> </button>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section>
-                <div id="tracklist">
-                    <div class="well">
-                        <div class="text-center">
-                            <span>List tracks</span>
-                        </div>
-                        <hr><span>Title: </span>Lordly (feat. Alex Aiono) <a href="https://www.youtube.com/watch?v=RvK8SKZbBWg" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
-                        <p><span>Artist: </span>Federe feat. Alex Ionio</p>
-                        <hr><span>Title: </span> Closer <a href="https://www.youtube.com/watch?v=0zGcUoRlhmw" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
-                        <p><span>Artist: </span>ChainSmokers</p>
-                        <hr><span>Title: </span> One Dance <a href="https://www.youtube.com/watch?v=rUz7M0FQNwY" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
-                        <p><span>Artist: </span>Drake, WizKid, Kyla</p>
+            </div>
+            <div id="tracklist">
+                <div class="well">
+                    <div class="text-center">
+                        <span>List tracks</span>
                     </div>
+                    <hr><span>Title: </span>Lordly (feat. Alex Aiono) <a href="https://www.youtube.com/watch?v=RvK8SKZbBWg" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                    <p><span>Artist: </span>Federe feat. Alex Ionio</p>
+                    <hr><span>Title: </span> Closer <a href="https://www.youtube.com/watch?v=0zGcUoRlhmw" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                    <p><span>Artist: </span>ChainSmokers</p>
+                    <hr><span>Title: </span> One Dance <a href="https://www.youtube.com/watch?v=rUz7M0FQNwY" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                    <p><span>Artist: </span>Drake, WizKid, Kyla</p>
                 </div>
-            </section>
-            <section>
-                <div class="col-md-4">
-                    <div class="recomendaciones">
-                        <h3>Playlists recomendadas</h3>
-                        <ul class="list-group">
-                            <li class="list-group-item">
-                                <label class="recommended-playlist">
-                                    1ª Recomendacion <img class="img-responsive" src="http://lorempixel.com/400/200">
-                                </label>
-                            </li>
-                            <li class="list-group-item">
-                                <label class="recommended-playlist">
-                                    2ª Recomendacion <img class="img-responsive" src="http://lorempixel.com/400/200">
-                                </label>
-                            </li>
-                            <li class="list-group-item">
-                                <label class="recommended-playlist">
-                                    3ª Recomendacion <img class="img-responsive" src="http://lorempixel.com/400/200">
-                                </label>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
+        <div class="col-md-4">
+            <div class="recomendaciones">
+                <h3>Recommendation Playlists</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <label class="recommended-playlist">
+                            1ª Recommendation <img class="img-responsive" src="http://lorempixel.com/400/200">
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="recommended-playlist">
+                            2ª Recommendation <img class="img-responsive" src="http://lorempixel.com/400/200">
+                        </label>
+                    </li>
+                    <li class="list-group-item">
+                        <label class="recommended-playlist">
+                            3rd Recommendation <img class="img-responsive" src="http://lorempixel.com/400/200">
+                        </label>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </body>
