@@ -253,7 +253,45 @@ ul {
 .uploadImg{
     position: relative;
     top: 1em;
-    left: 2.7em;
+    left: 2em;
+}
+
+.uploadPass{
+    position: relative;
+    left: 12em;
+    bottom: 1.5em;
+}
+
+.changePass{
+    margin-left: 15.5em;
+    width: 20em;
+    margin-top: -1em;
+}
+
+#oldpassBox{
+    width: 17em;
+    margin-left: 0.7em;
+}
+
+#donePass{
+    margin-left: 15em;
+    margin-bottom: 1em;
+}
+
+.changeImg{
+    margin-top: 2em;
+    margin-left: 2.5em;
+    width: 18em; 
+}
+
+#oldimgBox{
+    width: 15em;
+    margin-left: 0.4em;
+}
+
+#doneImg{
+    margin-left: 13em;
+    margin-bottom: 1em;
 }
 /*fin*/
 
@@ -267,15 +305,32 @@ ul {
 .return{
     position: relative;
     top: 2em;
-    left: 86em;
+    left: 84em;
 }
 
 /*fin*/
 
 /*Editar link de youtube, en edit playlist*/
+
 .editLink{
     position: relative;
     left: 63.8em;
+}
+
+.returnE{
+    position: relative;
+    left: 79.5em;
+}
+
+.trash{
+    position: relative;
+    right: 15em;
+    top: 0.7em;
+}
+
+#artist{
+    position: relative;
+    left: 1.4em;
 }
 /*Fin*/
 
@@ -350,6 +405,19 @@ ul {
     position: relative;
     left:70em;
     bottom: 2.4em;
+}
+
+#cityBox{
+    position: relative;
+    left: 1em;
+}
+
+#stateBox{
+    position: relative;
+    left: 1em;
+}
+
+.changePass{
 }
 /*fin*/
 
