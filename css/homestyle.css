@@ -317,17 +317,11 @@ ul {
 /*fin jumbotron config*/
 
 
-/*Boton de add new song y return en create playlist*/
+/*Boton de add new song y save/return en create playlist*/
 
-.newSong {
-    position: relative;
-    left: 68em;
-}
-
-.return {
-    position: relative;
-    top: 2em;
-    left: 84em;
+.save-return {
+    margin-left: 4em;
+    margin-right: 4em;
 }
 
 
@@ -433,16 +427,16 @@ ul {
     left: 6em;
 }
 
-#save {
-    position: relative;
-    left: 77em;
+
+/*
+.save {
+    margin-left: 5em;
 }
 
 .returnEdit {
-    position: relative;
-    left: 70em;
-    bottom: 2.4em;
+    margin: auto;
 }
+*/
 
 #cityBox {
     position: relative;
