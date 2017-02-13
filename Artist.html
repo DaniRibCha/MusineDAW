@@ -1,13 +1,25 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <title>Musine - Artista</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/shop-item.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="./js/bootstrap.min.js"></script>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Musine</title>
+    <link rel="icon" type="image/png" href="./img/musine.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
     <link href="css/homestyle.css" rel="stylesheet">
-    <link rel="icon" type="image/png" href="./img/musine.png"> </head>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
 
 <body>
     <nav class="navbar navbar-inverse">
@@ -17,19 +29,14 @@
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="search-button"> <i class="glyphicon glyphicon-search"></i> </button>
+                        <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
                     </div>
                 </div>
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><img class="img-responsive img-circle" src="./img/user.jpg" width="60" height="55"></li>
-                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="config.html">My Profile</a></li>
-                            <li><a href="indexUtent_playlist.html">My Playlists</a></li>
-                        </ul>
-                    </li>
+                    <li><a href="login.html#toregister"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 </ul>
             </div>
         </div>
@@ -55,37 +62,6 @@
             </div>
         </div>
     </div>
-    <!--<div class="jumbotron" style="background-color:grey;" >
-    <div class="container">
-        <div class="col-md-6">    
-            <img class="img-responsive" id="artistlogo" src="https://i1.sndcdn.com/avatars-000263373303-edxcgq-t500x500.jpg">
-            <h2>Marshmello</h2>
-            <br clear="all">
-            <button type="button" class="btn btn-success follow">Follow<span class="glyphicons glyphicons-user-add"></span></button>
-            <br clear="all">
-        </div> 
-        
-        <div class="col-md-6">
-            <div ><br clear="all">
-                <p id="d3">200 Followers</p>
-            </div>
-            <div id="Caja1">    
-             <p>United States</p>
-            </div>
-
-
-            <div id="Caja4">
-                <p>Related tags:</p>
-                
-                   <p><u><b><big><a class="tag" href="">Electrónica</a></big></b></u></p>
-                
-                   <p><a class="tag" href="">Bass</a></p>
-                
-                   <p><a class="tag" href="">UnitedStates</a></p> 
-                
-            </div>
-        </div>
-       </div>-->
     <br clear="all">
     <div id="musica">
         <div class="row">
@@ -144,7 +120,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
     <footer>
         <div class="row">
             <div class="col-md-12">
