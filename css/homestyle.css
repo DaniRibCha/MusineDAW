@@ -73,17 +73,21 @@ ul {
     font-family: "trebuchet ms", "arial", sans-serif;
     font-weight: bold;
     font-size: 2em;
+    margin-top: 0.4em;
 }
 
 .navbar>.container-fluid .navbar-brand {
     margin-left: 15px;
 }
 
+
+/* color cortina
 .navbar-nav>li>.dropdown-menu {
     background-color: #18BC9C;
     border: 6px solid darkcyan;
     color: white;
 }
+*/
 
 .navbar-inverse .navbar-nav>li>a {
     color: aqua;
@@ -99,6 +103,7 @@ ul {
     position: relative;
     left: 50px;
     width: auto;
+    margin-top: 0.7em;
 }
 
 #search-button {
@@ -106,6 +111,18 @@ ul {
     left: 1px;
     bottom: 0px;
     width: initial;
+}
+
+#logo-navbar {
+    width: 60px;
+    height: 55px;
+    margin-top: 0.7em;
+    margin-bottom: 0.7em;
+}
+
+.img-circle {
+    width: 60px;
+    height: 55px;
 }
 
 
@@ -480,7 +497,10 @@ a.tag {
 .star-light {
     border: 1px solid #222;
 }
+
+
 /*final pie*/
+
 
 /*inicio playlist*/
 
@@ -521,7 +541,6 @@ a.tag {
     /*Standard*/
 }
 
-
 #suscripcion>span {
     margin-right: 10px;
     margin-top: 5px;
@@ -531,5 +550,6 @@ a.tag {
 #descripcion {
     margin-top: 10px;
 }
-/*fin playlist*/
 
+
+/*fin playlist*/
