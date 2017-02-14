@@ -518,6 +518,7 @@ a.tag {
 
 #reproductor {
     text-align: center;
+    height: 35em;
 }
 
 #reproductor>iframe {
@@ -529,6 +530,10 @@ a.tag {
 
 .recomendaciones {
     text-align: center;
+}
+
+.recomendaciones-list {
+    background-color: whitesmoke;
 }
 
 #degradado {
