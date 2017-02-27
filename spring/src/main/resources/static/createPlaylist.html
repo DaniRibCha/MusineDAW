@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Musine</title>
+    <link rel="icon" type="image/png" href="./img/musine.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/homestyle.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header" id="header"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <a class="navbar-brand" href="index.html">Musine</a> <img class="img-responsive" id="logo-navbar" src="./img/musine.png" width="60" height="55"> </div>
+            <form class="navbar-form navbar-left">
+                <div class="input-group" id="search">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="search-button"> <i class="glyphicon glyphicon-search"></i> </button>
+                    </div>
+                </div>
+            </form>
+            <div id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><img class="img-responsive img-circle" src="./img/user.jpg" width="60" height="55"></li>
+                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="config.html">My Profile</a></li>
+                            <li><a href="indexUtent_playlist.html">My Playlists</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6"> <img class="img-responsive editlogo" src="/img/signo.jpg" width="250em">
+                <a>
+                    <button type="button" class="btn btn-primary btn-lg">Upload Image</button>
+                </a>
+            </div>
+            <div class="col-md-6">
+                <form class="form-playlist">
+                    <div class="form-group">
+                        <label for="email">Title for your playlist:</label>
+                        <input type="email" class="form-control" id="email"> </div>
+                    <div class="form-group">
+                        <label for="comment">Description:</label>
+                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Tags (at least one)</label>
+                        <input type="email" class="form-control" id="email"> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="well">
+            <div class="text-center"> <span>List tracks</span> </div>
+            <hr>
+            <div class="row">
+                <!--
+                <div class="col-md-12"><span>Title: </span>Lordly (feat. Alex Aiono) <a href="https://www.youtube.com/watch?v=RvK8SKZbBWg" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                    <p><span>Artist: </span>Federe feat. Alex Ionio</p>
+                </div> -->
+                <div class="form-group">
+                    <label for="email">Title of the song:</label>
+                    <input type="email" class="form-control" id="email"> </div>
+                <div class="form-group">
+                    <label for="email">Author:</label>
+                    <input type="email" class="form-control" id="email"> </div>
+                <div class="form-group">
+                    <label for="email">Copy the link of the song on Youtube:</label>
+                    <input type="email" class="form-control" id="email"> </div>
+                <div class="col-md-12" style="text-align:right">
+                    <button type="button" class="btn btn-success">Add new song</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row save-return">
+        <div class="col-md-6">
+            <a href="indexUtent_playlist.html">
+                <button type="button" class="btn btn-primary">Save</button>
+            </a>
+        </div>
+        <div class="col-md-6" style="text-align:right">
+            <a href="indexUtent_playlist.html">
+                <button type="button" class="btn btn-danger">Return</button>
+            </a>
+        </div>
+    </div>
+    <!-- /.row -->
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="intro-text">
+                    <hr class="star-light"> <span class="footer">Musine </span> </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </footer>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
