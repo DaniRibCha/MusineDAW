@@ -57,3 +57,12 @@ Frego22
 4.- Stephanie Poleo
 
 stephaniepoleo@hotmail.com
+
+Steph Poleo
+
+
+Enlace a Trello: 
+
+https://trello.com/b/jPNQj5m3/musine-daw
+
+El mapa de Vistas se encuentra en la carpeta de Mapadevistas a la altura del readme.
