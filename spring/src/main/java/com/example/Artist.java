@@ -7,30 +7,40 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 @Entity
 public class Artist {
 	
-	public interface BasicAtt {}
+	public interface Basic {}
 	
-	public interface SongAtt{}
+	public interface Songs{}
 	
-	@JsonView(BasicAtt.class)
+	public interface Tags{}
+	
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id_artist;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String name;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String country;
 	
-	@JsonView(SongAtt.class)
+	@JsonView(Songs.class)
 	@ManyToMany(mappedBy="artistsOfSong")
 	private List<Song> songsOfArtist;
+	
+	@OneToMany
+	private List<User> followersOfArtist;
+	
+	@JsonView(Tags.class)
+	@ManyToMany
+	private List<Tag> tagsOfArtist;
 	
 	
 	public Artist() {
@@ -71,6 +81,27 @@ public class Artist {
 
 	public void setSongsOfArtist(List<Song> songsOfArtist) {
 		this.songsOfArtist = songsOfArtist;
+	}
+
+	
+
+	public List<User> getFollowersOfArtist() {
+		return followersOfArtist;
+	}
+
+
+	public void setFollowersOfArtist(List<User> followersOfArtist) {
+		this.followersOfArtist = followersOfArtist;
+	}
+
+
+	public List<Tag> getTagsOfArtist() {
+		return tagsOfArtist;
+	}
+
+
+	public void setTagsOfArtist(List<Tag> tagsOfArtist) {
+		this.tagsOfArtist = tagsOfArtist;
 	}
 
 

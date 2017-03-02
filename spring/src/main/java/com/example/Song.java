@@ -13,24 +13,30 @@ import com.fasterxml.jackson.annotation.JsonView;
 @Entity
 public class Song{
 	
-	public interface BasicAtt {}
+	public interface Basic {}
 	
-	public interface ArtistAtt{}
+	public interface Artists{}
 	
-	@JsonView(BasicAtt.class)
+	public interface Playlists{}
+	
+	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id_song;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String title;
 	
-	@JsonView(BasicAtt.class)
+	@JsonView(Basic.class)
 	private String link_youtube;
 	
-	@JsonView(ArtistAtt.class)
+	@JsonView(Artists.class)
 	@ManyToMany
 	private List<Artist> artistsOfSong;
+	
+	@JsonView(Playlists.class)
+	@ManyToMany(mappedBy="songsOfPlaylist")
+	private List<Playlist> playlistsOfSong;
 	
 	public Song(String title, String link_youtube) {
 		super();
@@ -41,6 +47,14 @@ public class Song{
 	protected Song() {
 	}
 
+
+	public List<Playlist> getPlaylistsOfSong() {
+		return playlistsOfSong;
+	}
+
+	public void setPlaylistsOfSong(List<Playlist> playlistsOfSong) {
+		this.playlistsOfSong = playlistsOfSong;
+	}
 
 	public String getTitle() {
 		return title;
