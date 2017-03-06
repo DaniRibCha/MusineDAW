@@ -1,6 +1,9 @@
 package com.example;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -22,8 +25,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
  // Public pages
  
  // Private pages (all other pages)
- http.authorizeRequests().antMatchers("/searchUtent_playlist").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
+ http.authorizeRequests().antMatchers("/config").hasAnyRole("USER");
  // Login form
  
  // Logout
