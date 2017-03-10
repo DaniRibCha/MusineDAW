@@ -10,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import java.sql.Date;
@@ -48,14 +49,14 @@ public class Playlist {
 	
 	@JsonView(Songs.class)
 	@ManyToMany
-	private List<Song> songsOfPlaylist;
+	private List<Song> songsOfPlaylist= new ArrayList<>();
 	
 	@JsonView(Tags.class)
 	@ManyToMany
-	private List<Tag> tagsOfPlaylist;
+	private List<Tag> tagsOfPlaylist= new ArrayList<>();
 	
-	@ManyToMany(mappedBy="likedPlaylists")
-	private List<User> UserlikesOfPlaylist;
+	@ManyToMany
+	private List<User> UserlikesOfPlaylist= new ArrayList<>();
 	
 	
 	public Playlist(String title, String creator) {
@@ -73,9 +74,9 @@ public class Playlist {
 		return songsOfPlaylist;
 	}
 
-	public void setSongsOfPlaylist(List<Song> songsOfPlaylist) {
-		this.songsOfPlaylist = songsOfPlaylist;
-		nTracks=nTracks+songsOfPlaylist.size();
+	public void addSongOfPlaylist(Song songOfPlaylist) {
+		this.songsOfPlaylist.add(songOfPlaylist);
+		this.nTracks=this.nTracks+songsOfPlaylist.size();
 	}
 
 	public String getTitle() {
@@ -107,8 +108,8 @@ public class Playlist {
 		return tagsOfPlaylist;
 	}
 
-	public void setTagsOfPlaylist(List<Tag> tagsOfPlaylist) {
-		this.tagsOfPlaylist = tagsOfPlaylist;
+	public void addTagOfPlaylist(Tag tagOfPlaylist) {
+		this.tagsOfPlaylist.add(tagOfPlaylist);
 	}
 	
 	
@@ -117,8 +118,9 @@ public class Playlist {
 		return UserlikesOfPlaylist;
 	}
 
-	public void setUserlikesOfPlaylist(List<User> userlikesOfPlaylist) {
-		UserlikesOfPlaylist = userlikesOfPlaylist;
+	//entidad principal->User
+	public void addUserlikeOfPlaylist(User userlikeOfPlaylist) {
+		this.UserlikesOfPlaylist.add(userlikeOfPlaylist);
 	}
 	
 	

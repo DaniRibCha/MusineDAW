@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -33,14 +34,14 @@ public class Artist {
 	
 	@JsonView(Songs.class)
 	@ManyToMany(mappedBy="artistsOfSong")
-	private List<Song> songsOfArtist;
+	private List<Song> songsOfArtist= new ArrayList<>();
 	
 	@OneToMany
-	private List<User> followersOfArtist;
+	private List<User> followersOfArtist= new ArrayList<>();
 	
 	@JsonView(Tags.class)
 	@ManyToMany
-	private List<Tag> tagsOfArtist;
+	private List<Tag> tagsOfArtist= new ArrayList<>();
 	
 	
 	public Artist() {
@@ -78,9 +79,9 @@ public class Artist {
 		return songsOfArtist;
 	}
 
-
-	public void setSongsOfArtist(List<Song> songsOfArtist) {
-		this.songsOfArtist = songsOfArtist;
+	//entidad principal->Song
+	public void addSongOfArtist(Song songOfArtist) {
+		this.songsOfArtist.add(songOfArtist);
 	}
 
 	
@@ -90,8 +91,8 @@ public class Artist {
 	}
 
 
-	public void setFollowersOfArtist(List<User> followersOfArtist) {
-		this.followersOfArtist = followersOfArtist;
+	public void addFollowerOfArtist(User followerOfArtist) {
+		this.followersOfArtist.add(followerOfArtist);
 	}
 
 
@@ -100,8 +101,8 @@ public class Artist {
 	}
 
 
-	public void setTagsOfArtist(List<Tag> tagsOfArtist) {
-		this.tagsOfArtist = tagsOfArtist;
+	public void addTagOfArtist(Tag tagOfArtist) {
+		this.tagsOfArtist.add(tagOfArtist);
 	}
 
 

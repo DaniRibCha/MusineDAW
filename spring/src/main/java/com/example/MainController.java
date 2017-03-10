@@ -45,18 +45,12 @@ public class MainController {
 		artistRepository.save(a2);
 		artistRepository.save(a3);
 		
-		List<Artist> artists1=new ArrayList<>();
-		artists1.add(a1);
-		
 		Song s1=new Song("closer","https://www.youtube.com/watch?v=RvK8SKZbBWg");
-		s1.setArtistsOfSong(artists1);;
-		s1.getArtistsOfSong().add(a2);
-		
-		List<Artist> artists2=new ArrayList<>();
-		artists2.add(a3);
+		s1.addArtistsOfSong(a1);
+		s1.addArtistsOfSong(a2);
 		
 		Song s2=new Song("despacito","https://www.youtube.com/watch?v=kJQP7kiw5Fk");
-		s2.setArtistsOfSong(artists2);
+		s2.addArtistsOfSong(a3);
 		
 		songRepository.save(s1);
 		songRepository.save(s2);
@@ -66,84 +60,52 @@ public class MainController {
 		//prueba User-Canciones favoritas
 		User u1=new User("Davide", "Italy");
 		User u2=new User("Dani","Spain");
+	
+		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
 		
-		List<Song> favorite=new ArrayList<>();
-		favorite.add(s1);favorite.add(s2);
-		u1.setFavoriteSongs(favorite);
 		
-		//List<User> following1=new ArrayList<>();
-		//following1.add(u2);
-		//u1.setFollowing(following1);
+		userRepository.save(u1);
+		userRepository.save(u2);
+		
+		u1.addFollowing(u2);
+		u2.addFollowing(u1);
 		userRepository.save(u1);
 		userRepository.save(u2);
 		//fin User-Canciones favoritas
 		
 		
 		//prueba Artistas-Seguidores,Tags
-		List<User> followers=new ArrayList<>();
-		followers.add(u1);followers.add(u2);
-		
-		List<Tag> tags=new ArrayList<>();
 		Tag t1=new Tag("Pop"); Tag t2=new Tag("Rock");
-		tagRepository.save(t1); tagRepository.save(t2);
-		tags.add(t1); tags.add(t2);
+		tagRepository.save(t1); tagRepository.save(t2); 
 		
-		a1.setFollowersOfArtist(followers);
-		a1.setTagsOfArtist(tags);
+		a1.addFollowerOfArtist(u1); a1.addFollowerOfArtist(u2);
+		a1.addTagOfArtist(t1); a1.addTagOfArtist(t2);
 		artistRepository.save(a1);
 		//fin Artistas-Seguidores,Tags
-		
-		//prueba Playlists-Canciones
-		Playlist p1=new Playlist("myPlaylist4",u2.getName());
-		List<Song> songsPlaylist1=new ArrayList<>();
-		songsPlaylist1.add(s1);
-		
-		p1.setSongsOfPlaylist(songsPlaylist1);
-		p1.setTagsOfPlaylist(tags);
-		playlistRepository.save(p1);
-		//fin Playlist-Canciones
-		
-		//prueba Usuarios-Playlists gustadas
-		//Aqui creo manualmente la playlist, pero se supone que es el usuario que da de alta
-		//a la playlist, entonces cada vez que se crea una playlist se debe asignarla
-		//a un creator tambien col metodo u.setCreatedPlaylists(List);
-		//a la siguiente prueba se hace
-		Playlist p2=new Playlist("myPlaylistCreated2",u2.getName());
-		p2.setTagsOfPlaylist(tags);
-		playlistRepository.save(p2);
-		Playlist p3=new Playlist("myPlaylistCreated3",u2.getName());
-		p3.setTagsOfPlaylist(tags);
-		playlistRepository.save(p3);
-		List<Playlist> likedPlaylist=new ArrayList<>();
-		likedPlaylist.add(p1); likedPlaylist.add(p2);likedPlaylist.add(p3);
-		u1.setLikedPlaylists(likedPlaylist);
-		playlistRepository.save(p1);playlistRepository.save(p2);playlistRepository.save(p3);
-		userRepository.save(u1);
-		//fin Usuarios-Playlists gustadas
+
 		
 		//prueba Usuarios-Playlists creadas
 		Playlist pCreated1=new Playlist("myPlaylistCreated1",u1.getName());
-		pCreated1.setTagsOfPlaylist(tags);
-		List<Song> songsPlaylistCreated1=new ArrayList<>();
-		songsPlaylistCreated1.add(s1);songsPlaylistCreated1.add(s2);
-		pCreated1.setSongsOfPlaylist(songsPlaylistCreated1);
+		pCreated1.addTagOfPlaylist(t1);
+		pCreated1.addSongOfPlaylist(s1);
 		playlistRepository.save(pCreated1);
-		List<Playlist> createdPlaylistUser1=new ArrayList<>();
-		createdPlaylistUser1.add(pCreated1);
-		List<Playlist> createdPlaylistUser2=new ArrayList<>();
-		createdPlaylistUser2.add(p1);createdPlaylistUser2.add(p2);
-		u1.setCreatedPlaylists(createdPlaylistUser1);
-		u2.setCreatedPlaylists(createdPlaylistUser2);
+		
+		Playlist pCreated2=new Playlist("myPlaylistCreated2",u2.getName());
+		pCreated2.addTagOfPlaylist(t2);
+		pCreated2.addSongOfPlaylist(s2);
+		playlistRepository.save(pCreated2);
+		
+		u1.addCreatedPlaylist(pCreated1);
+		u2.addCreatedPlaylist(pCreated2);
 		userRepository.save(u1);userRepository.save(u2);
 		// fin Usuarios-Playlists creadas
 		
-		//otra prueba Playlist-Likes 
-		List<Playlist> playlistLikedByUsers=new ArrayList<>();
-		playlistLikedByUsers.add(p1); playlistLikedByUsers.add(p2);playlistLikedByUsers.add(pCreated1);
-		u2.setLikedPlaylists(playlistLikedByUsers);
-		playlistRepository.save(pCreated1);playlistRepository.save(p1);playlistRepository.save(p2);
-		userRepository.save(u2);
-		//fin Playlist-Likes 
+		//prueba Usuarios-Playlists gustadas
+		pCreated2.addUserlikeOfPlaylist(u1);
+		pCreated1.addUserlikeOfPlaylist(u2);
+		playlistRepository.save(pCreated1); playlistRepository.save(pCreated2);
+		//fin Usuarios-Playlists gustadas
+		
 		
 	}
 	
@@ -225,6 +187,8 @@ public class MainController {
 		
 		return "indexUtent_playlist";
 	}
+	
+	
 	
 	
 	

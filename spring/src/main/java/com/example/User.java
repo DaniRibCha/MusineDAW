@@ -1,5 +1,6 @@
 package com.example;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,6 +12,7 @@ import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,7 +26,7 @@ public class User {
 	
 	private String country;
 	
-	//private String biography;
+	private String biography;
 	
 	private String City;
 	
@@ -33,20 +35,20 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER) 
 	private List<String> roles;
 	
-	//@ManyToMany
-	//private List<User> followers;
-	
-	//@ManyToMany
-	//private List<User> following;
-	
-	@OneToMany
-	private List<Song> favoriteSongs;
-	
 	@ManyToMany
-	private List<Playlist> likedPlaylists;
+	private List<User> following = new ArrayList<>();
+	
+	@ManyToMany(mappedBy="following")
+	private List<User> followers = new ArrayList<>();
 	
 	@OneToMany
-	private List<Playlist> createdPlaylists;
+	private List<Song> favoriteSongs= new ArrayList<>();
+	
+	@ManyToMany(mappedBy="UserlikesOfPlaylist")
+	private List<Playlist> likedPlaylists= new ArrayList<>();
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	private List<Playlist> createdPlaylists= new ArrayList<>();
 	
 	public User() {
 	}
@@ -112,8 +114,8 @@ public class User {
 	}
 
 
-	public void setFavoriteSongs(List<Song> favoriteSongs) {
-		this.favoriteSongs = favoriteSongs;
+	public void addFavoriteSong(Song favoriteSong) {
+		this.favoriteSongs.add(favoriteSong);
 	}
 
 
@@ -122,10 +124,8 @@ public class User {
 	}
 
 
-	public void setLikedPlaylists(List<Playlist> likedPlaylists) {
-		this.likedPlaylists = likedPlaylists;
-		for(int i=0;i<likedPlaylists.size();++i)
-			likedPlaylists.get(i).setnLikes(likedPlaylists.get(i).getnLikes()+1);
+	public void addLikedPlaylist(Playlist likedPlaylist) {
+		this.likedPlaylists.add(likedPlaylist);
 	}
 
 
@@ -134,33 +134,39 @@ public class User {
 	}
 
 
-	public void setCreatedPlaylists(List<Playlist> createdPlaylists) {
-		this.createdPlaylists = createdPlaylists;
+	public void addCreatedPlaylist(Playlist createdPlaylist) {
+		this.createdPlaylists.add(createdPlaylist);
 	}
-	
-	
-	
-//	public List<User> getFollowers() {
-//		return followers;
-//	}
-//
-//
-//	public void setFollowers(List<User> followers) {
-//		this.followers = followers;
-//	}
-//
-//
-//	public List<User> getFollowing() {
-//		return following;
-//	}
-//
-//
-//	public void setFollowing(List<User> following) {
-//		this.following = following;
-//	}
-	
-	
-	
+
+
+	public String getBiography() {
+		return biography;
+	}
+
+
+	public void setBiography(String biography) {
+		this.biography = biography;
+	}
+
+
+	public List<User> getFollowing() {
+		return following;
+	}
+
+
+	public void addFollowing(User following) {
+		this.following.add(following);
+	}
+
+
+	public List<User> getFollowers() {
+		return followers;
+	}
+
+
+	public void addFollowers(User followers) {
+		this.followers.add(followers);
+	}
 	
 
 }

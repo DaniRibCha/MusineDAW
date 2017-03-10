@@ -1,5 +1,6 @@
 package com.example;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -28,11 +29,11 @@ public class Tag {
 	
 	@JsonView(Artists.class)
 	@ManyToMany(mappedBy="tagsOfArtist")
-	private List<Artist> artistsOfTag;
+	private List<Artist> artistsOfTag= new ArrayList<>();
 	
 	@JsonView(Tags.class)
 	@ManyToMany(mappedBy="tagsOfPlaylist")
-	private List<Playlist> playlistsOfTag;
+	private List<Playlist> playlistsOfTag= new ArrayList<>();
 
 	public Tag(String name) {
 		super();
@@ -48,6 +49,24 @@ public class Tag {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<Artist> getArtistsOfTag() {
+		return artistsOfTag;
+	}
+
+	//entidad principal->Artist
+	public void addArtistOfTag(Artist artistOfTag) {
+		this.artistsOfTag.add(artistOfTag);
+	}
+
+	public List<Playlist> getPlaylistsOfTag() {
+		return playlistsOfTag;
+	}
+
+	//entidad principal->Playlist
+	public void addPlaylistOfTag(Playlist playlistOfTag) {
+		this.playlistsOfTag.add(playlistOfTag);
 	}
 	
 	
