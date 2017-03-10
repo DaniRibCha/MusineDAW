@@ -75,7 +75,7 @@ public class MainController {
 		
 		
 		//prueba Artistas-Seguidores,Tags
-		Tag t1=new Tag("Pop"); Tag t2=new Tag("Rock");
+		Tag t1=new Tag("Pop"); Tag t2=new Tag("2016");
 		tagRepository.save(t1); tagRepository.save(t2); 
 		
 		a1.addFollowerOfArtist(u1); a1.addFollowerOfArtist(u2);
@@ -122,6 +122,15 @@ public class MainController {
 		return "Playlist";
 	}
 	
+	@RequestMapping("/SearchPlaylist/{key}")
+	public String songsPlaylist(Model model, @PathVariable String key) {
+		
+		
+		model.addAttribute(key);
+		
+		return "searchPlaylist";
+	}
+	
 	@RequestMapping("/Artist/{id}")
 	public String songsArtist(Model model, @PathVariable long id) {
 		
@@ -140,8 +149,21 @@ public class MainController {
 		return "Artist";
 	}
 	
-	@RequestMapping("/UserFavorites/{id}")
-	public String favoritesByUser(Model model, @PathVariable long id){
+	@RequestMapping("/ArtistFollowers/{id}")
+	public String getArtistFollowers(Model model, @PathVariable long id){
+		
+		Artist a=artistRepository.findOne(id);
+		
+		model.addAttribute("a",a);
+		
+		model.addAttribute("followers",a.getFollowersOfArtist());
+		
+		return "followers_artist";
+	}
+	
+	//el usuario mira sus canciones favoritas
+	@RequestMapping("/MyFavorites/{id}")
+	public String getMyFavorites(Model model, @PathVariable long id){
 		
 		User u=userRepository.findOne(id);
 		
@@ -149,21 +171,46 @@ public class MainController {
 		
 		int n_favorites=u.getFavoriteSongs().size();
 		
+		long n_followers=u.getFollowers().size();
+		
+		model.addAttribute("n_followers",n_followers);
+		
+		long n_following=u.getFollowing().size();
+		
+		model.addAttribute("n_following",n_following);
+		
 		model.addAttribute("songs",u.getFavoriteSongs());
 		
 		model.addAttribute("n_favorites",n_favorites);
 		
-		return "indexUtent_favoritos";
+		int n_created=u.getCreatedPlaylists().size();
+		
+		model.addAttribute("n_created",n_created);
+		
+		return "indexUtent_favorites";
 	}
 	
-	@RequestMapping("/UserLikes/{id}")
-	public String likesByUser(Model model, @PathVariable long id){
+	//el usuario mira sus playlists gustadas
+	@RequestMapping("/MyLikes/{id}")
+	public String getMyLikes(Model model, @PathVariable long id){
 		
 		User u=userRepository.findOne(id);
 		
 		model.addAttribute("u",u);
 		
 		int n_likes=u.getLikedPlaylists().size();
+		
+		long n_followers=u.getFollowers().size();
+		
+		model.addAttribute("n_followers",n_followers);
+		
+		long n_following=u.getFollowing().size();
+		
+		model.addAttribute("n_following",n_following);
+		
+		int n_created=u.getCreatedPlaylists().size();
+		
+		model.addAttribute("n_created",n_created);
 		
 		model.addAttribute("playlists",u.getLikedPlaylists());
 		
@@ -172,25 +219,168 @@ public class MainController {
 		return "indexUtent_likes";
 	}
 	
-	@RequestMapping("/UserPlaylists/{id}")
-	public String createdByUser(Model model, @PathVariable long id){
+	//el usuario mira sus playlists creadas
+	@RequestMapping("/MyPlaylists/{id}")
+	public String getMyCreated(Model model, @PathVariable long id){
 		
 		User u=userRepository.findOne(id);
 		
 		model.addAttribute("u",u);
 		
-		int n_created=u.getCreatedPlaylists().size();
+		long n_followers=u.getFollowers().size();
+		
+		model.addAttribute("n_followers",n_followers);
+		
+		long n_following=u.getFollowing().size();
+		
+		model.addAttribute("n_following",n_following);
 		
 		model.addAttribute("playlists",u.getCreatedPlaylists());
+		
+		int n_created=u.getCreatedPlaylists().size();
 		
 		model.addAttribute("n_created",n_created);
 		
 		return "indexUtent_playlist";
 	}
 	
+	//el usuario mira sus seguidores
+	@RequestMapping("/MyFollowers/{id}")
+	public String getMyFollowers(Model model, @PathVariable long id){
+		
+		User u=userRepository.findOne(id);
+		
+		model.addAttribute("u",u);
+		
+		model.addAttribute("followers",u.getFollowers());
+		
+		
+		return "my_followers_user";
+	}
 	
+	//el usuario mira sus seguidos
+	@RequestMapping("/MyFollowing/{id}")
+	public String getMyFollowing(Model model, @PathVariable long id){
+		
+		User u=userRepository.findOne(id);
+		
+		model.addAttribute("u",u);
+		
+		model.addAttribute("following",u.getFollowing());
+		
+		return "my_following_user";
+	}
 	
+	//el usuario mira las canciones favoritas de otro usuario
+	@RequestMapping("/UserFavorites/{id}")
+	public String getFavoritesByUser(Model model, @PathVariable long id){
+		
+		User u=userRepository.findOne(id);
+		
+		model.addAttribute("u",u);
+		
+		int n_favorites=u.getFavoriteSongs().size();
+		
+		long n_followers=u.getFollowers().size();
+		
+		model.addAttribute("n_followers",n_followers);
+		
+		long n_following=u.getFollowing().size();
+		
+		model.addAttribute("n_following",n_following);
+		
+		model.addAttribute("songs",u.getFavoriteSongs());
+		
+		model.addAttribute("n_favorites",n_favorites);
+		
+		int n_created=u.getCreatedPlaylists().size();
+		
+		model.addAttribute("n_created",n_created);
+		
+		return "searchUtent_favorites";
+	}
 	
+	//el usuario mira las playlists gustadas de otro usuario
+	@RequestMapping("/UserLikes/{id}")
+	public String getUserLikes(Model model, @PathVariable long id){
+		
+		User u=userRepository.findOne(id);
+		
+		model.addAttribute("u",u);
+		
+		int n_likes=u.getLikedPlaylists().size();
+		
+		long n_followers=u.getFollowers().size();
+		
+		model.addAttribute("n_followers",n_followers);
+		
+		long n_following=u.getFollowing().size();
+		
+		model.addAttribute("n_following",n_following);
+		
+		int n_created=u.getCreatedPlaylists().size();
+		
+		model.addAttribute("n_created",n_created);
+		
+		model.addAttribute("playlists",u.getLikedPlaylists());
+		
+		model.addAttribute("n_likes",n_likes);
+		
+		return "searchUtent_likes";
+	}
 	
+	//el usuario mira las playlists creadas de otro usuario
+	@RequestMapping("/UserPlaylists/{id}")
+	public String getUserCreated(Model model, @PathVariable long id){
+		
+		User u=userRepository.findOne(id);
+		
+		model.addAttribute("u",u);
+		
+		long n_followers=u.getFollowers().size();
+		
+		model.addAttribute("n_followers",n_followers);
+		
+		long n_following=u.getFollowing().size();
+		
+		model.addAttribute("n_following",n_following);
+		
+		model.addAttribute("playlists",u.getCreatedPlaylists());
+		
+		int n_created=u.getCreatedPlaylists().size();
+		
+		model.addAttribute("n_created",n_created);
+		
+		return "searchUtent_playlist";
+	}
+	
+	//el usuario mira los seguidores de otro usuario
+		@RequestMapping("/UserFollowers/{id}")
+		public String getUserFollowers(Model model, @PathVariable long id){
+			
+			User u=userRepository.findOne(id);
+			
+			model.addAttribute("u",u);
+			
+			model.addAttribute("followers",u.getFollowers());
+			
+			
+			return "followers_user";
+		}
+		
+		//el usuario mira sus seguidos
+		@RequestMapping("/UserFollowing/{id}")
+		public String getUserFollowing(Model model, @PathVariable long id){
+			
+			User u=userRepository.findOne(id);
+			
+			model.addAttribute("u",u);
+			
+			model.addAttribute("following",u.getFollowing());
+			
+			return "following_user";
+		}
+	
+		
 	
 }

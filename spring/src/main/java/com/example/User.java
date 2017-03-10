@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -39,7 +40,7 @@ public class User {
 	private List<User> following = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="following")
-	private List<User> followers = new ArrayList<>();
+	private List<User> followers = new ArrayList<>();	
 	
 	@OneToMany
 	private List<Song> favoriteSongs= new ArrayList<>();

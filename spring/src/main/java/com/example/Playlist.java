@@ -107,6 +107,7 @@ public class Playlist {
 	public List<Tag> getTagsOfPlaylist() {
 		return tagsOfPlaylist;
 	}
+	
 
 	public void addTagOfPlaylist(Tag tagOfPlaylist) {
 		this.tagsOfPlaylist.add(tagOfPlaylist);

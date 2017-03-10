@@ -19,7 +19,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> </head>
 
 <body>
     <!-- Navigation -->
@@ -74,7 +74,7 @@
     <nav class="navbar navbar-default">
         <div class="col-md-4 utent_button">
             <a href="/MyPlaylists/{{u.id_user}}">
-                <button type="button" class="btn btn-default btn-lg active"><span class="glyphicon glyphicon-cd"></span> PLAYLISTS</button>
+                <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cd"></span> PLAYLISTS</button>
             </a>
         </div>
         <div class="col-md-4 utent_button">
@@ -84,36 +84,23 @@
         </div>
         <div class="col-md-4 utent_button">
             <a href="/MyFavorites/{{u.id_user}}">
-                <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-star-empty"></span> FAVORITE TRACKS</button>
+                <button type="button" class="btn btn-default btn-lg active"><span class="glyphicon glyphicon glyphicon-star-empty"></span> FAVORITE TRACKS</button>
             </a>
         </div>
     </nav>
     <!-- Page Content -->
     <div class="container">
-        <td>
-            <h3><b>Playlists</b></h3></td> <img src="../img/+.png" width="25" height="25" /> <a href="createPlaylist.html" id="newPlay">New Playlist</a>
-        <div class="row wall">
-            {{#playlists}}
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="searchUtent_playlist.html">{{creator}}</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="../img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> {{nReproductions}} <span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
-                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
-                                <p style="text-align:right"><a class="opcion_playlist"><span class="glyphicon glyphicon-thumbs-up"></span></a> </p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
+        <div class="well">
+            <div class="text-center"> <span>List tracks</span> </div>
+            <hr>
+            <div class="row">
+            {{#songs}}
+                <div class="col-md-12"><span>Title: {{title}} </span><span class="glyphicon glyphicon-trash pull-right"></span><a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                    <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span> </p>
+                </div>
+            {{/songs}}
             </div>
-            {{/playlists}}
+        </div>
     </div>
     <!-- /.row -->
     <!-- Footer -->
