@@ -47,6 +47,9 @@ public class Playlist {
 	@JsonView(Basic.class)
 	private Date date;
 	
+	@JsonView(Basic.class)
+	private String description;
+	
 	@JsonView(Songs.class)
 	@ManyToMany
 	private List<Song> songsOfPlaylist= new ArrayList<>();
@@ -63,6 +66,9 @@ public class Playlist {
 		super();
 		this.title = title;
 		this.nReproductions = 0;
+		this.nLikes=0;
+		this.nTracks=0;
+		this.description="";
 		java.util.Date utilDate = new java.util.Date();
 		this.date = new java.sql.Date(utilDate.getTime());
 		this.creator=creator;
@@ -132,6 +138,16 @@ public class Playlist {
 
 	public void setnLikes(long nLikes) {
 		this.nLikes = nLikes;
+	}
+	
+	
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	@Override

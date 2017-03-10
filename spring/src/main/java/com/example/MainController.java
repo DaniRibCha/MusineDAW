@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -380,7 +381,40 @@ public class MainController {
 			
 			return "following_user";
 		}
-	
+		
+		@RequestMapping("/CreatePlaylistByUser")
+		public String createPlaylist(Model model){
+			
+			
+			return "createPlaylist";
+		}
+		
+//		@RequestMapping("/EditPlaylistByUser/{id}")
+//		public String editPlaylist(Model model, @PathVariable long id, @RequestParam(value = "title", defaultValue = "") String title,
+//				@RequestParam(value = "artist", defaultValue = "") String artist, @RequestParam(value = "link", defaultValue = "") String link){
+//			
+//			Playlist p=playlistRepository.findOne(id);
+//			
+//			
+//			if(!title.equals("") && !artist.equals("") && !link.equals("")){
+//				Song s=new Song(title,link);
+//				Artist a= artistRepository.findByName(artist);
+//				s.addArtistsOfSong(a);
+//				songRepository.save(s);
+//				p.addSongOfPlaylist(s);
+//				playlistRepository.save(p);
+//				System.out.println("fatto");
+//			}
+//			
+//			if(!p.getTagsOfPlaylist().isEmpty()) model.addAttribute("tags",p.getTagsOfPlaylist());
+//			
+//			if(!p.getSongsOfPlaylist().isEmpty()) model.addAttribute("songs",p.getSongsOfPlaylist());
+//			
+//			model.addAttribute("p",p);
+//			
+//			return "editPlaylist";
+//		}
+//		
 		
 	
 }

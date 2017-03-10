@@ -19,7 +19,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> </head>
 
 <body>
     <!-- Navigation -->
@@ -49,24 +49,23 @@
     </nav>
     <div class="jumbotron" style="background-color:grey;">
         <div class="container uploadImg">
-            <div class="col-md-6"> <img class="img-responsive editlogo" src="/img/signo.jpg" width="250em">
+            <div class="col-md-6"> <img class="img-responsive editlogo" src="../img/closer.png" width="250em">
                 <a>
                     <button type="button" class="btn btn-primary btn-lg">Upload Image</button>
                 </a>
             </div>
             <div class="col-md-6">
-                <form class="form-playlist" action="/creationResult" method="post">
+                <form class="form-playlist">
                     <div class="form-group">
-                        <label>Title for your playlist:</label>
-                        <input type="text" class="form-control" id="title"> </div>
+                        <label>Title of the playlist</label>
+                        <input type="text" class="form-control" id="title" placeholder="{{p.title}}"> </div>
                     <div class="form-group">
-                        <label for="comment">Description:</label>
-                        <textarea class="form-control" rows="5" id="description"></textarea>
+                        <label>Description:</label>
+                        <textarea class="form-control" rows="5" id="description" placeholder="{{p.description}}"></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Tag (only the first)</label>
-                        <input type="text" class="form-control" id="tag"> </div>
-                    <input type="submit" style="color:black;" name="sendData" value="Submit"/> 
+                        <label>Tag</label>
+                        <input type="text" class="form-control" id="tag" placeholder="{{#tags}} {{name}} {{/tags}}"> </div>
                 </form>
             </div>
         </div>
@@ -75,49 +74,62 @@
         <div class="well">
             <div class="text-center"> <span>List tracks</span> </div>
             <hr>
+            {{#songs}}
             <div class="row">
+                <span class="glyphicon glyphicon-star"></span>
+                    <div class="col-md-12"> <span>Title: </span>{{title}} <a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube  <span class="glyphicon glyphicon-trash"></span></a>
+                        <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span> </p>
+                    </div>          
+             </div>
+             {{/songs}}
+             <div class="row">
+             <form action="/EditPlaylistByUser/{{p.id_playlist}}" method="post">
                 <div class="form-group">
-                    <label for="email">Title of the song:</label>
-                    <input type="email" class="form-control" id="email"> </div>
+                    <label>Title of the song:</label>
+                    <input type="text" class="form-control" id="title"> </div>
                 <div class="form-group">
-                    <label for="email">Author:</label>
-                    <input type="email" class="form-control" id="email"> </div>
+                    <label>Artists:</label>
+                    <input type="text" class="form-control" id="artist"> </div>
                 <div class="form-group">
-                    <label for="email">Copy the link of the song on Youtube:</label>
-                    <input type="email" class="form-control" id="email"> </div>
+                    <label>Copy the link of the song on Youtube:</label>
+                    <input type="text" class="form-control" id="link"> </div>
                 <div class="col-md-12" style="text-align:right">
-                    <button type="button" class="btn btn-success">Add new song</button>
+                <a href="">
+                   <input type="submit" name="enviar" value="Add new Song"/>
+                </a>
                 </div>
+                </form>
             </div>
+             
         </div>
     </div>
-    <div class="row save-return">
-        <div class="col-md-6">
-            <a href="indexUtent_playlist.html">
-                <button type="button" class="btn btn-primary">Save</button>
-            </a>
-        </div>
-        <div class="col-md-6" style="text-align:right">
-            <a href="indexUtent_playlist.html">
-                <button type="button" class="btn btn-danger">Return</button>
-            </a>
-        </div>
-    </div>
-    <!-- /.row -->
-    <!-- Footer -->
-    <footer>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="intro-text">
-                    <hr class="star-light"> <span class="footer">Musine </span> </div>
+        <div class="row save-return">
+            <div class="col-md-6">
+                <a href="indexUtent_playlist.html">
+                    <button type="button" class="btn btn-primary">Save</button>
+                </a>
+            </div>
+            <div class="col-md-6" style="text-align:right">
+                <a href="indexUtent_playlist.html">
+                    <button type="button" class="btn btn-danger">Return</button>
+                </a>
             </div>
         </div>
         <!-- /.row -->
-    </footer>
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="intro-text">
+                        <hr class="star-light"> <span class="footer">Musine </span> </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
 </body>
 
 </html>
