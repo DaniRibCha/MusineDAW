@@ -55,17 +55,18 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <form class="form-playlist">
+                <form class="form-playlist" action="EditPlaylistByUser/{{p.id_playlist}}" method="post">
                     <div class="form-group">
                         <label>Title of the playlist</label>
-                        <input type="text" class="form-control" id="title" placeholder="{{p.title}}"> </div>
+                        <input type="text" class="form-control" name="title" placeholder="{{p.title}}" required> </div>
                     <div class="form-group">
                         <label>Description:</label>
-                        <textarea class="form-control" rows="5" id="description" placeholder="{{p.description}}"></textarea>
+                        <textarea class="form-control" rows="5" name="description" placeholder="{{p.description}}" required></textarea>
                     </div>
                     <div class="form-group">
                         <label>Tag</label>
-                        <input type="text" class="form-control" id="tag" placeholder="{{#tags}} {{name}} {{/tags}}"> </div>
+                        <input type="text" class="form-control" name="tag" placeholder="{{tag}}" required> </div>
+                        <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
                 </form>
             </div>
         </div>
@@ -83,16 +84,16 @@
              </div>
              {{/songs}}
              <div class="row">
-             <form action="/EditPlaylistByUser/{{p.id_playlist}}" method="post">
+             <form action="/EditPlaylist/{{p.id_playlist}}" method="post">
                 <div class="form-group">
                     <label>Title of the song:</label>
-                    <input type="text" class="form-control" id="title"> </div>
+                    <input type="text" class="form-control" name="titleSong"> </div>
                 <div class="form-group">
                     <label>Artists:</label>
-                    <input type="text" class="form-control" id="artist"> </div>
+                    <input type="text" class="form-control" name="artist"> </div>
                 <div class="form-group">
                     <label>Copy the link of the song on Youtube:</label>
-                    <input type="text" class="form-control" id="link"> </div>
+                    <input type="text" class="form-control" name="link"> </div>
                 <div class="col-md-12" style="text-align:right">
                 <a href="">
                    <input type="submit" name="enviar" value="Add new Song"/>

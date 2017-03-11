@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-	List<Song> findByTitle(String title);
+	Song findByTitle(String title);
 	
 	
 }

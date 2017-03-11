@@ -60,7 +60,9 @@ public class MainController {
 		
 		//prueba User-Canciones favoritas
 		User u1=new User("Davide", "Italy");
+		u1.setPasswordHash("pass");
 		User u2=new User("Dani","Spain");
+		u2.setPasswordHash("pass");
 	
 		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
 		
@@ -382,39 +384,70 @@ public class MainController {
 			return "following_user";
 		}
 		
-		@RequestMapping("/CreatePlaylistByUser")
-		public String createPlaylist(Model model){
+		@RequestMapping("/CreatePlaylist/{id}")
+		public String createPlaylist(Model model, @PathVariable long id){
 			
+			model.addAttribute("idUser",id);
 			
 			return "createPlaylist";
 		}
 		
-//		@RequestMapping("/EditPlaylistByUser/{id}")
-//		public String editPlaylist(Model model, @PathVariable long id, @RequestParam(value = "title", defaultValue = "") String title,
-//				@RequestParam(value = "artist", defaultValue = "") String artist, @RequestParam(value = "link", defaultValue = "") String link){
-//			
-//			Playlist p=playlistRepository.findOne(id);
-//			
-//			
-//			if(!title.equals("") && !artist.equals("") && !link.equals("")){
-//				Song s=new Song(title,link);
-//				Artist a= artistRepository.findByName(artist);
-//				s.addArtistsOfSong(a);
-//				songRepository.save(s);
-//				p.addSongOfPlaylist(s);
-//				playlistRepository.save(p);
-//				System.out.println("fatto");
-//			}
-//			
-//			if(!p.getTagsOfPlaylist().isEmpty()) model.addAttribute("tags",p.getTagsOfPlaylist());
-//			
-//			if(!p.getSongsOfPlaylist().isEmpty()) model.addAttribute("songs",p.getSongsOfPlaylist());
-//			
-//			model.addAttribute("p",p);
-//			
-//			return "editPlaylist";
-//		}
-//		
+
+		//desde la pagina createPlaylist se envian los primeros datos de la playlist a la pagina editPlaylist
+		//donde se pueden añadir canciones y modificar tambien los datos basicos
+		@RequestMapping("/EditNewPlaylist/{idUser}")
+		public String editNewPlaylist(Model model, @PathVariable long idUser,
+				@RequestParam(value = "title", defaultValue = "") String title,
+				@RequestParam(value = "description", defaultValue = "") String description, 
+				@RequestParam(value = "tag", defaultValue = "") String tag){
+			
+			User u=userRepository.findOne(idUser);
+			Playlist p=new Playlist(title,u.getName());
+			p.setDescription(description);
+			Tag t=tagRepository.findByName(tag);
+			if(t==null){//si no hay ese tag lo crea
+				t=new Tag(tag);
+				tagRepository.save(t);
+			}
+			
+			p.addTagOfPlaylist(t);
+			tagRepository.save(t);
+			playlistRepository.save(p);
+			
+			userRepository.save(u);
+			
+			model.addAttribute("tag",tag);
+			model.addAttribute("p",p);
+			
+			return "editPlaylist";
+		}
 		
+		
+		@RequestMapping("/EditPlaylist/{id}")
+		public String editPlaylist(Model model,@PathVariable long id,
+				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
+				@RequestParam(value = "artist", defaultValue = "") String artist, 
+				@RequestParam(value = "link", defaultValue = "") String link){
+			
+			Playlist p=playlistRepository.findOne(id);
+			
+			Tag tag=p.getTagsOfPlaylist().get(0);
+			
+			if(!titleSong.equals("")){
+				Song s=songRepository.findByTitle(titleSong);
+				if(s==null){}else{
+					p.addSongOfPlaylist(s);
+					playlistRepository.save(p);
+				}
+			}
+			
+			model.addAttribute("p",p);
+			
+			model.addAttribute("tag",tag);
+			
+			model.addAttribute("songs",p.getSongsOfPlaylist());
+			
+			return "editPlaylist";
+		}
 	
 }

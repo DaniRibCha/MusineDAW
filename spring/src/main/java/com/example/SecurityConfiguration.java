@@ -20,6 +20,7 @@ auth.inMemoryAuthentication().withUser("admin").password("adminpass").roles("USE
 protected void configure(HttpSecurity http) throws Exception {
 
  // Public pages
+	 http.authorizeRequests().antMatchers("/").permitAll();
  
  // Private pages (all other pages)
  http.authorizeRequests().antMatchers("/Artist").hasAnyRole("USER");
@@ -46,7 +47,7 @@ protected void configure(HttpSecurity http) throws Exception {
  http.authorizeRequests().antMatchers("/SearchPlaylist/{key}").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/ArtistListBasic").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/homestyle").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/index").hasAnyRole("USER");
+ //http.authorizeRequests().antMatchers("/index").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/indexUtent_favoritos").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/indexUtent_likes").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/indexUtent_playlist").hasAnyRole("USER");

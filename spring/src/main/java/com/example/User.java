@@ -33,6 +33,8 @@ public class User {
 	
 	private String passwordHash;
 	
+	private String email;
+	
 	@ElementCollection(fetch = FetchType.EAGER) 
 	private List<String> roles;
 	
@@ -55,12 +57,27 @@ public class User {
 	}
 
 
+	public User(String name, String country,String passwordHash, String email) {
+		super();
+		this.name = name;
+		this.country = country;
+		this.passwordHash=passwordHash;
+		this.email=email;
+	}
+	
 	public User(String name, String country) {
 		super();
 		this.name = name;
 		this.country = country;
 	}
 
+
+
+	
+
+	public long getId_user() {
+		return id_user;
+	}
 
 
 	public String getName() {
@@ -162,6 +179,16 @@ public class User {
 
 	public List<User> getFollowers() {
 		return followers;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 
