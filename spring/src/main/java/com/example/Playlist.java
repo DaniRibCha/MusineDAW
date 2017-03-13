@@ -129,6 +129,7 @@ public class Playlist {
 
 	public void addTagOfPlaylist(Tag tagOfPlaylist) {
 		this.tagsOfPlaylist.add(tagOfPlaylist);
+		tagOfPlaylist.incNumberTag();
 	}
 	
 	

@@ -11,8 +11,6 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long>  {
 	
 	List<Playlist> findByTitle(String title);
 	
-	List<Playlist> findByNLikes(long n);
-	
-	List <Playlist> findFirst2ByOrderByNLikesDesc();
+	List <Playlist> findFirst3ByOrderByNLikesDesc();
 	
 }

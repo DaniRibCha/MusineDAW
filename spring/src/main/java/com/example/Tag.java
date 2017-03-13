@@ -27,6 +27,9 @@ public class Tag {
 	@JsonView(Basic.class)
 	private String name;
 	
+	@JsonView(Basic.class)
+	private long numberTag;
+	
 	@JsonView(Artists.class)
 	@ManyToMany(mappedBy="tagsOfArtist")
 	private List<Artist> artistsOfTag= new ArrayList<>();
@@ -38,6 +41,7 @@ public class Tag {
 	public Tag(String name) {
 		super();
 		this.name = name;
+		numberTag=0;
 	}
 
 	public Tag() {
@@ -67,6 +71,14 @@ public class Tag {
 	//entidad principal->Playlist
 	public void addPlaylistOfTag(Playlist playlistOfTag) {
 		this.playlistsOfTag.add(playlistOfTag);
+	}
+
+	public long getNumberTag() {
+		return numberTag;
+	}
+
+	public void incNumberTag() {
+		this.numberTag =this.numberTag+1;
 	}
 	
 	

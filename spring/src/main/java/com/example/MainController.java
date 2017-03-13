@@ -78,9 +78,12 @@ public class MainController {
 		//prueba Artistas-Seguidores,Tags
 		Tag t1=new Tag("Pop"); Tag t2=new Tag("2016");
 		tagRepository.save(t1); tagRepository.save(t2); 
+		Tag t3=new Tag("2015"); Tag t4=new Tag("Latino");
+		tagRepository.save(t3); tagRepository.save(t4); 
 		
 		a1.addFollowerOfArtist(u1); a1.addFollowerOfArtist(u2);
 		a1.addTagOfArtist(t1); a1.addTagOfArtist(t2);
+		tagRepository.save(t1);tagRepository.save(t2);
 		artistRepository.save(a1);
 		//fin Artistas-Seguidores,Tags
 
@@ -89,26 +92,37 @@ public class MainController {
 		Playlist pCreated1=new Playlist("myPlaylistCreated1",u1.getName(),u1.getId_user());
 		pCreated1.addTagOfPlaylist(t1);
 		pCreated1.addSongOfPlaylist(s1);
+		tagRepository.save(t1);
 		playlistRepository.save(pCreated1);
 		
 		Playlist pCreated2=new Playlist("myPlaylistCreated2",u2.getName(),u2.getId_user());
 		pCreated2.addTagOfPlaylist(t2);
 		pCreated2.addSongOfPlaylist(s2);
+		tagRepository.save(t2);
 		playlistRepository.save(pCreated2);
 		
 		Playlist pCreated3=new Playlist("myPlaylistCreated3",u2.getName(),u2.getId_user());
 		pCreated3.addTagOfPlaylist(t1);
 		pCreated3.addSongOfPlaylist(s1);
+		tagRepository.save(t1);
 		playlistRepository.save(pCreated3);
+		
+		Playlist pCreated4=new Playlist("myPlaylistCreated4",u1.getName(),u1.getId_user());
+		pCreated4.addTagOfPlaylist(t1);pCreated4.addTagOfPlaylist(t4);
+		pCreated4.addSongOfPlaylist(s2);
+		tagRepository.save(t1);tagRepository.save(t4);
+		playlistRepository.save(pCreated4);
 		
 		u1.addCreatedPlaylist(pCreated1);
 		u2.addCreatedPlaylist(pCreated2);
 		u2.addCreatedPlaylist(pCreated3);
+		u1.addCreatedPlaylist(pCreated4);
 		userRepository.save(u1);userRepository.save(u2);
 		// fin Usuarios-Playlists creadas
 		
 		//prueba Usuarios-Playlists gustadas
 		pCreated2.addUserlikeOfPlaylist(u1);
+		pCreated1.addUserlikeOfPlaylist(u2);
 		pCreated1.addUserlikeOfPlaylist(u2);
 		playlistRepository.save(pCreated1); playlistRepository.save(pCreated2);
 		//fin Usuarios-Playlists gustadas

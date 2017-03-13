@@ -22,6 +22,12 @@ public class UserController {
 	private PlaylistRepository playlistRepository;
 	
 	@Autowired
+	private ArtistRepository artistRepository;
+	
+	@Autowired
+	private TagRepository tagRepository;
+	
+	@Autowired
 	private UserComponent userComponent;
 	
 	
@@ -63,6 +69,24 @@ public class UserController {
 		
 		model.addAttribute("login",login);
 		
+		List<Playlist> playlists=new ArrayList<>();
+		
+		playlists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("playlists",playlists);
+		
+		List<Artist> artists=new ArrayList<>();
+		
+		artists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		
+		model.addAttribute("artists",artists);
+		
+		List<Tag> tags=new ArrayList<>();
+		
+		tags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+		
+		model.addAttribute("tags",tags);
+		
 		return "index";
 	}
 	
@@ -75,6 +99,24 @@ public class UserController {
 		session.invalidate();
 		
 		model.addAttribute("login",login);
+		
+		List<Playlist> playlists=new ArrayList<>();
+		
+		playlists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("playlists",playlists);
+		
+		List<Artist> artists=new ArrayList<>();
+		
+		artists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		
+		model.addAttribute("artists",artists);
+		
+		List<Tag> tags=new ArrayList<>();
+		
+		tags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+		
+		model.addAttribute("tags",tags);
 		
 		return "index";
 	}
@@ -94,11 +136,21 @@ public class UserController {
 		
 		List<Playlist> playlists=new ArrayList<>();
 		
-		
-		playlists=playlistRepository.findFirst2ByOrderByNLikesDesc();
-		
+		playlists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
 		model.addAttribute("playlists",playlists);
+		
+		List<Artist> artists=new ArrayList<>();
+		
+		artists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		
+		model.addAttribute("artists",artists);
+		
+		List<Tag> tags=new ArrayList<>();
+		
+		tags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+		
+		model.addAttribute("tags",tags);
 		
 		
 		return "index";
