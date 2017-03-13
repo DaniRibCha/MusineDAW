@@ -69,23 +69,29 @@ public class UserController {
 		
 		model.addAttribute("login",login);
 		
-		List<Playlist> playlists=new ArrayList<>();
+		List<Playlist> topPlaylists=new ArrayList<>();
 		
-		playlists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
-		model.addAttribute("playlists",playlists);
+		model.addAttribute("topPlaylists",topPlaylists);
 		
-		List<Artist> artists=new ArrayList<>();
+		List<Artist> topArtists=new ArrayList<>();
 		
-		artists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
 		
-		model.addAttribute("artists",artists);
+		model.addAttribute("topArtists",topArtists);
 		
-		List<Tag> tags=new ArrayList<>();
+		List<Tag> topTags=new ArrayList<>();
 		
-		tags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+		topTags=tagRepository.findFirst3ByOrderByNumberTagDesc();
 		
-		model.addAttribute("tags",tags);
+		model.addAttribute("topTags",topTags);
+
+		List<Playlist> wallPlaylists=new ArrayList<>();
+		
+		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("wallPlaylists",wallPlaylists);
 		
 		return "index";
 	}
@@ -100,23 +106,29 @@ public class UserController {
 		
 		model.addAttribute("login",login);
 		
-		List<Playlist> playlists=new ArrayList<>();
+		List<Playlist> topPlaylists=new ArrayList<>();
 		
-		playlists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
-		model.addAttribute("playlists",playlists);
+		model.addAttribute("topPlaylists",topPlaylists);
 		
-		List<Artist> artists=new ArrayList<>();
+		List<Artist> topArtists=new ArrayList<>();
 		
-		artists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
 		
-		model.addAttribute("artists",artists);
+		model.addAttribute("topArtists",topArtists);
 		
-		List<Tag> tags=new ArrayList<>();
+		List<Tag> topTags=new ArrayList<>();
 		
-		tags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+		topTags=tagRepository.findFirst3ByOrderByNumberTagDesc();
 		
-		model.addAttribute("tags",tags);
+		model.addAttribute("topTags",topTags);
+		
+		List<Playlist> wallPlaylists=new ArrayList<>();
+		
+		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("wallPlaylists",wallPlaylists);
 		
 		return "index";
 	}
@@ -134,23 +146,29 @@ public class UserController {
 		
 		model.addAttribute("login",login);
 		
-		List<Playlist> playlists=new ArrayList<>();
+		List<Playlist> topPlaylists=new ArrayList<>();
 		
-		playlists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
-		model.addAttribute("playlists",playlists);
+		model.addAttribute("topPlaylists",topPlaylists);
 		
-		List<Artist> artists=new ArrayList<>();
+		List<Artist> topArtists=new ArrayList<>();
 		
-		artists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
 		
-		model.addAttribute("artists",artists);
+		model.addAttribute("topArtists",topArtists);
 		
-		List<Tag> tags=new ArrayList<>();
+		List<Tag> topTags=new ArrayList<>();
 		
-		tags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+		topTags=tagRepository.findFirst3ByOrderByNumberTagDesc();
 		
-		model.addAttribute("tags",tags);
+		model.addAttribute("topTags",topTags);
+		
+		List<Playlist> wallPlaylists=new ArrayList<>();
+		
+		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("wallPlaylists",wallPlaylists);
 		
 		
 		return "index";

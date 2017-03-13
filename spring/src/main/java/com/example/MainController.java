@@ -143,15 +143,6 @@ public class MainController {
 		return "Playlist";
 	}
 	
-	@RequestMapping("/SearchPlaylist/{key}")
-	public String songsPlaylist(Model model, @PathVariable String key) {
-		
-		
-		model.addAttribute(key);
-		
-		return "searchPlaylist";
-	}
-	
 	@RequestMapping("/Artist/{id}")
 	public String songsArtist(Model model, @PathVariable long id) {
 		
@@ -438,6 +429,7 @@ public class MainController {
 			
 			userRepository.save(u);
 			
+			model.addAttribute("u",u);
 			model.addAttribute("tag",tag);
 			model.addAttribute("p",p);
 			
@@ -447,13 +439,27 @@ public class MainController {
 		
 		@RequestMapping("/EditPlaylist/{id}")
 		public String editPlaylist(Model model,@PathVariable long id,
+				@RequestParam(value = "title", defaultValue = "") String title,
+				@RequestParam(value = "description", defaultValue = "") String description, 
+				@RequestParam(value = "tag", defaultValue = "") String tag,
 				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
 				@RequestParam(value = "artist", defaultValue = "") String artist, 
 				@RequestParam(value = "link", defaultValue = "") String link){
 			
 			Playlist p=playlistRepository.findOne(id);
+		
+			if(!tag.equals("")){//si hay modifica del tag
+				Tag t=tagRepository.findByName(tag);
+				if(t==null){//si no hay ese tag lo crea
+					t=new Tag(tag);
+					tagRepository.save(t);
+				}
+				p.getTagsOfPlaylist().remove(0);
+				p.addTagOfPlaylist(t);
+				tagRepository.save(t);
+				playlistRepository.save(p);
+			}
 			
-			Tag tag=p.getTagsOfPlaylist().get(0);
 			
 			if(!titleSong.equals("")){
 				Song s=songRepository.findByTitle(titleSong);
@@ -463,11 +469,25 @@ public class MainController {
 				}
 			}
 			
+			if (!title.equals("")) p.setTitle(title);
+			if (!description.equals(""))p.setDescription(description);
+			playlistRepository.save(p);
+			
+			long creator=p.getCreatorId();
+			
+			User u=userRepository.findOne(creator);
+			
+			model.addAttribute("u",u);
+			
 			model.addAttribute("p",p);
 			
-			model.addAttribute("tag",tag);
+			String tagPlaylist=p.getTagsOfPlaylist().get(0).getName();
+			
+			model.addAttribute("tag",tagPlaylist);
 			
 			model.addAttribute("songs",p.getSongsOfPlaylist());
+			
+			
 			
 			return "editPlaylist";
 		}
@@ -491,6 +511,20 @@ public class MainController {
 			model.addAttribute("u",u);
 			
 			return "config";
+		}
+		
+		@RequestMapping("/SearchPlaylist/{key}")
+		public String serachPlaylist(Model model,@PathVariable String key ){
+			
+//			List<Playlist> playlists=new ArrayList<>();
+//			
+//			playlists=playlistRepository.findByTagId(key);
+//			
+//			model.addAttribute("playlists",playlists);
+			
+			model.addAttribute(key);
+			
+			return "searchPlaylist";
 		}
 	
 }
