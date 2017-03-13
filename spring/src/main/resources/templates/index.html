@@ -113,120 +113,27 @@
         <td>
             <h3><b>Playlists</b></h3></td>
         <div class="row wall">
+            {{#playlists}}
             <div class="col-md-6">
                 <table>
                     <tr>
-                        <th><a href="Playlist.html">Best Rock </a><span class="posted">Posted by <a href="searchUtent_playlist.html">Davide</a></span> </th>
+                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/UserPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
                     </tr>
                     <tr style="height:200px;">
-                        <th><img class="img-responsive" src="./img/rock.png"></th>
+                        <th><img class="img-responsive" src="../img/rock.png"></th>
                         <th>
                             <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
+                                <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
                                 <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> 10000 <span class="glyphicon glyphicon-thumbs-up"></span> 10000 <span class="glyphicon glyphicon-list"></span> 10000 </p>
-                                <p><a class="tag" title="2016" href="searchPlaylist.html">2016</a><a class="tag" title="rock" href="searchPlaylist.html">rock</a></p>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
+                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
+                                <p style="text-align:right"><a class="opcion_playlist"><span class="glyphicon glyphicon-thumbs-up">like</span></a> </p>
                             </ul>
                         </th>
                     </tr>
                 </table>
             </div>
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="Playlist.html">Best Rock </a><span class="posted">Posted by <a href="searchUtent_playlist.html">Davide</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="./img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> 10000 <span class="glyphicon glyphicon-thumbs-up"></span> 10000 <span class="glyphicon glyphicon-list"></span> 10000 </p>
-                                <p><a class="tag" title="2016" href="searchPlaylist.html">2016</a><a class="tag" title="rock" href="searchPlaylist.html">rock</a></p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row wall">
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="Playlist.html">Best Rock </a><span class="posted">Posted by <a href="searchUtent_playlist.html">Davide</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="./img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> 10000 <span class="glyphicon glyphicon-thumbs-up"></span> 10000 <span class="glyphicon glyphicon-list"></span> 10000 </p>
-                                <p><a class="tag" title="2016" href="searchPlaylist.html">2016</a><a class="tag" title="rock" href="searchPlaylist.html">rock</a></p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="Playlist.html">Best Rock </a><span class="posted">Posted by <a href="searchUtent_playlist.html">Davide</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="./img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> 10000 <span class="glyphicon glyphicon-thumbs-up"></span> 10000 <span class="glyphicon glyphicon-list"></span> 10000 </p>
-                                <p><a class="tag" title="2016" href="searchPlaylist.html">2016</a><a class="tag" title="rock" href="searchPlaylist.html">rock</a></p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-        <div class="row wall">
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="Playlist.html">Best Rock </a><span class="posted">Posted by <a href="searchUtent_playlist.html">Davide</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="./img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> 10000 <span class="glyphicon glyphicon-thumbs-up"></span> 10000 <span class="glyphicon glyphicon-list"></span> 10000 </p>
-                                <p><a class="tag" title="2016" href="searchPlaylist.html">2016</a><a class="tag" title="rock" href="searchPlaylist.html">rock</a></p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="Playlist.html">Best Rock </a><span class="posted">Posted by <a href="searchUtent_playlist.html">Davide</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="./img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on August 28, 2013 at 10:45 PM</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> 10000 <span class="glyphicon glyphicon-thumbs-up"></span> 10000 <span class="glyphicon glyphicon-list"></span> 10000 </p>
-                                <p><a class="tag" title="2016" href="searchPlaylist.html">2016</a><a class="tag" title="rock" href="searchPlaylist.html">rock</a></p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </div>
+            {{/playlists}}
     <!-- /.row -->
     <!-- Footer -->
     <footer>

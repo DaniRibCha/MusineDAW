@@ -1,8 +1,12 @@
 package com.example;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +19,11 @@ public class UserController {
 	private UserRepository userRepository;
 	
 	@Autowired
+	private PlaylistRepository playlistRepository;
+	
+	@Autowired
 	private UserComponent userComponent;
+	
 	
 	@RequestMapping("/login")
 	public String getLogin(){
@@ -76,7 +84,7 @@ public class UserController {
 		
 		boolean login=false;
 		
-		if(!session.isNew()){
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
 			login=true;
 			model.addAttribute("idUser",session.getAttribute("idUser"));
 		}
@@ -84,8 +92,17 @@ public class UserController {
 		
 		model.addAttribute("login",login);
 		
+		List<Playlist> playlists=new ArrayList<>();
+		
+		
+		playlists=playlistRepository.findFirst2ByOrderByNLikesDesc();
+		
+		
+		model.addAttribute("playlists",playlists);
+		
 		
 		return "index";
 	}
+	
 
 }

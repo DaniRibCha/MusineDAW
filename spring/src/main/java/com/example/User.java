@@ -29,7 +29,7 @@ public class User {
 	
 	private String biography;
 	
-	private String City;
+	private String city;
 	
 	private String passwordHash;
 	
@@ -59,6 +59,8 @@ public class User {
 
 	public User(String name, String country,String passwordHash, String email) {
 		super();
+		this.biography="";
+		this.city="";
 		this.name = name;
 		this.country = country;
 		this.passwordHash=passwordHash;
@@ -67,6 +69,8 @@ public class User {
 	
 	public User(String name, String country) {
 		super();
+		this.biography="";
+		this.city="";
 		this.name = name;
 		this.country = country;
 	}
@@ -98,12 +102,12 @@ public class User {
 
 
 	public String getCity() {
-		return City;
+		return city;
 	}
 
 
 	public void setCity(String city) {
-		City = city;
+		this.city = city;
 	}
 
 
@@ -122,8 +126,8 @@ public class User {
 	}
 
 
-	public void setRoles(List<String> roles) {
-		this.roles = roles;
+	public void addRole(String role) {
+		this.roles.add(role);
 	}
 
 

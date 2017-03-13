@@ -59,10 +59,8 @@ public class MainController {
 		
 		
 		//prueba User-Canciones favoritas
-		User u1=new User("Davide", "Italy");
-		u1.setPasswordHash("pass");
-		User u2=new User("Dani","Spain");
-		u2.setPasswordHash("pass");
+		User u1=new User("Davide", "Italy","pass","davide@gmail.com");
+		User u2=new User("Dani","Spain","pass","dani@gmail.com");
 	
 		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
 		
@@ -88,18 +86,24 @@ public class MainController {
 
 		
 		//prueba Usuarios-Playlists creadas
-		Playlist pCreated1=new Playlist("myPlaylistCreated1",u1.getName());
+		Playlist pCreated1=new Playlist("myPlaylistCreated1",u1.getName(),u1.getId_user());
 		pCreated1.addTagOfPlaylist(t1);
 		pCreated1.addSongOfPlaylist(s1);
 		playlistRepository.save(pCreated1);
 		
-		Playlist pCreated2=new Playlist("myPlaylistCreated2",u2.getName());
+		Playlist pCreated2=new Playlist("myPlaylistCreated2",u2.getName(),u2.getId_user());
 		pCreated2.addTagOfPlaylist(t2);
 		pCreated2.addSongOfPlaylist(s2);
 		playlistRepository.save(pCreated2);
 		
+		Playlist pCreated3=new Playlist("myPlaylistCreated3",u2.getName(),u2.getId_user());
+		pCreated3.addTagOfPlaylist(t1);
+		pCreated3.addSongOfPlaylist(s1);
+		playlistRepository.save(pCreated3);
+		
 		u1.addCreatedPlaylist(pCreated1);
 		u2.addCreatedPlaylist(pCreated2);
+		u2.addCreatedPlaylist(pCreated3);
 		userRepository.save(u1);userRepository.save(u2);
 		// fin Usuarios-Playlists creadas
 		
@@ -243,6 +247,10 @@ public class MainController {
 		int n_created=u.getCreatedPlaylists().size();
 		
 		model.addAttribute("n_created",n_created);
+		
+		int n_likes=u.getLikedPlaylists().size();
+		
+		model.addAttribute("n_likes",n_likes);
 		
 		return "indexUtent_playlist";
 	}
@@ -402,7 +410,7 @@ public class MainController {
 				@RequestParam(value = "tag", defaultValue = "") String tag){
 			
 			User u=userRepository.findOne(idUser);
-			Playlist p=new Playlist(title,u.getName());
+			Playlist p=new Playlist(title,u.getName(),u.getId_user());
 			p.setDescription(description);
 			Tag t=tagRepository.findByName(tag);
 			if(t==null){//si no hay ese tag lo crea
@@ -448,6 +456,27 @@ public class MainController {
 			model.addAttribute("songs",p.getSongsOfPlaylist());
 			
 			return "editPlaylist";
+		}
+		
+		@RequestMapping("/Config/{id}")
+		public String config(Model model, @PathVariable long id,
+				@RequestParam(value = "biography", defaultValue = "") String biography,
+				@RequestParam(value = "country", defaultValue = "") String country, 
+				@RequestParam(value = "city", defaultValue = "") String city){
+			
+			User u=userRepository.findOne(id);
+			
+			if(!biography.equals("")) u.setBiography(biography);
+			
+			if(!country.equals("")) u.setCountry(country);
+			
+			if(!city.equals("")) u.setCity(city);
+			
+			userRepository.save(u);
+			
+			model.addAttribute("u",u);
+			
+			return "config";
 		}
 	
 }

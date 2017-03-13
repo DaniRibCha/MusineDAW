@@ -20,10 +20,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
 <body>
-    <!-- Navigation -->
-     <nav class="navbar navbar-inverse">
+ <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header" id="header"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <a class="navbar-brand" href="/">Musine</a> <img class="img-responsive" id="logo-navbar" src="../img/musine.png" width="60" height="55"> </div>
             <form class="navbar-form navbar-left">
@@ -36,16 +34,14 @@
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                
                 	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="config.html">My Profile</a></li>
+                            <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
                             <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
                             <li><a href="/Logout">Log Out</a></li>
                         </ul>
                     </li>
-          
                 </ul>
             </div>
         </div>
@@ -53,7 +49,7 @@
     <div class="jumbotron" style="background-color:grey;">
         <div class="container">
             <div class="col-md-3 name-jumbotron">
-                <p>{{u.name}} <a href="config.html" style="color:white"><span class="glyphicon glyphicon-cog"></span></a> </p>
+                <p>{{u.name}} <a href="/Config/{{u.id_user}}" style="color:white"><span class="glyphicon glyphicon-cog"></span></a> </p>
                 <p><img class="img-responsive" id="userlogo" src="../img/user.jpg" width="60" height="55"> </p>
             </div>
             <div class="col-md-3 description">
@@ -61,13 +57,13 @@
                 <p>Created playlist</p>
             </div>
             <div class="col-md-3 description">
-                <a href="/UserFollowers/{{u.id_user}}">
+                <a href="/MyFollowers/{{u.id_user}}">
                     <button type="button" class="btn btn-primary btn-lg cajas">{{n_followers}}</button>
                 </a>
                 <p>Followers</p>
             </div>
             <div class="col-md-3 description">
-                <a href="/UserFollowing/{{u.id_user}}">
+                <a href="/MyFollowing/{{u.id_user}}">
                     <button type="button" class="btn btn-primary btn-lg cajas">{{n_following}}</button>
                 </a>
                 <p>Following</p>
@@ -100,7 +96,7 @@
             <div class="col-md-6">
                 <table>
                     <tr>
-                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="searchUtent_playlist.html">{{creator}}</a></span> </th>
+                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/UserPlaylists/{{u.id_user}}">{{creator}}</a></span> </th>
                     </tr>
                     <tr style="height:200px;">
                         <th><img class="img-responsive" src="../img/rock.png"></th>
@@ -108,9 +104,9 @@
                             <ul>
                                 <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
                                 <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> {{nReproductions}} <span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
                                 <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
-                                <p style="text-align:right"><a class="opcion_playlist"><span class="glyphicon glyphicon-thumbs-up"></span></a> </p>
+                                <p style="text-align:right"><a class="opcion_playlist"><span class="glyphicon glyphicon-thumbs-up">like</span></a> </p>
                             </ul>
                         </th>
                     </tr>
