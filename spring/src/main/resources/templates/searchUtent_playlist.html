@@ -36,14 +36,20 @@
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
+                    {{^login}}
+                    <li><a href="/login#toregister"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                    <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                {{/login}}
+                {{#login}}
+                	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                           <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
-                            <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
+                            <li><a href="/Config/{{idUser}}">My Profile</a></li>
+                            <li><a href="/MyPlaylists/{{idUser}}">My Playlists</a></li>
                             <li><a href="/Logout">Log Out</a></li>
                         </ul>
                     </li>
+                {{/login}}
                 </ul>
             </div>
         </div>
