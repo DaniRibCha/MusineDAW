@@ -26,11 +26,11 @@
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header" id="header"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <a class="navbar-brand" href="/">Musine</a> <img class="img-responsive" id="logo-navbar" src="../img/musine.png" width="60" height="55"> </div>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-left" action="/SearchPlaylist">
                 <div class="input-group" id="search">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" placeholder="Search" name="key">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="search-button"> <i class="glyphicon glyphicon-search"></i> </button>
+                        <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
                     </div>
                 </div>
             </form>
@@ -98,7 +98,8 @@
              <div class="col-md-6">
                 <table>
                     <tr>
-                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/UserPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
+                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by 
+                        <a href="/{{pathCreator}}/{{creatorId}}">{{creatorName}}</a></span> </th>
                     </tr>
                     <tr style="height:200px;">
                         <th><img class="img-responsive" src="../img/rock.png"></th>
