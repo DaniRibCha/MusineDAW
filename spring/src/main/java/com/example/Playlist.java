@@ -68,8 +68,7 @@ public class Playlist {
 	@ManyToMany
 	private List<User> UserlikesOfPlaylist= new ArrayList<>();
 	
-//	@OneToOne(mappedBy="createdPlaylists")
-//	private List<User> CreatorOfPlaylist=new ArrayList<>();
+	private String pathCreator;
 	
 	
 	public Playlist(String title, String creatorName, long creatorId) {
@@ -83,11 +82,26 @@ public class Playlist {
 		this.date = new java.sql.Date(utilDate.getTime());
 		this.creatorName=creatorName;
 		this.creatorId=creatorId;
+		this.pathCreator="UserPlaylists";
 		
 	}
 	
 	public Playlist() {}
 	
+	
+
+	public String getPathCreator() {
+		return pathCreator;
+	}
+
+	public void setPathCreator(String pathCreator) {
+		this.pathCreator = pathCreator;
+	}
+
+	public long getId_playlist() {
+		return id_playlist;
+	}
+
 	public List<Song> getSongsOfPlaylist() {
 		return songsOfPlaylist;
 	}

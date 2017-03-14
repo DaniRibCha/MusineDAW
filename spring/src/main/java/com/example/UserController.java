@@ -91,6 +91,17 @@ public class UserController {
 		
 		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			
+			for(int i=0;i<wallPlaylists.size();++i){
+				Playlist p=wallPlaylists.get(i);
+				if(p.getCreatorId()==idLogged){
+					p.setPathCreator("MyPlaylists");
+				}
+			}
+		}
+		
 		model.addAttribute("wallPlaylists",wallPlaylists);
 		
 		return "index";
@@ -167,6 +178,17 @@ public class UserController {
 		List<Playlist> wallPlaylists=new ArrayList<>();
 		
 		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			
+			for(int i=0;i<wallPlaylists.size();++i){
+				Playlist p=wallPlaylists.get(i);
+				if(p.getCreatorId()==idLogged){
+					p.setPathCreator("MyPlaylists");
+				}
+			}
+		}
 		
 		model.addAttribute("wallPlaylists",wallPlaylists);
 		

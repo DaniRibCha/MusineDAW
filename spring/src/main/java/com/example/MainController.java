@@ -374,6 +374,8 @@ public class MainController {
 			login=true;
 			model.addAttribute("idUser",session.getAttribute("idUser"));
 		}
+		
+		model.addAttribute("login",login);
 			
 		
 		Artist a=artistRepository.findOne(id);
@@ -427,10 +429,17 @@ public class MainController {
 	
 	//el usuario mira sus canciones favoritas
 	@RequestMapping("/MyFavorites/{id}")
-	public String getMyFavorites(Model model, @PathVariable long id){
+	public String getMyFavorites(Model model, @PathVariable long id,
+			@RequestParam(value = "favorite", required=false) String favoriteTitle){
 		
 		User u=userRepository.findOne(id);
 		
+		if(favoriteTitle==null){}else{
+			Song s=songRepository.findByTitle(favoriteTitle);
+			u.removeFavoriteSong(s);
+			userRepository.save(u);
+		}
+			
 		model.addAttribute("u",u);
 		
 		int n_favorites=u.getFavoriteSongs().size();
@@ -476,7 +485,16 @@ public class MainController {
 		
 		model.addAttribute("n_created",n_created);
 		
-		model.addAttribute("playlists",u.getLikedPlaylists());
+		List<Playlist> likedPlaylists=u.getLikedPlaylists();
+		
+		for(int i=0;i<likedPlaylists.size();++i){
+			Playlist p=likedPlaylists.get(i);
+			if(p.getCreatorId()==id){
+				p.setPathCreator("MyPlaylists");
+			}
+		}
+		
+		model.addAttribute("playlists",likedPlaylists);
 		
 		model.addAttribute("n_likes",n_likes);
 		
@@ -677,7 +695,20 @@ public class MainController {
 		
 		model.addAttribute("n_created",n_created);
 		
-		model.addAttribute("playlists",u.getLikedPlaylists());
+		List<Playlist> likedPlaylists=u.getLikedPlaylists();
+		
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			
+			for(int i=0;i<likedPlaylists.size();++i){
+				Playlist p=likedPlaylists.get(i);
+				if(p.getCreatorId()==idLogged){
+					p.setPathCreator("MyPlaylists");
+				}
+			}
+		}
+		
+		model.addAttribute("playlists",likedPlaylists);
 		
 		model.addAttribute("n_likes",n_likes);
 		
@@ -931,6 +962,8 @@ public class MainController {
 				model.addAttribute("idUser",session.getAttribute("idUser"));
 			}
 			
+			model.addAttribute("login", login);
+			
 			
 			List<Playlist> topPlaylists=new ArrayList<>();
 			
@@ -960,12 +993,32 @@ public class MainController {
 				List<Tag> tags=new ArrayList<>();
 				tags.add(t);
 				playlists=playlistRepository.findByTagsOfPlaylist(tags);
+				if(login){
+					long idLogged=((Long)(session.getAttribute("idUser")));
+					
+					for(int i=0;i<playlists.size();++i){
+						Playlist p=playlists.get(i);
+						if(p.getCreatorId()==idLogged){
+							p.setPathCreator("MyPlaylists");
+						}
+					}
+				}
 				model.addAttribute("playlistsTag",playlists);
 			}
 			
 			List<Playlist> pList=playlistRepository.findByTitle(key);
 			
 			if(pList==null){}else{
+				if(login){
+					long idLogged=((Long)(session.getAttribute("idUser")));
+					
+					for(int i=0;i<pList.size();++i){
+						Playlist p=pList.get(i);
+						if(p.getCreatorId()==idLogged){
+							p.setPathCreator("MyPlaylists");
+						}
+					}
+				}
 				model.addAttribute("playlistsTitle",pList);
 			}
 			
@@ -1000,6 +1053,8 @@ public class MainController {
 				model.addAttribute("idUser",session.getAttribute("idUser"));
 			}
 			
+			model.addAttribute("login", login);
+			
 			List<Playlist> topPlaylists=new ArrayList<>();
 			
 			topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
@@ -1027,6 +1082,16 @@ public class MainController {
 				List<Tag> tags=new ArrayList<>();
 				tags.add(t);
 				playlists=playlistRepository.findByTagsOfPlaylist(tags);
+				if(login){
+					long idLogged=((Long)(session.getAttribute("idUser")));
+					
+					for(int i=0;i<playlists.size();++i){
+						Playlist p=playlists.get(i);
+						if(p.getCreatorId()==idLogged){
+							p.setPathCreator("MyPlaylists");
+						}
+					}
+				}
 				model.addAttribute("playlistsTag",playlists);
 			}
 			
