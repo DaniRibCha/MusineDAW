@@ -32,6 +32,9 @@ public class Artist {
 	@JsonView(Basic.class)
 	private String country;
 	
+	@JsonView(Basic.class)
+	private long followers;
+	
 	@JsonView(Songs.class)
 	@ManyToMany(mappedBy="artistsOfSong")
 	private List<Song> songsOfArtist= new ArrayList<>();
@@ -52,6 +55,7 @@ public class Artist {
 		super();
 		this.name = name;
 		this.country = country;
+		this.followers=0;
 	}
 
 
@@ -93,6 +97,7 @@ public class Artist {
 
 	public void addFollowerOfArtist(User followerOfArtist) {
 		this.followersOfArtist.add(followerOfArtist);
+		this.followers=+1;
 	}
 
 
@@ -103,6 +108,17 @@ public class Artist {
 
 	public void addTagOfArtist(Tag tagOfArtist) {
 		this.tagsOfArtist.add(tagOfArtist);
+		tagOfArtist.incNumberTag();
+	}
+
+
+	public long getFollowers() {
+		return followers;
+	}
+
+
+	public void setFollowers(long followers) {
+		this.followers = followers;
 	}
 
 

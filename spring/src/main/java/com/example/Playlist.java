@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -25,6 +26,8 @@ public class Playlist {
 	
 	public interface Tags{}
 	
+	public interface Creator{}
+	
 	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -34,10 +37,13 @@ public class Playlist {
 	private String title;
 	
 	@JsonView(Basic.class)
-	private String creator;
+	private String creatorName;
 	
 	@JsonView(Basic.class)
-	private long nReproductions;
+	private long creatorId;
+	
+//	@JsonView(Basic.class)
+//	private long nReproductions;
 	
 	@JsonView(Basic.class)
 	private long nLikes;
@@ -62,17 +68,22 @@ public class Playlist {
 	@ManyToMany
 	private List<User> UserlikesOfPlaylist= new ArrayList<>();
 	
+//	@OneToOne(mappedBy="createdPlaylists")
+//	private List<User> CreatorOfPlaylist=new ArrayList<>();
 	
-	public Playlist(String title, String creator) {
+	
+	public Playlist(String title, String creatorName, long creatorId) {
 		super();
 		this.title = title;
-		this.nReproductions = 0;
+		//this.nReproductions = 0;
 		this.nLikes=0;
 		this.nTracks=0;
 		this.description="";
 		java.util.Date utilDate = new java.util.Date();
 		this.date = new java.sql.Date(utilDate.getTime());
-		this.creator=creator;
+		this.creatorName=creatorName;
+		this.creatorId=creatorId;
+		
 	}
 	
 	public Playlist() {}
@@ -83,7 +94,7 @@ public class Playlist {
 
 	public void addSongOfPlaylist(Song songOfPlaylist) {
 		this.songsOfPlaylist.add(songOfPlaylist);
-		this.nTracks=this.nTracks+songsOfPlaylist.size();
+		this.nTracks=this.nTracks+1;
 	}
 
 	public String getTitle() {
@@ -94,13 +105,13 @@ public class Playlist {
 		this.title = title;
 	}
 
-	public long getnReproductions() {
-		return nReproductions;
-	}
-
-	public void setnReproductions(long nReproductions) {
-		this.nReproductions = nReproductions;
-	}
+//	public long getnReproductions() {
+//		return nReproductions;
+//	}
+//
+//	public void setnReproductions(long nReproductions) {
+//		this.nReproductions = nReproductions;
+//	}
 
 	public Date getDate() {
 		return date;
@@ -118,6 +129,7 @@ public class Playlist {
 
 	public void addTagOfPlaylist(Tag tagOfPlaylist) {
 		this.tagsOfPlaylist.add(tagOfPlaylist);
+		tagOfPlaylist.incNumberTag();
 	}
 	
 	
@@ -126,19 +138,23 @@ public class Playlist {
 		return UserlikesOfPlaylist;
 	}
 
-	//entidad principal->User
 	public void addUserlikeOfPlaylist(User userlikeOfPlaylist) {
 		this.UserlikesOfPlaylist.add(userlikeOfPlaylist);
+		this.nLikes =+ 1;
 	}
 	
+	public void removeUserlikeOfPlaylist(User userlikeOfPlaylist) {
+		this.UserlikesOfPlaylist.remove(userlikeOfPlaylist);
+		this.nLikes =- 1;
+	}
 	
 
 	public long getnLikes() {
 		return nLikes;
 	}
 
-	public void setnLikes(long nLikes) {
-		this.nLikes = nLikes;
+	public void addLike() {
+		this.nLikes =+ 1;
 	}
 	
 	
@@ -151,9 +167,26 @@ public class Playlist {
 		this.description = description;
 	}
 
+	
+	public String getCreatorName() {
+		return creatorName;
+	}
+
+	public void setCreatorName(String creatorName) {
+		this.creatorName = creatorName;
+	}
+
+	public long getCreatorId() {
+		return creatorId;
+	}
+
+	public void setCreatorId(long creatorId) {
+		this.creatorId = creatorId;
+	}
+
 	@Override
 	public String toString() {
-		return "Playlist [id_playlist=" + id_playlist + ", title=" + title + ", nReproductions=" + nReproductions
+		return "Playlist [id_playlist=" + id_playlist + ", title=" + title
 				+ ", date=" + date + "]";
 	}
 	

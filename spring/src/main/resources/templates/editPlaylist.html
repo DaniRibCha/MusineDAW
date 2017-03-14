@@ -55,17 +55,17 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <form class="form-playlist" action="EditPlaylistByUser/{{p.id_playlist}}" method="post">
+                <form class="form-playlist" action="/EditPlaylist/{{p.id_playlist}}" method="post">
                     <div class="form-group">
                         <label>Title of the playlist</label>
-                        <input type="text" class="form-control" name="title" placeholder="{{p.title}}" required> </div>
+                        <input type="text" class="form-control" name="title" placeholder="{{p.title}}" > </div>
                     <div class="form-group">
                         <label>Description:</label>
-                        <textarea class="form-control" rows="5" name="description" placeholder="{{p.description}}" required></textarea>
+                        <textarea class="form-control" rows="5" name="description" placeholder="{{p.description}}" ></textarea>
                     </div>
                     <div class="form-group">
                         <label>Tag</label>
-                        <input type="text" class="form-control" name="tag" placeholder="{{tag}}" required> </div>
+                        <input type="text" class="form-control" name="tag" placeholder="{{tag}}" > </div>
                         <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
                 </form>
             </div>
@@ -105,17 +105,12 @@
         </div>
     </div>
         <div class="row save-return">
-            <div class="col-md-6">
-                <a href="indexUtent_playlist.html">
-                    <button type="button" class="btn btn-primary">Save</button>
-                </a>
-            </div>
-            <div class="col-md-6" style="text-align:right">
-                <a href="indexUtent_playlist.html">
-                    <button type="button" class="btn btn-danger">Return</button>
-                </a>
-            </div>
+        <div class="col-md-12" style="text-align:right">
+            <a href="/MyPlaylists/{{u.id_user}}">
+                <button type="button" class="btn btn-danger">Return</button>
+            </a>
         </div>
+    </div>
         <!-- /.row -->
         <!-- Footer -->
         <footer>

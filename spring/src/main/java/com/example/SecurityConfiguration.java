@@ -20,18 +20,28 @@ auth.inMemoryAuthentication().withUser("admin").password("adminpass").roles("USE
 protected void configure(HttpSecurity http) throws Exception {
 
  // Public pages
- 
+	 http.authorizeRequests().antMatchers("/").permitAll();
+	 http.authorizeRequests().antMatchers("/login").permitAll();
+	 http.authorizeRequests().antMatchers("/Artist").permitAll();
+	 http.authorizeRequests().antMatchers("/facebook").permitAll();
+	 http.authorizeRequests().antMatchers("/google").permitAll();
+	 http.authorizeRequests().antMatchers("/Playlist").permitAll();
+	 http.authorizeRequests().antMatchers("/homestyle").permitAll();
+	 http.authorizeRequests().antMatchers("/Artist/{id}").permitAll();
+	 http.authorizeRequests().antMatchers("/Playlist/{id}").permitAll();
+	 http.authorizeRequests().antMatchers("/ArtistFollowers/{id}").permitAll();
+	 http.authorizeRequests().antMatchers("/PlaylistTags/{id}").permitAll();
+	 http.authorizeRequests().antMatchers("/ArtistSong/{id}").permitAll();
+	 http.authorizeRequests().antMatchers("/SearchPlaylist/{key}").permitAll();
+	 http.authorizeRequests().antMatchers("/ArtistListBasic").permitAll();
+	 http.authorizeRequests().antMatchers("/searchPlaylist").permitAll();
  // Private pages (all other pages)
- http.authorizeRequests().antMatchers("/Artist").hasAnyRole("USER");
+
  http.authorizeRequests().antMatchers("/createPlaylist").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/editPlaylist").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/facebook").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/google").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/UserPlaylists/{id}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/ArtistSong/{id}").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/PlaylistSongs/{id}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/SongListBasic").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/PlaylistTags/{id}").hasAnyRole("USER");
+ http.authorizeRequests().antMatchers("/SongListBasic").hasAnyRole("USER"); 
  http.authorizeRequests().antMatchers("/UserFollowing/{id}").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/UserFollowers/{id}").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/UserFavorites/{id}").hasAnyRole("USER");
@@ -40,19 +50,9 @@ protected void configure(HttpSecurity http) throws Exception {
  http.authorizeRequests().antMatchers("/MyPlaylists/{id}").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/MyLikes/{id}").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/MyFavorites/{id}}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/ArtistFollowers/{id}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/Artist/{id}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/Playlist/{id}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/SearchPlaylist/{key}").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/ArtistListBasic").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/homestyle").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/index").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/indexUtent_favoritos").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/indexUtent_likes").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/indexUtent_playlist").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/login").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/Playlist").hasAnyRole("USER");
- http.authorizeRequests().antMatchers("/searchPlaylist").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/searchUtent_playlist").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/searchUtent_likes").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("//searchUtent_tracks").hasAnyRole("USER");
@@ -62,13 +62,14 @@ protected void configure(HttpSecurity http) throws Exception {
  http.authorizeRequests().antMatchers("//seguidos").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
 
- 
- 
- 
- 
  // Login form
-
+ http.formLogin().loginPage("/login");
+ http.formLogin().usernameParameter("email");
+ http.formLogin().passwordParameter("password");
  // Logout
+ http.logout().logoutSuccessUrl("/");
+ //disable csfr
+ http.csrf().disable();
 
  }
 

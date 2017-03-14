@@ -19,7 +19,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-</head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> </head>
 
 <body>
     <!-- Navigation -->
@@ -50,24 +50,22 @@
     <div class="jumbotron" style="background-color:grey;">
         <div class="container">
             <div class="col-md-3 name-jumbotron">
-                <p>{{u.name}}
-                    <button type="button" class="btn btn-success follow-btn">Following<span class="glyphicon glyphicon-ok"></span> </button>
-                </p>
+                <p>{{u.name}} <a href="config.html" style="color:white"><span class="glyphicon glyphicon-cog"></span></a> </p>
                 <p><img class="img-responsive" id="userlogo" src="../img/user.jpg" width="60" height="55"> </p>
             </div>
             <div class="col-md-3 description">
-                <p>{{n_created}}</p>
+                <p>8</p>
                 <p>Created playlist</p>
             </div>
             <div class="col-md-3 description">
-                <a href="/UserFollowers/{{u.id_user}}">
-                    <button type="button" class="btn btn-primary btn-lg cajas">{{n_followers}}</button>
+                <a href="seguidores.html">
+                    <button type="button" class="btn btn-primary btn-lg cajas">200</button>
                 </a>
                 <p>Followers</p>
             </div>
             <div class="col-md-3 description">
-                <a href="/UserFollowing/{{u.id_user}}">
-                    <button type="button" class="btn btn-primary btn-lg cajas">{{n_following}}</button>
+                <a href="seguidos.html">
+                    <button type="button" class="btn btn-primary btn-lg cajas">200</button>
                 </a>
                 <p>Following</p>
             </div>
@@ -79,46 +77,36 @@
                 <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-cd"></span> PLAYLISTS</button>
             </a>
         </div>
+        <!--
+                <div class="col-md-3">
+                    <button type="button" class="btn btn-default btn-lg"><a href="">Genero</a></button>
+                </div>-->
         <div class="col-md-4 utent_button">
             <a href="/UserLikes/{{u.id_user}}">
-                <button type="button" class="btn btn-default btn-lg active"><span class="glyphicon glyphicon-thumbs-up"></span> LIKES</button>
+                <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-thumbs-up"></span> LIKES</button>
             </a>
         </div>
         <div class="col-md-4 utent_button">
             <a href="/UserFavorites/{{u.id_user}}">
-                <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-star-empty"></span> FAVORITE TRACKS</button>
+                <button type="button" class="btn btn-default btn-lg active"><span class="glyphicon glyphicon glyphicon-star-empty"></span> FAVORITE TRACKS</button>
             </a>
         </div>
     </nav>
     <!-- Page Content -->
     <div class="container">
-        <td>
-            <h3><b>Playlists</b></h3></td>
-        <div class="row wall">
-           {{#playlists}}
-            <div class="col-md-6">
-                <table>
-                    <tr>
-                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/UserPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
-                    </tr>
-                    <tr style="height:200px;">
-                        <th><img class="img-responsive" src="../img/rock.png"></th>
-                        <th>
-                            <ul>
-                                <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
-                                <hr>
-                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
-                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
-                                <p style="text-align:right"><a class="opcion_playlist"><span class="glyphicon glyphicon-thumbs-up"></span></a> </p>
-                            </ul>
-                        </th>
-                    </tr>
-                </table>
+        <div class="well">
+            <div class="text-center"> <span>List tracks</span> </div>
+            <hr>
+            <div class="row">
+            {{#songs}}
+                <div class="col-md-12"><span>Title: {{title}} </span><span class="glyphicon glyphicon-trash pull-right"></span><a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                    <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span> </p>
+                </div>
+            {{/songs}}
             </div>
-            {{/playlists}}
         </div>
     </div>
-    <!-- /.container -->
+    <!-- /.row -->
     <!-- Footer -->
     <footer>
         <div class="row">

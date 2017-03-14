@@ -104,13 +104,13 @@
             </div>
         </div>
         <td>
-            <h3><b>Playlists</b></h3></td>
+            <h3><b>Results</b></h3></td>
         <div class="row wall">
-            {{#playlists}}
+            {{#playlistsTag}}
             <div class="col-md-6">
                 <table>
                     <tr>
-                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="searchUtent_playlist.html">{{creator}}</a></span> </th>
+                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/MyPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
                     </tr>
                     <tr style="height:200px;">
                         <th><img class="img-responsive" src="../img/rock.png"></th>
@@ -118,15 +118,41 @@
                             <ul>
                                 <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
                                 <hr>
-                                <p><span class="glyphicon glyphicon-play"></span> {{nReproductions}} <span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
                                 <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
-                                <p style="text-align:right"><a class="opcion_playlist"><span class="glyphicon glyphicon-thumbs-up"></span></a> </p>
+                                <p style="text-align:right"><a class="opcion_playlist"></a> </p>
                             </ul>
                         </th>
                     </tr>
                 </table>
             </div>
-            {{/playlists}} 
+            {{/playlistsTag}}
+            {{#playlistsTitle}}
+            <div class="col-md-6">
+                <table>
+                    <tr>
+                        <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/MyPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
+                    </tr>
+                    <tr style="height:200px;">
+                        <th><img class="img-responsive" src="../img/rock.png"></th>
+                        <th>
+                            <ul>
+                                <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
+                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
+                                <p style="text-align:right"><a class="opcion_playlist"></a> </p>
+                            </ul>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            {{/playlistsTitle}}
+             
+            {{#a}}
+            <a href="/Artist/{{a.id_artist}}">{{a.name}}</a>
+            {{/a}}
+            
         </div>
     <!-- /.row -->
     <!-- Footer -->
