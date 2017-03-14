@@ -93,7 +93,7 @@
             <h3><b>Playlists</b></h3></td> <img src="../img/+.png" width="25" height="25" /> <a href="/CreatePlaylist/{{u.id_user}}" id="newPlay">New Playlist</a>
         <div class="row wall">
             {{#playlists}}
-            <div class="col-md-6">
+             <div class="col-md-6">
                 <table>
                     <tr>
                         <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by <a href="/MyPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
@@ -105,7 +105,7 @@
                                 <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
                                 <hr>
                                 <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
-                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
+                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="/SearchPlaylist/{{name}}">{{name}}</a>{{/tagsOfPlaylist}}</p>
                                 <p style="text-align:right"><a class="opcion_playlist"></a> </p>
                             </ul>
                         </th>

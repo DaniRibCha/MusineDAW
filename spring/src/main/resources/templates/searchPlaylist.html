@@ -72,9 +72,9 @@
                     <h4>Top Playlists</h4>
                     <div class="row">
                         <ul class="list-unstyled" style="margin-left:15px">
-                            <li><a href="Playlist.html">Playlist 1</a> </li>
-                            <li><a href="Playlist.html">Playlist 2</a> </li>
-                            <li><a href="Playlist.html">Playlist 3</a> </li>
+                        {{#topPlaylists}}
+                            <li><a href="/Playlist/{{id_playlist}}">{{title}}</a> </li>
+                        {{/topPlaylists}}
                         </ul>
                     </div>
                     <!-- /.row -->
@@ -84,9 +84,9 @@
                     <h4>Top Artists</h4>
                     <div class="row">
                         <ul class="list-unstyled" style="margin-left:15px">
-                            <li><a href="Artist.html">Artist 1</a> </li>
-                            <li><a href="Artist.html">Artist 2</a> </li>
-                            <li><a href="Artist.html">Artist 3</a> </li>
+                        {{#topArtists}}
+                            <li><a href="/Artist/{{id_artist}}">{{name}}</a> </li>
+                        {{/topArtists}}
                         </ul>
                     </div>
                     <!-- /.row -->
@@ -95,15 +95,9 @@
                     <h4>Top Tags</h4>
                     <div class="row">
                         <ul class="list-unstyled" style="margin-left:15px">
-                            <li>
-                                <a class="tag" title="2016" href="searchPlaylist.html">Tag 1</a>
-                                <a class="tag" title="2016" href="searchPlaylist.html">Tag 2</a>
-                                <a class="tag" title="2016" href="searchPlaylist.html">Tag 3</a>
-                            </li>
-                            <li>
-                                <a class="tag" title="2016" href="searchPlaylist.html">Tag 4</a> 
-                                <a class="tag" title="2016" href="searchPlaylist.html">Tag 5</a>
-                                <a class="tag" title="2016" href="searchPlaylist.html">Tag 6</a></li>
+                        {{#topTags}}
+                            <li><a class="tag" title="{{name}}" href="/SearchPlaylist/{{name}}">{{name}}</a></li>
+                        {{/topTags}}
                         </ul>
                     </div>
                     <!-- /.row -->
@@ -147,7 +141,7 @@
                                 <p><span class="glyphicon glyphicon-time"></span> Posted on {{date}}</p>
                                 <hr>
                                 <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
-                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="searchPlaylist.html">{{name}}</a>{{/tagsOfPlaylist}}</p>
+                                <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="/SearchPlaylist/{{name}}">{{name}}</a>{{/tagsOfPlaylist}}</p>
                                 <p style="text-align:right"><a class="opcion_playlist"></a> </p>
                             </ul>
                         </th>

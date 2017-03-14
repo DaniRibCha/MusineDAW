@@ -714,6 +714,7 @@ public class MainController {
 			return "config";
 		}
 		
+		//busqueda desde la navbar
 		@RequestMapping("/SearchPlaylist")
 		public String serachPlaylist(Model model, HttpSession session,
 				@RequestParam(value = "key", defaultValue = "") String key){
@@ -724,6 +725,27 @@ public class MainController {
 				login=true;
 				model.addAttribute("idUser",session.getAttribute("idUser"));
 			}
+			
+			
+			List<Playlist> topPlaylists=new ArrayList<>();
+			
+			topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+			
+			model.addAttribute("topPlaylists",topPlaylists);
+			
+			List<Artist> topArtists=new ArrayList<>();
+			
+			topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+			
+			model.addAttribute("topArtists",topArtists);
+			
+			List<Tag> topTags=new ArrayList<>();
+			
+			topTags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+			
+			model.addAttribute("topTags",topTags);
+			
+			
 			
 			List<Playlist> playlists=new ArrayList<>();
 			
@@ -754,6 +776,54 @@ public class MainController {
 //			else {
 //				model.addAttribute("nothing",false);
 //			}
+			
+			
+			model.addAttribute("key",key);
+			
+			return "searchPlaylist";
+		}
+		
+		//busqueda desde un tag
+		@RequestMapping("/SearchPlaylist/{key}")
+		public String serachPlaylistTag(Model model, HttpSession session,
+				@PathVariable String key){
+			
+			boolean login=false;
+			
+			if(!session.isNew() && session.getAttribute("idUser")!=null){
+				login=true;
+				model.addAttribute("idUser",session.getAttribute("idUser"));
+			}
+			
+			List<Playlist> topPlaylists=new ArrayList<>();
+			
+			topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+			
+			model.addAttribute("topPlaylists",topPlaylists);
+			
+			List<Artist> topArtists=new ArrayList<>();
+			
+			topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+			
+			model.addAttribute("topArtists",topArtists);
+			
+			List<Tag> topTags=new ArrayList<>();
+			
+			topTags=tagRepository.findFirst3ByOrderByNumberTagDesc();
+			
+			model.addAttribute("topTags",topTags);
+			
+			
+			List<Playlist> playlists=new ArrayList<>();
+			
+			Tag t=tagRepository.findByName(key);
+			
+			if(t==null){}else{
+				List<Tag> tags=new ArrayList<>();
+				tags.add(t);
+				playlists=playlistRepository.findByTagsOfPlaylist(tags);
+				model.addAttribute("playlistsTag",playlists);
+			}
 			
 			
 			model.addAttribute("key",key);
