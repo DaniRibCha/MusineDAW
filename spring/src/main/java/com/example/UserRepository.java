@@ -8,6 +8,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	User findByName(String name);
 	
-	
+	Song findByFavoriteSongs(Song s);
 	
 }

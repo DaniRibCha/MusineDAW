@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -39,6 +40,9 @@ public class Song{
 	@ManyToMany(mappedBy="songsOfPlaylist")
 	private List<Playlist> playlistsOfSong= new ArrayList<>();
 	
+	@OneToMany(mappedBy="favoriteSongs")
+	private List<User> UsersFavoriteSong= new ArrayList<>();
+	
 	public Song(String title, String link_youtube) {
 		super();
 		this.title = title;
@@ -49,6 +53,14 @@ public class Song{
 	}
 
 
+	public List<User> getUsersFavoriteSong() {
+		return UsersFavoriteSong;
+	}
+
+	public void setUsersFavoriteSong(List<User> usersFavoriteSong) {
+		UsersFavoriteSong = usersFavoriteSong;
+	}
+
 	public List<Playlist> getPlaylistsOfSong() {
 		return playlistsOfSong;
 	}
@@ -56,6 +68,12 @@ public class Song{
 	//entidad principal->Playlist
 	public void addPlaylistsOfSong(Playlist playlistOfSong) {
 		this.playlistsOfSong.add(playlistOfSong);
+	}
+	
+	
+
+	public long getId_song() {
+		return id_song;
 	}
 
 	public String getTitle() {

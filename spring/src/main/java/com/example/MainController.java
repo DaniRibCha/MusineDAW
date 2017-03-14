@@ -283,13 +283,47 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Playlist/{id}")
-	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id) {
+	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id,
+			@RequestParam(value = "favorite", required=false) String favoriteTitle) {
 		
 		boolean login=false;
 		
+		
 		if(!session.isNew() && session.getAttribute("idUser")!=null){
 			login=true;
-			model.addAttribute("idUser",session.getAttribute("idUser"));
+			long idLogged=((Long)(session.getAttribute("idUser")));
+//			User uLogged=userRepository.findOne(idLogged);
+//			List<Song> favorites=uLogged.getFavoriteSongs();
+//			Song s=songRepository.findByTitle(favoriteTitle);
+//			
+//			if(favoriteTitle==null){//nada
+//			}else if(favoriteTitle.equals("addFavorite")){
+//				
+//				uLogged.addFavoriteSong(s);
+//				userRepository.save(uLogged);
+//			}else{
+//				boolean findedFavorite=false;
+//				for(int i=0; i<favorites.size() && !findedFavorite ;++i)
+//					if(favorites.get(i).getId_song()==s.getId_song()){
+//						findedFavorite=true;
+//						uLogged.removeFavoriteSong(s);
+//						userRepository.save(uLogged);
+//				}
+//				
+//			}
+////			
+//			boolean findedFavorite=false;
+//			for(int j=0; j<favorites.size() && !findedFavorite ;++j){
+//				long idSong=favorites.get(j).getId_song();
+//				if(idSong==s.getId_song()){
+//					findedFavorite=true;
+//				}
+//			}
+//			
+//			model.addAttribute("findedFavorite",findedFavorite);
+			
+			model.addAttribute("idUser",idLogged);
+			
 		}
 			
 		
@@ -366,10 +400,17 @@ public class MainController {
 	
 	//el usuario mira sus canciones favoritas
 	@RequestMapping("/MyFavorites/{id}")
-	public String getMyFavorites(Model model, @PathVariable long id){
+	public String getMyFavorites(Model model, @PathVariable long id,
+			@RequestParam(value = "favorite", required=false) String favoriteTitle){
 		
 		User u=userRepository.findOne(id);
 		
+		if(favoriteTitle==null){}else{
+			Song s=songRepository.findByTitle(favoriteTitle);
+			u.removeFavoriteSong(s);
+			userRepository.save(u);
+		}
+			
 		model.addAttribute("u",u);
 		
 		int n_favorites=u.getFavoriteSongs().size();

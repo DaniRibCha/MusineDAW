@@ -139,6 +139,10 @@ public class User {
 	public void addFavoriteSong(Song favoriteSong) {
 		this.favoriteSongs.add(favoriteSong);
 	}
+	
+	public void removeFavoriteSong(Song favoriteSong) {
+		this.favoriteSongs.remove(favoriteSong);
+	}
 
 
 	public List<Playlist> getLikedPlaylists() {
