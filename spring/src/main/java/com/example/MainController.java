@@ -190,25 +190,86 @@ public class MainController {
 
 		
 		
-		//prueba User-Canciones favoritas
+		//Users
 		User u1=new User("Davide", "Italy","pass","davide@gmail.com");
 		User u2=new User("Dani","Spain","pass","dani@gmail.com");
 		User u3=new User("Ruben","Spain","pass","ruben@gmail.com");
 		User u4=new User("Stephanie","Venezuela","pass","stephanie@gmail.com");
+		User u5=new User("Carlos","Mexico","pass","carlos@gmail.com");
+		User u6=new User("Patricia","Republica Dominicana","pass","patricia@gmail.com");
+		User u7=new User("Peter","USA","pass","peter@gmail.com");
+		User u8=new User("Manuel","Colombia","pass","manuel@gmail.com");
+		User u9=new User("Elizabeth","U.K.","pass","elizabeth@gmail.com");
+		User u10=new User("Ingrid","Mexico","pass","ingrid@gmail.com");
+		User u11=new User("Paul","Ecuador","pass","paul@gmail.com");
+		User u12=new User("Luis","Argentina","pass","luis@gmail.com");
+		User u13=new User("Liam","Australia","pass","liam@gmail.com");
+		User u14=new User("Felix","Chile","pass","felix@gmail.com");
+		User u15=new User("Laura","Bolivia","pass","laura@gmail.com");
+		User u16=new User("Gabriela","Panama","pass","gabriela@gmail.com");
+		User u17=new User("Sofia","Cuba","pass","sofia@gmail.com");
+		User u18=new User("Michelle","Francia","pass","michelle@gmail.com");
+		User u19=new User("David","Peru","pass","david@gmail.com");
+		User u20=new User("Alejandro","Puerto Rico","pass","alejandro@gmail.com");
+		User u21=new User("Pablo","Mexico","pass","pablo@gmail.com");
+		User u22=new User("Bob","Jamaica","pass","bob@gmail.com");
+		User u23=new User("Maria","Belice","pass","maria@gmail.com");
+		User u24=new User("Juan","Venezuela","pass","juan@gmail.com");
 		
+		//prueba User-Canciones favoritas
 		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
 		
 		userRepository.save(u1);userRepository.save(u2);
 		userRepository.save(u3);userRepository.save(u4);
-	
-		
+		userRepository.save(u5);userRepository.save(u6);
+		userRepository.save(u7);userRepository.save(u8);
+		userRepository.save(u9);userRepository.save(u10);
+		userRepository.save(u11);userRepository.save(u12);
+		userRepository.save(u13);userRepository.save(u14);
+		userRepository.save(u15);userRepository.save(u16);
+		userRepository.save(u17);userRepository.save(u18);
+		userRepository.save(u19);userRepository.save(u20);
+		userRepository.save(u21);userRepository.save(u22);
+		userRepository.save(u23);userRepository.save(u24);
 		
 		u1.addFollowing(u2);
-		u2.addFollowing(u1);
-		u2.addFollowing(u3);
+		//u1.addFollowing(u3);
+		u1.addFollowing(u4);
 		userRepository.save(u1);
+		
+		u2.addFollowing(u1);
+		//u2.addFollowing(u3);
 		userRepository.save(u2);
+		
+		u3.addFollowing(u1);
+		u3.addFollowing(u2);
+		u3.addFollowing(u4);
 		userRepository.save(u3);
+		
+		u4.addFollowing(u1);
+		u4.addFollowing(u2);
+		u4.addFollowing(u3);
+		u4.addFollowing(u5);
+		u4.addFollowing(u6);
+		u4.addFollowing(u7);
+		u4.addFollowing(u8);
+		u4.addFollowing(u9);
+		u4.addFollowing(u10);
+		u4.addFollowing(u11);
+		u4.addFollowing(u12);
+		u4.addFollowing(u13);
+		u4.addFollowing(u14);
+		u4.addFollowing(u15);
+		u4.addFollowing(u16);
+		u4.addFollowing(u17);
+		u4.addFollowing(u18);
+		u4.addFollowing(u19);
+		u4.addFollowing(u20);
+		u4.addFollowing(u21);
+		u4.addFollowing(u22);
+		u4.addFollowing(u23);
+		
+		userRepository.save(u4);
 		//fin User-Canciones favoritas
 		
 		
@@ -283,47 +344,13 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Playlist/{id}")
-	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle) {
+	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id) {
 		
 		boolean login=false;
 		
-		
 		if(!session.isNew() && session.getAttribute("idUser")!=null){
 			login=true;
-			long idLogged=((Long)(session.getAttribute("idUser")));
-//			User uLogged=userRepository.findOne(idLogged);
-//			List<Song> favorites=uLogged.getFavoriteSongs();
-//			Song s=songRepository.findByTitle(favoriteTitle);
-//			
-//			if(favoriteTitle==null){//nada
-//			}else if(favoriteTitle.equals("addFavorite")){
-//				
-//				uLogged.addFavoriteSong(s);
-//				userRepository.save(uLogged);
-//			}else{
-//				boolean findedFavorite=false;
-//				for(int i=0; i<favorites.size() && !findedFavorite ;++i)
-//					if(favorites.get(i).getId_song()==s.getId_song()){
-//						findedFavorite=true;
-//						uLogged.removeFavoriteSong(s);
-//						userRepository.save(uLogged);
-//				}
-//				
-//			}
-////			
-//			boolean findedFavorite=false;
-//			for(int j=0; j<favorites.size() && !findedFavorite ;++j){
-//				long idSong=favorites.get(j).getId_song();
-//				if(idSong==s.getId_song()){
-//					findedFavorite=true;
-//				}
-//			}
-//			
-//			model.addAttribute("findedFavorite",findedFavorite);
-			
-			model.addAttribute("idUser",idLogged);
-			
+			model.addAttribute("idUser",session.getAttribute("idUser"));
 		}
 			
 		
@@ -400,17 +427,10 @@ public class MainController {
 	
 	//el usuario mira sus canciones favoritas
 	@RequestMapping("/MyFavorites/{id}")
-	public String getMyFavorites(Model model, @PathVariable long id,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle){
+	public String getMyFavorites(Model model, @PathVariable long id){
 		
 		User u=userRepository.findOne(id);
 		
-		if(favoriteTitle==null){}else{
-			Song s=songRepository.findByTitle(favoriteTitle);
-			u.removeFavoriteSong(s);
-			userRepository.save(u);
-		}
-			
 		model.addAttribute("u",u);
 		
 		int n_favorites=u.getFavoriteSongs().size();
@@ -667,7 +687,7 @@ public class MainController {
 	//el usuario mira las playlists creadas de otro usuario
 	@RequestMapping("/UserPlaylists/{id}")
 	public String getUserCreated(Model model, @PathVariable long id, HttpSession session,
-			@RequestParam(value = "follow", required=false) String followName){
+		@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
 		
@@ -753,7 +773,9 @@ public class MainController {
 		
 		//el usuario mira sus seguidos
 		@RequestMapping("/UserFollowing/{id}")
-		public String getUserFollowing(Model model, @PathVariable long id, HttpSession session){
+		public String getUserFollowing(Model model, @PathVariable long id, HttpSession session, Pageable page){
+			
+			Page<User> user = userRepository.findAll(page);
 			
 			boolean login=false;
 			
@@ -768,7 +790,15 @@ public class MainController {
 			
 			model.addAttribute("u",u);
 			
-			model.addAttribute("following",u.getFollowing());
+			//model.addAttribute("following",u.getFollowing());
+			
+			//Paginacion
+			model.addAttribute("ident", id);
+			model.addAttribute("following",user);
+			model.addAttribute("showPrev", !user.isFirst());
+			model.addAttribute("showNext", !user.isLast());
+			model.addAttribute("nextPage", user.getNumber()+1);
+			model.addAttribute("prevPage", user.getNumber()-1);
 			
 			return "following_user";
 		}

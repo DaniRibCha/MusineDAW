@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import org.springframework.data.domain.Page;
+
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.ArrayList;
@@ -40,6 +42,7 @@ public class User {
 	
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
+	//private Page<User> following = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="following")
 	private List<User> followers = new ArrayList<>();	
@@ -138,10 +141,6 @@ public class User {
 
 	public void addFavoriteSong(Song favoriteSong) {
 		this.favoriteSongs.add(favoriteSong);
-	}
-	
-	public void removeFavoriteSong(Song favoriteSong) {
-		this.favoriteSongs.remove(favoriteSong);
 	}
 
 
