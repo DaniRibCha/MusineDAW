@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -277,7 +278,17 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Playlist/{id}")
-	public String songsPlaylist(Model model, @PathVariable long id) {
+	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id) {
+		
+		boolean login=false;
+		
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
+			login=true;
+			model.addAttribute("idUser",session.getAttribute("idUser"));
+		}
+			
+		
+		model.addAttribute("login",login);
 		
 		Playlist p=playlistRepository.findOne(id);
 		
@@ -289,7 +300,15 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Artist/{id}")
-	public String songsArtist(Model model, @PathVariable long id) {
+	public String songsArtist(Model model, @PathVariable long id, HttpSession session) {
+		
+		boolean login=false;
+		
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
+			login=true;
+			model.addAttribute("idUser",session.getAttribute("idUser"));
+		}
+			
 		
 		Artist a=artistRepository.findOne(id);
 		
@@ -322,7 +341,14 @@ public class MainController {
 	}
 	
 	@RequestMapping("/ArtistFollowers/{id}")
-	public String getArtistFollowers(Model model, @PathVariable long id){
+	public String getArtistFollowers(Model model, @PathVariable long id, HttpSession session){
+		
+		boolean login=false;
+		
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
+			login=true;
+			model.addAttribute("idUser",session.getAttribute("idUser"));
+		}
 		
 		Artist a=artistRepository.findOne(id);
 		
@@ -423,6 +449,7 @@ public class MainController {
 	//el usuario mira sus seguidores
 	@RequestMapping("/MyFollowers/{id}")
 	public String getMyFollowers(Model model, @PathVariable long id){
+		
 		
 		User u=userRepository.findOne(id);
 		
@@ -532,7 +559,14 @@ public class MainController {
 	
 	//el usuario mira los seguidores de otro usuario
 		@RequestMapping("/UserFollowers/{id}")
-		public String getUserFollowers(Model model, @PathVariable long id){
+		public String getUserFollowers(Model model, @PathVariable long id, HttpSession session){
+			
+			boolean login=false;
+			
+			if(!session.isNew() && session.getAttribute("idUser")!=null){
+				login=true;
+				model.addAttribute("idUser",session.getAttribute("idUser"));
+			}
 			
 			User u=userRepository.findOne(id);
 			
@@ -546,7 +580,14 @@ public class MainController {
 		
 		//el usuario mira sus seguidos
 		@RequestMapping("/UserFollowing/{id}")
-		public String getUserFollowing(Model model, @PathVariable long id){
+		public String getUserFollowing(Model model, @PathVariable long id, HttpSession session){
+			
+			boolean login=false;
+			
+			if(!session.isNew() && session.getAttribute("idUser")!=null){
+				login=true;
+				model.addAttribute("idUser",session.getAttribute("idUser"));
+			}
 			
 			User u=userRepository.findOne(id);
 			
@@ -673,8 +714,16 @@ public class MainController {
 			return "config";
 		}
 		
-		@RequestMapping("/SearchPlaylist/{key}")
-		public String serachPlaylist(Model model,@PathVariable String key ){
+		@RequestMapping("/SearchPlaylist")
+		public String serachPlaylist(Model model, HttpSession session,
+				@RequestParam(value = "key", defaultValue = "") String key){
+			
+			boolean login=false;
+			
+			if(!session.isNew() && session.getAttribute("idUser")!=null){
+				login=true;
+				model.addAttribute("idUser",session.getAttribute("idUser"));
+			}
 			
 			List<Playlist> playlists=new ArrayList<>();
 			
@@ -707,7 +756,7 @@ public class MainController {
 //			}
 			
 			
-			model.addAttribute(key);
+			model.addAttribute("key",key);
 			
 			return "searchPlaylist";
 		}
