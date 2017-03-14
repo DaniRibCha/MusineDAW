@@ -676,15 +676,41 @@ public class MainController {
 		@RequestMapping("/SearchPlaylist/{key}")
 		public String serachPlaylist(Model model,@PathVariable String key ){
 			
-//			List<Playlist> playlists=new ArrayList<>();
-//			
-//			playlists=playlistRepository.findByTagId(key);
-//			
-//			model.addAttribute("playlists",playlists);
+			List<Playlist> playlists=new ArrayList<>();
+			
+			Tag t=tagRepository.findByName(key);
+			
+			if(t==null){}else{
+				List<Tag> tags=new ArrayList<>();
+				tags.add(t);
+				playlists=playlistRepository.findByTagsOfPlaylist(tags);
+				model.addAttribute("playlistsTag",playlists);
+			}
+			
+			List<Playlist> pList=playlistRepository.findByTitle(key);
+			
+			if(pList==null){}else{
+				model.addAttribute("playlistsTitle",pList);
+			}
+			
+			Artist a=artistRepository.findByName(key);
+			
+			if(a==null){}else{
+				model.addAttribute("a",a);
+			}
+			
+//			if(a==null && pList==null && t==null) {
+//				model.addAttribute("nothing",true);
+//			}
+//			else {
+//				model.addAttribute("nothing",false);
+//			}
+			
 			
 			model.addAttribute(key);
 			
 			return "searchPlaylist";
 		}
+	
 	
 }
