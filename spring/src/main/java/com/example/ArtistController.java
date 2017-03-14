@@ -16,11 +16,11 @@ public class ArtistController {
 	@Autowired
 	private ArtistRepository artistRepository;
 	
-	@JsonView(Artist.Basic.class)
-	@RequestMapping("/ArtistListBasic")
-	public List<Artist> getArtistsBasic() throws Exception{
-		return artistRepository.findAll();
-	}
+	//@JsonView(Artist.Basic.class)
+	//@RequestMapping("/ArtistListBasic")
+	//public List<Artist> getArtistsBasic() throws Exception{
+		//return artistRepository.findAll();
+	//}
 	
 	
 	interface ArtistSongsView extends Artist.Basic, Artist.Songs, Song.Basic{};
