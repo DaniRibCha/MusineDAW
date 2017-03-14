@@ -193,17 +193,22 @@ public class MainController {
 		//prueba User-Canciones favoritas
 		User u1=new User("Davide", "Italy","pass","davide@gmail.com");
 		User u2=new User("Dani","Spain","pass","dani@gmail.com");
-	
+		User u3=new User("Ruben","Spain","pass","ruben@gmail.com");
+		User u4=new User("Stephanie","Venezuela","pass","stephanie@gmail.com");
+		
 		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
 		
+		userRepository.save(u1);userRepository.save(u2);
+		userRepository.save(u3);userRepository.save(u4);
+	
 		
-		userRepository.save(u1);
-		userRepository.save(u2);
 		
 		u1.addFollowing(u2);
 		u2.addFollowing(u1);
+		u2.addFollowing(u3);
 		userRepository.save(u1);
 		userRepository.save(u2);
+		userRepository.save(u3);
 		//fin User-Canciones favoritas
 		
 		
@@ -453,6 +458,7 @@ public class MainController {
 		
 		User u=userRepository.findOne(id);
 		
+		
 		model.addAttribute("u",u);
 		
 		model.addAttribute("followers",u.getFollowers());
@@ -463,9 +469,17 @@ public class MainController {
 	
 	//el usuario mira sus seguidos
 	@RequestMapping("/MyFollowing/{id}")
-	public String getMyFollowing(Model model, @PathVariable long id){
+	public String getMyFollowing(Model model, @PathVariable long id, 
+			@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
+		
+		if(followName==null){}else{
+			User u1=userRepository.findByName(followName);
+			u.removeFollowing(u1);
+			userRepository.save(u);userRepository.save(u1);
+		}
+		
 		
 		model.addAttribute("u",u);
 		
@@ -476,9 +490,47 @@ public class MainController {
 	
 	//el usuario mira las canciones favoritas de otro usuario
 	@RequestMapping("/UserFavorites/{id}")
-	public String getFavoritesByUser(Model model, @PathVariable long id){
-		
+	public String getFavoritesByUser(Model model, @PathVariable long id, HttpSession session,
+			@RequestParam(value = "follow", required=false) String followName){
+
 		User u=userRepository.findOne(id);
+		
+		boolean login=false;
+		
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
+			login=true;
+			long idUserLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idUserLogged);
+			List<User> followingListUserLogged=uLogged.getFollowing();
+			
+			if(followName==null){//nada
+			}else if(followName.equals("addFollow")){
+				uLogged.addFollowing(u);
+				userRepository.save(uLogged);userRepository.save(u);
+			}else{
+				boolean findedFollow=false;
+				for(int i=0;i<followingListUserLogged.size() && !findedFollow ;++i){
+					if(followingListUserLogged.get(i).getId_user()==u.getId_user())
+						findedFollow=true;
+						uLogged.removeFollowing(u);
+						userRepository.save(uLogged);userRepository.save(u);
+				}
+				
+			}
+			
+			boolean findedFollow=false;
+			for(int i=0;i<followingListUserLogged.size() && !findedFollow ;++i){
+				if(followingListUserLogged.get(i).getId_user()==u.getId_user())
+					findedFollow=true;
+			}
+			
+			model.addAttribute("findedFollow",findedFollow);
+			
+			model.addAttribute("idUser",idUserLogged);
+			
+		}
+		
+		model.addAttribute("login",login);
 		
 		model.addAttribute("u",u);
 		
@@ -505,9 +557,48 @@ public class MainController {
 	
 	//el usuario mira las playlists gustadas de otro usuario
 	@RequestMapping("/UserLikes/{id}")
-	public String getUserLikes(Model model, @PathVariable long id){
+	public String getUserLikes(Model model, @PathVariable long id,HttpSession session,
+			@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
+		
+		boolean login=false;
+		
+
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
+			login=true;
+			long idUserLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idUserLogged);
+			List<User> followingListUserLogged=uLogged.getFollowing();
+			
+			if(followName==null){//nada
+			}else if(followName.equals("addFollow")){
+				uLogged.addFollowing(u);
+				userRepository.save(uLogged);userRepository.save(u);
+			}else{
+				boolean findedFollow=false;
+				for(int i=0;i<followingListUserLogged.size() && !findedFollow ;++i){
+					if(followingListUserLogged.get(i).getId_user()==u.getId_user())
+						findedFollow=true;
+						uLogged.removeFollowing(u);
+						userRepository.save(uLogged);userRepository.save(u);
+				}
+				
+			}
+			
+			boolean findedFollow=false;
+			for(int i=0;i<followingListUserLogged.size() && !findedFollow ;++i){
+				if(followingListUserLogged.get(i).getId_user()==u.getId_user())
+					findedFollow=true;
+			}
+			
+			model.addAttribute("findedFollow",findedFollow);
+			
+			model.addAttribute("idUser",idUserLogged);
+			
+		}
+		
+		model.addAttribute("login",login);
 		
 		model.addAttribute("u",u);
 		
@@ -534,9 +625,48 @@ public class MainController {
 	
 	//el usuario mira las playlists creadas de otro usuario
 	@RequestMapping("/UserPlaylists/{id}")
-	public String getUserCreated(Model model, @PathVariable long id){
+	public String getUserCreated(Model model, @PathVariable long id, HttpSession session,
+			@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
+		
+		
+		boolean login=false;
+		
+		if(!session.isNew() && session.getAttribute("idUser")!=null){
+			login=true;
+			long idUserLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idUserLogged);
+			List<User> followingListUserLogged=uLogged.getFollowing();
+			
+			if(followName==null){//nada
+			}else if(followName.equals("addFollow")){
+				uLogged.addFollowing(u);
+				userRepository.save(uLogged);userRepository.save(u);
+			}else{
+				boolean findedFollow=false;
+				for(int i=0;i<followingListUserLogged.size() && !findedFollow ;++i){
+					if(followingListUserLogged.get(i).getId_user()==u.getId_user())
+						findedFollow=true;
+						uLogged.removeFollowing(u);
+						userRepository.save(uLogged);userRepository.save(u);
+				}
+				
+			}
+			
+			boolean findedFollow=false;
+			for(int i=0;i<followingListUserLogged.size() && !findedFollow ;++i){
+				if(followingListUserLogged.get(i).getId_user()==u.getId_user())
+					findedFollow=true;
+			}
+			
+			model.addAttribute("findedFollow",findedFollow);
+			
+			model.addAttribute("idUser",idUserLogged);
+			
+		}
+		
+		model.addAttribute("login",login);
 		
 		model.addAttribute("u",u);
 		
@@ -568,6 +698,8 @@ public class MainController {
 				model.addAttribute("idUser",session.getAttribute("idUser"));
 			}
 			
+			model.addAttribute("login",login);
+			
 			User u=userRepository.findOne(id);
 			
 			model.addAttribute("u",u);
@@ -588,6 +720,8 @@ public class MainController {
 				login=true;
 				model.addAttribute("idUser",session.getAttribute("idUser"));
 			}
+			
+			model.addAttribute("login",login);
 			
 			User u=userRepository.findOne(id);
 			

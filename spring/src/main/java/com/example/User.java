@@ -179,6 +179,10 @@ public class User {
 	public void addFollowing(User following) {
 		this.following.add(following);
 	}
+	
+	public void removeFollowing(User following) {
+		this.following.remove(following);
+	}
 
 
 	public List<User> getFollowers() {

@@ -65,8 +65,9 @@
     {{#following}}
         <div class="col-md-6 follow">
         <form action="/MyFollowing/{{u.id_user}}" method="post">
-            <div><img src="../img/user.jpg" width="200" height="200" class="img-circle" /> <span>{{name}}</span>
-             <button type="submit" class="btn btn-success follow-btn" name="follow">Following<span class="glyphicon glyphicon-ok"></span> </button></div>
+            <div><a href="/UserPlaylists/{{id_user}}"><img src="../img/user.jpg" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a>
+            <input type="hidden" name="follow" value="{{name}}" />
+             <button type="submit" class="btn btn-success follow-btn">Following<span class="glyphicon glyphicon-ok"></span> </button></div>
            </form>
        </div>
     {{/following}}
