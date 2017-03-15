@@ -348,7 +348,8 @@ public class MainController {
 	//id de la playlist
 	@RequestMapping("/Playlist/{id}")
 	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle) {
+			@RequestParam(value = "favorite", required=false) String favoriteTitle,
+			@RequestParam(value = "like", required=false, defaultValue="") String like) {
 		
 		boolean login=false;
 		
@@ -361,10 +362,31 @@ public class MainController {
 			
 		
 		model.addAttribute("login",login);
-		
 		Playlist p=playlistRepository.findOne(id);
 		
-		model.addAttribute("p",p);
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idLogged);
+			
+			if(like.equals("")){
+			}else{
+				p.addUserlikeOfPlaylist(uLogged);
+				playlistRepository.save(p);
+			}		
+			
+			List<Playlist> likedPlaylist=uLogged.getLikedPlaylists();
+			boolean finded=false;
+			for(int i=0;i<likedPlaylist.size() && !finded;++i){	
+				if(likedPlaylist.get(i).getId_playlist()==p.getId_playlist()){
+					finded=true;
+				}
+			}
+			model.addAttribute("findedLike",finded);
+			
+			
+				
+		}
+		
 		
 		List<Song> songs= p.getSongsOfPlaylist();
 		
@@ -397,11 +419,24 @@ public class MainController {
 						finded=true;
 					}
 				}
+				model.addAttribute("finded",finded);
 
 			}
 		}
 		
 		model.addAttribute("songs",songs);
+		
+		List<Playlist> topPlaylists=new ArrayList<>();
+		
+		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("topPlaylists",topPlaylists);
+		
+		
+		
+		
+		
+		model.addAttribute("p",p);
 		
 		return "Playlist";
 	}
@@ -420,7 +455,6 @@ public class MainController {
 			long idUserLogged=((Long)(session.getAttribute("idUser")));
 			User uLogged=userRepository.findOne(idUserLogged);
 			Artist a=artistRepository.findOne(id);
-			List<User> followingListArtist=a.getFollowersOfArtist();
 			
 			if(followName==null){
 			}else if(followName.equals("removeFollow")){
@@ -431,10 +465,11 @@ public class MainController {
 				artistRepository.save(a);
 			}
 			
+			List<User> followersArtist=a.getFollowersOfArtist();
 			//busca si el usuario esta seguido desde el usuario logueado
 			boolean findedFollow=false;
-			for(int i=0;i<followingListArtist.size() && !findedFollow ;++i){
-				if(followingListArtist.get(i).getId_user()==uLogged.getId_user())
+			for(int i=0;i<followersArtist.size() && !findedFollow ;++i){
+				if(followersArtist.get(i).getId_user()==uLogged.getId_user())
 					findedFollow=true;
 			}
 			
