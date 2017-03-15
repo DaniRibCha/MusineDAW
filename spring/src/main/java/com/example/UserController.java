@@ -91,7 +91,8 @@ public class UserController {
 		
 		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
-		
+		//cheque el atributo booelan idLogged
+		//para trazar la ruta dinamica de cada playlist desde la plantilla
 		if(login){
 			long idLogged=((Long)(session.getAttribute("idUser")));
 			
@@ -149,7 +150,8 @@ public class UserController {
 	public String getIndex(HttpSession session, Model model){
 		
 		boolean login=false;
-		
+		//si la sesion noes nueva y tiene el id de usuario logeado
+		//añadida del id del usuario logeado al modelo
 		if(!session.isNew() && session.getAttribute("idUser")!=null){
 			login=true;
 			model.addAttribute("idUser",session.getAttribute("idUser"));
@@ -180,7 +182,8 @@ public class UserController {
 		
 		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
-
+		//cheque el atributo booelan idLogged
+		//para trazar la ruta dinamica de cada playlist desde la plantilla
 		if(login){
 			long idLogged=((Long)(session.getAttribute("idUser")));
 			
