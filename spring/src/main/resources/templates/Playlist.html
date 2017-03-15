@@ -77,16 +77,29 @@
                 {{/login}}
                 </div>
                 <p id="descripcion">{{p.description}}</p>
+                
+                
+                 {{#login}}
+                 {{#findedLike}}
+                {{/findedLike}}
+                {{^findedLike}}
+               
                 <div class="container">
                     <div class="row" id="playlist-buttons">
                         <div class="col-md-6" id="actions">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-danger">Like <span class="glyphicon glyphicon-star "></span></button>
-                                <button type="button" class="btn btn-success">Share <span class="glyphicon glyphicon-send "></span> </button>
+                                 <form action="/Playlist/{{p.id_playlist}}" method="post">
+                                <input type="hidden" name="like" value="{{p.title}}" >
+                    			<input type="submit" value="Like">
+                            	</form>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/findedLike}}
+                
+     
+                {{/login}}
             </div>
             <div id="tracklist">
                 <div class="well">
@@ -112,18 +125,17 @@
         <div class="col-md-4">
             <div class="recomendaciones">
                 <h3>Recommendation Playlists</h3>
-                <ul class="list-group">
-                    <li class="list-group-item recomendaciones-list">
-                        <label class="recommended-playlist"> 1ª Recommendation <img class="img-responsive" src="http://lorempixel.com/400/200"> </label>
-                    </li>
-                    <li class="list-group-item recomendaciones-list">
-                        <label class="recommended-playlist"> 2ª Recommendation <img class="img-responsive" src="http://lorempixel.com/400/200"> </label>
-                    </li>
-                    <li class="list-group-item recomendaciones-list">
-                        <label class="recommended-playlist"> 3rd Recommendation <img class="img-responsive" src="http://lorempixel.com/400/200"> </label>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>Top Playlists</h4>
+                    <div class="row">
+                        <ul class="list-unstyled" style="margin-left:15px">
+                        {{#topPlaylists}}
+                            <li><a href="/Playlist/{{id_playlist}}">{{title}}</a> </li>
+                        {{/topPlaylists}}
+                        </ul>
+                	</div>
+    			</div>
+    		</div>
+    	</div>
 </body>
