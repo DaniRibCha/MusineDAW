@@ -64,12 +64,12 @@
                 <h3 id="titulo-playlist">{{p.title}}</h3>
                 <div class="btn-group" id="suscripcion"> 
                 {{#login}}
-                {{#finded}}
+                {{#findedLogged}}
                 <span><a href="/MyPlaylists/{{p.creatorId}}">{{p.creatorName}} </a></span>
-                {{/finded}}
-                {{^finded}}
+                {{/findedLogged}}
+                {{^findedLogged}}
                 <span><a href="/UserPlaylists/{{p.creatorId}}">{{p.creatorName}} </a></span>
-                {{/finded}}
+                {{/findedLogged}}
                 {{/login}}
    
                 {{^login}}
