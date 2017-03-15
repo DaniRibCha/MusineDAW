@@ -57,7 +57,20 @@
         <div class="container">
             <div class="col-md-4 name-jumbotron">
                 <p>{{a.name}}
-                    <button type="button" class="btn btn-success follow-btn">Following<span class="glyphicon glyphicon-ok"></span> </button>
+                {{#login}}
+                {{#findedFollow}}
+                <form action="/Artist/{{a.id_artist}}" method="post" style="textalign:center;position: relative;left: 10em;">
+                    <input type="hidden" name="follow" value="removeFollow">
+                    <button type="submit" class="btn btn-success follow-btn" >Following<span class="glyphicon glyphicon-ok"></span> </button>
+                </form>
+                {{/findedFollow}}
+                {{^findedFollow}}
+                <form action="/Artist/{{a.id_artist}}" method="post" style="textalign:center;position: relative;left: 10em;">
+                    <input type="hidden" name="follow" value="addFollow">
+                	<button type="submit" class="btn btn-danger follow-btn">Not Following</button>
+                </form>
+                {{/findedFollow}}
+                {{/login}}
                 </p>
                 <p><img class="img-responsive" id="userlogo" src="https://i1.sndcdn.com/avatars-000263373303-edxcgq-t500x500.jpg" width="60" height="55"> </p>
             </div>
@@ -67,7 +80,7 @@
             </div>
             <div class="col-md-4 description">
                 <div id="Caja4">
-                    <p>Related tags:</p> {{#tags}}<u><b><big> <a class="tag" href="searchPlaylist.html"> {{name}}  </a></big></b></u>{{/tags}}</div>
+                    <p>Related tags:</p> {{#tags}}<u><b><big> <a class="tag" href="/SearchPlaylist/{{name}}"> {{name}}  </a></big></b></u>{{/tags}}</div>
             </div>
             <div class="col-md-2 description">
                 <p>{{a.country}}</p>
