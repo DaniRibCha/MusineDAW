@@ -84,12 +84,12 @@
                     {{#songs}}
                     <hr>
                     {{#login}}
-                    {{#findedFavorite}}
+                    {{#idLogged}}
                     <div><span class="glyphicon glyphicon-star"></span>
-                    {{/findedFavorite}}
-                    {{^findedFavorite}}
+                    {{/idLogged}}
+                    {{^idLogged}}
                     <div><span class="glyphicon glyphicon-star-empty"></span>
-                    {{/findedFavorite}}
+                    {{/idLogged}}
                     
                     {{/login}}
                         <div><span>Title: </span>{{title}} <a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
