@@ -47,7 +47,7 @@ public class User {
 	@ManyToMany(mappedBy="following")
 	private List<User> followers = new ArrayList<>();	
 	
-	@OneToMany
+	@ManyToMany
 	private List<Song> favoriteSongs= new ArrayList<>();
 	
 	@ManyToMany(mappedBy="UserlikesOfPlaylist")

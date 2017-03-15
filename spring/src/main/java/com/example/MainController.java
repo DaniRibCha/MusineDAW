@@ -217,7 +217,7 @@ public class MainController {
 		User u24=new User("Juan","Venezuela","pass","juan@gmail.com");
 		
 		//prueba User-Canciones favoritas
-		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
+		u1.addFavoriteSong(s1); //u1.addFavoriteSong(s2);
 		
 		userRepository.save(u1);userRepository.save(u2);
 		userRepository.save(u3);userRepository.save(u4);
@@ -296,6 +296,7 @@ public class MainController {
 		Playlist pCreated2=new Playlist("myPlaylistCreated2",u2.getName(),u2.getId_user());
 		pCreated2.addTagOfPlaylist(t2);
 		pCreated2.addSongOfPlaylist(s2);
+		pCreated2.addSongOfPlaylist(s1);
 		tagRepository.save(t2);
 		playlistRepository.save(pCreated2);
 		
@@ -360,7 +361,31 @@ public class MainController {
 		
 		model.addAttribute("p",p);
 		
-		model.addAttribute("songs", p.getSongsOfPlaylist());
+		List<Song> songs= p.getSongsOfPlaylist();
+		
+		//Song s1=songs.get(1);
+		//s1.setIdLogged(true);
+		
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			boolean finded;
+			List<User> users=new ArrayList<>();
+			Song s;
+			for(int i=0;i<songs.size();++i){
+				s=songs.get(i);
+				users=s.getUsersFavoriteSong();
+				finded=false;
+				for(int j=0;j<users.size() && !finded;++j){
+					if(users.get(j).getId_user()==idLogged){
+						s.setIdLogged(true);
+						finded=true;
+					}
+				}
+
+			}
+		}
+		
+		model.addAttribute("songs",songs);
 		
 		return "Playlist";
 	}

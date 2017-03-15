@@ -40,26 +40,53 @@ public class Song{
 	@ManyToMany(mappedBy="songsOfPlaylist")
 	private List<Playlist> playlistsOfSong= new ArrayList<>();
 	
-	@OneToMany(mappedBy="favoriteSongs")
-	private List<User> UsersFavoriteSong= new ArrayList<>();
+//	@OneToMany(mappedBy="favoriteSongs")
+//	private List<User> usersFavoriteSong= new ArrayList<>();
+	
+	@ManyToMany(mappedBy="favoriteSongs")
+	private List<User> usersFavoriteSong= new ArrayList<>();
+	
+	private boolean idLogged;
 	
 	public Song(String title, String link_youtube) {
 		super();
 		this.title = title;
 		this.link_youtube = link_youtube;
+		idLogged=false;
 	}
+	
+	
 	
 	protected Song() {
 	}
 
+	
+	
 
-	public List<User> getUsersFavoriteSong() {
-		return UsersFavoriteSong;
+	public boolean isIdLogged() {
+		return idLogged;
 	}
+
+
+
+	public void setIdLogged(boolean idLogged) {
+		this.idLogged = idLogged;
+	}
+
+
+	
+	
+	public List<User> getUsersFavoriteSong() {
+		return usersFavoriteSong;
+	}
+
+
 
 	public void setUsersFavoriteSong(List<User> usersFavoriteSong) {
-		UsersFavoriteSong = usersFavoriteSong;
+		this.usersFavoriteSong = usersFavoriteSong;
 	}
+
+
 
 	public List<Playlist> getPlaylistsOfSong() {
 		return playlistsOfSong;
