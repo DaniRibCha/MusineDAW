@@ -68,7 +68,8 @@ public class Playlist {
 	@ManyToMany
 	private List<User> UserlikesOfPlaylist= new ArrayList<>();
 	
-	private String pathCreator;
+	private boolean idLogged;
+	
 	
 	
 	public Playlist(String title, String creatorName, long creatorId) {
@@ -82,20 +83,19 @@ public class Playlist {
 		this.date = new java.sql.Date(utilDate.getTime());
 		this.creatorName=creatorName;
 		this.creatorId=creatorId;
-		this.pathCreator="UserPlaylists";
+		this.idLogged=false;
 		
 	}
 	
 	public Playlist() {}
 	
-	
 
-	public String getPathCreator() {
-		return pathCreator;
+	public boolean isIdLogged() {
+		return idLogged;
 	}
 
-	public void setPathCreator(String pathCreator) {
-		this.pathCreator = pathCreator;
+	public void setIdLogged(boolean idLogged) {
+		this.idLogged = idLogged;
 	}
 
 	public long getId_playlist() {

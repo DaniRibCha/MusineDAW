@@ -490,7 +490,7 @@ public class MainController {
 		for(int i=0;i<likedPlaylists.size();++i){
 			Playlist p=likedPlaylists.get(i);
 			if(p.getCreatorId()==id){
-				p.setPathCreator("MyPlaylists");
+				p.setIdLogged(true);
 			}
 		}
 		
@@ -703,7 +703,7 @@ public class MainController {
 			for(int i=0;i<likedPlaylists.size();++i){
 				Playlist p=likedPlaylists.get(i);
 				if(p.getCreatorId()==idLogged){
-					p.setPathCreator("MyPlaylists");
+					p.setIdLogged(true);
 				}
 			}
 		}
@@ -999,7 +999,7 @@ public class MainController {
 					for(int i=0;i<playlists.size();++i){
 						Playlist p=playlists.get(i);
 						if(p.getCreatorId()==idLogged){
-							p.setPathCreator("MyPlaylists");
+							p.setIdLogged(true);;
 						}
 					}
 				}
@@ -1015,7 +1015,7 @@ public class MainController {
 					for(int i=0;i<pList.size();++i){
 						Playlist p=pList.get(i);
 						if(p.getCreatorId()==idLogged){
-							p.setPathCreator("MyPlaylists");
+							p.setIdLogged(true);;
 						}
 					}
 				}
@@ -1088,7 +1088,7 @@ public class MainController {
 					for(int i=0;i<playlists.size();++i){
 						Playlist p=playlists.get(i);
 						if(p.getCreatorId()==idLogged){
-							p.setPathCreator("MyPlaylists");
+							p.setIdLogged(true);;
 						}
 					}
 				}

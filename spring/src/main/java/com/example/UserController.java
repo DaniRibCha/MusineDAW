@@ -91,13 +91,14 @@ public class UserController {
 		
 		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
+		
 		if(login){
 			long idLogged=((Long)(session.getAttribute("idUser")));
 			
 			for(int i=0;i<wallPlaylists.size();++i){
 				Playlist p=wallPlaylists.get(i);
 				if(p.getCreatorId()==idLogged){
-					p.setPathCreator("MyPlaylists");
+					p.setIdLogged(true);
 				}
 			}
 		}
@@ -179,13 +180,14 @@ public class UserController {
 		
 		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
 		
+
 		if(login){
 			long idLogged=((Long)(session.getAttribute("idUser")));
 			
 			for(int i=0;i<wallPlaylists.size();++i){
 				Playlist p=wallPlaylists.get(i);
 				if(p.getCreatorId()==idLogged){
-					p.setPathCreator("MyPlaylists");
+					p.setIdLogged(true);
 				}
 			}
 		}
