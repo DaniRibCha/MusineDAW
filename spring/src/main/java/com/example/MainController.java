@@ -346,7 +346,8 @@ public class MainController {
 	
 	//id de la playlist
 	@RequestMapping("/Playlist/{id}")
-	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id) {
+	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id,
+			@RequestParam(value = "favorite", required=false) String favoriteTitle) {
 		
 		boolean login=false;
 		
@@ -365,6 +366,15 @@ public class MainController {
 		model.addAttribute("p",p);
 		
 		List<Song> songs= p.getSongsOfPlaylist();
+		
+		if(favoriteTitle==null){
+		}else{
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			Song s=songRepository.findByTitle(favoriteTitle);
+			User u=userRepository.findOne(idLogged);
+			u.addFavoriteSong(s);
+			userRepository.save(u);
+		}
 		
 		//codigo para devolver si la cancion esta en los favoritos
 		//del usuario logeado
@@ -396,7 +406,8 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Artist/{id}")
-	public String songsArtist(Model model, @PathVariable long id, HttpSession session) {
+	public String songsArtist(Model model, @PathVariable long id, HttpSession session,
+			@RequestParam(value = "favorite", required=false) String favoriteTitle) {
 		
 		boolean login=false;
 		
@@ -419,6 +430,15 @@ public class MainController {
 		model.addAttribute("n_followers",n_followers);
 		
 		List<Song> songs=a.getSongsOfArtist();
+		
+		if(favoriteTitle==null){
+		}else{
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			Song s=songRepository.findByTitle(favoriteTitle);
+			User u=userRepository.findOne(idLogged);
+			u.addFavoriteSong(s);
+			userRepository.save(u);
+		}
 		
 		//codigo para devolver si la cancion esta en los favoritos
 				//del usuario logeado
