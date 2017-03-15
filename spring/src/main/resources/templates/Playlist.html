@@ -62,11 +62,21 @@
         <div class="col-md-8">
             <div class="well" id="general-info">
                 <h3 id="titulo-playlist">{{p.title}}</h3>
-                <div class="btn-group" id="suscripcion"> <span><a href="searchUtent_playlist.html">Username </a></span>
-                    <button type="button" class="btn btn-primary">Follow</button>
-                    <button type="button" class="btn  disabled"> 125.354 </button>
+                <div class="btn-group" id="suscripcion"> 
+                {{#login}}
+                {{#finded}}
+                <span><a href="/MyPlaylists/{{p.creatorId}}">{{p.creatorName}} </a></span>
+                {{/finded}}
+                {{^finded}}
+                <span><a href="/UserPlaylists/{{p.creatorId}}">{{p.creatorName}} </a></span>
+                {{/finded}}
+                {{/login}}
+   
+                {{^login}}
+                 <span><a href="/UserPlaylists/{{p.creatorId}}">{{p.creatorName}} </a></span>
+                {{/login}}
                 </div>
-                <p id="descripcion">Here goes a brief description of the playlist or any other information about the playlist</p>
+                <p id="descripcion">{{p.description}}</p>
                 <div class="container">
                     <div class="row" id="playlist-buttons">
                         <div class="col-md-6" id="actions">
