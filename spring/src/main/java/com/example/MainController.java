@@ -67,6 +67,7 @@ public class MainController {
 				Artist a22=new Artist("Dvicio", "España");
 				Artist a23=new Artist("Daughtry", "USA");
 				
+				
 				artistRepository.save(a1);
 				artistRepository.save(a2);
 				artistRepository.save(a3);
@@ -407,15 +408,41 @@ public class MainController {
 	
 	@RequestMapping("/Artist/{id}")
 	public String songsArtist(Model model, @PathVariable long id, HttpSession session,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle) {
+			@RequestParam(value = "favorite", required=false) String favoriteTitle,
+			@RequestParam(value = "follow", required=false) String followName) {
 		
 		boolean login=false;
-		
-		//si la sesion noes nueva y tiene el id de usuario logeado
-		//añadida del id del usuario logeado al modelo
+		//codigo para poner la posibilidad de seguir y no seguir en la
+		//pagina publica de los otros usuarios
 		if(!session.isNew() && session.getAttribute("idUser")!=null){
 			login=true;
 			model.addAttribute("idUser",session.getAttribute("idUser"));
+			long idUserLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idUserLogged);
+			Artist a=artistRepository.findOne(id);
+			List<User> followingListArtist=a.getFollowersOfArtist();
+			
+			if(followName==null){
+			}else if(followName.equals("removeFollow")){
+				a.removeFollowerOfArtist(uLogged);
+				artistRepository.save(a);
+			}else if(followName.equals("addFollow")){
+				a.addFollowerOfArtist(uLogged);
+				artistRepository.save(a);
+			}
+			
+			//busca si el usuario esta seguido desde el usuario logueado
+			boolean findedFollow=false;
+			for(int i=0;i<followingListArtist.size() && !findedFollow ;++i){
+				if(followingListArtist.get(i).getId_user()==uLogged.getId_user())
+					findedFollow=true;
+			}
+			
+			//findedFollow sirve a la Plantilla para poner el boton de seguir o no seguir mas
+			model.addAttribute("findedFollow",findedFollow);
+			
+			model.addAttribute("idUser",idUserLogged);
+			
 		}
 		
 		model.addAttribute("login",login);

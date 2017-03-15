@@ -46,6 +46,7 @@ public class Artist {
 	@ManyToMany
 	private List<Tag> tagsOfArtist= new ArrayList<>();
 	
+	private boolean idLogged;
 	
 	public Artist() {
 	}
@@ -56,6 +57,29 @@ public class Artist {
 		this.name = name;
 		this.country = country;
 		this.followers=0;
+		idLogged=false;
+	}
+	
+	
+
+
+	public long getId_artist() {
+		return id_artist;
+	}
+
+
+	public void setId_artist(long id_artist) {
+		this.id_artist = id_artist;
+	}
+
+
+	public boolean isIdLogged() {
+		return idLogged;
+	}
+
+
+	public void setIdLogged(boolean idLogged) {
+		this.idLogged = idLogged;
 	}
 
 
@@ -97,7 +121,12 @@ public class Artist {
 
 	public void addFollowerOfArtist(User followerOfArtist) {
 		this.followersOfArtist.add(followerOfArtist);
-		this.followers=+1;
+		this.followers=this.followers+1;
+	}
+	
+	public void removeFollowerOfArtist(User followerOfArtist) {
+		this.followersOfArtist.remove(followerOfArtist);
+		this.followers=this.followers-1;
 	}
 
 
