@@ -418,7 +418,33 @@ public class MainController {
 		
 		model.addAttribute("n_followers",n_followers);
 		
-		model.addAttribute("songs", a.getSongsOfArtist());
+		List<Song> songs=a.getSongsOfArtist();
+		
+		//codigo para devolver si la cancion esta en los favoritos
+				//del usuario logeado
+				if(login){//si un usuario esta logeado
+					long idLogged=((Long)(session.getAttribute("idUser")));
+					boolean finded;
+					List<User> users=new ArrayList<>();
+					Song s;
+					for(int i=0;i<songs.size();++i){
+						s=songs.get(i);
+						users=s.getUsersFavoriteSong();
+						finded=false;
+						//para cada usuario que tiene esa cancion en los favoritos
+						//si es el usuario logeado se pone el atributo boolean
+						//de la cancion a true->la plantilla chequea ese atributo
+						for(int j=0;j<users.size() && !finded;++j){
+							if(users.get(j).getId_user()==idLogged){
+								s.setIdLogged(true);
+								finded=true;
+							}
+						}
+
+					}
+				}
+		
+		model.addAttribute("songs", songs);
 		
 		model.addAttribute("tags",a.getTagsOfArtist());
 		
