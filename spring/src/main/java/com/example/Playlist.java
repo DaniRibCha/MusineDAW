@@ -66,7 +66,7 @@ public class Playlist {
 	private List<Tag> tagsOfPlaylist= new ArrayList<>();
 	
 	@ManyToMany
-	private List<User> UserlikesOfPlaylist= new ArrayList<>();
+	private List<User> userlikesOfPlaylist= new ArrayList<>();
 	
 	private boolean idLogged;
 	
@@ -149,16 +149,16 @@ public class Playlist {
 	
 
 	public List<User> getUserlikesOfPlaylist() {
-		return UserlikesOfPlaylist;
+		return userlikesOfPlaylist;
 	}
 
 	public void addUserlikeOfPlaylist(User userlikeOfPlaylist) {
-		this.UserlikesOfPlaylist.add(userlikeOfPlaylist);
+		this.userlikesOfPlaylist.add(userlikeOfPlaylist);
 		this.nLikes =+ 1;
 	}
 	
 	public void removeUserlikeOfPlaylist(User userlikeOfPlaylist) {
-		this.UserlikesOfPlaylist.remove(userlikeOfPlaylist);
+		this.userlikesOfPlaylist.remove(userlikeOfPlaylist);
 		this.nLikes =- 1;
 	}
 	

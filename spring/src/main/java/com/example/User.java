@@ -50,7 +50,7 @@ public class User {
 	@ManyToMany
 	private List<Song> favoriteSongs= new ArrayList<>();
 	
-	@ManyToMany(mappedBy="UserlikesOfPlaylist")
+	@ManyToMany(mappedBy="userlikesOfPlaylist")
 	private List<Playlist> likedPlaylists= new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)

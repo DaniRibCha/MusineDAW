@@ -547,7 +547,8 @@ public class MainController {
 	//el usuario mira sus playlists gustadas
 	//pagina privada usuario
 	@RequestMapping("/MyLikes/{id}")
-	public String getMyLikes(Model model, @PathVariable long id){
+	public String getMyLikes(Model model, @PathVariable long id,
+			@RequestParam(value = "like", required=false ) Long likeIdPlaylist){
 		
 		User u=userRepository.findOne(id);
 		
@@ -568,6 +569,15 @@ public class MainController {
 		model.addAttribute("n_created",n_created);
 		
 		List<Playlist> likedPlaylists=u.getLikedPlaylists();
+		
+		if(likeIdPlaylist==null){
+		}else{
+			Playlist p=playlistRepository.findOne(likeIdPlaylist);
+			p.removeUserlikeOfPlaylist(u);
+			playlistRepository.save(p);
+			likedPlaylists.remove(p);
+		}
+		
 		//codigo para trazar la ruta del creador de la playlist
 		//si el creador es el usuario logueado->la plantilla pone
 		//ruta="MyPlaylists/{id}" sino "UserPlaylists/{id}" 
