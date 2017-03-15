@@ -83,14 +83,21 @@
                     <div class="container">
                         <div class="col-md-8">
                             <div class="text-center"> <span>List tracks</span> </div>
-                            <hr>
                             {{#songs}}
-                            <div class="row"> <span class="glyphicon glyphicon-star"></span>
-                                <div class="col-md-12"> <span>Title: </span>{{title}}<a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
-                                    <p><span>Artist: </span>{{#artistsOfSong}} {{name}} {{/artistsOfSong}}</p>
-                                </div>
-                            </div>
-                            {{/songs}}
+                    <hr>
+                    {{#login}}
+                    {{#idLogged}}
+                    <span class="glyphicon glyphicon-star"></span>
+                    {{/idLogged}}
+                    {{^idLogged}}
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                    {{/idLogged}}
+                    
+                    {{/login}}
+                        <div><span>Title: </span>{{title}} <a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                            <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span></p>
+                        </div>
+                    {{/songs}}
                             <hr>
         
                         </div>
