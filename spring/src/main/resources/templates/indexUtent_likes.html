@@ -111,6 +111,10 @@
                                 <p><span class="glyphicon glyphicon-thumbs-up"></span> {{nLikes}} <span class="glyphicon glyphicon-list"></span> {{nTracks}} </p>
                                 <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="/SearchPlaylist/{{name}}">{{name}}</a>{{/tagsOfPlaylist}}</p>
                                 <p style="text-align:right"><a class="opcion_playlist"></a> </p>
+                                <form action="/MyLikes/{{u.id_user}}" method="post">
+                                <input type="hidden" name="like" value="{{id_playlist}}" >
+                    			<input type="submit" value="Not like">
+                            	</form>
                             </ul>
                         </th>
                     </tr>
