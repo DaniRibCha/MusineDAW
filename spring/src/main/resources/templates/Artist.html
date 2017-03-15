@@ -86,11 +86,11 @@
                             {{#songs}}
                     <hr>
                     {{#login}}
-                    {{#idLogged}}
-                    <span class="glyphicon glyphicon-star"></span>
-                    {{/idLogged}}
                     {{^idLogged}}
-                    <span class="glyphicon glyphicon-star-empty"></span>
+                    <form action="/Artist/{{a.id_artist}}" method="post">
+                    <input type="hidden" name="favorite" value="{{title}}" >
+                    <input type="submit" value="Add favorites"><span class="glyphicon glyphicon-star"></span>
+                    </form>
                     {{/idLogged}}
                     
                     {{/login}}
