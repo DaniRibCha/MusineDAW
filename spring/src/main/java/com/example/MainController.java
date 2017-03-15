@@ -375,13 +375,16 @@ public class MainController {
 			}		
 			
 			List<Playlist> likedPlaylist=uLogged.getLikedPlaylists();
-			boolean finded=false;
-			for(int i=0;i<likedPlaylist.size() && !finded;++i){	
+			boolean findedLike=false;
+			for(int i=0;i<likedPlaylist.size() && !findedLike;++i){	
 				if(likedPlaylist.get(i).getId_playlist()==p.getId_playlist()){
-					finded=true;
+					findedLike=true;
 				}
 			}
-			model.addAttribute("findedLike",finded);
+			model.addAttribute("findedLike",findedLike);
+			
+			if(p.getId_playlist()==idLogged)
+				model.addAttribute("findedLogged",true);
 			
 			
 				
@@ -390,39 +393,45 @@ public class MainController {
 		
 		List<Song> songs= p.getSongsOfPlaylist();
 		
-		if(favoriteTitle==null){
-		}else{
-			long idLogged=((Long)(session.getAttribute("idUser")));
-			Song s=songRepository.findByTitle(favoriteTitle);
-			User u=userRepository.findOne(idLogged);
-			u.addFavoriteSong(s);
-			userRepository.save(u);
+		if(login){
+			if(favoriteTitle==null){
+			}else{
+				long idLogged=((Long)(session.getAttribute("idUser")));
+				Song s=songRepository.findByTitle(favoriteTitle);
+				User u=userRepository.findOne(idLogged);
+				u.addFavoriteSong(s);
+				userRepository.save(u);
+			}
 		}
 		
+		boolean findedFavorite=false;
 		//codigo para devolver si la cancion esta en los favoritos
 		//del usuario logeado
-		if(login){//si un usuario esta logeado
+		if(login && session.getAttribute("idUser")!=null){//si un usuario esta logeado
 			long idLogged=((Long)(session.getAttribute("idUser")));
-			boolean finded;
 			List<User> users=new ArrayList<>();
 			Song s;
 			for(int i=0;i<songs.size();++i){
 				s=songs.get(i);
 				users=s.getUsersFavoriteSong();
-				finded=false;
+				findedFavorite=false;
 				//para cada usuario que tiene esa cancion en los favoritos
 				//si es el usuario logeado se pone el atributo boolean
 				//de la cancion a true->la plantilla chequea ese atributo
-				for(int j=0;j<users.size() && !finded;++j){
+				for(int j=0;j<users.size() && !findedFavorite;++j){
 					if(users.get(j).getId_user()==idLogged){
 						s.setIdLogged(true);
-						finded=true;
+						findedFavorite=true;
 					}
 				}
-				model.addAttribute("finded",finded);
+				
 
 			}
 		}
+		
+		model.addAttribute("findedFavorite",findedFavorite);
+		
+		
 		
 		model.addAttribute("songs",songs);
 		
