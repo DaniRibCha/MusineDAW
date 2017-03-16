@@ -137,12 +137,12 @@
                 </div>
                  
                 <div class="well">
-                    <h4>Related Artists</h4>
+                    <h4>Top Artists</h4>
                     <div class="row">
                         <ul class="list-unstyled" style="margin-left:15px">
-                            <li><a href="Artist.html">Artist 1</a> </li>
-                            <li><a href="Artist.html">Artist 2</a> </li>
-                            <li><a href="Artist.html">Artist 3</a> </li>
+                            {{#topArtists}}
+                            <li><a href="/Artist/{{id_artist}}">{{name}}</a> </li>
+                      		  {{/topArtists}}
                         </ul>
                     </div>
                     <!-- /.row -->
