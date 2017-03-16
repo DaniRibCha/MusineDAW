@@ -124,16 +124,18 @@
             </div>
             <div id="playlists-grupo" class="col-md-4">
                 <div class="well">
-                    <h4>Related Palylists</h4>
+                    <h4>Top Playlist</h4>
                     <div class="row">
-                        <ul class="list-unstyled" style="margin-left:15px">
-                            <li><a href="Playlist.html">Playlist 1</a> </li>
-                            <li><a href="Playlist.html">Playlist 2</a> </li>
-                            <li><a href="Playlist.html">Playlist 3</a> </li>
+                          <ul class="list-unstyled" style="margin-left:15px">
+                       		 {{#topPlaylists}}
+                            <li><a href="/Playlist/{{id_playlist}}">{{title}}</a> </li>
+                      		  {{/topPlaylists}}
                         </ul>
+
                     </div>
                     <!-- /.row -->
                 </div>
+                 
                 <div class="well">
                     <h4>Related Artists</h4>
                     <div class="row">

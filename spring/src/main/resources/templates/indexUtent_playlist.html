@@ -112,6 +112,10 @@
                                 <p>{{#tagsOfPlaylist}}<a class="tag" title="{{name}}" href="/SearchPlaylist/{{name}}">{{name}}</a>{{/tagsOfPlaylist}}</p>
                                 <p style="text-align:right"><a class="opcion_playlist"></a> </p>
                             	<a href="/EditPlaylist/{{id_playlist}}"><span class="glyphicon glyphicon-pencil"> Edit</span></a>
+                            	<form action="/MyPlaylists/{{u.id_user}}" method="post">
+                				<input type="submit" value="Remove" class="pull-right"><span class="glyphicon glyphicon-trash pull-right"></span>
+                				<input type="hidden" name="createdPlaylist" value="{{id_playlist}}" >
+                				</form>
                             </ul>
                         </th>
                     </tr>

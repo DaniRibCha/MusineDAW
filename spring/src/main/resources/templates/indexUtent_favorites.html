@@ -102,9 +102,10 @@
                 <form action="/MyFavorites/{{u.id_user}}" method="post">
                 <input type="submit" value="Remove" class="pull-right"><span class="glyphicon glyphicon-trash pull-right"></span>
                 <input type="hidden" name="favorite" value="{{title}}" >
+                </form>
                 <span>Title: {{title}} </span><a href="{{link_youtube}}" class="pull-right"> Link Youtube</a>
                     <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span> </p>
-                </form>
+                
                 </div>
             {{/songs}}
             </div>
