@@ -195,7 +195,7 @@ public class MainController {
 		
 		
 		//Users
-		User u1=new User("Davide", "Italy","pass","davide@gmail.com");
+		User u1=new User("Davide", "Italy","pass","davide@gmail.com");u1.addRole("USER");
 		User u2=new User("Dani","Spain","pass","dani@gmail.com");
 		User u3=new User("Ruben","Spain","pass","ruben@gmail.com");
 		User u4=new User("Stephanie","Venezuela","pass","stephanie@gmail.com");

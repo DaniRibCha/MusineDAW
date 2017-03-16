@@ -38,7 +38,7 @@ public class User {
 	private String email;
 	
 	@ElementCollection(fetch = FetchType.EAGER) 
-	private List<String> roles;
+	private List<String> roles = new ArrayList<>();;
 	
 	@ManyToMany(mappedBy="followersOfArtist")
 	private List<Artist> followingArtists= new ArrayList<>();

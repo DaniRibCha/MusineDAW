@@ -56,7 +56,7 @@ public class UserController {
 			String psw=u.getPasswordHash();
 			if(password.equals(psw)){
 				login=true;
-				u.addRole("USER");
+				
 				userRepository.save(u);
 				//session.setMaxInactiveInterval(30);
 				session.setAttribute("idUser", u.getId_user());
@@ -64,6 +64,13 @@ public class UserController {
 				session.invalidate();
 				return "login";
 			}
+		}
+		else{
+			u=new User(userName,"",password,email);
+			u.addRole("USER");
+			userRepository.save(u);
+			login=true;
+			session.setAttribute("idUser", u.getId_user());
 		}
 		
 		model.addAttribute("idUser",session.getAttribute("idUser"));
