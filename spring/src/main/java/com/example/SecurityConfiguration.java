@@ -61,6 +61,7 @@ protected void configure(HttpSecurity http) throws Exception {
  http.authorizeRequests().antMatchers("//seguidos_otroUsuario").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("//seguidos").hasAnyRole("USER");
  http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
+ http.authorizeRequests().antMatchers("/Config/{id}").hasAnyRole("USER"); 
 
  // Login form
  http.formLogin().loginPage("/login");
