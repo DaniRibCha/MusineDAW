@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class MainController {
 	
 	@Autowired
 	private TagRepository tagRepository;
+	
+	@Autowired
+	private UserComponent userComponent;
 	
 	
 	@PostConstruct
@@ -195,30 +199,30 @@ public class MainController {
 		
 		
 		//Users
-		User u1=new User("Davide", "Italy","pass","davide@gmail.com");u1.addRole("USER");
-		User u2=new User("Dani","Spain","pass","dani@gmail.com");
+		User u1=new User("Davide", "Italy","pass","davide@gmail.com","ROLE_USER");
+		User u2=new User("Dani","Spain","pass","dani@gmail.com","ROLE_USER");
 		User u3=new User("Ruben","Spain","pass","ruben@gmail.com");
-		User u4=new User("Stephanie","Venezuela","pass","stephanie@gmail.com");
-		User u5=new User("Carlos","Mexico","pass","carlos@gmail.com");
-		User u6=new User("Patricia","Republica Dominicana","pass","patricia@gmail.com");
-		User u7=new User("Peter","USA","pass","peter@gmail.com");
-		User u8=new User("Manuel","Colombia","pass","manuel@gmail.com");
-		User u9=new User("Elizabeth","U.K.","pass","elizabeth@gmail.com");
-		User u10=new User("Ingrid","Mexico","pass","ingrid@gmail.com");
-		User u11=new User("Paul","Ecuador","pass","paul@gmail.com");
-		User u12=new User("Luis","Argentina","pass","luis@gmail.com");
-		User u13=new User("Liam","Australia","pass","liam@gmail.com");
-		User u14=new User("Felix","Chile","pass","felix@gmail.com");
-		User u15=new User("Laura","Bolivia","pass","laura@gmail.com");
-		User u16=new User("Gabriela","Panama","pass","gabriela@gmail.com");
-		User u17=new User("Sofia","Cuba","pass","sofia@gmail.com");
-		User u18=new User("Michelle","Francia","pass","michelle@gmail.com");
-		User u19=new User("David","Peru","pass","david@gmail.com");
-		User u20=new User("Alejandro","Puerto Rico","pass","alejandro@gmail.com");
-		User u21=new User("Pablo","Mexico","pass","pablo@gmail.com");
-		User u22=new User("Bob","Jamaica","pass","bob@gmail.com");
-		User u23=new User("Maria","Belice","pass","maria@gmail.com");
-		User u24=new User("Juan","Venezuela","pass","juan@gmail.com");
+		User u4=new User("Stephanie","Venezuela","pass","stephanie@gmail.com","ROLE_USER");
+		User u5=new User("Carlos","Mexico","pass","carlos@gmail.com","ROLE_USER");
+		User u6=new User("Patricia","Republica Dominicana","pass","patricia@gmail.com","ROLE_USER");
+		User u7=new User("Peter","USA","pass","peter@gmail.com","ROLE_USER");
+		User u8=new User("Manuel","Colombia","pass","manuel@gmail.com","ROLE_USER");
+		User u9=new User("Elizabeth","U.K.","pass","elizabeth@gmail.com","ROLE_USER");
+		User u10=new User("Ingrid","Mexico","pass","ingrid@gmail.com","ROLE_USER");
+		User u11=new User("Paul","Ecuador","pass","paul@gmail.com","ROLE_USER");
+		User u12=new User("Luis","Argentina","pass","luis@gmail.com","ROLE_USER");
+		User u13=new User("Liam","Australia","pass","liam@gmail.com","ROLE_USER");
+		User u14=new User("Felix","Chile","pass","felix@gmail.com","ROLE_USER");
+		User u15=new User("Laura","Bolivia","pass","laura@gmail.com","ROLE_USER");
+		User u16=new User("Gabriela","Panama","pass","gabriela@gmail.com","ROLE_USER");
+		User u17=new User("Sofia","Cuba","pass","sofia@gmail.com","ROLE_USER");
+		User u18=new User("Michelle","Francia","pass","michelle@gmail.com","ROLE_USER");
+		User u19=new User("David","Peru","pass","david@gmail.com","ROLE_USER");
+		User u20=new User("Alejandro","Puerto Rico","pass","alejandro@gmail.com","ROLE_USER");
+		User u21=new User("Pablo","Mexico","pass","pablo@gmail.com","ROLE_USER");
+		User u22=new User("Bob","Jamaica","pass","bob@gmail.com","ROLE_USER");
+		User u23=new User("Maria","Belice","pass","maria@gmail.com","ROLE_USER");
+		User u24=new User("Juan","Venezuela","pass","juan@gmail.com","ROLE_USER");
 		
 		//prueba User-Canciones favoritas
 		u1.addFavoriteSong(s1); //u1.addFavoriteSong(s2);
@@ -361,27 +365,30 @@ public class MainController {
 	
 	//id de la playlist
 	@RequestMapping("/Playlist/{id}")
-	public String songsPlaylist(Model model, HttpSession session, @PathVariable long id,
+	public String songsPlaylist(Model model,  HttpServletRequest request, @PathVariable long id,
 			@RequestParam(value = "favorite", required=false) String favoriteTitle,
 			@RequestParam(value = "like", required=false, defaultValue="") String like) {
 		
-		boolean login=false;
-		
-		//si la sesion noes nueva y tiene el id de usuario logeado
-		//añadida del id del usuario logeado al modelo
-		if(!session.isNew() && session.getAttribute("idUser")!=null){
-			login=true;
-			model.addAttribute("idUser",session.getAttribute("idUser"));
-		}
+//		boolean login=false;
+//		
+//		//si la sesion noes nueva y tiene el id de usuario logeado
+//		//añadida del id del usuario logeado al modelo
+//		if(!session.isNew() && session.getAttribute("idUser")!=null){
+//			login=true;
+//			model.addAttribute("idUser",session.getAttribute("idUser"));
+//		}
 			
+		boolean login=userComponent.isLoggedUser();
+    	
+    	model.addAttribute("login", login);
+    	
+    	Playlist p=playlistRepository.findOne(id);
 		
-		model.addAttribute("login",login);
-		Playlist p=playlistRepository.findOne(id);
 		
 		if(login){
-			long idLogged=((Long)(session.getAttribute("idUser")));
-			User uLogged=userRepository.findOne(idLogged);
-			
+			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			long idLogged=userComponent.getIdLoggedUser();
+			model.addAttribute("uLogged",uLogged);
 			if(like.equals("")){
 			}else{
 				p.addUserlikeOfPlaylist(uLogged);
@@ -410,7 +417,7 @@ public class MainController {
 		if(login){
 			if(favoriteTitle==null){
 			}else{
-				long idLogged=((Long)(session.getAttribute("idUser")));
+				long idLogged=userComponent.getIdLoggedUser();
 				Song s=songRepository.findByTitle(favoriteTitle);
 				User u=userRepository.findOne(idLogged);
 				u.addFavoriteSong(s);
@@ -421,8 +428,8 @@ public class MainController {
 		boolean findedFavorite=false;
 		//codigo para devolver si la cancion esta en los favoritos
 		//del usuario logeado
-		if(login && session.getAttribute("idUser")!=null){//si un usuario esta logeado
-			long idLogged=((Long)(session.getAttribute("idUser")));
+		if(login){//si un usuario esta logeado
+			long idLogged=userComponent.getIdLoggedUser();
 			List<User> users=new ArrayList<>();
 			Song s;
 			for(int i=0;i<songs.size();++i){
@@ -465,17 +472,19 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Artist/{id}")
-	public String songsArtist(Model model, @PathVariable long id, HttpSession session,
+	public String songsArtist(Model model, @PathVariable long id,
 			@RequestParam(value = "favorite", required=false) String favoriteTitle,
 			@RequestParam(value = "follow", required=false) String followName) {
 		
-		boolean login=false;
+		boolean login=userComponent.isLoggedUser();
+    	
+    	model.addAttribute("login", login);
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
-		if(!session.isNew() && session.getAttribute("idUser")!=null){
+		if(login){
 			login=true;
-			model.addAttribute("idUser",session.getAttribute("idUser"));
-			long idUserLogged=((Long)(session.getAttribute("idUser")));
+			model.addAttribute("idLogged",userComponent.getIdLoggedUser());
+			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userRepository.findOne(idUserLogged);
 			Artist a=artistRepository.findOne(id);
 			
@@ -518,7 +527,7 @@ public class MainController {
 		
 		if(favoriteTitle==null){
 		}else{
-			long idLogged=((Long)(session.getAttribute("idUser")));
+			long idLogged=userComponent.getIdLoggedUser();
 			Song s=songRepository.findByTitle(favoriteTitle);
 			User u=userRepository.findOne(idLogged);
 			u.addFavoriteSong(s);
@@ -526,29 +535,29 @@ public class MainController {
 		}
 		
 		//codigo para devolver si la cancion esta en los favoritos
-				//del usuario logeado
-				if(login){//si un usuario esta logeado
-					long idLogged=((Long)(session.getAttribute("idUser")));
-					boolean finded;
-					List<User> users=new ArrayList<>();
-					Song s;
-					for(int i=0;i<songs.size();++i){
-						s=songs.get(i);
-						users=s.getUsersFavoriteSong();
-						finded=false;
-						//para cada usuario que tiene esa cancion en los favoritos
-						//si es el usuario logeado se pone el atributo boolean
-						//de la cancion a true->la plantilla chequea ese atributo
-						for(int j=0;j<users.size() && !finded;++j){
-							if(users.get(j).getId_user()==idLogged){
-								s.setIdLogged(true);
-								finded=true;
-							}
-						}
-
+		//del usuario logeado
+		if(login){//si un usuario esta logeado
+			long idLogged=userComponent.getIdLoggedUser();
+			boolean finded;
+			List<User> users=new ArrayList<>();
+			Song s;
+			for(int i=0;i<songs.size();++i){
+				s=songs.get(i);
+				users=s.getUsersFavoriteSong();
+				finded=false;
+				//para cada usuario que tiene esa cancion en los favoritos
+				//si es el usuario logeado se pone el atributo boolean
+				//de la cancion a true->la plantilla chequea ese atributo
+				for(int j=0;j<users.size() && !finded;++j){
+					if(users.get(j).getId_user()==idLogged){
+						s.setIdLogged(true);
+						finded=true;
 					}
 				}
-		
+
+			}
+		}
+
 		model.addAttribute("songs", songs);
 		
 		model.addAttribute("tags",a.getTagsOfArtist());
@@ -585,17 +594,21 @@ public class MainController {
 	}
 	
 	@RequestMapping("/ArtistFollowers/{id}")
-	public String getArtistFollowers(Model model, @PathVariable long id, HttpSession session){
+	public String getArtistFollowers(Model model, @PathVariable long id){
 		
-		boolean login=false;
+//		boolean login=false;
+//		
+//		//si la sesion noes nueva y tiene el id de usuario logeado
+//		//añadida del id del usuario logeado al modelo
+//		if(!session.isNew() && session.getAttribute("idUser")!=null){
+//			login=true;
+//			model.addAttribute("idUser",session.getAttribute("idUser"));
+//		}
 		
-		//si la sesion noes nueva y tiene el id de usuario logeado
-		//añadida del id del usuario logeado al modelo
-		if(!session.isNew() && session.getAttribute("idUser")!=null){
-			login=true;
-			model.addAttribute("idUser",session.getAttribute("idUser"));
-		}
+		boolean login=userComponent.isLoggedUser();
 		
+		model.addAttribute("login",login);
+//		
 		Artist a=artistRepository.findOne(id);
 		
 		model.addAttribute("a",a);
@@ -696,7 +709,7 @@ public class MainController {
 	//el usuario mira sus playlists creadas
 	//pagina provada usuario
 	@RequestMapping("/MyPlaylists/{id}")
-	public String getMyCreated(Model model, @PathVariable long id,
+	public String getMyCreated(Model model, @PathVariable long id, 
 			@RequestParam(value = "createdPlaylist", required=false ) Long createdPlaylist){
 		
 		User u=userRepository.findOne(id);
@@ -779,17 +792,18 @@ public class MainController {
 	
 	//el usuario mira las canciones favoritas de otro usuario (pagina No privada)
 	@RequestMapping("/UserFavorites/{id}")
-	public String getFavoritesByUser(Model model, @PathVariable long id, HttpSession session,
+	public String getFavoritesByUser(Model model, @PathVariable long id,
 			@RequestParam(value = "follow", required=false) String followName){
 
 		User u=userRepository.findOne(id);
 		
-		boolean login=false;
+		boolean login=userComponent.isLoggedUser();
+		
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
-		if(!session.isNew() && session.getAttribute("idUser")!=null){
+		if(login){
 			login=true;
-			long idUserLogged=((Long)(session.getAttribute("idUser")));
+			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userRepository.findOne(idUserLogged);
 			List<User> followingListUserLogged=uLogged.getFollowing();
 			
@@ -820,7 +834,7 @@ public class MainController {
 			//findedFollow sirve a la Plantilla para poner el boton de seguir o no seguir mas
 			model.addAttribute("findedFollow",findedFollow);
 			
-			model.addAttribute("idUser",idUserLogged);
+			model.addAttribute("idLogged",idUserLogged);
 			
 		}
 		
@@ -851,17 +865,16 @@ public class MainController {
 	
 	//el usuario mira las playlists gustadas de otro usuario
 	@RequestMapping("/UserLikes/{id}")
-	public String getUserLikes(Model model, @PathVariable long id,HttpSession session,
+	public String getUserLikes(Model model, @PathVariable long id,
 			@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
 		
-		boolean login=false;
+		boolean login=userComponent.isLoggedUser();
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
-		if(!session.isNew() && session.getAttribute("idUser")!=null){
-			login=true;
-			long idUserLogged=((Long)(session.getAttribute("idUser")));
+		if(login){
+			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userRepository.findOne(idUserLogged);
 			List<User> followingListUserLogged=uLogged.getFollowing();
 			
@@ -892,7 +905,7 @@ public class MainController {
 			//findedFollow sirve a la Plantilla para poner el boton de seguir o no seguir mas
 			model.addAttribute("findedFollow",findedFollow);
 			
-			model.addAttribute("idUser",idUserLogged);
+			model.addAttribute("idLogged",idUserLogged);
 			
 		}
 		
@@ -919,7 +932,7 @@ public class MainController {
 		//codigo para mirar si ha sido creada del usuario logueado
 		//y trazar la ruta del creador
 		if(login){
-			long idLogged=((Long)(session.getAttribute("idUser")));
+			long idLogged=userComponent.getIdLoggedUser();
 			
 			for(int i=0;i<likedPlaylists.size();++i){
 				Playlist p=likedPlaylists.get(i);
@@ -941,19 +954,22 @@ public class MainController {
 	
 	//el usuario mira las playlists creadas de otro usuario
 	@RequestMapping("/UserPlaylists/{id}")
-	public String getUserCreated(Model model, @PathVariable long id, HttpSession session,
+	public String getUserCreated(Model model, @PathVariable long id, 
 		@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
 		
+		boolean login=userComponent.isLoggedUser();
+    	
+    	model.addAttribute("login", login);
+    	
 		
-		boolean login=false;
+		
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
-		if(!session.isNew() && session.getAttribute("idUser")!=null){
-			login=true;
-			long idUserLogged=((Long)(session.getAttribute("idUser")));
-			User uLogged=userRepository.findOne(idUserLogged);
+		if(login){
+			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			long idUserLogged=userComponent.getIdLoggedUser();
 			List<User> followingListUserLogged=uLogged.getFollowing();
 			if(followName==null){
 				//si no hay valor en el RequestParam no se hace nada
@@ -982,11 +998,10 @@ public class MainController {
 			//findedFollow sirve a la Plantilla para poner el boton de seguir o no seguir mas
 			model.addAttribute("findedFollow",findedFollow);
 			
-			model.addAttribute("idUser",idUserLogged);
+			model.addAttribute("idLogged",idUserLogged);
 			
 		}
 		
-		model.addAttribute("login",login);
 		
 		model.addAttribute("u",u);
 		
@@ -1009,17 +1024,21 @@ public class MainController {
 	
 	//el usuario mira los seguidores de otro usuario
 		@RequestMapping("/UserFollowers/{id}")
-		public String getUserFollowers(Model model, @PathVariable long id, HttpSession session){
+		public String getUserFollowers(Model model, @PathVariable long id){
 			
-			boolean login=false;
-			//si la sesion noes nueva y tiene el id de usuario logeado
-			//añadida del id del usuario logeado al modelo
-			if(!session.isNew() && session.getAttribute("idUser")!=null){
-				login=true;
-				model.addAttribute("idUser",session.getAttribute("idUser"));
-			}
+//			boolean login=false;
+//			//si la sesion noes nueva y tiene el id de usuario logeado
+//			//añadida del id del usuario logeado al modelo
+//			if(!session.isNew() && session.getAttribute("idUser")!=null){
+//				login=true;
+//				model.addAttribute("idUser",session.getAttribute("idUser"));
+//			}
+			
+			boolean login=userComponent.isLoggedUser();
 			
 			model.addAttribute("login",login);
+			
+			if (login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			
 			User u=userRepository.findOne(id);
 			
@@ -1036,16 +1055,20 @@ public class MainController {
 		public String getUserFollowing(Model model, @PathVariable long id, HttpSession session, Pageable page){
 			
 			Page<User> user = userRepository.findAll(page);
+//			
+//			boolean login=false;
+//			//si la sesion noes nueva y tiene el id de usuario logeado
+//			//añadida del id del usuario logeado al modelo
+//			if(!session.isNew() && session.getAttribute("idUser")!=null){
+//				login=true;
+//				model.addAttribute("idUser",session.getAttribute("idUser"));
+//			}
 			
-			boolean login=false;
-			//si la sesion noes nueva y tiene el id de usuario logeado
-			//añadida del id del usuario logeado al modelo
-			if(!session.isNew() && session.getAttribute("idUser")!=null){
-				login=true;
-				model.addAttribute("idUser",session.getAttribute("idUser"));
-			}
-			
+			boolean login=userComponent.isLoggedUser();
+//			
 			model.addAttribute("login",login);
+			
+			if (login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			
 			User u=userRepository.findOne(id);
 			
@@ -1069,7 +1092,7 @@ public class MainController {
 		@RequestMapping("/CreatePlaylist/{id}")
 		public String createPlaylist(Model model, @PathVariable long id){
 			
-			model.addAttribute("idUser",id);
+			model.addAttribute("idLogged",id);
 			
 			User u=userRepository.findOne(id);
 			
@@ -1196,13 +1219,15 @@ public class MainController {
 				@RequestParam(value = "key", defaultValue = "") String key,
 				@RequestParam(value = "likeId", required=false) Long likeId){
 			
-			boolean login=false;
-			//si la sesion noes nueva y tiene el id de usuario logeado
-			//añadida del id del usuario logeado al modelo
-			if(!session.isNew() && session.getAttribute("idUser")!=null){
-				login=true;
-				model.addAttribute("idUser",session.getAttribute("idUser"));
-			}
+//			boolean login=false;
+//			//si la sesion noes nueva y tiene el id de usuario logeado
+//			//añadida del id del usuario logeado al modelo
+//			if(!session.isNew() && session.getAttribute("idUser")!=null){
+//				login=true;
+//				model.addAttribute("idUser",session.getAttribute("idUser"));
+//			}
+			
+			boolean login=userComponent.isLoggedUser();
 			
 			model.addAttribute("login", login);
 			
@@ -1239,7 +1264,7 @@ public class MainController {
 				//cheque el atributo booelan idLogged
 				//para trazar la ruta dinamica de cada playlist desde la plantilla
 				if(login){
-					long idLogged=((Long)(session.getAttribute("idUser")));
+					long idLogged=userComponent.getIdLoggedUser();
 					
 					for(int i=0;i<playlists.size();++i){
 						Playlist p=playlists.get(i);
@@ -1256,7 +1281,7 @@ public class MainController {
 			//para trazar la ruta dinamica de cada playlist desde la plantilla
 			if(pList==null){}else{
 				if(login){
-					long idLogged=((Long)(session.getAttribute("idUser")));
+					long idLogged=userComponent.getIdLoggedUser();
 					
 					for(int i=0;i<pList.size();++i){
 						Playlist p=pList.get(i);
@@ -1281,6 +1306,7 @@ public class MainController {
 //				model.addAttribute("nothing",false);
 //			}
 			
+			if(login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			
 			model.addAttribute("key",key);
 			
@@ -1293,13 +1319,15 @@ public class MainController {
 				@PathVariable String key,
 				@RequestParam(value = "likeId", required=false) Long likeId){
 			
-			boolean login=false;
-			//si la sesion noes nueva y tiene el id de usuario logeado
-			//añadida del id del usuario logeado al modelo
-			if(!session.isNew() && session.getAttribute("idUser")!=null){
-				login=true;
-				model.addAttribute("idUser",session.getAttribute("idUser"));
-			}
+//			boolean login=false;
+//			//si la sesion noes nueva y tiene el id de usuario logeado
+//			//añadida del id del usuario logeado al modelo
+//			if(!session.isNew() && session.getAttribute("idUser")!=null){
+//				login=true;
+//				model.addAttribute("idUser",session.getAttribute("idUser"));
+//			}
+			
+			boolean login=userComponent.isLoggedUser();
 			
 			model.addAttribute("login", login);
 			
@@ -1345,6 +1373,7 @@ public class MainController {
 				model.addAttribute("playlistsTag",playlists);
 			}
 			
+			if(login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			
 			model.addAttribute("key",key);
 			

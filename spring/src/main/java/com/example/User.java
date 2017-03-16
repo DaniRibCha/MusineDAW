@@ -12,10 +12,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.data.domain.Page;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -63,14 +65,16 @@ public class User {
 	}
 
 
-	public User(String name, String country,String passwordHash, String email) {
+	public User(String name, String country,String passwordHash, String email,String... roles) {
 		super();
 		this.biography="";
 		this.city="";
 		this.name = name;
 		this.country = country;
-		this.passwordHash=passwordHash;
 		this.email=email;
+		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
+		this.roles = new ArrayList<>(Arrays.asList(roles));
+		
 	}
 	
 	public User(String name, String country) {
