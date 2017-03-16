@@ -39,7 +39,7 @@ public class Artist {
 	@ManyToMany(mappedBy="artistsOfSong")
 	private List<Song> songsOfArtist= new ArrayList<>();
 	
-	@OneToMany
+	@ManyToMany
 	private List<User> followersOfArtist= new ArrayList<>();
 	
 	@JsonView(Tags.class)

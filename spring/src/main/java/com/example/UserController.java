@@ -40,7 +40,8 @@ public class UserController {
 	public String getLoginIndex(HttpSession session, Model model,
 			@RequestParam(value = "userName", defaultValue = "") String userName,
 			@RequestParam(value = "email", defaultValue = "") String email, 
-			@RequestParam(value = "password", defaultValue = "") String password){
+			@RequestParam(value = "password", defaultValue = "") String password,
+			@RequestParam(value = "likeId", required=false) Long likeId){
 		
 		boolean login=false;
 		
@@ -89,22 +90,49 @@ public class UserController {
 
 		List<Playlist> wallPlaylists=new ArrayList<>();
 		
-		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
-		
-		//cheque el atributo booelan idLogged
-		//para trazar la ruta dinamica de cada playlist desde la plantilla
-		if(login){
+		if(!login){
+			wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		}else{
 			long idLogged=((Long)(session.getAttribute("idUser")));
-			
-			for(int i=0;i<wallPlaylists.size();++i){
-				Playlist p=wallPlaylists.get(i);
-				if(p.getCreatorId()==idLogged){
-					p.setIdLogged(true);
+			User uLogged=userRepository.findOne(idLogged);
+			List<Playlist> recentPlaylists=playlistRepository.findFirst100ByOrderByDateAsc();
+			List<User> followingByLogged=uLogged.getFollowing();
+			boolean betweenFollowed;
+			for(int i=0;i<recentPlaylists.size();++i){
+				Playlist p=recentPlaylists.get(i);
+				betweenFollowed=false;
+				for(int j=0;j<followingByLogged.size() && !betweenFollowed;++j){
+					if(p.getCreatorId()==followingByLogged.get(j).getId_user()){
+						betweenFollowed=true;
+					}
 				}
+				if(!betweenFollowed) recentPlaylists.remove(p);
 			}
+			wallPlaylists=recentPlaylists;
 		}
 		
+		//no hace falta porque en el muro del usuario logueado no aparecen sus playlists
+//		//cheque el atributo booelan idLogged
+//		//para trazar la ruta dinamica de cada playlist desde la plantilla
+//		if(login){
+//			long idLogged=((Long)(session.getAttribute("idUser")));
+//			
+//			for(int i=0;i<wallPlaylists.size();++i){
+//				Playlist p=wallPlaylists.get(i);
+//				if(p.getCreatorId()==idLogged){
+//					p.setIdLogged(true);
+//				}
+//			}
+//		}
+		
 		model.addAttribute("wallPlaylists",wallPlaylists);
+		
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idLogged);
+			List<Artist> artistsFollowedByLogged=uLogged.getFollowingArtists();
+			model.addAttribute("artistsFollowedByLogged",artistsFollowedByLogged);
+		}
 		
 		return "index";
 	}
@@ -147,7 +175,8 @@ public class UserController {
 	}
 	
 	@RequestMapping("/")
-	public String getIndex(HttpSession session, Model model){
+	public String getIndex(HttpSession session, Model model,
+			@RequestParam(value = "likeId", required=false) Long likeId){
 		
 		boolean login=false;
 		//si la sesion noes nueva y tiene el id de usuario logeado
@@ -156,7 +185,7 @@ public class UserController {
 			login=true;
 			model.addAttribute("idUser",session.getAttribute("idUser"));
 		}
-			
+		
 		
 		model.addAttribute("login",login);
 		
@@ -180,7 +209,26 @@ public class UserController {
 		
 		List<Playlist> wallPlaylists=new ArrayList<>();
 		
-		wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		if(!login){
+			wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		}else{
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idLogged);
+			List<Playlist> recentPlaylists=playlistRepository.findFirst100ByOrderByDateAsc();
+			List<User> followingByLogged=uLogged.getFollowing();
+			boolean betweenFollowed;
+			for(int i=0;i<recentPlaylists.size();++i){
+				Playlist p=recentPlaylists.get(i);
+				betweenFollowed=false;
+				for(int j=0;j<followingByLogged.size() && !betweenFollowed;++j){
+					if(p.getCreatorId()==followingByLogged.get(j).getId_user()){
+						betweenFollowed=true;
+					}
+				}
+				if(!betweenFollowed) recentPlaylists.remove(p);
+			}
+			wallPlaylists=recentPlaylists;
+		}
 		
 		//cheque el atributo booelan idLogged
 		//para trazar la ruta dinamica de cada playlist desde la plantilla
@@ -196,6 +244,13 @@ public class UserController {
 		}
 		
 		model.addAttribute("wallPlaylists",wallPlaylists);
+		
+		if(login){
+			long idLogged=((Long)(session.getAttribute("idUser")));
+			User uLogged=userRepository.findOne(idLogged);
+			List<Artist> artistsFollowedByLogged=uLogged.getFollowingArtists();
+			model.addAttribute("artistsFollowedByLogged",artistsFollowedByLogged);
+		}
 		
 		
 		return "index";

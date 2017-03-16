@@ -40,6 +40,9 @@ public class User {
 	@ElementCollection(fetch = FetchType.EAGER) 
 	private List<String> roles;
 	
+	@ManyToMany(mappedBy="followersOfArtist")
+	private List<Artist> followingArtists= new ArrayList<>();
+	
 	@ManyToMany
 	private List<User> following = new ArrayList<>();
 	//private Page<User> following = new ArrayList<>();
@@ -199,6 +202,22 @@ public class User {
 	public List<User> getFollowers() {
 		return followers;
 	}
+	
+	public void addFollowers(User followers) {
+		this.followers.add(followers);
+	}
+	
+	
+
+
+	public List<Artist> getFollowingArtists() {
+		return followingArtists;
+	}
+
+
+	public void setFollowingArtists(List<Artist> followingArtists) {
+		this.followingArtists = followingArtists;
+	}
 
 
 	public String getEmail() {
@@ -211,9 +230,7 @@ public class User {
 	}
 
 
-	public void addFollowers(User followers) {
-		this.followers.add(followers);
-	}
+	
 	
 
 }

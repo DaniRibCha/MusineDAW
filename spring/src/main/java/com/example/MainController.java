@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+//import java.sql.Date;
+import java.util.Date;
+
 
 
 @Controller
@@ -292,6 +295,7 @@ public class MainController {
 		Playlist pCreated1=new Playlist("myPlaylistCreated1",u1.getName(),u1.getId_user());
 		pCreated1.addTagOfPlaylist(t1);
 		pCreated1.addSongOfPlaylist(s1);
+		pCreated1.setDate(new java.sql.Date(20,12,31));
 		tagRepository.save(t1);
 		playlistRepository.save(pCreated1);
 		
@@ -299,6 +303,7 @@ public class MainController {
 		pCreated2.addTagOfPlaylist(t2);
 		pCreated2.addSongOfPlaylist(s2);
 		pCreated2.addSongOfPlaylist(s1);
+		pCreated2.setDate(new java.sql.Date(20,12,31));
 		tagRepository.save(t2);
 		playlistRepository.save(pCreated2);
 		
@@ -314,11 +319,19 @@ public class MainController {
 		tagRepository.save(t1);tagRepository.save(t4);
 		playlistRepository.save(pCreated4);
 		
+		Playlist pCreated5=new Playlist("myPlaylistCreated5",u3.getName(),u3.getId_user());
+		pCreated5.addTagOfPlaylist(t1);pCreated5.addTagOfPlaylist(t4);
+		pCreated5.addSongOfPlaylist(s2);
+		tagRepository.save(t1);tagRepository.save(t4);
+		playlistRepository.save(pCreated5);
+		
 		u1.addCreatedPlaylist(pCreated1);
 		u2.addCreatedPlaylist(pCreated2);
 		u2.addCreatedPlaylist(pCreated3);
 		u1.addCreatedPlaylist(pCreated4);
+		u3.addCreatedPlaylist(pCreated5);
 		userRepository.save(u1);userRepository.save(u2);
+		userRepository.save(u3);
 		// fin Usuarios-Playlists creadas
 		
 		//prueba Usuarios-Playlists gustadas
@@ -384,7 +397,7 @@ public class MainController {
 			}
 			model.addAttribute("findedLike",findedLike);
 			
-			if(p.getId_playlist()==idLogged)
+			if(p.getCreatorId()==idLogged)
 				model.addAttribute("findedLogged",true);
 			
 			
@@ -1180,7 +1193,8 @@ public class MainController {
 		//busqueda desde la navbar
 		@RequestMapping("/SearchPlaylist")
 		public String serachPlaylist(Model model, HttpSession session,
-				@RequestParam(value = "key", defaultValue = "") String key){
+				@RequestParam(value = "key", defaultValue = "") String key,
+				@RequestParam(value = "likeId", required=false) Long likeId){
 			
 			boolean login=false;
 			//si la sesion noes nueva y tiene el id de usuario logeado
@@ -1276,7 +1290,8 @@ public class MainController {
 		//busqueda desde un tag
 		@RequestMapping("/SearchPlaylist/{key}")
 		public String serachPlaylistTag(Model model, HttpSession session,
-				@PathVariable String key){
+				@PathVariable String key,
+				@RequestParam(value = "likeId", required=false) Long likeId){
 			
 			boolean login=false;
 			//si la sesion noes nueva y tiene el id de usuario logeado

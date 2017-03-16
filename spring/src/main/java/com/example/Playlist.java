@@ -70,6 +70,8 @@ public class Playlist {
 	
 	private boolean idLogged;
 	
+	private boolean likedByLogged;
+	
 	
 	
 	public Playlist(String title, String creatorName, long creatorId) {
@@ -84,11 +86,20 @@ public class Playlist {
 		this.creatorName=creatorName;
 		this.creatorId=creatorId;
 		this.idLogged=false;
-		
+		this.likedByLogged=false;
 	}
 	
 	public Playlist() {}
 	
+
+	
+	public boolean isLikedByLogged() {
+		return likedByLogged;
+	}
+
+	public void setLikedByLogged(boolean likedByLogged) {
+		this.likedByLogged = likedByLogged;
+	}
 
 	public boolean isIdLogged() {
 		return idLogged;
@@ -154,12 +165,12 @@ public class Playlist {
 
 	public void addUserlikeOfPlaylist(User userlikeOfPlaylist) {
 		this.userlikesOfPlaylist.add(userlikeOfPlaylist);
-		this.nLikes =+ 1;
+		this.nLikes=this.nLikes+1;
 	}
 	
 	public void removeUserlikeOfPlaylist(User userlikeOfPlaylist) {
 		this.userlikesOfPlaylist.remove(userlikeOfPlaylist);
-		this.nLikes =- 1;
+		this.nLikes=this.nLikes-1;
 	}
 	
 
@@ -168,7 +179,7 @@ public class Playlist {
 	}
 
 	public void addLike() {
-		this.nLikes =+ 1;
+		this.nLikes =this.nLikes+1 ;
 	}
 	
 	
