@@ -539,6 +539,14 @@ public class MainController {
 		
 		model.addAttribute("tags",a.getTagsOfArtist());
 		
+		List<Playlist> topPlaylists=new ArrayList<>();
+		
+		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		
+		model.addAttribute("topPlaylists",topPlaylists);
+		
+		List<Artist> relatedArtists=new ArrayList<>();
+		
 		return "Artist";
 	}
 	
@@ -1032,6 +1040,10 @@ public class MainController {
 		public String createPlaylist(Model model, @PathVariable long id){
 			
 			model.addAttribute("idUser",id);
+			
+			User u=userRepository.findOne(id);
+			
+			model.addAttribute("u",u);
 			
 			return "createPlaylist";
 		}
