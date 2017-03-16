@@ -166,6 +166,10 @@ public class User {
 	public void addCreatedPlaylist(Playlist createdPlaylist) {
 		this.createdPlaylists.add(createdPlaylist);
 	}
+	
+	public void removeCreatedPlaylist(Playlist createdPlaylist) {
+		this.createdPlaylists.remove(createdPlaylist);
+	}
 
 
 	public String getBiography() {

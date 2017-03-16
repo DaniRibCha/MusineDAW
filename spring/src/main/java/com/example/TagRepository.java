@@ -10,5 +10,4 @@ public interface TagRepository extends JpaRepository<Tag, Long>  {
 	
 	List <Tag> findFirst3ByOrderByNumberTagDesc();
 	
-
 }

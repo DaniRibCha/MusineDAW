@@ -282,8 +282,9 @@ public class MainController {
 		
 		a1.addFollowerOfArtist(u1); a1.addFollowerOfArtist(u2);
 		a1.addTagOfArtist(t1); a1.addTagOfArtist(t2);
+		a4.addTagOfArtist(t1); a4.addTagOfArtist(t2);
 		tagRepository.save(t1);tagRepository.save(t2);
-		artistRepository.save(a1);
+		artistRepository.save(a1);artistRepository.save(a4);
 		//fin Artistas-Seguidores,Tags
 
 		
@@ -545,7 +546,12 @@ public class MainController {
 		
 		model.addAttribute("topPlaylists",topPlaylists);
 		
-		List<Artist> relatedArtists=new ArrayList<>();
+		List<Artist> topArtists=new ArrayList<>();
+	
+		
+		topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		
+		model.addAttribute("topArtists",topArtists);
 		
 		return "Artist";
 	}
