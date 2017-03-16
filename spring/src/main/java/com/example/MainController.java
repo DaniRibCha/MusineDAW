@@ -1043,6 +1043,7 @@ public class MainController {
 			
 			User u=userRepository.findOne(id);
 			
+			
 			model.addAttribute("u",u);
 			
 			return "createPlaylist";
@@ -1071,6 +1072,7 @@ public class MainController {
 			tagRepository.save(t);
 			playlistRepository.save(p);
 			
+			u.addCreatedPlaylist(p);
 			userRepository.save(u);
 			
 			model.addAttribute("u",u);
