@@ -677,9 +677,20 @@ public class MainController {
 	//el usuario mira sus playlists creadas
 	//pagina provada usuario
 	@RequestMapping("/MyPlaylists/{id}")
-	public String getMyCreated(Model model, @PathVariable long id){
+	public String getMyCreated(Model model, @PathVariable long id,
+			@RequestParam(value = "createdPlaylist", required=false ) Long createdPlaylist){
 		
 		User u=userRepository.findOne(id);
+		
+		if(createdPlaylist==null){
+		}else{
+			Playlist pToDelete=playlistRepository.findOne(createdPlaylist);
+			u.removeCreatedPlaylist(pToDelete);
+			userRepository.save(u);
+			playlistRepository.delete(pToDelete);
+		}
+		
+		
 		
 		model.addAttribute("u",u);
 		
