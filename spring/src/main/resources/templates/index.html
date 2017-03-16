@@ -46,9 +46,12 @@
                 	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="/Config/{{idUser}}">My Profile</a></li>
-                            <li><a href="/MyPlaylists/{{idUser}}">My Playlists</a></li>
-                            <li><a href="/Logout">Log Out</a></li>
+                            <li><a href="/Config/{{uLogged.id_user}}">My Profile</a></li>
+                            <li><a href="/MyPlaylists/{{uLogged.id_user}}">My Playlists</a></li>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
                         </ul>
                     </li>
                 {{/login}}

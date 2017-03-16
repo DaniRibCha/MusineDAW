@@ -31,6 +31,7 @@
             <form class="navbar-form navbar-left" action="/SearchPlaylist">
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search" name="key">
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
                     </div>
@@ -43,7 +44,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
                             <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
-                            <li><a href="/Logout">Log Out</a></li>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
                         </ul>
                     </li>
                 </ul>
@@ -53,7 +57,7 @@
     <div class="jumbotron" style="background-color:grey;">
         <div class="container">
             <div class="col-md-3 name-jumbotron">
-                <p>{{u.name}} <a href="config.html" style="color:white"><span class="glyphicon glyphicon-cog"></span></a> </p>
+                <p>{{u.name}} <a href="/Config/{{u.id_user}}" style="color:white"><span class="glyphicon glyphicon-cog"></span></a> </p>
                 <p><img class="img-responsive" id="userlogo" src="../img/user.jpg" width="60" height="55"> </p>
             </div>
             <div class="col-md-3 description">
@@ -115,6 +119,7 @@
                                 <p style="text-align:right"><a class="opcion_playlist"></a> </p>
                                 <form action="/MyLikes/{{u.id_user}}" method="post">
                                 <input type="hidden" name="like" value="{{id_playlist}}" >
+                                <input type="hidden" name="_csrf" value="{{token}}"/>
                     			<input type="submit" value="Not like">
                             	</form>
                             </ul>

@@ -31,6 +31,7 @@
            <form class="navbar-form navbar-left" action="/SearchPlaylist">
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search" name="key">
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
                     </div>
@@ -43,7 +44,10 @@
                         <ul class="dropdown-menu">
                             <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
                             <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
-                            <li><a href="/Logout">Log Out</a></li>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
                         </ul>
                     </li>
                 </ul>
@@ -58,7 +62,7 @@
                 </a>
             </div>
             <div class="col-md-6">
-                <form class="form-playlist" action="/EditNewPlaylist/{{idUser}}" method="post">
+                <form class="form-playlist" action="/EditNewPlaylist/{{idLogged}}" method="post">
                     <div class="form-group">
                         <label>Title for your playlist:</label>
                         <input type="text" class="form-control" name='title' required> </div>
@@ -69,6 +73,7 @@
                     <div class="form-group">
                         <label>Tag (only the first)</label>
                         <input type="text" class="form-control" name="tag" required> </div>
+                        		<input type="hidden" name="_csrf" value="{{token}}"/>
                     <input type="submit" style="color:black;" name="sendData" value="Add new playlist"/> 
                 </form>
             </div>
@@ -76,7 +81,7 @@
     </div>
     <div class="row save-return">
         <div class="col-md-12" style="text-align:right">
-            <a href="/MyPlaylists/{{idUser}}">
+            <a href="/MyPlaylists/{{idLogged}}">
                 <button type="button" class="btn btn-danger">Return</button>
             </a>
         </div>

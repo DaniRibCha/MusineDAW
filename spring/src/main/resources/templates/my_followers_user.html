@@ -31,6 +31,7 @@
             <form class="navbar-form navbar-left" action="/SearchPlaylist">
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search" name="key">
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
                     </div>
@@ -43,7 +44,10 @@
                         <ul class="dropdown-menu">
                            <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
                             <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
-                            <li><a href="/Logout">Log Out</a></li>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
                         </ul>
                     </li>
                 </ul>

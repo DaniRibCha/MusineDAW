@@ -31,6 +31,7 @@
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                         <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
                     </div>
                 </div>
@@ -40,9 +41,12 @@
                 	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="config.html">My Profile</a></li>
+                            <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
                             <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
-                            <li><a href="/Logout">Log Out</a></li>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
                         </ul>
                     </li>
                 </ul>
@@ -63,6 +67,7 @@
                                 <div class="form-group" id="oldpassBox">
                                     <label for="Bio">Put your current password</label>
                                     <input class="form-control"> </div>
+                                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                             </form>
                         </li>
                         <li>
@@ -70,6 +75,7 @@
                                 <div class="form-group" id="oldpassBox">
                                     <label for="Bio" id="city">Put the new password</label>
                                     <input type="email" class="form-control"> </div>
+                                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                             </form>
                         </li>
                         <a href="config.html">
@@ -82,6 +88,7 @@
             <form class="form-horizontal form-utent" action="/Config/{{u.id_user}}">
                 <div class="form-group form-utent">
                     <label for="Bio">Biography</label>
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
 <!--                     <input type="text" class="form-control" name="biography" placeholder="{{u.biography}}"> -->
  					<textarea class="form-control" rows="5" name="biography" placeholder="{{u.biography}}"></textarea>
                 </div>

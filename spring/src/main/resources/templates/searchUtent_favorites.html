@@ -31,6 +31,7 @@
             <form class="navbar-form navbar-left" action="/SearchPlaylist">
                 <div class="input-group" id="search">
                     <input type="text" class="form-control" placeholder="Search" name="key">
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
                     <div class="input-group-btn">
                         <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
                     </div>
@@ -48,8 +49,10 @@
                         <ul class="dropdown-menu">
                            <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
                             <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
-                            <li><a href="/Logout">Log Out</a></li>
-                        </ul>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
                     </li>
                 {{/login}}
                 </ul>
@@ -64,12 +67,14 @@
                 {{#findedFollow}}
                 <form action="/UserFavorites/{{u.id_user}}" method="post" style="textalign:center;position: relative;left: 6em;">
                 	<input type="hidden" name="follow" value="{{u.name}}">
+                			<input type="hidden" name="_csrf" value="{{token}}"/>
                     <button type="submit" class="btn btn-success follow-btn">Following<span class="glyphicon glyphicon-ok"></span> </button>
                 </form>
                 {{/findedFollow}}
                 {{^findedFollow}}
                  <form action="/UserFavorites/{{u.id_user}}" method="post" style="textalign:center;position: relative;left: 6em;">
                  <input type="hidden" name="follow" value="addFollow">
+                 		<input type="hidden" name="_csrf" value="{{token}}"/>
                 	<button type="submit" class="btn btn-danger follow-btn">Not Following</button>
                 </form>
                 {{/findedFollow}}
