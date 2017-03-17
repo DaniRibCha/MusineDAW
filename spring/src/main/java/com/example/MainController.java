@@ -427,6 +427,7 @@ public class MainController {
 			u.removeCreatedPlaylist(pToDelete);
 			userRepository.save(u);
 			playlistRepository.delete(pToDelete);
+			return "redirect:/MyPlaylists/{id}";
 		}
 		
 		
@@ -1128,66 +1129,6 @@ public class MainController {
 			return "searchPlaylist";
 		}
 		
-		//Paginas de admin
 		
-		@RequestMapping("/admin")
-		public String serachPlaylist(Model model, HttpSession session){
-			return "admin";
-		}
-		
-		@RequestMapping("/adminCreateSong")
-		public String adminCreateSong(Model model, 
-				@RequestParam(value = "name", defaultValue = "") String name,
-				@RequestParam(value = "country", defaultValue = "")String link){
-			model.addAttribute("SongRepository", songRepository);
-			Song s=new Song(name,link);
-			songRepository.save(s);
-			
-			return "adminCreateSong";
-		}
-		
-		@RequestMapping("/adminCreateArtist")
-		public String adminCreateArtist(Model model, 
-				@RequestParam(value = "name", defaultValue = "") String name,
-				@RequestParam(value = "country", defaultValue = "") String country){
-			model.addAttribute("ArtistRepository", artistRepository);
-			Artist a=new Artist(name,country);
-			artistRepository.save(a);
-			
-			return "adminCreateArtist";
-		}
-		
-		@RequestMapping("/adminEditArtist")
-		public String adminEditArtist(Model model,
-				@RequestParam(value = "name", defaultValue = "") String name,
-				@RequestParam(value = "country", defaultValue = "") String country){
-			model.addAttribute("ArtistList",ArtistList);
-			
-			List<Artist> ArtistList=new ArrayList<>();
-			
-			ArtistList=artistRepository.findAll();
-			
-			model.addAttribute("ArtistList",ArtistList);
-			
-			return "adminEditArtist";
-		}
-		
-		@RequestMapping("/adminEditSong")
-		public String adminEditSong(Model model, 
-				@RequestParam(value = "name", defaultValue = "") String name,
-				@RequestParam(value = "link", defaultValue = "") String link){
-			
-			model.addAttribute("SongList",SongList);
-			
-			List<Song> SongList=new ArrayList<>();
-			
-			SongList =songRepository.findAll();
-			
-			model.addAttribute("SongList",SongList);
-			
-			return "adminEditSong";
-		}
-
-	
 	
 }
