@@ -848,7 +848,8 @@ public class MainController {
 		public String editPlaylist(Model model,@PathVariable long idPlaylist,
 				@RequestParam(value = "title", defaultValue = "") String title,
 				@RequestParam(value = "description", defaultValue = "") String description, 
-				@RequestParam(value = "tag", defaultValue = "") String tag,
+				@RequestParam(value = "tagToRemove", defaultValue = "") String tagToRemove,
+				@RequestParam(value = "tagToAdd", defaultValue = "") String tagToAdd,
 				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
 				@RequestParam(value = "artist", defaultValue = "") String artist, 
 				@RequestParam(value = "link", defaultValue = "") String link,
@@ -869,13 +870,22 @@ public class MainController {
 			}
 				
 		
-			if(!tag.equals("")){//si hay modifica del tag
-				Tag t=tagRepository.findByName(tag);
-				if(t==null){//si no hay ese tag lo crea
-					t=new Tag(tag);
+			if(!tagToRemove.equals("")){//si hay modifica del tag
+				Tag t=tagRepository.findByName(tagToRemove);
+				if(t==null){//si no hay ese tag no hace nada
+				}else{
+					p.removeTagOfPlaylist(t);
 					tagRepository.save(t);
+					playlistRepository.save(p);
 				}
-				p.getTagsOfPlaylist().remove(0);
+			}
+			
+			
+			if(!tagToAdd.equals("")){//si hay modifica del tag
+				Tag t=tagRepository.findByName(tagToAdd);
+				if(t==null){//si no hay ese tag lo crea
+					t=new Tag(tagToAdd);
+				}
 				p.addTagOfPlaylist(t);
 				tagRepository.save(t);
 				playlistRepository.save(p);
@@ -967,17 +977,9 @@ public class MainController {
 		
 		//busqueda desde la navbar
 		@RequestMapping("/SearchPlaylist")
-		public String serachPlaylist(Model model, HttpSession session,
-				@RequestParam(value = "key", defaultValue = "") String key,
-				@RequestParam(value = "likeId", required=false) Long likeId){
-			
-//			boolean login=false;
-//			//si la sesion noes nueva y tiene el id de usuario logeado
-//			//añadida del id del usuario logeado al modelo
-//			if(!session.isNew() && session.getAttribute("idUser")!=null){
-//				login=true;
-//				model.addAttribute("idUser",session.getAttribute("idUser"));
-//			}
+		public String serachPlaylist(Model model,
+				@RequestParam(value = "key", defaultValue = "") String key){
+
 			
 			boolean login=userComponent.isLoggedUser();
 			
@@ -1067,21 +1069,14 @@ public class MainController {
 		
 		//busqueda desde un tag
 		@RequestMapping("/SearchPlaylist/{key}")
-		public String serachPlaylistTag(Model model, HttpSession session,
-				@PathVariable String key,
-				@RequestParam(value = "likeId", required=false) Long likeId){
-			
-//			boolean login=false;
-//			//si la sesion noes nueva y tiene el id de usuario logeado
-//			//añadida del id del usuario logeado al modelo
-//			if(!session.isNew() && session.getAttribute("idUser")!=null){
-//				login=true;
-//				model.addAttribute("idUser",session.getAttribute("idUser"));
-//			}
+		public String serachPlaylistTag(Model model, 
+				@PathVariable String key){
+						
 			
 			boolean login=userComponent.isLoggedUser();
 			
 			model.addAttribute("login", login);
+			
 			
 			List<Playlist> topPlaylists=new ArrayList<>();
 			
@@ -1102,18 +1097,20 @@ public class MainController {
 			model.addAttribute("topTags",topTags);
 			
 			
+			
 			List<Playlist> playlists=new ArrayList<>();
 			
 			Tag t=tagRepository.findByName(key);
+			
 			//codigo para la busqueda por tags
 			if(t==null){}else{
 				List<Tag> tags=new ArrayList<>();
 				tags.add(t);
 				playlists=playlistRepository.findByTagsOfPlaylist(tags);
-				//chequea el atributo booelan idLogged
+				//cheque el atributo booelan idLogged
 				//para trazar la ruta dinamica de cada playlist desde la plantilla
 				if(login){
-					long idLogged=((Long)(session.getAttribute("idUser")));
+					long idLogged=userComponent.getIdLoggedUser();
 					
 					for(int i=0;i<playlists.size();++i){
 						Playlist p=playlists.get(i);
@@ -1124,6 +1121,10 @@ public class MainController {
 				}
 				model.addAttribute("playlistsTag",playlists);
 			}
+			
+			
+		
+		
 			
 			if(login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			
