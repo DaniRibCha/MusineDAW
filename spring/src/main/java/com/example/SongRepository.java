@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
 
-	Song findByTitle(String title);
+	List<Song> findByTitle(String title);
 	
 	Page <Song> findAll(Pageable page);
 }

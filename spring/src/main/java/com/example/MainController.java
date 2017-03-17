@@ -370,7 +370,7 @@ public class MainController {
 	//id de la playlist
 	@RequestMapping("/Playlist/{id}")
 	public String songsPlaylist(Model model,  HttpServletRequest request, @PathVariable long id,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle,
+			@RequestParam(value = "favorite", required=false) Long id_song,
 			@RequestParam(value = "like", required=false, defaultValue="") String like) {
 		
 //		boolean login=false;
@@ -419,10 +419,10 @@ public class MainController {
 		List<Song> songs= p.getSongsOfPlaylist();
 		
 		if(login){
-			if(favoriteTitle==null){
+			if(id_song==null){
 			}else{
 				long idLogged=userComponent.getIdLoggedUser();
-				Song s=songRepository.findByTitle(favoriteTitle);
+				Song s=songRepository.findOne(id_song);
 				User u=userRepository.findOne(idLogged);
 				u.addFavoriteSong(s);
 				userRepository.save(u);
@@ -477,7 +477,7 @@ public class MainController {
 	
 	@RequestMapping("/Artist/{id}")
 	public String songsArtist(Model model, @PathVariable long id,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle,
+			@RequestParam(value = "favorite", required=false) Long id_song,
 			@RequestParam(value = "follow", required=false) String followName) {
 		
 		boolean login=userComponent.isLoggedUser();
@@ -529,10 +529,10 @@ public class MainController {
 		
 		List<Song> songs=a.getSongsOfArtist();
 		
-		if(favoriteTitle==null){
+		if(id_song==null){
 		}else{
 			long idLogged=userComponent.getIdLoggedUser();
-			Song s=songRepository.findByTitle(favoriteTitle);
+			Song s=songRepository.findOne(id_song);
 			User u=userRepository.findOne(idLogged);
 			u.addFavoriteSong(s);
 			userRepository.save(u);
@@ -626,12 +626,12 @@ public class MainController {
 	//pagina privada usuario
 	@RequestMapping("/MyFavorites/{id}")
 	public String getMyFavorites(Model model, @PathVariable long id,
-			@RequestParam(value = "favorite", required=false) String favoriteTitle){
+			@RequestParam(value = "favorite", required=false) Long id_song){
 		
 		User u=userRepository.findOne(id);
 		//si hay el titulo en el RequestParam->borrar cancion de favoritos
-		if(favoriteTitle==null){}else{
-			Song s=songRepository.findByTitle(favoriteTitle);
+		if(id_song==null){}else{
+			Song s=songRepository.findOne(id_song);
 			u.removeFavoriteSong(s);
 			userRepository.save(u);
 		}
@@ -1165,11 +1165,25 @@ public class MainController {
 			
 			//codigo para dar de alta a una cancion en la playlist
 			if(!titleSong.equals("")){//si hay el titulo en el RequestParam
-				Song s=songRepository.findByTitle(titleSong);//busca la cancion desde el repositorio
-				if(s==null){}else{
-					p.addSongOfPlaylist(s);
-					playlistRepository.save(p);
+				List<Song> songList=songRepository.findByTitle(titleSong);//busca la cancion desde el repositorio
+				if(!artist.equals("")){
+					Song s=new Song();
+					boolean finded=false;
+					for(int i=0;i<songList.size() && !finded;++i){
+						List<Artist> artists=songList.get(i).getArtistsOfSong();
+						for(int j=0;j<artists.size() && !finded;++j){
+							if(artists.get(j).getName().equals(artist)){
+								finded=true;
+								s=songList.get(i);
+							}
+						}
+					}
+					if(finded){
+						p.addSongOfPlaylist(s);
+						playlistRepository.save(p);
+					}
 				}
+				
 			}
 			
 			if (!title.equals("")) p.setTitle(title);
