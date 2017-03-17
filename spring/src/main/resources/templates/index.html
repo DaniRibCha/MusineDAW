@@ -116,6 +116,12 @@
                 </div>
             </div>
         </div>
+        {{#login}}
+         <h3><b>Artists followed</b></h3></td>
+        {{/login}}
+        {{#artistsFollowedByLogged}}
+        <li><a href="/Artist/{{id_artist}}">{{name}}</a> </li>
+        {{/artistsFollowedByLogged}}
         <td>
             <h3><b>Playlists</b></h3></td>
         <div class="row wall">
