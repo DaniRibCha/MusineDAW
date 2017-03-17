@@ -121,6 +121,11 @@ public class Playlist {
 		this.songsOfPlaylist.add(songOfPlaylist);
 		this.nTracks=this.nTracks+1;
 	}
+	
+	public void removeSongOfPlaylist(Song songOfPlaylist) {
+		this.songsOfPlaylist.remove(songOfPlaylist);
+		this.nTracks=this.nTracks-1;
+	}
 
 	public String getTitle() {
 		return title;

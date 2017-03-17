@@ -850,9 +850,22 @@ public class MainController {
 				@RequestParam(value = "tag", defaultValue = "") String tag,
 				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
 				@RequestParam(value = "artist", defaultValue = "") String artist, 
-				@RequestParam(value = "link", defaultValue = "") String link){
+				@RequestParam(value = "link", defaultValue = "") String link,
+				@RequestParam(value = "toRemove", defaultValue = "") Long id_song){
 			
 			Playlist p=playlistRepository.findOne(id);
+			
+			long creator=p.getCreatorId();
+			
+			User u=userRepository.findOne(creator);
+			
+			
+			if(id_song==null){}else{
+				Song s=songRepository.findOne(id_song);
+				p.removeSongOfPlaylist(s);
+				playlistRepository.save(p);
+			}
+				
 		
 			if(!tag.equals("")){//si hay modifica del tag
 				Tag t=tagRepository.findByName(tag);
@@ -893,9 +906,7 @@ public class MainController {
 			if (!description.equals(""))p.setDescription(description);
 			playlistRepository.save(p);
 			
-			long creator=p.getCreatorId();
 			
-			User u=userRepository.findOne(creator);
 			
 			model.addAttribute("u",u);
 			
