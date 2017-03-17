@@ -1392,7 +1392,13 @@ public class MainController {
 		}
 		
 		@RequestMapping("/adminCreateSong")
-		public String adminCreateSong(Model model, HttpSession session){
+		public String adminCreateSong(Model model, 
+				@RequestParam(value = "name", defaultValue = "") String name,
+				@RequestParam(value = "country", defaultValue = "")String link){
+			model.addAttribute("SongRepository", songRepository);
+			Song s=new Song(name,link);
+			songRepository.save(s);
+			
 			return "adminCreateSong";
 		}
 		
