@@ -11,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -913,9 +916,25 @@ public class MainController {
 		public String config(Model model, @PathVariable long id,
 				@RequestParam(value = "biography", defaultValue = "") String biography,
 				@RequestParam(value = "country", defaultValue = "") String country, 
-				@RequestParam(value = "city", defaultValue = "") String city){
+				@RequestParam(value = "city", defaultValue = "") String city,
+				@RequestParam(value = "oldPassword", defaultValue = "") String oldPassword,
+				@RequestParam(value = "newPassword", defaultValue = "") String newPassword)
+						throws AuthenticationException{
 			
 			User u=userRepository.findOne(id);
+			
+			if(!oldPassword.equals("")){
+				
+				if (!new BCryptPasswordEncoder().matches(oldPassword, u.getPasswordHash())) {
+					model.addAttribute("idLogged", userComponent.getIdLoggedUser());
+					return "wrongPass";
+				}else{
+					u.setPasswordHash(newPassword);
+					userRepository.save(u);
+				}
+			}
+			
+			
 			
 			//si hay modificaciones les hace
 			if(!biography.equals("")) u.setBiography(biography);

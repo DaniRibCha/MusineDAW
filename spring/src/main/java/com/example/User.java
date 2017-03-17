@@ -127,7 +127,7 @@ public class User {
 
 
 	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
+		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
 	}
 
 
