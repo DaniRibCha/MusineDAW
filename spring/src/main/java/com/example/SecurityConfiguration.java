@@ -17,6 +17,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
+		
 		// Public pages
 		http.authorizeRequests().antMatchers("/").permitAll();
 		http.authorizeRequests().antMatchers("/login").permitAll();
@@ -39,7 +40,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/adminEditArtist").permitAll();
 		http.authorizeRequests().antMatchers("/adminCreateSong").permitAll();
 		http.authorizeRequests().antMatchers("/adminEditSong").permitAll();
-
+		
 		// Private pages (all other pages)
 
 		http.authorizeRequests().antMatchers("/CreatePlaylist").hasAnyRole("USER");

@@ -1397,7 +1397,13 @@ public class MainController {
 		}
 		
 		@RequestMapping("/adminCreateArtist")
-		public String adminCreateArtist(Model model, HttpSession session){
+		public String adminCreateArtist(Model model, 
+				@RequestParam(value = "name", defaultValue = "") String name,
+				@RequestParam(value = "country", defaultValue = "") String country){
+			model.addAttribute("ArtistRepository", artistRepository);
+			Artist a=new Artist(name,country);
+			artistRepository.save(a);
+			
 			return "adminCreateArtist";
 		}
 		
@@ -1412,7 +1418,6 @@ public class MainController {
 			ArtistList=artistRepository.findAll();
 			
 			model.addAttribute("ArtistList",ArtistList);
-			
 			
 			return "adminEditArtist";
 		}

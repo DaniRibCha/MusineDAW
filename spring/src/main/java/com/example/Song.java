@@ -20,7 +20,7 @@ public class Song{
 	public interface Artists{}
 	
 	public interface Playlists{}
-	
+	 
 	@JsonView(Basic.class)
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
