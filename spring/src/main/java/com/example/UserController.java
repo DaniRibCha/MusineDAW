@@ -189,6 +189,9 @@ public class UserController {
 		
 		
 		//Users
+		User admin=new User("admin", "","adminpass","admin@gmail.com","ROLE_USER","ROLE_USER");
+		userRepository.save(admin);
+				
 		User u1=new User("Davide", "Italy","pass","davide@gmail.com","ROLE_USER");
 		User u2=new User("Dani","Spain","pass","dani@gmail.com","ROLE_USER");
 		User u3=new User("Ruben","Spain","pass","ruben@gmail.com");
@@ -231,19 +234,7 @@ public class UserController {
 		userRepository.save(u23);userRepository.save(u24);
 		
 		u1.addFollowing(u2);
-		//u1.addFollowing(u3);
 		u1.addFollowing(u4);
-		userRepository.save(u1);
-		
-		u2.addFollowing(u1);
-		//u2.addFollowing(u3);
-		userRepository.save(u2);
-		
-		u3.addFollowing(u1);
-		u3.addFollowing(u2);
-		u3.addFollowing(u4);
-		userRepository.save(u3);
-		
 		u4.addFollowing(u1);
 		u4.addFollowing(u2);
 		u4.addFollowing(u3);

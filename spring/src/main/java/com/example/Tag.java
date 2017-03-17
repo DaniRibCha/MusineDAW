@@ -81,6 +81,8 @@ public class Tag {
 		this.numberTag =this.numberTag+1;
 	}
 	
-	
+	public void decNumberTag() {
+		this.numberTag =this.numberTag-1;
+	}
 	
 }

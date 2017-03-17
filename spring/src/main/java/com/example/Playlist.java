@@ -158,11 +158,18 @@ public class Playlist {
 	
 
 	public void addTagOfPlaylist(Tag tagOfPlaylist) {
-		this.tagsOfPlaylist.add(tagOfPlaylist);
-		tagOfPlaylist.incNumberTag();
+		if(this.tagsOfPlaylist.size()<5){
+			this.tagsOfPlaylist.add(tagOfPlaylist);
+			tagOfPlaylist.incNumberTag();
+		}
 	}
 	
-	
+	public void removeTagOfPlaylist(Tag tagOfPlaylist) {
+		if(this.tagsOfPlaylist.size()>0){
+			this.tagsOfPlaylist.remove(tagOfPlaylist);
+			tagOfPlaylist.decNumberTag();
+		}
+	}
 
 	public List<User> getUserlikesOfPlaylist() {
 		return userlikesOfPlaylist;

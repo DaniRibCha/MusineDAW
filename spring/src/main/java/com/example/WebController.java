@@ -47,10 +47,11 @@ public class WebController {
     		@RequestParam(value = "username") String username,
     		@RequestParam(value = "email") String email,
     		@RequestParam(value = "password") String password){
+    	
     	User u=new User(username, "",password,email,"ROLE_USER");
     	userRepository.save(u);
     	userComponent.setLoggedUser(u);
-boolean login=userComponent.isLoggedUser();
+    	boolean login=userComponent.isLoggedUser();
     	
     	
     	

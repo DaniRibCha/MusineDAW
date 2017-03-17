@@ -44,18 +44,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// Private pages (all other pages)
 
 		http.authorizeRequests().antMatchers("/CreatePlaylist").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/EditPlaylist/{id}").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/EditPlaylist/{idPlaylist}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/EditNewPlaylist/{idUser}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyFollowers/{id}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyPlaylists/{id}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyLikes/{id}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyFavorites/{id}}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/Config/{id}").hasAnyRole("USER"); 
-		//http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN","USER");
-		//http.authorizeRequests().antMatchers("/adminCreateArtist").hasAnyRole("ADMIN","USER");
-		//http.authorizeRequests().antMatchers("/adminEditArtist").hasAnyRole("ADMIN","USER");
-		//http.authorizeRequests().antMatchers("/adminCreateSong").hasAnyRole("ADMIN","USER");
-		//http.authorizeRequests().antMatchers("/adminEditSong").hasAnyRole("ADMIN","USER");
+		http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN","USER");
+		http.authorizeRequests().antMatchers("/adminCreateArtist").hasAnyRole("ADMIN","USER");
+		http.authorizeRequests().antMatchers("/adminEditArtist").hasAnyRole("ADMIN","USER");
+		http.authorizeRequests().antMatchers("/adminCreateSong").hasAnyRole("ADMIN","USER");
+		http.authorizeRequests().antMatchers("/adminEditSong").hasAnyRole("ADMIN","USER");
 
 		// Login form
 		 http.formLogin().loginPage("/login");
