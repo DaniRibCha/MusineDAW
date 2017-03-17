@@ -27,6 +27,10 @@ import java.util.Date;
 @Controller
 public class MainController {
 	
+	private static final Object ArtistList = null;
+
+	private static final Object SongList = null;
+
 	@Autowired
 	private SongRepository songRepository;
 	
@@ -1379,6 +1383,56 @@ public class MainController {
 			
 			return "searchPlaylist";
 		}
+		
+		//Paginas de admin
+		
+		@RequestMapping("/admin")
+		public String serachPlaylist(Model model, HttpSession session){
+			return "admin";
+		}
+		
+		@RequestMapping("/adminCreateSong")
+		public String adminCreateSong(Model model, HttpSession session){
+			return "adminCreateSong";
+		}
+		
+		@RequestMapping("/adminCreateArtist")
+		public String adminCreateArtist(Model model, HttpSession session){
+			return "adminCreateArtist";
+		}
+		
+		@RequestMapping("/adminEditArtist")
+		public String adminEditArtist(Model model,
+				@RequestParam(value = "name", defaultValue = "") String name,
+				@RequestParam(value = "country", defaultValue = "") String country){
+			model.addAttribute("ArtistList",ArtistList);
+			
+			List<Artist> ArtistList=new ArrayList<>();
+			
+			ArtistList=artistRepository.findAll();
+			
+			model.addAttribute("ArtistList",ArtistList);
+			
+			
+			return "adminEditArtist";
+		}
+		
+		@RequestMapping("/adminEditSong")
+		public String adminEditSong(Model model, 
+				@RequestParam(value = "name", defaultValue = "") String name,
+				@RequestParam(value = "link", defaultValue = "") String link){
+			
+			model.addAttribute("SongList",SongList);
+			
+			List<Song> SongList=new ArrayList<>();
+			
+			SongList =songRepository.findAll();
+			
+			model.addAttribute("SongList",SongList);
+			
+			return "adminEditSong";
+		}
+
 	
 	
 }
