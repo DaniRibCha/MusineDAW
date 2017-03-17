@@ -11,28 +11,27 @@
     <link rel="icon" type="image/png" href="../img/musine.png">
     <!-- Bootstrap Core CSS -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Custom CSS -->
     <link href="../css/homestyle.css" rel="stylesheet">
-     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>-->
-<!--         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script> -->
-<!--         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script> -->
-     <!--<![endif]-->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
+
 <body>
- <nav class="navbar navbar-inverse">
+    <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header" id="header"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <a class="navbar-brand" href="/">Musine</a> <img class="img-responsive" id="logo-navbar" src="../img/musine.png" width="60" height="55"> </div>
-            <form class="navbar-form navbar-left" action="/SearchPlaylist">
+            <form class="navbar-form navbar-left">
                 <div class="input-group" id="search">
-                    <input type="text" class="form-control" placeholder="Search" name="key">
+                    <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
+                        <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
                     </div>
                 </div>
             </form>
@@ -41,7 +40,7 @@
                 	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="">My Profile</a></li>
+                            <li><a href="config.html">My Profile</a></li>
                             <li><a href="">My Playlists</a></li>
                             <li><a href="/Logout">Log Out</a></li>
                         </ul>
@@ -51,38 +50,37 @@
         </div>
     </nav>
     <div class="jumbotron" style="background-color:grey;">
-        <div class="container">
-            <div class="col-md-3 name-jumbotron">
-                <p>Admin Menu <span class="glyphicon glyphicon-cog"></span> </p>
-                <p><img class="img-responsive" id="userlogo" src="../img/user.jpg" width="60" height="55"> </p>
+        <div class="container uploadImg">
+            <div class="col-md-6">
+            
+<div class="well">
+                    <h4>Songs</h4>
+                    <div class="row">
+                        <ul class="list-unstyled" style="margin-left:15px">
+                        {{#SongList}}
+                            <li><a href="/Song/{{id_song}}">{{title}}</a> </li>
+                        {{/SongList}}
+                        </ul>
+                    </div>
+                    <!-- /.row -->
+                </div>
             </div>
-            <div class="col-md-3 description">
-            <a href="/adminCreateArtist">
-                <button type="button" class="btn btn-primary btn-lg cajas">Create Artists</button>
-                </a>
+             <div class="col-md-6">
+                    <label for="Bio">Artist Name</label>
+ 					<input type="text" class="form-control" name="artistname" id="artsistname" placeholder=""> 
+                	<div class="form-group form-utent">
+                        <label for="Link" id="artistcouny+try">Country</label>
+                        <input type="text" class="form-control" name="artistcountry" placeholder=""> </div>
+                        <div class="form-group form-utent">
+                        <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
+                        </div>
+                        <div class="form-group form-utent">
+                        <a href="/admin">
+                        <input type="button" style="color:black;" name="back" value="Back"/>
+                        </a>
+                        </div>
             </div>
-            <div class="col-md-3 description">
-                <a href="/adminEditArtist">
-                    <button type="button" class="btn btn-primary btn-lg cajas">Edit Artist</button>
-                </a>
-                
-            </div>
-            <div class="col-md-3 description">
-                <a href="/adminCreateSong">
-                    <button type="button" class="btn btn-primary btn-lg cajas">Create song</button>
-                </a>
-                
-            </div>
-            <div class="col-md-3 description">
-                <a href="adminEditSong">
-                    <button type="button" class="btn btn-primary btn-lg cajas">Edit song</button>
-                </a>
-                
-            </div>
-        </div>
-    </div>
 
-    <!-- Page Content -->
     <!-- /.row -->
     <!-- Footer -->
     <footer>
