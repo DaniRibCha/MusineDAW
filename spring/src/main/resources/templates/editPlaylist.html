@@ -69,9 +69,14 @@
                         <textarea class="form-control" rows="5" name="description" placeholder="{{p.description}}" ></textarea>
                     </div>
                     <div class="form-group">
-                        <label>Tag</label>
+                        <label>Tags</label>
+                        {{#p.tagsOfPlaylist}}
+                        <a class="tag" href="/SearchPlaylist/{{name}}"> {{name}}  </a>
+                        {{/p.tagsOfPlaylist}}
+                        <input type="text" class="form-control" name="tagToRemove" placeholder="Tag to Remove" style="margin-bottom: 1em;" >
+                         <input type="text" class="form-control" name="tagToAdd" placeholder="Tag to Add" >
                         		<input type="hidden" name="_csrf" value="{{token}}"/>
-                        <input type="text" class="form-control" name="tag" placeholder="{{tag}}" > </div>
+                         </div>
                         <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
                 </form>
             </div>
