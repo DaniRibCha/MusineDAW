@@ -844,27 +844,28 @@ public class MainController {
 		}
 		
 		
-		@RequestMapping("/EditPlaylist/{id}")
-		public String editPlaylist(Model model,@PathVariable long id,
+		@RequestMapping("/EditPlaylist/{idPlaylist}")
+		public String editPlaylist(Model model,@PathVariable long idPlaylist,
 				@RequestParam(value = "title", defaultValue = "") String title,
 				@RequestParam(value = "description", defaultValue = "") String description, 
 				@RequestParam(value = "tag", defaultValue = "") String tag,
 				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
 				@RequestParam(value = "artist", defaultValue = "") String artist, 
 				@RequestParam(value = "link", defaultValue = "") String link,
-				@RequestParam(value = "toRemove", defaultValue = "") Long id_song){
+				@RequestParam(value = "toRemove",required=false) Long id_song){
 			
-			Playlist p=playlistRepository.findOne(id);
+			Playlist p=playlistRepository.findOne(idPlaylist);
 			
 			long creator=p.getCreatorId();
 			
-			User u=userRepository.findOne(creator);
+			User uCreator=userRepository.findOne(creator);
 			
 			
 			if(id_song==null){}else{
 				Song s=songRepository.findOne(id_song);
 				p.removeSongOfPlaylist(s);
 				playlistRepository.save(p);
+				songRepository.save(s);
 			}
 				
 		
@@ -909,7 +910,9 @@ public class MainController {
 			
 			
 			
-			model.addAttribute("u",u);
+			model.addAttribute("uCreator",uCreator);
+			
+			model.addAttribute("u",userComponent.getLoggedUser());
 			
 			model.addAttribute("p",p);
 			
