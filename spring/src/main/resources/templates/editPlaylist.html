@@ -84,7 +84,7 @@
             {{#songs}}
             <div class="row">
                 <div class="col-md-12">
-                <form action="/EditPlaylist/{{u.id_user}}" method="post">
+                <form action="/EditPlaylist/{{p.id_playlist}}" method="post">
                 <input type="submit" value="Remove" class="pull-right"><span class="glyphicon glyphicon-trash pull-right"></span>
                 <input type="hidden" name="toRemove" value="{{id_song}}" >
                 		<input type="hidden" name="_csrf" value="{{token}}"/>
