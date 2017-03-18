@@ -15,6 +15,8 @@
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Custom CSS -->
     <link href="../css/homestyle.css" rel="stylesheet">
+    
+    <script src="../js/updateImage.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -57,7 +59,7 @@
         <div class="container uploadImg">
             <div class="col-md-6 name-jumbotron">
                 <p>{{u.name}} </p>
-                <p><img class="img-responsive" id="userlogo" src="../{{imgProfile}}/{{u.profileImage}}" width="60" height="55"> </p>
+                <p><img class="img-responsive" id="userlogo" src="/image/{{u.profileImage}}" width="60" height="55"> </p>
                 <form action="/image/upload" method="post"enctype="multipart/form-data" id="form-image">
 			
 					<div><input type="file" name="file" id="input-image" /></div>
