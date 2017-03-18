@@ -56,7 +56,6 @@ public class FileUploadController {
 				u.setProfileImage(fileName);
 				userRepository.save(u);
 				model.addAttribute("u",u);
-				model.addAttribute("imgProfile","imgProfile");
 				return "config";
 
 			} catch (Exception e) {
@@ -66,7 +65,7 @@ public class FileUploadController {
 						e.getClass().getName() + ":" + e.getMessage());
 				
 				model.addAttribute("u",u);
-				model.addAttribute("imgProfile","imgProfile");
+				//model.addAttribute("imgProfile",true);
 				return "config";
 			}
 		} else {
@@ -74,7 +73,7 @@ public class FileUploadController {
 			model.addAttribute("error",	"The file is empty");
 			
 			model.addAttribute("u",u);
-			model.addAttribute("imgProfile","imgProfile");
+			//model.addAttribute("imgProfile",true);
 			return "config";
 		}
 	}

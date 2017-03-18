@@ -76,16 +76,15 @@ public class MainController {
 			@RequestParam(value = "favorite", required=false) Long id_song,
 			@RequestParam(value = "like", required=false, defaultValue="") String like) {
 		
-//		boolean login=false;
-//		
-//		//si la sesion noes nueva y tiene el id de usuario logeado
-//		//añadida del id del usuario logeado al modelo
-//		if(!session.isNew() && session.getAttribute("idUser")!=null){
-//			login=true;
-//			model.addAttribute("idUser",session.getAttribute("idUser"));
-//		}
-			
+
 		boolean login=userComponent.isLoggedUser();
+		
+		if(login){
+			long idLogged=userComponent.getIdLoggedUser();
+			User u=userRepository.findOne(idLogged);
+
+			model.addAttribute("u",u);
+		}
     	
     	model.addAttribute("login", login);
     	
@@ -184,6 +183,7 @@ public class MainController {
 			@RequestParam(value = "follow", required=false) String followName) {
 		
 		boolean login=userComponent.isLoggedUser();
+		
     	
     	model.addAttribute("login", login);
 		//codigo para poner la posibilidad de seguir y no seguir en la
@@ -282,6 +282,11 @@ public class MainController {
 		
 		model.addAttribute("topArtists",topArtists);
 		
+		if(login){
+			long idLogged=userComponent.getIdLoggedUser();
+			model.addAttribute("u",userRepository.findOne(idLogged));
+		}
+		
 		return "Artist";
 	}
 	
@@ -313,6 +318,10 @@ public class MainController {
 //		}
 		
 		boolean login=userComponent.isLoggedUser();
+		
+		User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+	
+		model.addAttribute("u",uLogged);
 		
 		model.addAttribute("login",login);
 //		
@@ -543,6 +552,9 @@ public class MainController {
 			model.addAttribute("findedFollow",findedFollow);
 			
 			model.addAttribute("idLogged",idUserLogged);
+		
+			
+			model.addAttribute("uLogged",uLogged);
 			
 		}
 		
@@ -614,6 +626,8 @@ public class MainController {
 			model.addAttribute("findedFollow",findedFollow);
 			
 			model.addAttribute("idLogged",idUserLogged);
+			
+			model.addAttribute("uLogged",uLogged);
 			
 		}
 		
@@ -708,6 +722,8 @@ public class MainController {
 			
 			model.addAttribute("idLogged",idUserLogged);
 			
+			model.addAttribute("uLogged",uLogged);
+			
 		}
 		
 		
@@ -733,20 +749,15 @@ public class MainController {
 	//el usuario mira los seguidores de otro usuario
 		@RequestMapping("/UserFollowers/{id}")
 		public String getUserFollowers(Model model, @PathVariable long id){
-			
-//			boolean login=false;
-//			//si la sesion noes nueva y tiene el id de usuario logeado
-//			//añadida del id del usuario logeado al modelo
-//			if(!session.isNew() && session.getAttribute("idUser")!=null){
-//				login=true;
-//				model.addAttribute("idUser",session.getAttribute("idUser"));
-//			}
+		
 			
 			boolean login=userComponent.isLoggedUser();
 			
 			model.addAttribute("login",login);
 			
 			if (login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
+			
+			if (login) model.addAttribute("uLogged",userRepository.findOne(userComponent.getIdLoggedUser()));
 			
 			User u=userRepository.findOne(id);
 			
@@ -763,20 +774,14 @@ public class MainController {
 		public String getUserFollowing(Model model, @PathVariable long id, HttpSession session, Pageable page){
 			
 			Page<User> user = userRepository.findAll(page);
-//			
-//			boolean login=false;
-//			//si la sesion noes nueva y tiene el id de usuario logeado
-//			//añadida del id del usuario logeado al modelo
-//			if(!session.isNew() && session.getAttribute("idUser")!=null){
-//				login=true;
-//				model.addAttribute("idUser",session.getAttribute("idUser"));
-//			}
 			
 			boolean login=userComponent.isLoggedUser();
 //			
 			model.addAttribute("login",login);
 			
 			if (login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
+			
+			if (login) model.addAttribute("uLogged",userRepository.findOne(userComponent.getIdLoggedUser()));
 			
 			User u=userRepository.findOne(id);
 			
@@ -922,7 +927,9 @@ public class MainController {
 			
 			model.addAttribute("uCreator",uCreator);
 			
-			model.addAttribute("u",userComponent.getLoggedUser());
+			long idLogged=userComponent.getIdLoggedUser();
+			
+			model.addAttribute("u",userRepository.findOne(idLogged));
 			
 			model.addAttribute("p",p);
 			
@@ -972,7 +979,6 @@ public class MainController {
 			
 			model.addAttribute("u",u);
 			
-			model.addAttribute("imgProfile","imgProfile");
 			
 			return "config";
 		}
@@ -1054,16 +1060,13 @@ public class MainController {
 			if(a==null){}else{
 				model.addAttribute("a",a);
 			}
-			
-//			if(a==null && pList==null && t==null) {
-//				model.addAttribute("nothing",true);
-//			}
-//			else {
-//				model.addAttribute("nothing",false);
-//			}
+		
 			
 			if(login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
-			
+			if(login) {
+				long idLogged=userComponent.getIdLoggedUser();
+				model.addAttribute("uLogged",userRepository.findOne(idLogged));
+			}
 			model.addAttribute("key",key);
 			
 			return "searchPlaylist";
@@ -1129,6 +1132,12 @@ public class MainController {
 		
 			
 			if(login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
+			
+		
+			if(login) {
+				long idLogged=userComponent.getIdLoggedUser();
+				model.addAttribute("uLogged",userRepository.findOne(idLogged));
+			}
 			
 			model.addAttribute("key",key);
 			
