@@ -37,9 +37,10 @@ public class FileUploadController {
 	public String handleFileUpload(Model model, 
 			@RequestParam("file") MultipartFile file) {
 
-		String fileName = file.getOriginalFilename();
+		//String fileName = file.getOriginalFilename() + ".jpg";
 		long idLogged=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(idLogged);
+		String fileName =idLogged  + ".jpg";
 
 		if (!file.isEmpty()) {
 			try {
@@ -82,7 +83,7 @@ public class FileUploadController {
 	public void handleFileDownload(@PathVariable String fileName,
 			HttpServletResponse res) throws FileNotFoundException, IOException {
 
-		File file = new File(USER_IMAGE_FOLDER, fileName+".jpg");
+		File file = new File(USER_IMAGE_FOLDER, fileName + ".jpg");
 		//File file = new File(FILES_FOLDER, fileName);
 
 		if (file.exists()) {
