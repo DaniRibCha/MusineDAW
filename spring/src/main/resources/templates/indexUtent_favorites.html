@@ -39,7 +39,7 @@
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
+                    <li><img class="img-responsive img-circle" src="/image/{{u.profileImage}}" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
@@ -58,7 +58,7 @@
         <div class="container">
             <div class="col-md-3 name-jumbotron">
                 <p>{{u.name}} <a href="config.html" style="color:white"><span class="glyphicon glyphicon-cog"></span></a> </p>
-                <p><img class="img-responsive" id="userlogo" src="../img/user.jpg" width="60" height="55"> </p>
+                <p><img class="img-responsive" id="userlogo" src="/image/{{u.profileImage}}" width="60" height="55"> </p>
             </div>
             <div class="col-md-3 description">
                 <p>{{n_created}}</p>

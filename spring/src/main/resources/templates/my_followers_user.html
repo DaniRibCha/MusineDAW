@@ -39,7 +39,7 @@
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
+                   <li><img class="img-responsive img-circle" src="/image/{{u.profileImage}}" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                            <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
@@ -57,7 +57,7 @@
     <div class="jumbotron" style="background-color:grey;">
         <div class="container">
             <div class="col-md-12 name-jumbotron">
-                <p style="text-align: -webkit-center;"><img class="img-responsive" id="userImSeg" src="../img/user.jpg" width="60" height="55"></p>
+                <p style="text-align: -webkit-center;"><img class="img-responsive" id="userImSeg" src="/image/{{u.profileImage}}" width="60" height="55"></p>
                 <p>{{u.name}}</p>
             </div>
         </div>
@@ -71,7 +71,7 @@
     {{#followers}}
     
         <div class="col-md-6 follow">
-            <div><a href="/UserPlaylists/{{id_user}}"><img src="../img/user.jpg" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
+            <div><a href="/UserPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
        </div>
     {{/followers}}
     </div>

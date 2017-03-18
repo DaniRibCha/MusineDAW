@@ -34,13 +34,13 @@
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
                     		<input type="hidden" name="_csrf" value="{{token}}"/>
-                        <button class="btn btn-default" type="submit" id="search-button"> <a href="searchPlaylist.html"><i class="glyphicon glyphicon-search"></i> </a></button>
+                        <button class="btn btn-default" type="submit" id="search-button"> <a href="/SearchPlaylist"><i class="glyphicon glyphicon-search"></i> </a></button>
                     </div>
                 </div>
             </form>
             <div id="navbar">
                 <ul class="nav navbar-nav navbar-right">
-                	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
+                	<li><img class="img-responsive img-circle" src="/image/{{u.profileImage}}" width="60" height="55"></li> 
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/Config/{{u.id_user}}">My Profile</a></li>

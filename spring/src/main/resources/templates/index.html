@@ -44,7 +44,7 @@
                     <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                 {{/login}}
                 {{#login}}
-                	<li><img class="img-responsive img-circle" src="../img/user.jpg" width="60" height="55"></li>
+                	<li><img class="img-responsive img-circle" src="/image/{{uLogged.profileImage}}" width="60" height="55"></li>
                     <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="/Config/{{uLogged.id_user}}">My Profile</a></li>
