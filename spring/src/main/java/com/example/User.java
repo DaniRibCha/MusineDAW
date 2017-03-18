@@ -39,6 +39,8 @@ public class User {
 	
 	private String email;
 	
+	private String profileImage;
+	
 	@ElementCollection(fetch = FetchType.EAGER) 
 	private List<String> roles = new ArrayList<>();;
 	
@@ -74,20 +76,20 @@ public class User {
 		this.email=email;
 		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
-		
+		this.profileImage="user.jpg";
 	}
 	
-	public User(String name, String country) {
-		super();
-		this.biography="";
-		this.city="";
-		this.name = name;
-		this.country = country;
+	
+
+	public String getProfileImage() {
+		return profileImage;
 	}
 
 
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
 
-	
 
 	public long getId_user() {
 		return id_user;

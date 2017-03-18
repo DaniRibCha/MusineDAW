@@ -249,6 +249,21 @@ ul {
     text-align: center;
 }
 
+#form-image{
+    font-family: sans-serif;
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+#input-image {
+	display: -webkit-inline-box;
+}
+
+#input-titleImage{
+	color:black;
+}
 
 /*fin de la descripcion de los botones*/
 

@@ -57,8 +57,16 @@
         <div class="container uploadImg">
             <div class="col-md-6 name-jumbotron">
                 <p>{{u.name}} </p>
-                <p><img class="img-responsive" id="userlogo" src="../img/user.jpg" width="60" height="55"> </p>
-                <button type="button" class="btn btn-primary btn-lg uploadImg">Change Image</button>
+                <p><img class="img-responsive" id="userlogo" src="../{{imgProfile}}/{{u.profileImage}}" width="60" height="55"> </p>
+                <form action="/image/upload" method="post"enctype="multipart/form-data" id="form-image">
+			
+					<div><input type="file" name="file" id="input-image" /></div>
+					
+					<input type="hidden" name="_csrf" value="{{token}}"/>
+			
+				 <button type="submit" class="btn btn-primary btn-lg uploadImg">Change Image</button>
+			</form>
+               
                 <div class="dropdown">
                     <button class="btn btn-primary btn-lg dropdown-toggle uploadImg" type="button" data-toggle="dropdown">Change Password <span class="caret"></span></button>
                     <ul class="dropdown-menu changePass">

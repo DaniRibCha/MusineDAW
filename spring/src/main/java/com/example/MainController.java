@@ -972,6 +972,8 @@ public class MainController {
 			
 			model.addAttribute("u",u);
 			
+			model.addAttribute("imgProfile","imgProfile");
+			
 			return "config";
 		}
 		
