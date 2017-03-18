@@ -76,7 +76,7 @@ public class User {
 		this.email=email;
 		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
-		this.profileImage="user.jpg";
+		this.profileImage="user";
 	}
 	
 	
