@@ -53,10 +53,11 @@
             <div class="col-md-6">
             <form action="/adminEditArtist" method="post">
                     <label for="Bio">Artist Name</label>
- 					<input type="text" class="form-control" name="artistname" id="artistname" placeholder=""> 
+                
+ 					<input type="text" class="form-control" name="name" id="name" placeholder=""> 
                 	<div class="form-group form-utent">
                         <label for="Link" id="artistcouny+try">Country</label>
-                        <input type="text" class="form-control" name="artistcountry" placeholder=""> 
+                        <input type="text" class="form-control" name="country" placeholder=""> 
                         <div class="form-group form-utent">
                          <input type="hidden" name="_csrf" value="{{token}}"/>
                      	<input type="hidden" name="id" value=""/>
