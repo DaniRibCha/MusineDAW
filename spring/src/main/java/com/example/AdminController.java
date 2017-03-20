@@ -47,11 +47,14 @@ public class AdminController {
 			}
 			
 			@RequestMapping("/adminCreateSong")
-			public String adminCreateSong(Model model){
+			public String adminCreateSong(Model model,
+					@RequestParam(value = "idArtist") Long idArtist){
 				
 				Song s=new Song();
+				Artist a=artistRepository.findOne(idArtist);
+				s.addArtistsOfSong(a);
 				songRepository.save(s);
-				
+				model.addAttribute("a",a);
 				model.addAttribute("idSong",s.getId_song());
 				
 				return "adminCreateSong";
@@ -84,6 +87,8 @@ public class AdminController {
 					a.setName(name);a.setCountry(country);
 					artistRepository.save(a);
 					model.addAttribute("a",a);
+					List<Song> songs=a.getSongsOfArtist();
+					model.addAttribute("songs",songs);
 				}else{//si no se esta editando un artista que ya estaba DESDE admin->primera modifica
 					Artist a=artistRepository.findOne(idArtist);
 					name=a.getName();
@@ -93,6 +98,8 @@ public class AdminController {
 					model.addAttribute("idArtist",idArtist);
 					artistRepository.save(a);
 					model.addAttribute("a",a);
+					List<Song> songs=a.getSongsOfArtist();
+					model.addAttribute("songs",songs);
 				}
 
 				
@@ -102,9 +109,11 @@ public class AdminController {
 			
 			@RequestMapping("/adminEditSong/{idSong}")
 			public String adminEditSong(Model model, @PathVariable long idSong,
+					@RequestParam(value = "idArtist") Long idArtist,
 					@RequestParam(value = "title", defaultValue = "") String title,
 					@RequestParam(value = "link_youtube", defaultValue = "") String link_youtube){
 				
+
 				model.addAttribute("title", title);
 				model.addAttribute("link_youtube",link_youtube);
 				model.addAttribute("idSong",idSong);
