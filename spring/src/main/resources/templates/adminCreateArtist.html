@@ -37,7 +37,7 @@
             
                 <div class="form-group form-utent">
                     <label for="Bio">Artist Name</label>
-                    <form action="/adminEditArtist" method="post">
+                    <form action="/adminEditArtist/{{idArtist}}" method="post">
  					<input type="text" class="form-control" name="name" placeholder="" required>
                 	<div class="form-group form-utent">
                         <label for="Link" id="artistcouny+try">Country</label>
@@ -45,8 +45,7 @@
                     </div>
                     <div class="form-group form-utent">
                     <input type="hidden" name="_csrf" value="{{token}}"/>
-                     <input type="hidden" name="id" value="{{idArtist}}"/>
-                        <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
+                        <input type="submit" style="color:black;" name="sendData" value="Create"/>
                     </div>
                         </form>
                         
@@ -57,7 +56,8 @@
                         </div>
                 
             </div>
-            
+            </div>
+            </div>
 
     <!-- /.row -->
     <!-- Footer -->

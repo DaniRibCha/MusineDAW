@@ -42,23 +42,28 @@
                 </a>
             </div>
             <div class="col-md-3 description">
-                <a href="/adminEditArtist">
-                    <button type="button" class="btn btn-primary btn-lg cajas">Edit Artist</button>
-                </a>
-                
-            </div>
-            <div class="col-md-3 description">
                 <a href="/adminCreateSong">
                     <button type="button" class="btn btn-primary btn-lg cajas">Create song</button>
                 </a>
                 
             </div>
-            <div class="col-md-3 description">
-                <a href="adminEditSong">
-                    <button type="button" class="btn btn-primary btn-lg cajas">Edit song</button>
-                </a>
-                
-            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+        <div class="col-md-6">
+        Artists
+        <ul class="list-unstyled" style="margin-left:15px">
+                        {{#artists}}
+                            <li><a href="/adminEditArtist/{{id_artist}}">{{name}}</a> </li>
+                       		 
+                        {{/artists}}
+       </ul>
+        </div>
+        <div class="col-md-6">
+        Songs
+        </div>
         </div>
     </div>
 
