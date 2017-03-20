@@ -24,6 +24,10 @@
 </head>
 
 <body>
+	{{#admin}}
+	<a href="/admin">admin page</a>
+	{{/admin}}
+	{{^admin}}
     <!-- Navigation -->
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -164,6 +168,7 @@
     <script src="js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
+    {{/admin}}
 </body>
 
 </html>
