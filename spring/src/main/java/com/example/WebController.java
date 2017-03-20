@@ -133,42 +133,22 @@ public class WebController {
 		return "index";
     }
     
-//
-//    @RequestMapping("/home")
-//    public String home(Model model, HttpServletRequest request) {
-//    	
-//    	model.addAttribute("admin", request.isUserInRole("ADMIN"));
-//    	
-//    	Principal p = request.getUserPrincipal();
-//    	User user = userRepository.findByName(p.getName());
-//    	
-//    	User user2 = userComponent.getLoggedUser();
-//    	
-//    	System.out.println("User: "+user);
-//    	System.out.println("User2: "+user2);
-//    	
-//    	return "home";
-//    }
+
     
     @RequestMapping("/")
 	public String getIndex(HttpSession session, Model model, HttpServletRequest request,
 			@RequestParam(value = "likeId", required=false) Long likeId){
-		
-//		boolean login=false;
-//		//si la sesion noes nueva y tiene el id de usuario logeado
-//		//añadida del id del usuario logeado al modelo
-//		if(!session.isNew() && session.getAttribute("idUser")!=null){
-//			login=true;
-//			model.addAttribute("idUser",session.getAttribute("idUser"));
-//		}
-//		
-//		
-//		model.addAttribute("login",login);
     	
     	
     	boolean login=userComponent.isLoggedUser();
     	
-    	
+    	if(login){
+    		User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+    		if(uLogged.getName().equals("admin")){
+    			model.addAttribute("admin",true);
+    			return "index";
+    		}
+    	}
     	
 //    	Principal principal = request.getUserPrincipal();
 //    	User user = userRepository.findByName(principal.getName());
