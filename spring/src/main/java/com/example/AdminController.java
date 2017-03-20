@@ -8,12 +8,15 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class AdminController {
+	
+	private static final Object ArtistList = null;
+
+	private static final Object SongList = null;
 
 	@Autowired
 	private SongRepository songRepository;
@@ -41,57 +44,38 @@ public class AdminController {
 			}
 			
 			@RequestMapping("/adminCreateSong")
-			public String adminCreateSong(Model model, @PathVariable long id,
+			public String adminCreateSong(Model model, 
 					@RequestParam(value = "name", defaultValue = "") String name,
 					@RequestParam(value = "country", defaultValue = "")String link){
-				model.addAttribute("SongRepository",songRepository);
-				
+				model.addAttribute("SongRepository", songRepository);
 				Song s=new Song(name,link);
-				
-				s= songRepository.findOne(id);
-				
 				songRepository.save(s);
 				
-				model.addAttribute("s",s);
-				
 				return "adminCreateSong";
-				
 			}
 			
 			@RequestMapping("/adminCreateArtist")
-			public String adminCreateArtist(Model model, @PathVariable long id_artist,
-					@RequestParam(value = "name", defaultValue = "") String name,
-					@RequestParam(value = "country", defaultValue = "") String country){
+			public String adminCreateArtist(Model model){
 				
-				model.addAttribute("ArtistRepository",artistRepository);
-				
-				Artist a=new Artist (name,country);
-				
-				a= artistRepository.findOne(id_artist);
-				
+				//Artist a=new Artist(name,country);
+				Artist a=new Artist();
 				artistRepository.save(a);
 				
-				model.addAttribute("a",a);
-				
+				model.addAttribute("idArtist",a.getId_artist());
 				
 				return "adminCreateArtist";
 			}
 			
 			@RequestMapping("/adminEditArtist")
 			public String adminEditArtist(Model model,
-					@RequestParam(value = "id") long id_artist,
+					@RequestParam(value = "id") Long id_artist,
 					@RequestParam(value = "name", defaultValue = "") String name,
 					@RequestParam(value = "country", defaultValue = "") String country){
 				
-				model.addAttribute("ArtistRepository",artistRepository);
+					System.out.println(id_artist);
+					//Artist a=artistRepository.findOne(id_artist);
+					//model.addAttribute("a",a);
 				
-				Artist a=new Artist (name,country);
-				
-				a= artistRepository.findOne(id_artist);
-				
-				artistRepository.save(a);
-				
-				model.addAttribute("a",a);
 				
 				
 				return "adminEditArtist";
@@ -99,19 +83,16 @@ public class AdminController {
 			
 			@RequestMapping("/adminEditSong")
 			public String adminEditSong(Model model, 
-					@RequestParam (value = "id") long id,
 					@RequestParam(value = "name", defaultValue = "") String name,
 					@RequestParam(value = "link", defaultValue = "") String link){
 				
-				model.addAttribute("SongRepository",songRepository);
+				model.addAttribute("SongList",SongList);
 				
-				Song s=new Song(name,link);
+				List<Song> SongList=new ArrayList<>();
 				
-				s= songRepository.findOne(id);
+				SongList =songRepository.findAll();
 				
-				songRepository.save(s);
-				
-				model.addAttribute("s",s);
+				model.addAttribute("SongList",SongList);
 				
 				return "adminEditSong";
 			}

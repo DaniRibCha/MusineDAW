@@ -189,7 +189,7 @@ public class UserController {
 		
 		
 		//Users
-		User admin=new User("admin", "","adminpass","admin@gmail.com","ROLE_USER","ROLE_USER");
+		User admin=new User("admin", "","adminpass","admin@gmail.com","ROLE_USER","ROLE_ADMIN");
 		userRepository.save(admin);
 				
 		User u1=new User("Davide", "Italy","pass","davide@gmail.com","ROLE_USER");

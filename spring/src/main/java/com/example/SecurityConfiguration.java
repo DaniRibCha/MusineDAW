@@ -35,11 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/UserFavorites/{id}").permitAll();
 		http.authorizeRequests().antMatchers("/UserLikes/{id}").permitAll();
 		http.authorizeRequests().antMatchers("/UserPlaylists/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/admin").permitAll();
-		http.authorizeRequests().antMatchers("/adminCreateArtist").permitAll();
-		http.authorizeRequests().antMatchers("/adminEditArtist").permitAll();
-		http.authorizeRequests().antMatchers("/adminCreateSong").permitAll();
-		http.authorizeRequests().antMatchers("/adminEditSong").permitAll();
 		
 		// Private pages (all other pages)
 
@@ -47,21 +42,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/EditPlaylist/{idPlaylist}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/EditNewPlaylist/{idUser}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyFollowers/{id}").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/MyFollowing/{id}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyPlaylists/{id}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/MyLikes/{id}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/MyFavorites/{id}}").hasAnyRole("USER");
+		http.authorizeRequests().antMatchers("/MyFavorites/{id}").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/Config/{id}").hasAnyRole("USER"); 
-		http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN","USER");
-		http.authorizeRequests().antMatchers("/adminCreateArtist").hasAnyRole("ADMIN","USER");
-		http.authorizeRequests().antMatchers("/adminEditArtist").hasAnyRole("ADMIN","USER");
-		http.authorizeRequests().antMatchers("/adminCreateSong").hasAnyRole("ADMIN","USER");
-		http.authorizeRequests().antMatchers("/adminEditSong").hasAnyRole("ADMIN","USER");
+		http.authorizeRequests().antMatchers("/admin").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/adminCreateArtist").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/adminEditArtist").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/adminCreateSong").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/adminEditSong").hasAnyRole("ADMIN");
 
 		// Login form
 		 http.formLogin().loginPage("/login");
 	        http.formLogin().usernameParameter("username");
 	        http.formLogin().passwordParameter("password");
-	        //http.formLogin().defaultSuccessUrl("/home");
 	        http.formLogin().defaultSuccessUrl("/");
 	        http.formLogin().failureUrl("/loginerror");
 		// Logout
