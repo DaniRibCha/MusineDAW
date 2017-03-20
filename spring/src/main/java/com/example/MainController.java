@@ -29,10 +29,7 @@ import java.util.Date;
 
 @Controller
 public class MainController {
-	
-	private static final Object ArtistList = null;
 
-	private static final Object SongList = null;
 
 	@Autowired
 	private SongRepository songRepository;
