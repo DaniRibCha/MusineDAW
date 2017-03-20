@@ -305,22 +305,17 @@ public class MainController {
 	@RequestMapping("/ArtistFollowers/{id}")
 	public String getArtistFollowers(Model model, @PathVariable long id){
 		
-//		boolean login=false;
-//		
-//		//si la sesion noes nueva y tiene el id de usuario logeado
-//		//añadida del id del usuario logeado al modelo
-//		if(!session.isNew() && session.getAttribute("idUser")!=null){
-//			login=true;
-//			model.addAttribute("idUser",session.getAttribute("idUser"));
-//		}
 		
 		boolean login=userComponent.isLoggedUser();
-		
-		User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
-	
-		model.addAttribute("u",uLogged);
-		
-		model.addAttribute("login",login);
+
+		if (login){
+			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+
+
+			model.addAttribute("u",uLogged);
+
+			model.addAttribute("login",login);
+		}
 //		
 		Artist a=artistRepository.findOne(id);
 		
