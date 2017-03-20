@@ -78,6 +78,20 @@
        </div>
     {{/following}}
     </div>
+    
+    <!-- Paginacion -->    
+    {{#showPrev}}
+	<a href="/UserFollowing/{{ident}}?page={{prevPage}}">
+	 <button type="button" class="btn btn-danger">Prev</button>
+	</a>
+	{{/showPrev}}
+    
+    {{#showNext}}
+	<a href="/UserFollowing/{{ident}}?page={{nextPage}}">
+	 <button type="button" class="btn btn-danger">Next</button>
+	</a>
+	{{/showNext}}
+    
     <hr>
     <div class="row save-return">
         <div class="col-md-12" style="text-align:right">
