@@ -13,6 +13,10 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="../css/homestyle.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="../js/paginacion.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -79,18 +83,26 @@
     {{/following}}
     </div>
     
-    <!-- Paginacion -->    
+    <!-- Paginacion --> 
+    
     {{#showPrev}}
 	<a href="/UserFollowing/{{ident}}?page={{prevPage}}">
-	 <button type="button" class="btn btn-danger">Prev</button>
+	  <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger">Previous</button>
+        </div>
 	</a>
 	{{/showPrev}}
     
     {{#showNext}}
-	<a href="/UserFollowing/{{ident}}?page={{nextPage}}">
-	 <button type="button" class="btn btn-danger">Next</button>
+	<a href="/UserFollowing/{{ident}}">
+	 <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger" id="loadMore">Load More</button>
+        </div>
 	</a>
 	{{/showNext}}
+	
+	<div id="spin"></div>
+	<div id='more'></div>
     
     <hr>
     <div class="row save-return">
