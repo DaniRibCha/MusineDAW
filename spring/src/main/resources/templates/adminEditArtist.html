@@ -38,11 +38,13 @@
                 <div class="well">
                     <h4>Artists</h4>
                     <div class="row">
-                        <ul class="list-unstyled" style="margin-left:15px">
-                        {{#ArtistList}}
-                            <li onclick=artistname.placeholder=>{{name}}</li>
-                        {{/ArtistList}}
-                        </ul>
+                          <form action="/adminCreateSong" method="post">
+                  
+                         <input type="hidden" name="_csrf" value="{{token}}"/>
+                     	<input type="hidden" name="idArtist" value="{{idArtist}}"/>
+                        <input type="submit"  onclick="olakase" style="color:black;" name="sendData" value="Create New Song"/>
+                        
+              				</form></li>
                     </div>
                     <!-- /.row -->
                 </div>
@@ -73,6 +75,30 @@
 
     <!-- /.row -->
     <!-- Footer -->
+    
+    <div class="container">
+        <div class="row">
+       
+        Songs
+        
+                        {{#songs}}
+                         <div class="col-md-12">
+                          
+                             <form action="/adminEditSong/{{id_song}}" method="post" >
+                  
+                         <input type="hidden" name="_csrf" value="{{token}}"/>
+                     	<input type="hidden" name="idArtist" value="{{idArtist}}"/>
+                     	<input type="hidden" name="title" value="{{title}}"/>
+                     	<input type="hidden" name="link_youtube" value="{{link_youtube}}"/>
+                        <input type="submit"  onclick="olakase" style="color:black;" name="sendData" value="{{title}}"/>
+                        
+              				</form></div>
+                        {{/songs}}
+       </ul>
+       </div>
+       </div>
+   
+    </div>
     <footer>
         <div class="row">
             <div class="col-md-12">

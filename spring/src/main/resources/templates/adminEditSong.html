@@ -38,7 +38,7 @@
                     <div class="row">
                         <ul class="list-unstyled" style="margin-left:15px">
                         {{#SongList}}
-                            <li onclick=songtitle.placeholder=>{{title}}</li>
+                            <li><a href="/Song/{{id_song}}">{{title}}</a> </li>
                         {{/SongList}}
                         </ul>
                     </div>
@@ -48,7 +48,7 @@
              <div class="col-md-6">
                     <form action="/adminEditSong/{{idSong}}" method="post">
                         <label for="Bio">Song Title</label>
- 					<input type="text" class="form-control" id="songtitle" name="title" placeholder="{{title}}" required>
+ 					<input type="text" class="form-control" name="title" placeholder="{{title}}" required>
                 	<div class="form-group form-utent">
                         <label for="Link" id="artistcouny+try">Link Youtube</label>
                         <input type="text" class="form-control" name="link_youtube" placeholder="{{link_youtube}}" required> 
