@@ -12,6 +12,8 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	
 	Song findByFavoriteSongs(Song s);
 	
-	Page<User> findByFollowers(Pageable Page);
+	//Page<User> findFollowersByName(String name,Pageable Page);
+	//Page<User> findFollowersByName(String name,Pageable Page);
+	Page<User> findByFollowers(List<User> userFollowed,Pageable Page);
 	
 }

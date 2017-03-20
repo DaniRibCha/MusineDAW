@@ -104,7 +104,7 @@ public class AdminController {
 			public String adminEditSong(Model model, @PathVariable long idSong,
 					@RequestParam(value = "title", defaultValue = "") String title,
 					@RequestParam(value = "link_youtube", defaultValue = "") String link_youtube){
-				if(!title.equals("") && !link_youtube.equals("")){
+				
 				model.addAttribute("title", title);
 				model.addAttribute("link_youtube",link_youtube);
 				model.addAttribute("idSong",idSong);
@@ -120,17 +120,7 @@ public class AdminController {
 //				SongList =songRepository.findAll();
 //				
 //				model.addAttribute("SongList",SongList);
-				}
-				else{
-					Song s=songRepository.findOne(idSong);
-					title=s.getTitle();
-					link_youtube=s.getLink_youtube();
-					model.addAttribute("title", title);
-					model.addAttribute("link_youtube",link_youtube);
-					model.addAttribute("idSong",idSong);
-					songRepository.save(s);
-					model.addAttribute("s",s);
-				}
+				
 				return "adminEditSong";
 			}
 

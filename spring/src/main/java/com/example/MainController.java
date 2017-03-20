@@ -477,10 +477,23 @@ public class MainController {
 	//el usuario mira sus seguidos
 	//pagina privada usuario
 	@RequestMapping("/MyFollowing/{id}")
-	public String getMyFollowing(Model model, @PathVariable long id, 
+	public String getMyFollowing(Model model, @PathVariable long id, Pageable page,
 			@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
+		
+		List<User> following=new ArrayList<>();
+		following.add(u);
+		
+		Page<User> userPage = userRepository.findByFollowers(following,page);
+		
+		model.addAttribute("ident", id);
+		model.addAttribute("following",userPage);
+		model.addAttribute("showPrev", !userPage.isFirst());
+		model.addAttribute("showNext", !userPage.isLast());
+		model.addAttribute("nextPage", userPage.getNumber()+1);
+		model.addAttribute("prevPage", userPage.getNumber()-1);
+		
 		
 		//codigo para borrar un seguido desde le pagina following
 		//si en el RequestParam hay el nombre del usuario
@@ -767,9 +780,12 @@ public class MainController {
 			
 			User u=userRepository.findOne(id);
 			
-			Pageable followers=(Pageable)u.getFollowers();
+			//Pageable followers=(Pageable)u.getFollowers();
+			List<User> following=new ArrayList<>();
+			following.add(u);
 			
-			Page<User> userPage = userRepository.findByFollowers(followers);
+			Page<User> userPage = userRepository.findByFollowers(following,page);
+			//Page<User> userPage = userRepository.findAll(page);
 			
 			boolean login=userComponent.isLoggedUser();
 //			
