@@ -55,12 +55,10 @@
             
                 <div class="form-group form-utent">
                     <label for="Bio">Song Name</label>
- 					 <form action="/adminEditArtist" method="post">
- 					<input type="text" class="form-control" name="songname" id="name" placeholder=""> 
+ 					<input type="text" class="form-control" name="songname" id="songname" placeholder=""> </div>
                 <div class="form-group form-utent">
-                        <label for="Link" id="link">Link</label>
-                        <input type="text" class="form-control" name="link" placeholder=""> </div>
-                        <input type="hidden" name="_csrf" value="{{token}}"/>
+                        <label for="Link" id="songlink">Link</label>
+                        <input type="text" class="form-control" name="songlink" placeholder=""> </div>
                         <div class="form-group form-utent">
                         <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
                         </div>
@@ -69,8 +67,8 @@
                         <input type="button" style="color:black;" name="back" value="Back"/>
                         </a>
                         </div>
-                	</form>
-                	</div>
+                
+                
             </div>
             
 

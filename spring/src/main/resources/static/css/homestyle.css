@@ -532,16 +532,16 @@ a.tag {
 /*inicio playlist*/
 
 #reproductor {
-    text-align: center;
+    text-align: -webkit-center;
     height: 35em;
 }
 
-#reproductor>iframe {
-    width: 70%;
-    height: 100%;
-    max-height: 480px;
-    max-width: 854px;
-}
+/* #reproductor>iframe { */
+/*     width: 70%; */
+/*     height: 100%; */
+/*     max-height: 480px; */
+/*     max-width: 854px; */
+/* } */
 
 .recomendaciones {
     text-align: center;

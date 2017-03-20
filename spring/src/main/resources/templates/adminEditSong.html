@@ -66,23 +66,19 @@
                 </div>
             </div>
              <div class="col-md-6">
-             		<form action="/adminEditArtist" method="post">
                     <label for="Bio">Artist Name</label>
- 					<input type="text" class="form-control" name="name" id="name" placeholder=""> 
+ 					<input type="text" class="form-control" name="artistname" id="artsistname" placeholder=""> 
                 	<div class="form-group form-utent">
                         <label for="Link" id="artistcouny+try">Country</label>
-                        <input type="text" class="form-control" name="link" placeholder=""> </div>
+                        <input type="text" class="form-control" name="artistcountry" placeholder=""> </div>
                         <div class="form-group form-utent">
                         <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
-                        <input type="hidden" name="_csrf" value="{{token}}"/>
-                        <input type="hidden" name="_csrf" value="{{s.id}}"/>
                         </div>
                         <div class="form-group form-utent">
                         <a href="/admin">
                         <input type="button" style="color:black;" name="back" value="Back"/>
                         </a>
                         </div>
-                    </form> 
             </div>
 
     <!-- /.row -->
