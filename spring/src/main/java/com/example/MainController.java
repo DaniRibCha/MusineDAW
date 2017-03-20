@@ -763,9 +763,13 @@ public class MainController {
 		
 		//el usuario mira los seguidos de otro usuario, pagina NO privada
 		@RequestMapping("/UserFollowing/{id}")
-		public String getUserFollowing(Model model, @PathVariable long id, HttpSession session, Pageable page){
+		public String getUserFollowing(Model model, @PathVariable long id, Pageable page){
 			
-			Page<User> user = userRepository.findAll(page);
+			User u=userRepository.findOne(id);
+			
+			Pageable followers=(Pageable)u.getFollowers();
+			
+			Page<User> userPage = userRepository.findByFollowers(followers);
 			
 			boolean login=userComponent.isLoggedUser();
 //			
@@ -775,7 +779,7 @@ public class MainController {
 			
 			if (login) model.addAttribute("uLogged",userRepository.findOne(userComponent.getIdLoggedUser()));
 			
-			User u=userRepository.findOne(id);
+			
 			
 			model.addAttribute("u",u);
 			
@@ -783,11 +787,11 @@ public class MainController {
 			
 			//Paginacion
 			model.addAttribute("ident", id);
-			model.addAttribute("following",user);
-			model.addAttribute("showPrev", !user.isFirst());
-			model.addAttribute("showNext", !user.isLast());
-			model.addAttribute("nextPage", user.getNumber()+1);
-			model.addAttribute("prevPage", user.getNumber()-1);
+			model.addAttribute("following",userPage);
+			model.addAttribute("showPrev", !userPage.isFirst());
+			model.addAttribute("showNext", !userPage.isLast());
+			model.addAttribute("nextPage", userPage.getNumber()+1);
+			model.addAttribute("prevPage", userPage.getNumber()-1);
 			
 			return "following_user";
 		}
