@@ -768,7 +768,23 @@ public class MainController {
 			
 			model.addAttribute("u",u);
 			
-			model.addAttribute("followers",u.getFollowers());
+			List<User> followers=u.getFollowers();
+			
+			if(login){
+				long idLogged=userComponent.getIdLoggedUser();
+				
+				for(int i=0;i<followers.size();++i){
+					User f=followers.get(i);
+					if(f.getId_user()==idLogged){
+						//si el usuario logueado es el creador le pone a la clase
+						//el atributo isIdLogged=true
+						//la plantilla mira ese atributo para trazar la ruta dinamica
+						f.setIdLogged(true);
+					}
+				}
+			}
+			
+			model.addAttribute("followers",followers);
 			
 			
 			return "followers_user";

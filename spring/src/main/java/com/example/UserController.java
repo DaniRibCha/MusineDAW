@@ -218,7 +218,8 @@ public class UserController {
 		User u24=new User("Juan","Venezuela","pass","juan@gmail.com","ROLE_USER");
 		
 		//prueba User-Canciones favoritas
-		u1.addFavoriteSong(s1); //u1.addFavoriteSong(s2);
+		u1.addFavoriteSong(s1); u1.addFavoriteSong(s2);
+		u4.addFavoriteSong(s21);u4.addFavoriteSong(s9);
 		
 		userRepository.save(u1);userRepository.save(u2);
 		userRepository.save(u3);userRepository.save(u4);

@@ -63,6 +63,8 @@ public class User {
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Playlist> createdPlaylists= new ArrayList<>();
 	
+	private boolean isIdLogged;
+	
 	public User() {
 	}
 
@@ -77,9 +79,24 @@ public class User {
 		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.profileImage="user.jpg";
+		this.isIdLogged=false;
 	}
 	
 	
+	
+
+	
+
+
+	public boolean isIdLogged() {
+		return isIdLogged;
+	}
+
+
+	public void setIdLogged(boolean isIdLogged) {
+		this.isIdLogged = isIdLogged;
+	}
+
 
 	public String getProfileImage() {
 		return profileImage;
