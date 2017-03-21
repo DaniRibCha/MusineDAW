@@ -76,7 +76,12 @@
     <div class="row">
      {{#followers}}
         <div class="col-md-6 follow">
+        {{^isIdLogged}}
             <div><a href="/UserPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
+		{{/isIdLogged}}
+		{{#isIdLogged}}
+		 <div><a href="/MyPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
+		{{/isIdLogged}}      
        </div>
     {{/followers}}
     </div>
