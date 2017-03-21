@@ -13,7 +13,7 @@ public interface PlaylistRepository extends JpaRepository<Playlist, Long>  {
 	
 	List <Playlist> findFirst3ByOrderByNLikesDesc();
 	
-	List <Playlist> findFirst100ByOrderByDateAsc();
+	List <Playlist> findFirst100ByOrderByDateDesc();
 	
 	List<Playlist> findByTagsOfPlaylist(List<Tag> tags);
 }
