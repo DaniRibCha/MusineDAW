@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -55,15 +56,13 @@ public class User {
 	private List<User> followers = new ArrayList<>();	
 	
 	@ManyToMany
-	private List<Song> favoriteSongs= new ArrayList<>();
+	private List<Song> favoriteSongs = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="userlikesOfPlaylist")
 	private List<Playlist> likedPlaylists= new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
 	private List<Playlist> createdPlaylists= new ArrayList<>();
-	
-	private boolean isIdLogged;
 	
 	public User() {
 	}
@@ -79,24 +78,9 @@ public class User {
 		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.profileImage="user.jpg";
-		this.isIdLogged=false;
 	}
 	
 	
-	
-
-	
-
-
-	public boolean isIdLogged() {
-		return isIdLogged;
-	}
-
-
-	public void setIdLogged(boolean isIdLogged) {
-		this.isIdLogged = isIdLogged;
-	}
-
 
 	public String getProfileImage() {
 		return profileImage;
@@ -159,11 +143,9 @@ public class User {
 		this.roles.add(role);
 	}
 
-
 	public List<Song> getFavoriteSongs() {
 		return favoriteSongs;
 	}
-
 
 	public void addFavoriteSong(Song favoriteSong) {
 		this.favoriteSongs.add(favoriteSong);

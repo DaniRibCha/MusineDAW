@@ -91,7 +91,6 @@ public class Playlist {
 	
 	public Playlist() {}
 	
-
 	
 	public boolean isLikedByLogged() {
 		return likedByLogged;

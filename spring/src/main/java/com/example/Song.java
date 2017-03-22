@@ -55,38 +55,24 @@ public class Song{
 		idLogged=false;
 	}
 	
-	
-	
 	protected Song() {
 	}
-
-	
-	
 
 	public boolean isIdLogged() {
 		return idLogged;
 	}
 
-
-
 	public void setIdLogged(boolean idLogged) {
 		this.idLogged = idLogged;
 	}
-
-
-	
 	
 	public List<User> getUsersFavoriteSong() {
 		return usersFavoriteSong;
 	}
 
-
-
 	public void setUsersFavoriteSong(List<User> usersFavoriteSong) {
 		this.usersFavoriteSong = usersFavoriteSong;
 	}
-
-
 
 	public List<Playlist> getPlaylistsOfSong() {
 		return playlistsOfSong;
@@ -97,8 +83,6 @@ public class Song{
 		this.playlistsOfSong.add(playlistOfSong);
 	}
 	
-	
-
 	public long getId_song() {
 		return id_song;
 	}
@@ -131,7 +115,4 @@ public class Song{
 	public String toString() {
 		return "Song [id_song=" + id_song + ", title=" + title + ", link_youtube=" + link_youtube + "]";
 	}
-	
-	
-	
 }
