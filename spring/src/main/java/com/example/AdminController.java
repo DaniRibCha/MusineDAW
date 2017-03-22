@@ -41,10 +41,15 @@ public class AdminController {
 
 	@RequestMapping("/admin")
 	public String adminPage(Model model){
+		Artist aEmpty=artistRepository.findByName("");
+		if(aEmpty!=null){
+			artistRepository.delete(aEmpty);
+		}
 		List<Artist> artists=artistRepository.findAll();
 		model.addAttribute("artists",artists);
 		return "admin";
 	}
+	
 
 	@RequestMapping("/adminCreateSong")
 	public String adminCreateSong(Model model,
@@ -63,7 +68,7 @@ public class AdminController {
 	@RequestMapping("/adminCreateArtist")
 	public String adminCreateArtist(Model model){
 
-		Artist a=new Artist();
+		Artist a=new Artist("","");
 		artistRepository.save(a);
 
 		model.addAttribute("idArtist",a.getId_artist());
