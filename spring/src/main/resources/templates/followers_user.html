@@ -15,6 +15,7 @@
     <link href="../css/homestyle.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="../js/paginacion.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -76,15 +77,32 @@
     <div class="row">
      {{#followers}}
         <div class="col-md-6 follow">
-        {{^isIdLogged}}
             <div><a href="/UserPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
-		{{/isIdLogged}}
-		{{#isIdLogged}}
-		 <div><a href="/MyPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
-		{{/isIdLogged}}      
        </div>
     {{/followers}}
     </div>
+    
+    <!-- Paginacion --> 
+    
+    {{#showPrev}}
+	<a href="/UserFollowers/{{ident}}?page={{prevPage}}">
+	  <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger">Previous</button>
+        </div>
+	</a>
+	{{/showPrev}}
+    
+    {{#showNext}}
+	<a href="/UserFollowers/{{ident}}?page={{nextPage}}">
+	 <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+        </div>
+	</a>
+	{{/showNext}}
+	
+	<div class="col-md-12" style="text-align:center" id="spin"></div>
+	<div id='more'></div>
+    
     <hr>
     <div class="row save-return">
         <div class="col-md-12" style="text-align:right">

@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="../js/paginacion.js"></script>
     <!-- Custom CSS -->
     <link href="../css/homestyle.css" rel="stylesheet">
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -129,6 +130,28 @@
             </div>
             {{/playlists}}
     </div>
+    
+    <!-- Paginacion --> 
+    
+    {{#showPrev}}
+	<a href="/MyPlaylists/{{ident}}?page={{prevPage}}">
+	  <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger">Previous</button>
+        </div>
+	</a>
+	{{/showPrev}}
+    
+    {{#showNext}}
+	<a href="/MyPlaylists/{{ident}}?page={{nextPage}}">
+	 <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+        </div>
+	</a>
+	{{/showNext}}
+	
+	<div class="col-md-12" style="text-align:center" id="spin"></div>
+	<div id='more'></div>
+    
     <!-- /.row -->
     <!-- Footer -->
     <footer>

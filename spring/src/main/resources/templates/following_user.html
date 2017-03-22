@@ -94,14 +94,14 @@
 	{{/showPrev}}
     
     {{#showNext}}
-	<a href="/UserFollowing/{{ident}}">
+	<a href="/UserFollowing/{{ident}}?page={{nextPage}}">
 	 <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger" id="loadMore">Load More</button>
+                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
         </div>
 	</a>
 	{{/showNext}}
 	
-	<div id="spin"></div>
+	<div class="col-md-12" style="text-align:center" id="spin"></div>
 	<div id='more'></div>
     
     <hr>
