@@ -68,7 +68,7 @@ public class Playlist {
 	@ManyToMany
 	private List<User> userlikesOfPlaylist= new ArrayList<>();
 	
-	private boolean idLogged;
+	private boolean isIdLogged;
 	
 	private boolean likedByLogged;
 	
@@ -85,7 +85,7 @@ public class Playlist {
 		this.date = new java.sql.Date(utilDate.getTime());
 		this.creatorName=creatorName;
 		this.creatorId=creatorId;
-		this.idLogged=false;
+		this.isIdLogged=false;
 		this.likedByLogged=false;
 	}
 	
@@ -101,11 +101,11 @@ public class Playlist {
 	}
 
 	public boolean isIdLogged() {
-		return idLogged;
+		return isIdLogged;
 	}
 
-	public void setIdLogged(boolean idLogged) {
-		this.idLogged = idLogged;
+	public void setIdLogged(boolean isIdLogged) {
+		this.isIdLogged = isIdLogged;
 	}
 
 	public long getId_playlist() {

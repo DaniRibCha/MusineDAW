@@ -42,6 +42,8 @@ public class User {
 	
 	private String profileImage;
 	
+	private boolean isIdLogged;
+	
 	@ElementCollection(fetch = FetchType.EAGER) 
 	private List<String> roles = new ArrayList<>();;
 	
@@ -78,9 +80,20 @@ public class User {
 		this.passwordHash = new BCryptPasswordEncoder().encode(passwordHash);
 		this.roles = new ArrayList<>(Arrays.asList(roles));
 		this.profileImage="user.jpg";
+		this.isIdLogged=false;
 	}
 	
 	
+
+	public boolean isIdLogged() {
+		return isIdLogged;
+	}
+
+
+	public void setIdLogged(boolean isIdLogged) {
+		this.isIdLogged = isIdLogged;
+	}
+
 
 	public String getProfileImage() {
 		return profileImage;

@@ -46,24 +46,24 @@ public class Song{
 	@ManyToMany(mappedBy="favoriteSongs")
 	private List<User> usersFavoriteSong= new ArrayList<>();
 	
-	private boolean idLogged;
+	private boolean isIdLogged;
 	
 	public Song(String title, String link_youtube) {
 		super();
 		this.title = title;
 		this.link_youtube = link_youtube;
-		idLogged=false;
+		isIdLogged=false;
 	}
 	
 	protected Song() {
 	}
 
 	public boolean isIdLogged() {
-		return idLogged;
+		return isIdLogged;
 	}
 
-	public void setIdLogged(boolean idLogged) {
-		this.idLogged = idLogged;
+	public void setIdLogged(boolean isIdLogged) {
+		this.isIdLogged = isIdLogged;
 	}
 	
 	public List<User> getUsersFavoriteSong() {

@@ -12,4 +12,5 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 	Page<Song> findAll(Pageable page);
 	Page<Song> findByUsersFavoriteSong(List<User> users, Pageable page);
 	Page<Song> findByPlaylistsOfSong(List<Playlist> playlist, Pageable page);
+	Page<Song> findByArtistsOfSong(List<Artist> artists,Pageable page);
 }

@@ -108,6 +108,7 @@ public class MainController {
 		play.add(p);
 		
 		Page<Song> songs = songRepository.findByPlaylistsOfSong(play, page);
+		List<Song> mySongs=songs.getContent();
 		
 		pageIndex = songs.getNumber();
 			
@@ -129,30 +130,23 @@ public class MainController {
 			}
 		}
 		
-		boolean findedFavorite=false;
-		//codigo para devolver si la cancion esta en los favoritos
-		//del usuario logeado
-//		if(login){//si un usuario esta logeado
-//			long idLogged=userComponent.getIdLoggedUser();
-//			List<User> users=new ArrayList<>();
-//			Song s;
-//			for(int i=0;i<songs.size();++i){
-//				s=songs.get(i);
-//				users=s.getUsersFavoriteSong();
-//				findedFavorite=false;
-//				//para cada usuario que tiene esa cancion en los favoritos
-//				//si es el usuario logeado se pone el atributo boolean
-//				//de la cancion a true->la plantilla chequea ese atributo
-//				for(int j=0;j<users.size() && !findedFavorite;++j){
-//					if(users.get(j).getId_user()==idLogged){
-//						s.setIdLogged(true);
-//						findedFavorite=true;
-//					}
-//				}
-//			}
-//		}
+//		codigo para devolver si la cancion esta en los favoritos
+//		del usuario logeado
+		if(login){//si un usuario esta logeado
+			long idLogged=userComponent.getIdLoggedUser();
+			User uLogged=userRepository.findOne(idLogged);
+			List<Song> favoriteByUser=uLogged.getFavoriteSongs();
+			for(int i=0;i<mySongs.size();++i){
+				Song s=mySongs.get(i);
+				for(int j=0;j<favoriteByUser.size();++j){
+					if(s.getId_song()==favoriteByUser.get(j).getId_song()){
+						s.setIdLogged(true);
+					}
+				}
+			}
+			
+		}
 		
-		model.addAttribute("findedFavorite",findedFavorite);
 		
 		model.addAttribute("songs",songs);
 		
@@ -231,39 +225,34 @@ public class MainController {
 		long idLogged=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(idLogged);
 		
-		//codigo para devolver si la cancion esta en los favoritos
-		//del usuario logeado
-//		if(login){//si un usuario esta logeado
-//			long idLogged=userComponent.getIdLoggedUser();
-//			boolean finded;
-//			List<User> users=new ArrayList<>();
-//			Song s;
-//			for(int i=0;i<songs.size();++i){
-//				s=songs.get(i);
-//				users=s.getUsersFavoriteSong();
-//				finded=false;
-//				//para cada usuario que tiene esa cancion en los favoritos
-//				//si es el usuario logeado se pone el atributo boolean
-//				//de la cancion a true->la plantilla chequea ese atributo
-//				for(int j=0;j<users.size() && !finded;++j){
-//					if(users.get(j).getId_user()==idLogged){
-//						s.setIdLogged(true);
-//						finded=true;
-//					}
-//				}
-//			}
-//		}
 		
-		List<User> userPage=new ArrayList<>();
-		userPage.add(u);
+		List<Artist> artist=new ArrayList<>();
+		artist.add(a);
 		
 		//Pageable pageable = new PageRequest(pageIndex,10);
 		
-		Page<Song> songs1 = songRepository.findByUsersFavoriteSong(userPage, page);
-		
+		Page<Song> songs1 = songRepository.findByArtistsOfSong(artist, page);
+		List<Song> mySongs=songs1.getContent();
 		pageIndex = songs1.getNumber();
 			
 		model.addAttribute("u",u);
+		
+//		codigo para devolver si la cancion esta en los favoritos
+//		del usuario logeado
+		if(login){//si un usuario esta logeado
+			long idUserLogged=userComponent.getIdLoggedUser();
+			User uLogged=userRepository.findOne(idUserLogged);
+			List<Song> favoriteByUser=uLogged.getFavoriteSongs();
+			for(int i=0;i<mySongs.size();++i){
+				Song s=mySongs.get(i);
+				for(int j=0;j<favoriteByUser.size();++j){
+					if(s.getId_song()==favoriteByUser.get(j).getId_song()){
+						s.setIdLogged(true);
+					}
+				}
+			}
+			
+		}
 		
 		model.addAttribute("songs",songs1);
 		
@@ -295,20 +284,6 @@ public class MainController {
 		return "Artist";
 	}
 	
-	//paginacion artistas
-	@RequestMapping("/ArtistListBasic")
-	public String getPlaylistBasic(Model model, Pageable page){
-	
-		Page<Artist> artist = artistRepository.findAll(page);
-		model.addAttribute("variable", "artistas");
-		model.addAttribute("pagina", "ArtistListBasic");
-		model.addAttribute("contenido", artist);
-		model.addAttribute("showPrev", !artist.isFirst());
-		model.addAttribute("showNext", !artist.isLast());
-		model.addAttribute("nextPage", artist.getNumber()+1);
-		model.addAttribute("prevPage", artist.getNumber()-1);
-		return "paginacion";
-	}
 	
 	@RequestMapping("/ArtistFollowers/{id}")
 	public String getArtistFollowers(Model model, Pageable page, @PathVariable long id){
@@ -333,6 +308,17 @@ public class MainController {
 		art.add(a);
 		
 		Page<User> userPage = userRepository.findByFollowingArtists(art,page);
+		
+		
+		if(login){
+			List<User> users=userPage.getContent();
+			long idLogged=userComponent.getIdLoggedUser();
+			for(int i=0;i<users.size();++i){
+				if(users.get(i).getId_user()==idLogged){
+					users.get(i).setIdLogged(true);
+				}
+			}
+		}
 		
 		model.addAttribute("ident", id);
 		model.addAttribute("followers",userPage);
@@ -400,6 +386,12 @@ public class MainController {
 		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
+		if(likeIdPlaylist!=null){
+			Playlist pToRemove=playlistRepository.findOne(likeIdPlaylist);
+			pToRemove.removeUserlikeOfPlaylist(u);
+			playlistRepository.save(pToRemove);
+		}
+		
 		model.addAttribute("u",u);
 		
 		int n_likes=u.getLikedPlaylists().size();
@@ -410,26 +402,7 @@ public class MainController {
 		int n_created=u.getCreatedPlaylists().size();
 		model.addAttribute("n_created",n_created);
 		
-		//List<Playlist> likedPlaylists=u.getLikedPlaylists();
-		
-//		if(likeIdPlaylist==null){
-//		}else{
-//			Playlist p=playlistRepository.findOne(likeIdPlaylist);
-//			p.removeUserlikeOfPlaylist(u);
-//			playlistRepository.save(p);
-//			likedPlaylists.remove(p);
-//		}
-//		
-//		//codigo para trazar la ruta del creador de la playlist
-//		//si el creador es el usuario logueado->la plantilla pone
-//		//ruta="MyPlaylists/{id}" sino "UserPlaylists/{id}" 
-//		for(int i=0;i<likedPlaylists.size();++i){
-//			Playlist p=likedPlaylists.get(i);
-//			if(p.getCreatorId()==id){
-//				p.setIdLogged(true);
-//			}
-//		}
-		
+
 		List<User> userPage=new ArrayList<>();
 		userPage.add(u);
 		
@@ -444,6 +417,15 @@ public class MainController {
 		model.addAttribute("showNext", !play.isLast());
 		model.addAttribute("nextPage", pageIndex+1);
 		model.addAttribute("prevPage", pageIndex-1);
+		
+		List<Playlist> elems = play.getContent();
+		
+		for(int i=0;i<elems.size();++i){
+			Playlist p=elems.get(i);
+			if(p.getCreatorId()==id){
+				p.setIdLogged(true);
+			}
+		}
 		
 		model.addAttribute("playlists",play);
 		model.addAttribute("n_likes",n_likes);
@@ -516,6 +498,7 @@ public class MainController {
 		followed.add(u);
 		
 		Page<User> userPage = userRepository.findByFollowing(followed,page);
+
 		
 		model.addAttribute("ident", id);
 		model.addAttribute("followers",userPage);
@@ -580,7 +563,6 @@ public class MainController {
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
 		if(login){
-			login=true;
 			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userRepository.findOne(idUserLogged);
 			List<User> followingListUserLogged=uLogged.getFollowing();
@@ -659,7 +641,7 @@ public class MainController {
 	
 	//el usuario mira las playlists gustadas de otro usuario
 	@RequestMapping("/UserLikes/{id}")
-	public String getUserLikes(Model model, @PathVariable long id,
+	public String getUserLikes(Model model, @PathVariable long id, Pageable page,
 			@RequestParam(value = "follow", required=false) String followName){
 		
 		User u=userRepository.findOne(id);
@@ -670,6 +652,30 @@ public class MainController {
 		if(login){
 			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userRepository.findOne(idUserLogged);
+			Page<Playlist> playlistCreated = playlistRepository.findByCreatorId(id, page);
+//			
+			pageIndex = playlistCreated.getNumber();
+			
+			List<Playlist> likedPlaylists=playlistCreated.getContent();
+			
+			for(int i=0;i<likedPlaylists.size();++i){
+				Playlist p=likedPlaylists.get(i);
+				if(p.getCreatorId()==idUserLogged){
+					//si el usuario logueado es el creador le pone a la clase
+					//el atributo idLogged=true
+					//la plantilla mira ese atributo para trazar la ruta dinamica
+					p.setIdLogged(true);
+				}
+			}
+//				
+			model.addAttribute("ident", id);
+			model.addAttribute("showPrev", !playlistCreated.isFirst());
+			model.addAttribute("showNext", !playlistCreated.isLast());
+			model.addAttribute("nextPage", pageIndex+1);
+			model.addAttribute("prevPage", pageIndex-1);
+			
+			
+			
 			List<User> followingListUserLogged=uLogged.getFollowing();
 			
 			if(followName==null){
@@ -728,17 +734,7 @@ public class MainController {
 		//codigo para mirar si ha sido creada del usuario logueado
 		//y trazar la ruta del creador
 		if(login){
-			long idLogged=userComponent.getIdLoggedUser();
 			
-			for(int i=0;i<likedPlaylists.size();++i){
-				Playlist p=likedPlaylists.get(i);
-				if(p.getCreatorId()==idLogged){
-					//si el usuario logueado es el creador le pone a la clase
-					//el atributo idLogged=true
-					//la plantilla mira ese atributo para trazar la ruta dinamica
-					p.setIdLogged(true);
-				}
-			}
 		}
 		
 		model.addAttribute("playlists",likedPlaylists);
@@ -843,6 +839,17 @@ public class MainController {
 			followed.add(u);
 			
 			Page<User> userPage = userRepository.findByFollowing(followed,page);
+			//ruta dinamica
+			if(login){
+				List<User> users=userPage.getContent();
+				long idLogged=userComponent.getIdLoggedUser();
+				for(int i=0;i<users.size();++i){
+					if(users.get(i).getId_user()==idLogged){
+						users.get(i).setIdLogged(true);
+					}
+				}
+			}
+			
 			model.addAttribute("ident", id);
 			model.addAttribute("followers",userPage);
 			model.addAttribute("showPrev", !userPage.isFirst());
@@ -857,6 +864,7 @@ public class MainController {
 		@RequestMapping("/UserFollowing/{id}")
 		public String getUserFollowing(Model model, @PathVariable long id, Pageable page){
 			
+			boolean login=userComponent.isLoggedUser();
 			User u=userRepository.findOne(id);
 			
 			//Pageable followers=(Pageable)u.getFollowers();
@@ -865,8 +873,18 @@ public class MainController {
 			
 			Page<User> userPage = userRepository.findByFollowers(following,page);
 			//Page<User> userPage = userRepository.findAll(page);
+			//ruta dinamica
+			if(login){
+				List<User> users=userPage.getContent();
+				long idLogged=userComponent.getIdLoggedUser();
+				for(int i=0;i<users.size();++i){
+					if(users.get(i).getId_user()==idLogged){
+						users.get(i).setIdLogged(true);
+					}
+				}
+			}
 			
-			boolean login=userComponent.isLoggedUser();
+			
 //			
 			model.addAttribute("login",login);
 			
@@ -917,6 +935,9 @@ public class MainController {
 			
 			idUser=userComponent.getIdLoggedUser();
 			User u=userRepository.findOne(idUser);
+			if(idUser!=userComponent.getIdLoggedUser()){
+				return "accessDenied";
+			}
 			Playlist p=new Playlist(title,u.getName(),u.getId_user());
 			p.setDescription(description);
 			Tag t=tagRepository.findByName(tag);
@@ -954,6 +975,10 @@ public class MainController {
 			Playlist p=playlistRepository.findOne(idPlaylist);
 			
 			long creator=p.getCreatorId();
+			
+			if(creator!=userComponent.getIdLoggedUser()){
+				return "accessDenied";
+			}
 			
 			User uCreator=userRepository.findOne(creator);
 			
