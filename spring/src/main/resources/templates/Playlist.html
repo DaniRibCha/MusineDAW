@@ -115,13 +115,13 @@
                     {{#songs}}
                     <hr>
                     {{#login}}
-                    {{^idLogged}}
+                    {{^isIdLogged}}
                     <form action="/Playlist/{{p.id_playlist}}" method="post">
                     <input type="hidden" name="favorite" value="{{id_song}}" >
                     		<input type="hidden" name="_csrf" value="{{token}}"/>
                     <input type="submit" value="Add favorites"><span class="glyphicon glyphicon-star"></span>
                     </form>
-                    {{/idLogged}}
+                    {{/isIdLogged}}
                     
                     {{/login}}
                         <div><span>Title: </span>{{title}} <a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>

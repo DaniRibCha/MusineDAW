@@ -78,7 +78,10 @@
     <div class="row">
     {{#following}}
         <div class="col-md-6 follow">
-            <div><a href="/UserPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a></div>
+            <img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" />
+             {{^isIdLogged}}<a href="/UserPlaylists/{{id_user}}"><span>{{name}}</span></a>{{/isIdLogged}}
+            {{#isIdLogged}}<a href="/MyPlaylists/{{id_user}}"><span>{{name}}</span></a>{{/isIdLogged}}
+            </div>
        </div>
     {{/following}}
     </div>

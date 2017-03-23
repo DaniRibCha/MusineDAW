@@ -80,19 +80,17 @@
     <!-- Paginacion --> 
     
     {{#showPrev}}
-	<a href="/MyFollowers/{{ident}}?page={{prevPage}}">
 	  <div class="col-md-12" style="text-align:center">
                 <button type="button" class="btn btn-danger">Previous</button>
         </div>
-	</a>
 	{{/showPrev}}
     
     {{#showNext}}
-	<a href="/MyFollowers/{{ident}}?page={{nextPage}}">
+	
 	 <div class="col-md-12" style="text-align:center">
                 <button type="button" class="btn btn-danger" id="loadMore">Next</button>
         </div>
-	</a>
+	
 	{{/showNext}}
 	
 	<div class="col-md-12" style="text-align:center" id="spin"></div>
@@ -118,9 +116,9 @@
         <!-- /.row -->
     </footer>
     <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+    
     <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    
 </body>
 
 </html>

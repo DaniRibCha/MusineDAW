@@ -132,12 +132,13 @@
             <h3><b>Playlists</b></h3></td>
         <div class="row wall">
             {{#wallPlaylists}}
+            {{^isIdLogged}}
              <div class="col-md-6">
                 <table>
                     <tr>
                          <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by  
-        					{{#idLogged}}<a href="MyPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>{{/idLogged}}
-                    		{{^idLogged}}<a href="UserPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>{{/idLogged}}
+        	
+                    		<a href="UserPlaylists/{{creatorId}}">{{creatorName}}</a></span> </th>
                     </tr>
                     <tr style="height:200px;">
                         <th><img class="img-responsive" src="../img/playlist.png"></th>
@@ -153,7 +154,9 @@
                     </tr>
                 </table>
             </div>
+            {{/isIdLogged}}
             {{/wallPlaylists}}
+            </div>
             
             <!-- Paginacion --> 
     
