@@ -45,20 +45,6 @@ public class MainController {
 	@Autowired
 	private UserComponent userComponent;
 		
-	//paginacion de las canciones
-	@RequestMapping("/SongListBasic")
-	public String getSongsBasic(Model model, Pageable page){
-	
-		Page<Song> songs = songRepository.findAll(page);
-		model.addAttribute("variable", "canciones");
-		model.addAttribute("pagina", "SongListBasic");
-		model.addAttribute("contenido", songs);
-		model.addAttribute("showPrev", !songs.isFirst());
-		model.addAttribute("showNext", !songs.isLast());
-		model.addAttribute("nextPage", songs.getNumber()+1);
-		model.addAttribute("prevPage", songs.getNumber()-1);
-		return "paginacion";
-	}
 	
 	//id de la playlist
 	@RequestMapping("/Playlist/{id}")
@@ -339,6 +325,10 @@ public class MainController {
 	public String getMyFavorites(Model model, Pageable page, @PathVariable long id,
 			@RequestParam(value = "favorite", required=false) Long id_song){
 		
+		if(id!=userComponent.getIdLoggedUser()){
+			return "accessDenied";
+		}
+		
 		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
@@ -383,6 +373,10 @@ public class MainController {
 	@RequestMapping("/MyLikes/{id}")
 	public String getMyLikes(Model model, Pageable page, @PathVariable long id,
 			@RequestParam(value = "like", required=false ) Long likeIdPlaylist){
+		
+		if(id!=userComponent.getIdLoggedUser()){
+			return "accessDenied";
+		}
 		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
@@ -438,6 +432,9 @@ public class MainController {
 	@RequestMapping("/MyPlaylists/{id}")
 	public String getMyCreated(Model model, Pageable page, @PathVariable long id, 
 			@RequestParam(value = "createdPlaylist", required=false ) Long createdPlaylist){
+		if(id!=userComponent.getIdLoggedUser()){
+			return "accessDenied";
+		}
 		
 		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
@@ -491,6 +488,10 @@ public class MainController {
 	@RequestMapping("/MyFollowers/{id}")
 	public String getMyFollowers(Model model, @PathVariable long id, Pageable page){
 		
+		if(id!=userComponent.getIdLoggedUser()){
+			return "accessDenied";
+		}
+		
 		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
@@ -519,7 +520,10 @@ public class MainController {
 	public String getMyFollowing(Model model, @PathVariable long id, Pageable page,
 			@RequestParam(value = "follow", required=false) String followName){
 		
-		id=userComponent.getIdLoggedUser();
+		if(id!=userComponent.getIdLoggedUser()){
+			return "accessDenied";
+		}
+		//id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
 		List<User> following=new ArrayList<>();
