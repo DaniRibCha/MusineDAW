@@ -4,7 +4,7 @@
 
 Esta aplicación tratará de copiar a la conocida aplicación 8tracks (http://8tracks.com/). Consiste en una red social en la que se pueden compartir listas de reproducción de música (solo usuarios privados pueden subir playlists). Después cualquier usuario sin registrarse o logearse podrá escuchar listas de reproducción, pero no podrá ni guardar en favoritos sus listas, artistas o canciones favoritas (como si puede hacer un usuario privado). 
 
-Las listas se podrán clasificar por géneros musicales y ponerles tags para poder encontrarlas al buscarlas más tarde. También estarán los artistas de cada canción en los cuales se podrán ver todas las canciones subidas a la plataforma que les pertenecen. En la página de busqueda mencionada anteriormente se podrán buscar tanto playlists, como grupos o usuarios.
+Las listas se podrán contener tags para poder encontrarlas al buscarlas más tarde. También estarán los artistas de cada canción en los cuales se podrán ver todas las canciones subidas a la plataforma que les pertenecen. En la página de busqueda mencionada anteriormente se podrán buscar tanto playlists, como grupos.
 
 Además, la aplicación incorporará una funcionalidad de red social. Se podrán tener seguidores y seguir a otros usuarios. A parte de eso, en el muro del usuario saldrán las últimas playlists subidas, o que le han gustado a los usuarios seguidos. Y por último según lo que le haya gustado a otros usuarios, se recomendará al usuario que listas de reproducción le pueden gustar.
 
