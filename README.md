@@ -8,7 +8,7 @@ Las listas se podrán clasificar por géneros musicales y ponerles tags para pod
 
 Además, la aplicación incorporará una funcionalidad de red social. Se podrán tener seguidores y seguir a otros usuarios. A parte de eso, en el muro del usuario saldrán las últimas playlists subidas, o que le han gustado a los usuarios seguidos. Y por último según lo que le haya gustado a otros usuarios, se recomendará al usuario que listas de reproducción le pueden gustar.
 
-## Las 4 entidades son:
+## Las 5 entidades son:
 
 - Usuario: Aquí trataremos todo el tema del usuario privado, y su espacio personalizado en el que podrá subir playlists, volver a escuchar sus listas o canciones favoritas y seguir a otros usuarios o artistas. El usuario público lo dejaremos sin ningún acceso pero tampoco tendrá los privilegios del usuario privado.
 
