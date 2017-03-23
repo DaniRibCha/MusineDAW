@@ -168,7 +168,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/Artist/{id}")
-	public String songsArtist(Model model, @PathVariable long id,
+	public String songsArtist(Model model, Pageable page, @PathVariable long id,
 			@RequestParam(value = "favorite", required=false) Long id_song,
 			@RequestParam(value = "follow", required=false) String followName) {
 		
@@ -216,9 +216,7 @@ public class MainController {
 		model.addAttribute("a",a);
 		
 		int n_followers=a.getFollowersOfArtist().size();
-		
 		model.addAttribute("n_followers",n_followers);
-		
 		List<Song> songs=a.getSongsOfArtist();
 		
 		if(id_song==null){
@@ -230,30 +228,50 @@ public class MainController {
 			userRepository.save(u);
 		}
 		
+		long idLogged=userComponent.getIdLoggedUser();
+		User u=userRepository.findOne(idLogged);
+		
 		//codigo para devolver si la cancion esta en los favoritos
 		//del usuario logeado
-		if(login){//si un usuario esta logeado
-			long idLogged=userComponent.getIdLoggedUser();
-			boolean finded;
-			List<User> users=new ArrayList<>();
-			Song s;
-			for(int i=0;i<songs.size();++i){
-				s=songs.get(i);
-				users=s.getUsersFavoriteSong();
-				finded=false;
-				//para cada usuario que tiene esa cancion en los favoritos
-				//si es el usuario logeado se pone el atributo boolean
-				//de la cancion a true->la plantilla chequea ese atributo
-				for(int j=0;j<users.size() && !finded;++j){
-					if(users.get(j).getId_user()==idLogged){
-						s.setIdLogged(true);
-						finded=true;
-					}
-				}
-			}
-		}
-
-		model.addAttribute("songs", songs);
+//		if(login){//si un usuario esta logeado
+//			long idLogged=userComponent.getIdLoggedUser();
+//			boolean finded;
+//			List<User> users=new ArrayList<>();
+//			Song s;
+//			for(int i=0;i<songs.size();++i){
+//				s=songs.get(i);
+//				users=s.getUsersFavoriteSong();
+//				finded=false;
+//				//para cada usuario que tiene esa cancion en los favoritos
+//				//si es el usuario logeado se pone el atributo boolean
+//				//de la cancion a true->la plantilla chequea ese atributo
+//				for(int j=0;j<users.size() && !finded;++j){
+//					if(users.get(j).getId_user()==idLogged){
+//						s.setIdLogged(true);
+//						finded=true;
+//					}
+//				}
+//			}
+//		}
+		
+		List<User> userPage=new ArrayList<>();
+		userPage.add(u);
+		
+		//Pageable pageable = new PageRequest(pageIndex,10);
+		
+		Page<Song> songs1 = songRepository.findByUsersFavoriteSong(userPage, page);
+		
+		pageIndex = songs1.getNumber();
+			
+		model.addAttribute("u",u);
+		
+		model.addAttribute("songs",songs1);
+		
+		model.addAttribute("ident", id);
+		model.addAttribute("showPrev", !songs1.isFirst());
+		model.addAttribute("showNext", !songs1.isLast());
+		model.addAttribute("nextPage", pageIndex+1);
+		model.addAttribute("prevPage", pageIndex-1);
 		
 		model.addAttribute("tags",a.getTagsOfArtist());
 		
@@ -270,8 +288,8 @@ public class MainController {
 		model.addAttribute("topArtists",topArtists);
 		
 		if(login){
-			long idLogged=userComponent.getIdLoggedUser();
-			model.addAttribute("u",userRepository.findOne(idLogged));
+			long idLogged1=userComponent.getIdLoggedUser();
+			model.addAttribute("u",userRepository.findOne(idLogged1));
 		}
 		
 		return "Artist";
@@ -293,7 +311,7 @@ public class MainController {
 	}
 	
 	@RequestMapping("/ArtistFollowers/{id}")
-	public String getArtistFollowers(Model model, @PathVariable long id){
+	public String getArtistFollowers(Model model, Pageable page, @PathVariable long id){
 		
 		
 		boolean login=userComponent.isLoggedUser();
@@ -311,7 +329,19 @@ public class MainController {
 		
 		model.addAttribute("a",a);
 		
-		model.addAttribute("followers",a.getFollowersOfArtist());
+		List<Artist> art=new ArrayList<>();
+		art.add(a);
+		
+		Page<User> userPage = userRepository.findByFollowingArtists(art,page);
+		
+		model.addAttribute("ident", id);
+		model.addAttribute("followers",userPage);
+		model.addAttribute("showPrev", !userPage.isFirst());
+		model.addAttribute("showNext", !userPage.isLast());
+		model.addAttribute("nextPage", userPage.getNumber()+1);
+		model.addAttribute("prevPage", userPage.getNumber()-1);
+		
+		//model.addAttribute("followers",a.getFollowersOfArtist());
 		
 		return "followers_artist";
 	}
