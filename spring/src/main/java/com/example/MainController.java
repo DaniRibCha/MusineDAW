@@ -79,28 +79,28 @@ public class MainController {
     	
     	Playlist p=playlistRepository.findOne(id);
 		
-//		if(login){
-//			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
-//			long idLogged=userComponent.getIdLoggedUser();
-//			model.addAttribute("uLogged",uLogged);
-//			if(like.equals("")){
-//			}else{
-//				p.addUserlikeOfPlaylist(uLogged);
-//				playlistRepository.save(p);
-//			}		
-//			
-//			List<Playlist> likedPlaylist=uLogged.getLikedPlaylists();
-//			boolean findedLike=false;
-//			for(int i=0;i<likedPlaylist.size() && !findedLike;++i){	
-//				if(likedPlaylist.get(i).getId_playlist()==p.getId_playlist()){
-//					findedLike=true;
-//				}
-//			}
-//			model.addAttribute("findedLike",findedLike);
-//			
-//			if(p.getCreatorId()==idLogged)
-//				model.addAttribute("findedLogged",true);		
-//		}
+		if(login){
+			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			long idLogged=userComponent.getIdLoggedUser();
+			model.addAttribute("uLogged",uLogged);
+			if(like.equals("")){
+			}else{
+				p.addUserlikeOfPlaylist(uLogged);
+				playlistRepository.save(p);
+			}		
+			
+			List<Playlist> likedPlaylist=uLogged.getLikedPlaylists();
+			boolean findedLike=false;
+			for(int i=0;i<likedPlaylist.size() && !findedLike;++i){	
+				if(likedPlaylist.get(i).getId_playlist()==p.getId_playlist()){
+					findedLike=true;
+				}
+			}
+			model.addAttribute("findedLike",findedLike);
+			
+			if(p.getCreatorId()==idLogged)
+				model.addAttribute("findedLogged",true);		
+		}
 		
 		//List<Song> songs= p.getSongsOfPlaylist();
 		
@@ -353,6 +353,7 @@ public class MainController {
 	public String getMyFavorites(Model model, Pageable page, @PathVariable long id,
 			@RequestParam(value = "favorite", required=false) Long id_song){
 		
+		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
 		
@@ -396,7 +397,7 @@ public class MainController {
 	@RequestMapping("/MyLikes/{id}")
 	public String getMyLikes(Model model, Pageable page, @PathVariable long id,
 			@RequestParam(value = "like", required=false ) Long likeIdPlaylist){
-		
+		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
 		model.addAttribute("u",u);
@@ -456,6 +457,7 @@ public class MainController {
 	public String getMyCreated(Model model, Pageable page, @PathVariable long id, 
 			@RequestParam(value = "createdPlaylist", required=false ) Long createdPlaylist){
 		
+		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
 		if(createdPlaylist==null){
@@ -507,7 +509,7 @@ public class MainController {
 	@RequestMapping("/MyFollowers/{id}")
 	public String getMyFollowers(Model model, @PathVariable long id, Pageable page){
 		
-		
+		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
 		List<User> followed=new ArrayList<>();
@@ -534,6 +536,7 @@ public class MainController {
 	public String getMyFollowing(Model model, @PathVariable long id, Pageable page,
 			@RequestParam(value = "follow", required=false) String followName){
 		
+		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 		
 		List<User> following=new ArrayList<>();
@@ -891,6 +894,7 @@ public class MainController {
 		@RequestMapping("/CreatePlaylist/{id}")
 		public String createPlaylist(Model model, @PathVariable long id){
 			
+			id=userComponent.getIdLoggedUser();
 			model.addAttribute("idLogged",id);
 			
 			User u=userRepository.findOne(id);
@@ -911,6 +915,7 @@ public class MainController {
 				@RequestParam(value = "description", defaultValue = "") String description, 
 				@RequestParam(value = "tag", defaultValue = "") String tag){
 			
+			idUser=userComponent.getIdLoggedUser();
 			User u=userRepository.findOne(idUser);
 			Playlist p=new Playlist(title,u.getName(),u.getId_user());
 			p.setDescription(description);
@@ -1035,6 +1040,7 @@ public class MainController {
 				@RequestParam(value = "newPassword", defaultValue = "") String newPassword)
 						throws AuthenticationException{
 			
+			id=userComponent.getIdLoggedUser();
 			User u=userRepository.findOne(id);
 			
 			if(!oldPassword.equals("")){
