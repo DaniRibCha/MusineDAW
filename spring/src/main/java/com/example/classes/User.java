@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.example.classes.Tag.Basic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -25,10 +26,14 @@ import java.util.List;
 @Entity
 public class User {
 	
+	public interface Basic{}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
+	@JsonView(Basic.class)
 	private long id_user;
 	
+	@JsonView(Basic.class)
 	private String name;
 	
 	private String country;

@@ -8,8 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.classes.Playlist;
+import com.example.classes.Song;
 import com.example.classes.User;
 import com.example.security.UserComponent;
+import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
 public class LoginRestController {
@@ -18,7 +21,8 @@ public class LoginRestController {
 	
 	@Autowired
 	private UserComponent userComponent;
-	
+
+
 	@RequestMapping("/api/logIn")
 	public ResponseEntity<User> logIn() {
 		
