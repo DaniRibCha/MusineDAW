@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Musine</title>
+    <link rel="icon" type="image/png" href="../img/musine.png">
+    <!-- Bootstrap Core CSS -->
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="../css/homestyle.css" rel="stylesheet">
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> </head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header" id="header"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <a class="navbar-brand" href="/">Musine</a> <img class="img-responsive" id="logo-navbar" src="../img/musine.png" width="60" height="55"> </div>
+            <form class="navbar-form navbar-left" action="/SearchPlaylist">
+                <div class="input-group" id="search">
+                    <input type="text" class="form-control" placeholder="Search" name="key">
+                    		<input type="hidden" name="_csrf" value="{{token}}"/>
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+            <div id="navbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><img class="img-responsive img-circle" src="/image/{{u.profileImage}}" width="60" height="55"></li>
+                    <li class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#">My Account<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/Config/{{u.id_user}}">My Profile</a></li>
+                            <li><a href="/MyPlaylists/{{u.id_user}}">My Playlists</a></li>
+                            <li><form action="/logout" method="post" style="position:relative;right: 2em;">
+									<input type="submit" value="Log Out" />
+									<input type="hidden" name="_csrf" value="{{token}}"/>
+							</form></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6" style="text-align: -webkit-center;"> <img class="img-responsive edit-logo" src="../img/playlist.png">
+                
+            </div>
+            <div class="col-md-6">
+                <form class="form-playlist" action="/EditPlaylist/{{p.id_playlist}}" method="post">
+                    <div class="form-group">
+                        <label>Title of the playlist</label>
+                        <input type="text" class="form-control" name="title" placeholder="{{p.title}}" > </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea class="form-control" rows="5" name="description" placeholder="{{p.description}}" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        {{#p.tagsOfPlaylist}}
+                        <a class="tag" href="/SearchPlaylist/{{name}}"> {{name}}  </a>
+                        {{/p.tagsOfPlaylist}}
+                        <input type="text" class="form-control" name="tagToRemove" placeholder="Tag to Remove" style="margin-bottom: 1em;" >
+                         <input type="text" class="form-control" name="tagToAdd" placeholder="Tag to Add" >
+                        		<input type="hidden" name="_csrf" value="{{token}}"/>
+                         </div>
+                        <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="well">
+            <div class="text-center"> <span>List tracks</span> </div>
+            <hr>
+            {{#songs}}
+            <div class="row">
+                <div class="col-md-12">
+                <form action="/EditPlaylist/{{p.id_playlist}}" method="post">
+                <input type="submit" value="Remove" class="pull-right"><span class="glyphicon glyphicon-trash pull-right"></span>
+                <input type="hidden" name="toRemove" value="{{id_song}}" >
+                		<input type="hidden" name="_csrf" value="{{token}}"/>
+                </form>
+                <span>Title: {{title}} </span><a href="{{link_youtube}}" class="pull-right"> Link Youtube</a>
+                    <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span> </p>
+                
+                </div>        
+             </div>
+             {{/songs}}
+             <div class="row">
+             <form action="/EditPlaylist/{{p.id_playlist}}" method="post">
+                <div class="form-group">
+                    <label>Title of the song:</label>
+                    <input type="text" class="form-control" name="titleSong"> </div>
+                <div class="form-group">
+                    <label>Artists:</label>
+                    <input type="text" class="form-control" name="artist"> </div>
+                <div class="form-group">
+                    <label>Copy the link of the song on Youtube:</label>
+                    <input type="text" class="form-control" name="link"> </div>
+                <div class="col-md-12" style="text-align:right">
+      		<input type="hidden" name="_csrf" value="{{token}}"/>
+                   <input type="submit" name="enviar" value="Add new Song"/>
+             
+                </div>
+                </form>
+            </div>
+             
+        </div>
+    </div>
+        <div class="row save-return">
+        <div class="col-md-12" style="text-align:right">
+            <a href="/MyPlaylists/{{u.id_user}}">
+                <button type="button" class="btn btn-danger">Return</button>
+            </a>
+        </div>
+    </div>
+        <!-- /.row -->
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="intro-text">
+                        <hr class="star-light"> <span class="footer">Musine </span> </div>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+        <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+</body>
+
+</html>
