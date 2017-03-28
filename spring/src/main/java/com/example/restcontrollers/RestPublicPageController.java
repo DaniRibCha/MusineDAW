@@ -16,6 +16,7 @@ import com.example.classes.Tag;
 import com.example.classes.Artist;
 import com.example.classes.Playlist;
 import com.example.classes.User;
+import com.example.services.ArtistService;
 import com.example.services.PlaylistService;
 import com.example.services.TagService;
 import com.example.services.UserService;
@@ -32,6 +33,9 @@ public class RestPublicPageController {
 	
 	@Autowired
 	TagService tagService;
+	
+	@Autowired
+	ArtistService artistService;
 	
 	interface UserFollowersView extends User.Basic, User.Followers{};
 	@JsonView(UserFollowersView.class)
@@ -73,27 +77,34 @@ public class RestPublicPageController {
 		return new ResponseEntity<>(u,HttpStatus.OK);
 	}
 	
-//	interface SearchView extends Playlist.Basic,Playlist.Tags,Tag.Basic{};
-//	@JsonView(SearchView.class)
-//	@RequestMapping("/api/SearchPlaylist")
-//	public ResponseEntity<List<Playlist>> getSearchByTag(
-//			@RequestParam(value = "key", defaultValue = "") String key) throws Exception{
-//		List<Tag> tags=new ArrayList<>();
-//		tags.add(new Tag(key));
-//		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
-//		return new ResponseEntity<>(playlists,HttpStatus.OK);
-//	}
-	
-	interface SearchParamView extends Tag.Basic,Tag.TagPlaylists,Playlist.Basic{};
-	@JsonView(SearchParamView.class)
-	@RequestMapping("/api/SearchPlaylist")
-	public ResponseEntity<List<Playlist>> getSearchByParam(
+	interface SearchParamTagView extends Playlist.Basic,Playlist.Tags,Tag.Basic{};
+	@JsonView(SearchParamTagView.class)
+	@RequestMapping("/api/SearchPlaylistByTag")
+	public ResponseEntity<List<Playlist>> getSearchByParamTag(
 			@RequestParam(value = "key") String key) throws Exception{
 		Tag t=tagService.findByName(key);
 		List<Tag> tags=new ArrayList<>();
 		tags.add(t);
 		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
 		return new ResponseEntity<>(playlists,HttpStatus.OK);
+	}
+	
+	interface SearchParamTitleView extends Playlist.Basic,Playlist.Tags,Tag.Basic{};
+	@JsonView(SearchParamTitleView.class)
+	@RequestMapping("/api/SearchPlaylistByTitle")
+	public ResponseEntity<List<Playlist>> getSearchByParamTitle(
+			@RequestParam(value = "key") String key) throws Exception{
+		List<Playlist> playlists=playlistService.findByTitle(key);
+		return new ResponseEntity<>(playlists,HttpStatus.OK);
+	}
+	
+	interface SearchParamArtistView extends Artist.Basic{};
+	@JsonView(SearchParamArtistView.class)
+	@RequestMapping("/api/SearchPlaylistByArtist")
+	public ResponseEntity<Artist> getSearchByParamArtist(
+			@RequestParam(value = "key") String key) throws Exception{
+		Artist artist=artistService.findByName(key);
+		return new ResponseEntity<>(artist,HttpStatus.OK);
 	}
 	
 	interface SearchView extends Tag.Basic,Tag.TagPlaylists,Playlist.Basic{};
