@@ -972,32 +972,69 @@ public class MainController {
 			model.addAttribute("tag",tag);
 			model.addAttribute("p",p);
 			
+			
+			
 			return "editPlaylist";
 		}
 		
 		
 		@RequestMapping("/EditPlaylist/{idPlaylist}")
-		public String editPlaylist(Model model,@PathVariable long idPlaylist,
+		public String editPlaylist(Model model,@PathVariable long idPlaylist, Pageable page,
 				@RequestParam(value = "title", defaultValue = "") String title,
 				@RequestParam(value = "description", defaultValue = "") String description, 
 				@RequestParam(value = "tagToRemove", defaultValue = "") String tagToRemove,
 				@RequestParam(value = "tagToAdd", defaultValue = "") String tagToAdd,
-				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
-				@RequestParam(value = "artist", defaultValue = "") String artist, 
-				@RequestParam(value = "link", defaultValue = "") String link,
 				@RequestParam(value = "toRemove",required=false) Long id_song){
 			
 			Playlist p=playlistRepository.findOne(idPlaylist);
 			
 			long creator=p.getCreatorId();
-			
 			if(creator!=userComponent.getIdLoggedUser()){
 				return "accessDenied";
 			}
 			
 			User uCreator=userRepository.findOne(creator);
 			
-			
+//			//MostrarFavoritos
+//			if(creator!=userComponent.getIdLoggedUser()){
+//				return "accessDenied";
+//			}
+//			
+//			User u=userRepository.findOne(creator);
+//			
+//			
+//			//si hay el titulo en el RequestParam->borrar cancion de favoritos
+//			if(id_song==null){}else{
+//				Song s=songRepository.findOne(id_song);
+//				u.removeFavoriteSong(s);
+//				userRepository.save(u);
+//			}
+//			
+//			List<User> userPage=new ArrayList<>();
+//			userPage.add(u);
+//			
+//			//Pageable pageable = new PageRequest(pageIndex,10);
+//			
+//			Page<Song> songs = songRepository.findByUsersFavoriteSong(userPage, page);
+//			
+//			pageIndex = songs.getNumber();
+//				
+//			model.addAttribute("u",u);
+//			int n_favorites=u.getFavoriteSongs().size();
+//			long n_followers=u.getFollowers().size();
+//			model.addAttribute("n_followers",n_followers);
+//			long n_following=u.getFollowing().size();
+//			model.addAttribute("n_following",n_following);
+//			model.addAttribute("songs",songs);
+//			model.addAttribute("n_favorites",n_favorites);
+//			int n_created=u.getCreatedPlaylists().size();
+//			model.addAttribute("n_created",n_created);
+//			model.addAttribute("ident", creator);
+//			model.addAttribute("showPrev", !songs.isFirst());
+//			model.addAttribute("showNext", !songs.isLast());
+//			model.addAttribute("nextPage", pageIndex+1);
+//			model.addAttribute("prevPage", pageIndex-1);
+//			//FinMostrarFavoritos
 			if(id_song==null){}else{
 				Song s=songRepository.findOne(id_song);
 				p.removeSongOfPlaylist(s);
@@ -1026,45 +1063,6 @@ public class MainController {
 				playlistRepository.save(p);
 			}
 			
-			//codigo para dar de alta a una cancion en la playlist
-			if(!titleSong.equals("")){//si hay el titulo en el RequestParam
-				List<Song> songList=songRepository.findByTitle(titleSong);//busca la cancion desde el repositorio
-				if(!artist.equals("")){
-					Song s=new Song();
-					boolean finded=false;
-					for(int i=0;i<songList.size() && !finded;++i){
-						List<Artist> artists=songList.get(i).getArtistsOfSong();
-						for(int j=0;j<artists.size() && !finded;++j){
-							if(artists.get(j).getName().equals(artist)){
-								finded=true;
-								s=songList.get(i);
-							}
-						}
-					}
-					if(finded){
-						p.addSongOfPlaylist(s);
-						playlistRepository.save(p);
-					}
-				}
-			}
-			
-			if (!title.equals("")) p.setTitle(title);
-			if (!description.equals(""))p.setDescription(description);
-			playlistRepository.save(p);
-			
-			model.addAttribute("uCreator",uCreator);
-			
-			long idLogged=userComponent.getIdLoggedUser();
-			
-			model.addAttribute("u",userRepository.findOne(idLogged));
-			
-			model.addAttribute("p",p);
-			
-			String tagPlaylist=p.getTagsOfPlaylist().get(0).getName();
-			
-			model.addAttribute("tag",tagPlaylist);
-			
-			model.addAttribute("songs",p.getSongsOfPlaylist());
 			
 			
 			
