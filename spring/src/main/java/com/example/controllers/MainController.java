@@ -147,9 +147,13 @@ public class MainController {
 		
 		model.addAttribute("songs",songs);
 		
+		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
 		List<Playlist> topPlaylists=new ArrayList<>();
+		for(int i=0;i<3;++i){
+			topPlaylists.add(playlistsTop.get(i));
+		}
 		
-		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		model.addAttribute("topPlaylists",topPlaylists);
 		
 		model.addAttribute("topPlaylists",topPlaylists);
 		
@@ -170,7 +174,6 @@ public class MainController {
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
 		if(login){
-			login=true;
 			model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userRepository.findOne(idUserLogged);
@@ -212,16 +215,14 @@ public class MainController {
 		
 		if(id_song==null){
 		}else{
-			long idLogged=userComponent.getIdLoggedUser();
-			Song s=songRepository.findOne(id_song);
-			User u=userRepository.findOne(idLogged);
-			u.addFavoriteSong(s);
-			userRepository.save(u);
+			if(login){
+				long idLogged=userComponent.getIdLoggedUser();
+				Song s=songRepository.findOne(id_song);
+				User u=userRepository.findOne(idLogged);
+				u.addFavoriteSong(s);
+				userRepository.save(u);
+			}
 		}
-		
-		long idLogged=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(idLogged);
-		
 		
 		List<Artist> artist=new ArrayList<>();
 		artist.add(a);
@@ -232,7 +233,7 @@ public class MainController {
 		List<Song> mySongs=songs1.getContent();
 		pageIndex = songs1.getNumber();
 			
-		model.addAttribute("u",u);
+		
 		
 //		codigo para devolver si la cancion esta en los favoritos
 //		del usuario logeado
@@ -261,15 +262,20 @@ public class MainController {
 		
 		model.addAttribute("tags",a.getTagsOfArtist());
 		
+		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
 		List<Playlist> topPlaylists=new ArrayList<>();
-		
-		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		for(int i=0;i<3;++i){
+			topPlaylists.add(playlistsTop.get(i));
+		}
 		
 		model.addAttribute("topPlaylists",topPlaylists);
+		model.addAttribute("topPlaylists",topPlaylists);
 		
+		List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
 		List<Artist> topArtists=new ArrayList<>();
-		
-		topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		for(int i=0;i<3;++i){
+			topArtists.add(artistsTop.get(i));
+		}
 		
 		model.addAttribute("topArtists",topArtists);
 		
@@ -972,12 +978,11 @@ public class MainController {
 			model.addAttribute("tag",tag);
 			model.addAttribute("p",p);
 			
-			
-			
 			return "editPlaylist";
 		}
 		
 		
+
 		@RequestMapping("/EditPlaylist/{idPlaylist}")
 		public String editPlaylist(Model model,@PathVariable long idPlaylist, Pageable page,
 				@RequestParam(value = "title", defaultValue = "") String title,
@@ -1063,9 +1068,7 @@ public class MainController {
 				playlistRepository.save(p);
 			}
 			
-			
-			
-			
+
 			return "editPlaylist";
 		}
 		
@@ -1120,15 +1123,20 @@ public class MainController {
 			model.addAttribute("login", login);
 			
 			
+			List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
 			List<Playlist> topPlaylists=new ArrayList<>();
-			
-			topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+			for(int i=0;i<3;++i){
+				topPlaylists.add(playlistsTop.get(i));
+			}
 			
 			model.addAttribute("topPlaylists",topPlaylists);
 			
-			List<Artist> topArtists=new ArrayList<>();
 			
-			topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+			List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
+			List<Artist> topArtists=new ArrayList<>();
+			for(int i=0;i<3;++i){
+				topArtists.add(artistsTop.get(i));
+			}
 			
 			model.addAttribute("topArtists",topArtists);
 			
@@ -1208,15 +1216,20 @@ public class MainController {
 			model.addAttribute("login", login);
 			
 			
+			List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
 			List<Playlist> topPlaylists=new ArrayList<>();
-			
-			topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+			for(int i=0;i<3;++i){
+				topPlaylists.add(playlistsTop.get(i));
+			}
 			
 			model.addAttribute("topPlaylists",topPlaylists);
 			
-			List<Artist> topArtists=new ArrayList<>();
 			
-			topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+			List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
+			List<Artist> topArtists=new ArrayList<>();
+			for(int i=0;i<3;++i){
+				topArtists.add(artistsTop.get(i));
+			}
 			
 			model.addAttribute("topArtists",topArtists);
 			

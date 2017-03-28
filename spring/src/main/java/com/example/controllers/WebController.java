@@ -69,16 +69,19 @@ public class WebController {
     	
 //    	Principal principal = request.getUserPrincipal();
 //    	User user = userRepository.findByName(principal.getName());
-    	
+    	List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
 		List<Playlist> topPlaylists=new ArrayList<>();
-		
-		topPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+		for(int i=0;i<3;++i){
+			topPlaylists.add(playlistsTop.get(i));
+		}
 		
 		model.addAttribute("topPlaylists",topPlaylists);
 		
+		List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
 		List<Artist> topArtists=new ArrayList<>();
-		
-		topArtists=artistRepository.findFirst3ByOrderByFollowersDesc();
+		for(int i=0;i<3;++i){
+			topArtists.add(artistsTop.get(i));
+		}
 		
 		model.addAttribute("topArtists",topArtists);
 		
@@ -89,7 +92,11 @@ public class WebController {
 		model.addAttribute("topTags",topTags);
 		
 		if(!login){
-			List<Playlist> wallPlaylists=playlistRepository.findFirst3ByOrderByNLikesDesc();
+			List<Playlist> playlists=playlistRepository.findByOrderByNLikesDesc();
+			List<Playlist> wallPlaylists=new ArrayList<>();
+			for(int i=0;i<10;++i){
+				wallPlaylists.add(playlists.get(i));
+			}
 			model.addAttribute("wallPlaylists",wallPlaylists);
 		}else{
 			long idLogged=userComponent.getIdLoggedUser();

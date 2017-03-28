@@ -42,9 +42,6 @@ public class Playlist {
 	@JsonView(Basic.class)
 	private long creatorId;
 	
-//	@JsonView(Basic.class)
-//	private long nReproductions;
-	
 	@JsonView(Basic.class)
 	private long nLikes;
 	
@@ -77,7 +74,6 @@ public class Playlist {
 	public Playlist(String title, String creatorName, long creatorId) {
 		super();
 		this.title = title;
-		//this.nReproductions = 0;
 		this.nLikes=0;
 		this.nTracks=0;
 		this.description="";
@@ -134,13 +130,6 @@ public class Playlist {
 		this.title = title;
 	}
 
-//	public long getnReproductions() {
-//		return nReproductions;
-//	}
-//
-//	public void setnReproductions(long nReproductions) {
-//		this.nReproductions = nReproductions;
-//	}
 
 	public Date getDate() {
 		return date;
@@ -176,12 +165,12 @@ public class Playlist {
 
 	public void addUserlikeOfPlaylist(User userlikeOfPlaylist) {
 		this.userlikesOfPlaylist.add(userlikeOfPlaylist);
-		this.nLikes=this.nLikes+1;
+		addLike();
 	}
 	
 	public void removeUserlikeOfPlaylist(User userlikeOfPlaylist) {
 		this.userlikesOfPlaylist.remove(userlikeOfPlaylist);
-		this.nLikes=this.nLikes-1;
+		decLike();
 	}
 	
 
@@ -193,7 +182,9 @@ public class Playlist {
 		this.nLikes =this.nLikes+1 ;
 	}
 	
-	
+	public void decLike() {
+		this.nLikes =this.nLikes-1 ;
+	}
 
 	public String getDescription() {
 		return description;

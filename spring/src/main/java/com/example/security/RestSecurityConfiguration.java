@@ -3,84 +3,43 @@ package com.example.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
-@EnableGlobalMethodSecurity(securedEnabled = true)
 @Order(1)
 public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
-	
+
 	@Autowired
-	UserRepositoryAuthenticationProvider authenticationProvider;
-	
- 
+	public UserRepositoryAuthenticationProvider userRepoAuthProvider;
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		//http.headers().frameOptions().disable();
-		
+
 		http.antMatcher("/api/**");
 		
-		// Public pages
-		http.authorizeRequests().anyRequest().permitAll();
-		/*http.authorizeRequests().antMatchers("/").permitAll();
-		http.authorizeRequests().antMatchers("/api/logIn").permitAll();
-		http.authorizeRequests().antMatchers("/api/Artist/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/Playlist/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/ArtistFollowers/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/ArtistSong/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/SearchPlaylist/{key}").permitAll();
-		http.authorizeRequests().antMatchers("/api/ArtistListBasic").permitAll();
-		http.authorizeRequests().antMatchers("/api/SearchPlaylist").permitAll();
-		http.authorizeRequests().antMatchers("/api/UserPlaylists/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/SongListBasic").permitAll(); 
-		http.authorizeRequests().antMatchers("/api/UserFollowing/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/UserFollowers/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/UserFavorites/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/UserLikes/{id}").permitAll();
-		http.authorizeRequests().antMatchers("/api/UserPlaylists/{id}").permitAll();*/
+		// URLs that need authentication to access to it
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/MyPlaylists/**").hasRole("USER");
 		
-		// Private pages (all other pages)
+		// Other URLs can be accessed without authentication
+		http.authorizeRequests().anyRequest().permitAll();
 
-		/*http.authorizeRequests().antMatchers("/api/CreatePlaylist").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/EditPlaylist/{idPlaylist}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/EditNewPlaylist/{idUser}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/MyFollowers/{id}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/MyFollowing/{id}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/MyPlaylists/{id}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/MyLikes/{id}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/MyFavorites/{id}").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/api/Config/{id}").hasAnyRole("USER"); 
-		http.authorizeRequests().antMatchers("/api/admin").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers("/api/adminCreateArtist").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers("/api/adminEditArtist").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers("/api/adminCreateSong").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers("/api/adminEditSong").hasAnyRole("ADMIN");
-		*/
+		// Disable CSRF protection (it is difficult to implement with ng2)
+		http.csrf().disable();
+
 		// Use Http Basic Authentication
 		http.httpBasic();
 
-		// Login form
-//		 http.formLogin().loginPage("/api/logIn");
-//	        http.formLogin().usernameParameter("username");
-//	        http.formLogin().passwordParameter("password");
-//	        http.formLogin().defaultSuccessUrl("/");
-//	        http.formLogin().failureUrl("/loginerror");
-		// Logout
-//	        http.logout().logoutUrl("/api/logOut");
-//	        http.logout().logoutSuccessUrl("/");
-		//disable csfr
-		http.csrf().disable();
-
+		// Do not redirect when logout
+		http.logout().logoutSuccessHandler((rq, rs, a) -> {	});
 	}
-	
-	  @Override
-	    protected void configure(AuthenticationManagerBuilder auth)
-	            throws Exception {
-	        // Database authentication provider
-	        auth.authenticationProvider(authenticationProvider);
-	    }
 
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+		// Database authentication provider
+		auth.authenticationProvider(userRepoAuthProvider);
+	}
 }

@@ -15,7 +15,7 @@ public interface ArtistRepository extends JpaRepository<Artist, Long>{
 	
 	Artist findByName(String name);
 	
-	List <Artist> findFirst3ByOrderByFollowersDesc();
+	List <Artist> findByOrderByFollowersDesc();
 	
 	
 }

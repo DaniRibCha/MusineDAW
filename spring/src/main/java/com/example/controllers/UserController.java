@@ -643,8 +643,8 @@ public class UserController {
 		pCreated48.addSongOfPlaylist(s2);
 		tagRepository.save(t1);tagRepository.save(t4);
 		
-		//u2.addCreatedPlaylist(pCreated1);
-	    //u2.addCreatedPlaylist(pCreated2);
+		u2.addCreatedPlaylist(pCreated1);
+	    u2.addCreatedPlaylist(pCreated2);
 		u2.addCreatedPlaylist(pCreated26);
 		u2.addCreatedPlaylist(pCreated27);
 		u2.addCreatedPlaylist(pCreated28);
