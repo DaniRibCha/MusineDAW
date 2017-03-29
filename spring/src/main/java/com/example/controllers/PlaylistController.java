@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.classes.Artist;
 import com.example.classes.Playlist;
 import com.example.classes.Song;
 import com.example.classes.Tag;
@@ -199,9 +200,13 @@ public class PlaylistController {
 			u.addCreatedPlaylist(p);
 			userRepository.save(u);
 			
+			
 			model.addAttribute("u",u);
 			model.addAttribute("tag",tag);
 			model.addAttribute("p",p);
+			
+			List<Song> favoriteSongs=u.getFavoriteSongs();
+			model.addAttribute("favoriteSongs",favoriteSongs);
 			
 			return "editPlaylist";
 		}
@@ -214,9 +219,14 @@ public class PlaylistController {
 				@RequestParam(value = "description", defaultValue = "") String description, 
 				@RequestParam(value = "tagToRemove", defaultValue = "") String tagToRemove,
 				@RequestParam(value = "tagToAdd", defaultValue = "") String tagToAdd,
-				@RequestParam(value = "toRemove",required=false) Long id_song){
+				@RequestParam(value = "ToRemove",required=false) String ToRemove,
+				@RequestParam(value = "songToRemove",required=false) Long idSongToRemove,
+				@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
+				@RequestParam(value = "artist", defaultValue = "") String artist,
+				@RequestParam(value = "favorite",required=false) Long idSongToAdd){
 			
 			Playlist p=playlistRepository.findOne(idPlaylist);
+			model.addAttribute("p",p);
 			
 			long creator=p.getCreatorId();
 			if(creator!=userComponent.getIdLoggedUser()){
@@ -229,10 +239,11 @@ public class PlaylistController {
 			
 			
 			//si hay el titulo en el RequestParam->borrar cancion de favoritos
-			if(id_song==null){}else{
-				Song s=songRepository.findOne(id_song);
-				u.removeFavoriteSong(s);
-				userRepository.save(u);
+			if(ToRemove==null){}else{
+				Song s=songRepository.findOne(idSongToRemove);
+				p.removeSongOfPlaylist(s);
+				playlistRepository.save(p);
+				songRepository.save(s);
 			}
 			
 			List<User> userPage=new ArrayList<>();
@@ -240,9 +251,9 @@ public class PlaylistController {
 			
 			//Pageable pageable = new PageRequest(pageIndex,10);
 			
-			Page<Song> songs = songRepository.findByUsersFavoriteSong(userPage, page);
+			Page<Song> favoriteSongs = songRepository.findByUsersFavoriteSong(userPage, page);
 			
-			int pageIndex = songs.getNumber();
+			int pageIndex = favoriteSongs.getNumber();
 				
 			model.addAttribute("u",u);
 			int n_favorites=u.getFavoriteSongs().size();
@@ -250,24 +261,19 @@ public class PlaylistController {
 			model.addAttribute("n_followers",n_followers);
 			long n_following=u.getFollowing().size();
 			model.addAttribute("n_following",n_following);
-			model.addAttribute("songs",songs);
+			model.addAttribute("favoriteSongs",favoriteSongs);
+			model.addAttribute("songs",p.getSongsOfPlaylist());
 			model.addAttribute("n_favorites",n_favorites);
 			int n_created=u.getCreatedPlaylists().size();
 			model.addAttribute("n_created",n_created);
+			
 			model.addAttribute("ident", creator);
-			model.addAttribute("showPrev", !songs.isFirst());
-			model.addAttribute("showNext", !songs.isLast());
+			model.addAttribute("showPrev", !favoriteSongs.isFirst());
+			model.addAttribute("showNext", !favoriteSongs.isLast());
 			model.addAttribute("nextPage", pageIndex+1);
 			model.addAttribute("prevPage", pageIndex-1);
 			//FinMostrarFavoritos
 			
-			if(id_song==null){}else{
-				Song s=songRepository.findOne(id_song);
-				p.removeSongOfPlaylist(s);
-				playlistRepository.save(p);
-				songRepository.save(s);
-			}
-				
 		
 			if(!tagToRemove.equals("")){//si hay modifica del tag
 				Tag t=tagRepository.findByName(tagToRemove);
@@ -288,6 +294,22 @@ public class PlaylistController {
 				tagRepository.save(t);
 				playlistRepository.save(p);
 			}
+			
+			if(!titleSong.equals("") && !artist.equals("")){
+				List<Artist> artists=new ArrayList<>();
+				artists.add(artistRepository.findByName(artist));
+				Song songToAdd=songRepository.findByArtistsOfSongAndTitle(artists, titleSong);
+				p.addSongOfPlaylist(songToAdd);
+				playlistRepository.save(p);
+			}
+			
+			if(idSongToAdd!=null){
+				Song songToAdd=songRepository.findOne(idSongToAdd);
+				p.addSongOfPlaylist(songToAdd);
+				playlistRepository.save(p);
+			}
+			
+			
 			
 
 			return "editPlaylist";
