@@ -14,7 +14,6 @@ import com.example.classes.Song;
 import com.example.classes.Tag;
 import com.example.classes.User;
 import com.example.repositories.ArtistRepository;
-import com.example.restcontrollers.RestSongController.SongsOfArtistView;
 import com.example.services.ArtistService;
 import com.fasterxml.jackson.annotation.JsonView;
 

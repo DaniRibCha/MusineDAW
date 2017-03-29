@@ -37,15 +37,7 @@ public class RestSongController {
 		return new ResponseEntity<>(s,HttpStatus.OK);
 	}
 	
-interface SongsOfArtistView extends Artist.Songs, Song.Basic,Song.Artists,Song.Playlists{}
-	
-	@JsonView(SongsOfArtistView.class)
-	@RequestMapping("/api/SongsOfArtist/{id}")
-	public ResponseEntity<List<Song>> getSongsOfArist(@PathVariable long id) throws Exception{
-		Artist a= artistService.findOne(id);
-		List<Song> songs=a.getSongsOfArtist();
-		return new ResponseEntity<>(songs,HttpStatus.OK);
-	}
+
 	
 }
 	
