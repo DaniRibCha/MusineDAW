@@ -44,7 +44,7 @@ public class RestArtistController {
 		return new ResponseEntity<>(a,HttpStatus.OK);
 	}
 	
-interface ArtistSongsView extends Artist.Songs, Song.Basic,Song.Artists,Song.Playlists{}
+interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
 	
 	@JsonView(ArtistSongsView.class)
 	@RequestMapping("/api/SongsOfArtist/{id}")

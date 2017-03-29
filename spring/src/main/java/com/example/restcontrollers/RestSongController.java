@@ -25,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 public class RestSongController {
 	@Autowired
 	private SongService songService;
-	
+	@Autowired
 	private ArtistService artistService;
 	
 	interface SongView extends Song.Basic, Song.Artists,Song.Playlists{};

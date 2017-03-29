@@ -96,8 +96,10 @@ public class RestPlaylistController {
 	
 	@JsonView(PlaylistTagsView.class)
 	@RequestMapping("/PlaylistTags/{id}")
-	public Playlist getPlaylistTags(@PathVariable long id) throws Exception{
-		return playlistService.findOne(id);
+	public ResponseEntity<List<Tag>> getPlaylistTags(@PathVariable long id) throws Exception{
+		Playlist p=playlistService.findOne(id);
+		List<Tag> tags=p.getTagsOfPlaylist();
+		return new ResponseEntity<>(tags,HttpStatus.OK);
 	}
 
 }
