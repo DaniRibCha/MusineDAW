@@ -223,48 +223,44 @@ public class PlaylistController {
 				return "accessDenied";
 			}
 			
-			User uCreator=userRepository.findOne(creator);
+			//MostrarFavoritos
 			
-//			//MostrarFavoritos
-//			if(creator!=userComponent.getIdLoggedUser()){
-//				return "accessDenied";
-//			}
-//			
-//			User u=userRepository.findOne(creator);
-//			
-//			
-//			//si hay el titulo en el RequestParam->borrar cancion de favoritos
-//			if(id_song==null){}else{
-//				Song s=songRepository.findOne(id_song);
-//				u.removeFavoriteSong(s);
-//				userRepository.save(u);
-//			}
-//			
-//			List<User> userPage=new ArrayList<>();
-//			userPage.add(u);
-//			
-//			//Pageable pageable = new PageRequest(pageIndex,10);
-//			
-//			Page<Song> songs = songRepository.findByUsersFavoriteSong(userPage, page);
-//			
-//			pageIndex = songs.getNumber();
-//				
-//			model.addAttribute("u",u);
-//			int n_favorites=u.getFavoriteSongs().size();
-//			long n_followers=u.getFollowers().size();
-//			model.addAttribute("n_followers",n_followers);
-//			long n_following=u.getFollowing().size();
-//			model.addAttribute("n_following",n_following);
-//			model.addAttribute("songs",songs);
-//			model.addAttribute("n_favorites",n_favorites);
-//			int n_created=u.getCreatedPlaylists().size();
-//			model.addAttribute("n_created",n_created);
-//			model.addAttribute("ident", creator);
-//			model.addAttribute("showPrev", !songs.isFirst());
-//			model.addAttribute("showNext", !songs.isLast());
-//			model.addAttribute("nextPage", pageIndex+1);
-//			model.addAttribute("prevPage", pageIndex-1);
-//			//FinMostrarFavoritos
+			User u=userRepository.findOne(creator);
+			
+			
+			//si hay el titulo en el RequestParam->borrar cancion de favoritos
+			if(id_song==null){}else{
+				Song s=songRepository.findOne(id_song);
+				u.removeFavoriteSong(s);
+				userRepository.save(u);
+			}
+			
+			List<User> userPage=new ArrayList<>();
+			userPage.add(u);
+			
+			//Pageable pageable = new PageRequest(pageIndex,10);
+			
+			Page<Song> songs = songRepository.findByUsersFavoriteSong(userPage, page);
+			
+			int pageIndex = songs.getNumber();
+				
+			model.addAttribute("u",u);
+			int n_favorites=u.getFavoriteSongs().size();
+			long n_followers=u.getFollowers().size();
+			model.addAttribute("n_followers",n_followers);
+			long n_following=u.getFollowing().size();
+			model.addAttribute("n_following",n_following);
+			model.addAttribute("songs",songs);
+			model.addAttribute("n_favorites",n_favorites);
+			int n_created=u.getCreatedPlaylists().size();
+			model.addAttribute("n_created",n_created);
+			model.addAttribute("ident", creator);
+			model.addAttribute("showPrev", !songs.isFirst());
+			model.addAttribute("showNext", !songs.isLast());
+			model.addAttribute("nextPage", pageIndex+1);
+			model.addAttribute("prevPage", pageIndex-1);
+			//FinMostrarFavoritos
+			
 			if(id_song==null){}else{
 				Song s=songRepository.findOne(id_song);
 				p.removeSongOfPlaylist(s);
