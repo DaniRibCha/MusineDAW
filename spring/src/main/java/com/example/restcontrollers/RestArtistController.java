@@ -14,6 +14,7 @@ import com.example.classes.Song;
 import com.example.classes.Tag;
 import com.example.classes.User;
 import com.example.repositories.ArtistRepository;
+import com.example.restcontrollers.RestSongController.SongsOfArtistView;
 import com.example.services.ArtistService;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -44,6 +45,14 @@ public class RestArtistController {
 		return new ResponseEntity<>(a,HttpStatus.OK);
 	}
 	
+interface ArtistSongsView extends Artist.Songs, Song.Basic,Song.Artists,Song.Playlists{}
 	
+	@JsonView(ArtistSongsView.class)
+	@RequestMapping("/api/SongsOfArtist/{id}")
+	public ResponseEntity<List<Song>> getSongsOfArist(@PathVariable long id) throws Exception{
+		Artist a= artistService.findOne(id);
+		List<Song> songs=a.getSongsOfArtist();
+		return new ResponseEntity<>(songs,HttpStatus.OK);
+	}
 	
 }
