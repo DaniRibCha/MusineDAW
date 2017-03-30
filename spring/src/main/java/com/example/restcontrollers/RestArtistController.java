@@ -66,16 +66,16 @@ interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
 		return new ResponseEntity<>(songs,HttpStatus.OK);
 	}
 	
-
-	@RequestMapping(value="/api/FollowArtist/{id}", method=RequestMethod.PUT)
-	public  ResponseEntity<List<Artist>> followArtist(@PathVariable long id, @RequestBody List<Artist> artistfollowed) throws Exception{
-			User uLogged=userComponent.getLoggedUser();
-			Artist artisttofollow=artistService.findOne(id);
-			List<Artist> artistsfollowed=uLogged.getFollowingArtists();
-			artistsfollowed.add(artisttofollow);
-			artisttofollow.addFollowerOfArtist(uLogged);
-					return new ResponseEntity<> (artistsfollowed,HttpStatus.OK);
-	}
+//Seguir a un artista (PUT)
+//	@RequestMapping(value="/api/FollowArtist/{id}", method=RequestMethod.PUT)
+//	public  ResponseEntity<List<Artist>> followArtist(@PathVariable long id, @RequestBody List<Artist> artistfollowed) throws Exception{
+//			User uLogged=userComponent.getLoggedUser();
+//			Artist artisttofollow=artistService.findOne(id);
+//			List<Artist> artistsfollowed=uLogged.getFollowingArtists();
+//			artistsfollowed.add(artisttofollow);
+//			artisttofollow.addFollowerOfArtist(uLogged);
+//					return new ResponseEntity<> (artistsfollowed,HttpStatus.OK);
+//	}
 
 	
 }
