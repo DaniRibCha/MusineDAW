@@ -5,18 +5,19 @@ import java.io.*;
 import com.example.classes.User;
 import com.fasterxml.jackson.core.*;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+
 import org.springframework.boot.jackson.*;
 
 @JsonComponent
 public class UserJsonSerialize {
 	
-	  public static class Serializer extends JsonSerializer<User> {
+	  public static class SerializerUserFollow extends JsonSerializer<User> {
 		  
 //			[
 //			{"field1":"a1", "field":"a2"},
 //			{"field1":"b1", "field":"b2"}
 //			]
-
 
 		@Override
 		public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider arg2)
@@ -28,23 +29,21 @@ public class UserJsonSerialize {
 			jsonGenerator.writeStringField("country", user.getCountry());
 			jsonGenerator.writeStringField("city", user.getCity());
 			jsonGenerator.writeStringField("email", user.getEmail());
-
-//			jsonGenerator.writeArrayFieldStart("followers");
-//			jsonGenerator.writeStartArray();
+//			ObjectMapper mapper = new ObjectMapper();
+//			ArrayNode array = mapper.createArrayNode();
+			jsonGenerator.writeFieldName("followers");
+			jsonGenerator.writeStartObject();
 			for(User u : user.getFollowers()){
-				jsonGenerator.writeFieldName("followers");
-				jsonGenerator.writeStartObject(); 
+//				//array.add(mapper.createArrayNode().add("" + u.getId_user()));
 				jsonGenerator.writeNumberField("id_user", u.getId_user());
 				jsonGenerator.writeStringField("name", u.getName());
 				jsonGenerator.writeStringField("country", u.getCountry());
 				jsonGenerator.writeStringField("city", u.getCity());
 				jsonGenerator.writeStringField("email", u.getEmail());
-				jsonGenerator.writeEndObject(); 
 			}
-//			jsonGenerator.writeEndArray();
+			//jsonGenerator.writeStringField("followers", mapper.writeValueAsString(array));
+			jsonGenerator.writeEndObject();
 			jsonGenerator.writeEndObject(); 
-			
-			
 
 			
 		}

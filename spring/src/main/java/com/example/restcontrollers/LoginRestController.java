@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classes.User;
+import com.example.restcontrollers.RestPublicPageController.UserFollowersView;
 import com.example.security.UserComponent;
 import com.example.services.UserService;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -36,8 +38,10 @@ public class LoginRestController {
 	@Autowired
 	UserService userService;
 	
+	interface UserBasicView extends User.Basic{};
+	@JsonView(UserBasicView.class)
 	@RequestMapping("/api/logIn")
-	public ResponseEntity<String> logIn(HttpServletRequest request) throws JsonProcessingException {
+	public ResponseEntity<User> logIn(HttpServletRequest request) throws JsonProcessingException {
 		
 		//System.out.println("kkkkkkk"+request.getUserPrincipal());
 
@@ -47,9 +51,9 @@ public class LoginRestController {
 		} else {
 			long idLoggedUser = userComponent.getIdLoggedUser();
 			User loggedUser=userService.findOne(idLoggedUser);
-			String uSerialized = new ObjectMapper().writeValueAsString(loggedUser);
+			//String uSerialized = new ObjectMapper().writeValueAsString(loggedUser);
 			log.info("Logged as " + loggedUser.getName());
-			return new ResponseEntity<>(uSerialized, HttpStatus.OK);
+			return new ResponseEntity<>(loggedUser, HttpStatus.OK);
 		}
 	}
 

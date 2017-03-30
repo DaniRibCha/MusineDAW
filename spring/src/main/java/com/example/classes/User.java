@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
-@JsonSerialize(using = UserJsonSerialize.Serializer.class)
+@JsonSerialize(using = UserJsonSerialize.SerializerUserFollow.class)
 public class User {
 	
 	public interface Basic{}
@@ -75,8 +75,8 @@ public class User {
 	@JsonIgnore
 	private List<User> following = new ArrayList<>();
 	
-	@ManyToMany(mappedBy="following")
 	@JsonIgnore
+	@ManyToMany(mappedBy="following")
 	private List<User> followers = new ArrayList<>();	
 	
 	@ManyToMany
