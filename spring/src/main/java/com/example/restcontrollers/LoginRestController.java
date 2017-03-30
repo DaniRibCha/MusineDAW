@@ -33,7 +33,7 @@ public class LoginRestController {
 	@RequestMapping("/api/logIn")
 	public ResponseEntity<User> logIn(HttpServletRequest request) {
 		
-		System.out.println("kkkkkkk"+request.getUserPrincipal());
+		//System.out.println("kkkkkkk"+request.getUserPrincipal());
 
 		if (!userComponent.isLoggedUser()) {
 			log.info("Not user logged");
