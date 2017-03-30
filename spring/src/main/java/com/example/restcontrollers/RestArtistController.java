@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classes.Artist;
+import com.example.classes.Playlist;
 import com.example.classes.Song;
 import com.example.classes.Tag;
 import com.example.classes.User;
 import com.example.repositories.ArtistRepository;
+import com.example.security.UserComponent;
 import com.example.services.ArtistService;
+import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 
 @RestController
@@ -22,6 +25,12 @@ public class RestArtistController {
 
 	@Autowired
 	private ArtistService artistService;
+	
+	@Autowired
+	private UserComponent userComponent;
+	
+	@Autowired 
+	UserService userService;
 	
 	
 	
@@ -53,5 +62,18 @@ interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
 		List<Song> songs=a.getSongsOfArtist();
 		return new ResponseEntity<>(songs,HttpStatus.OK);
 	}
+	
+//interface FollowArtistView extends Artist.ArtistFollowers, User.Basic{};	
+//
+//	@JsonView(FollowArtistView.class)
+//	@RequestMapping("/api/FollowArtist/{id}")
+//	public ResponseEntity<User.Basic> followArtist(@PathVariable long id) throws Exception{
+//			User uLogged=userComponent.getLoggedUser();
+//			Artist artisttofollow=artistService.findOne(id);
+//			List<Artist> artistsfollowed=uLogged.getFollowingArtists();
+//			artistsfollowed.add(artisttofollow);
+//					return new ResponseEntity<>(HttpStatus.OK);
+//	}
+
 	
 }
