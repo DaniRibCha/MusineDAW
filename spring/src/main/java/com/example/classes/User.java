@@ -17,23 +17,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.classes.Tag.Basic;
+import com.example.restcontrollers.UserJsonSerialize;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@JsonSerialize(using = UserJsonSerialize.Serializer.class)
 public class User {
 	
 	public interface Basic{}
-	
-	public interface BasicFollow{}
-	
-	public interface Followers{}
-	
-	public interface Following{}
 	
 	public interface Playlists{}
 	
@@ -50,14 +47,17 @@ public class User {
 	@Column(unique=true)
 	private String name;
 	
+	@JsonView(Basic.class)
 	private String country;
 	
 	private String biography;
 	
+	@JsonView(Basic.class)
 	private String city;
 	
 	private String passwordHash;
 	
+	@JsonView(Basic.class)
 	private String email;
 	
 	private String profileImage;
@@ -72,28 +72,22 @@ public class User {
 	private List<Artist> followingArtists= new ArrayList<>();
 	
 	@ManyToMany
-	//@JsonView(Following.class)
 	@JsonIgnore
 	private List<User> following = new ArrayList<>();
-	//private Page<User> following = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="following")
-	//@JsonView(Followers.class)
 	@JsonIgnore
 	private List<User> followers = new ArrayList<>();	
 	
 	@ManyToMany
-	//@JsonView(Favorites.class)
 	@JsonIgnore
 	private List<Song> favoriteSongs = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="userlikesOfPlaylist")
-	//@JsonView(Likes.class)
 	@JsonIgnore
 	private List<Playlist> likedPlaylists= new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	//@JsonView(Playlists.class)
 	@JsonIgnore
 	private List<Playlist> createdPlaylists= new ArrayList<>();
 	

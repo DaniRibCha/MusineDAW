@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classes.User;
 import com.example.security.UserComponent;
+import com.example.services.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 
@@ -29,9 +32,12 @@ public class LoginRestController {
 
 	@Autowired
 	private UserComponent userComponent;
-
+	
+	@Autowired
+	UserService userService;
+	
 	@RequestMapping("/api/logIn")
-	public ResponseEntity<User> logIn(HttpServletRequest request) {
+	public ResponseEntity<String> logIn(HttpServletRequest request) throws JsonProcessingException {
 		
 		//System.out.println("kkkkkkk"+request.getUserPrincipal());
 
@@ -39,9 +45,11 @@ public class LoginRestController {
 			log.info("Not user logged");
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		} else {
-			User loggedUser = userComponent.getLoggedUser();
+			long idLoggedUser = userComponent.getIdLoggedUser();
+			User loggedUser=userService.findOne(idLoggedUser);
+			String uSerialized = new ObjectMapper().writeValueAsString(loggedUser);
 			log.info("Logged as " + loggedUser.getName());
-			return new ResponseEntity<>(loggedUser, HttpStatus.OK);
+			return new ResponseEntity<>(uSerialized, HttpStatus.OK);
 		}
 	}
 

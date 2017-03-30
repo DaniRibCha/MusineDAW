@@ -21,6 +21,7 @@ import com.example.services.PlaylistService;
 import com.example.services.TagService;
 import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class RestPublicPageController {
@@ -37,15 +38,18 @@ public class RestPublicPageController {
 	@Autowired
 	ArtistService artistService;
 	
-	interface UserFollowersView extends User.Basic, User.Followers{};
+
+	
+	interface UserFollowersView extends User.Basic{};
 	@JsonView(UserFollowersView.class)
 	@RequestMapping("/api/UserFollowers/{id}")
-	public ResponseEntity<User> getUserFollowers(@PathVariable long id) throws Exception{
+	public ResponseEntity<String> getUserFollowers(@PathVariable long id) throws Exception{
 		User u=userService.findOne(id);
-		return new ResponseEntity<>(u,HttpStatus.OK);
+		String uSerialized = new ObjectMapper().writeValueAsString(u);
+		return new ResponseEntity<>(uSerialized,HttpStatus.OK);
 	}
 	
-	interface UserFollowingView extends User.Basic, User.Following{};
+	interface UserFollowingView extends User.Basic{};
 	@JsonView(UserFollowingView.class)
 	@RequestMapping("/api/UserFollowing/{id}")
 	public ResponseEntity<User> getUserFollowing(@PathVariable long id) throws Exception{
