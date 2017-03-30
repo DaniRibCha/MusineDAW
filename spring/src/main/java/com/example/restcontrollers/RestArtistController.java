@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classes.Artist;
@@ -63,17 +66,16 @@ interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
 		return new ResponseEntity<>(songs,HttpStatus.OK);
 	}
 	
-//interface FollowArtistView extends Artist.ArtistFollowers, User.Basic{};	
-//
-//	@JsonView(FollowArtistView.class)
-//	@RequestMapping("/api/FollowArtist/{id}")
-//	public ResponseEntity<User.Basic> followArtist(@PathVariable long id) throws Exception{
-//			User uLogged=userComponent.getLoggedUser();
-//			Artist artisttofollow=artistService.findOne(id);
-//			List<Artist> artistsfollowed=uLogged.getFollowingArtists();
-//			artistsfollowed.add(artisttofollow);
-//					return new ResponseEntity<>(HttpStatus.OK);
-//	}
+
+	@RequestMapping(value="/api/FollowArtist/{id}", method=RequestMethod.PUT)
+	public  ResponseEntity<List<Artist>> followArtist(@PathVariable long id, @RequestBody List<Artist> artistfollowed) throws Exception{
+			User uLogged=userComponent.getLoggedUser();
+			Artist artisttofollow=artistService.findOne(id);
+			List<Artist> artistsfollowed=uLogged.getFollowingArtists();
+			artistsfollowed.add(artisttofollow);
+			artisttofollow.addFollowerOfArtist(uLogged);
+					return new ResponseEntity<> (artistsfollowed,HttpStatus.OK);
+	}
 
 	
 }

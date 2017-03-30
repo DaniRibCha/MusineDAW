@@ -10,7 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classes.Playlist;
@@ -70,5 +73,22 @@ public class RestPlaylistController {
 		List<Tag> tags=p.getTagsOfPlaylist();
 		return new ResponseEntity<>(tags,HttpStatus.OK);
 	}
+	
+	interface CreatePlaylistView extends Playlist.Basic, Playlist.Creator, Playlist.Tags{};
+	
+	@JsonView(CreatePlaylistView.class)
+	@RequestMapping(value="/CreatePlaylist/{id}", method=RequestMethod.POST)
+	@ResponseStatus(HttpStatus.CREATED)
+	public ResponseEntity<Playlist> CreatePlaylist(@PathVariable long id, @RequestBody Playlist playlistnueva) throws Exception{
+		if (playlistService.findOne(id)==null){
+		Playlist p=playlistService.findOne(id);
+		p=playlistnueva;
+		return new ResponseEntity<>(p,HttpStatus.OK);
+		}
+		else
+		{return new ResponseEntity<>(HttpStatus.NOT_FOUND);}
+	}
+	
+	
 
 }
