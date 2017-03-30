@@ -18,6 +18,13 @@ import com.example.classes.User;
 import com.example.repositories.UserRepository;
 
 
+/**
+ * This class is used to check http credentials against database data. Also it
+ * is responsible to set database user info into userComponent, a session scoped
+ * bean that holds session user information.
+ * 
+ * NOTE: This class is not intended to be modified by app developer.
+ */
 @Component
 public class UserRepositoryAuthenticationProvider implements AuthenticationProvider {
 
@@ -26,32 +33,33 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 
 	@Autowired
 	private UserComponent userComponent;
-	
-	@Override
-	public Authentication authenticate(Authentication auth) throws AuthenticationException {
 
-		
-		User user = userRepository.findByName(auth.getName());
-		System.out.println("---------"+ user);
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+
+		String username = authentication.getName();
+		String password = (String) authentication.getCredentials();
+
+		User user = userRepository.findByName(username);
 
 		if (user == null) {
 			throw new BadCredentialsException("User not found");
 		}
 
-		String password = (String) auth.getCredentials();
 		if (!new BCryptPasswordEncoder().matches(password, user.getPasswordHash())) {
+
 			throw new BadCredentialsException("Wrong password");
-		}
+		} else {
 
-		System.out.println("---------"+ user);
-		userComponent.setLoggedUser(user);
-		
-		List<GrantedAuthority> roles = new ArrayList<>();
-		for (String role : user.getRoles()) {
-			roles.add(new SimpleGrantedAuthority(role));
-		}
+			userComponent.setLoggedUser(user);
 
-		return new UsernamePasswordAuthenticationToken(user.getName(), password, roles);
+			List<GrantedAuthority> roles = new ArrayList<>();
+			for (String role : user.getRoles()) {
+				roles.add(new SimpleGrantedAuthority(role));
+			}
+
+			return new UsernamePasswordAuthenticationToken(username, password, roles);
+		}
 	}
 
 	@Override
