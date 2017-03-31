@@ -143,26 +143,29 @@ public class AdminController {
 
 	@RequestMapping("/adminEditSong/{idSong}")
 	public String adminEditSong(Model model, @PathVariable long idSong,
-			@RequestParam(value = "idArtist") Long idArtist,
 			@RequestParam(value = "title", defaultValue = "") String title,
-			@RequestParam(value = "link_youtube", defaultValue = "") String link_youtube){
-
+			@RequestParam(value = "link_youtube", defaultValue = "") String link_youtube,
+			@RequestParam(value = "artistToRemove", defaultValue = "") String artistToRemove,
+			@RequestParam(value = "artistToAdd", defaultValue = "") String artistToAdd){
 
 		model.addAttribute("title", title);
 		model.addAttribute("link_youtube",link_youtube);
 		model.addAttribute("idSong",idSong);
 		Song s=songService.findOne(idSong);
-		s.setTitle(title);s.setLink_youtube(link_youtube);
+		if(!title.equals("")) s.setTitle(title);
+		if(!link_youtube.equals("")) s.setLink_youtube(link_youtube);
+		if(!artistToRemove.equals("")){
+			Artist a=artistService.findByName(artistToRemove);
+			s.removeArtistsOfSong(a);
+			songService.save(s);
+		}
+		if(!artistToAdd.equals("")){
+			Artist a=artistService.findByName(artistToAdd);
+			s.addArtistsOfSong(a);
+			songService.save(s);
+		}
 		songService.save(s);
 		model.addAttribute("s",s);
-
-		//				model.addAttribute("SongList",SongList);
-		//				
-		//				List<Song> SongList=new ArrayList<>();
-		//				
-		//				SongList =songRepository.findAll();
-		//				
-		//				model.addAttribute("SongList",SongList);
 
 		return "adminEditSong";
 	}
