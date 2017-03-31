@@ -1,5 +1,6 @@
 package com.example.restcontrollers;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,13 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.classes.Artist;
 import com.example.classes.Playlist;
 import com.example.classes.Song;
 import com.example.classes.Tag;
 import com.example.classes.User;
 import com.example.repositories.PlaylistRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
 import com.example.services.PlaylistService;
+import com.example.services.SongService;
 import com.example.services.TagService;
 import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
@@ -44,10 +48,16 @@ public class RestPlaylistController {
 	private PlaylistService playlistService;
 	
 	@Autowired 
+	private SongService songService;
+	
+	@Autowired 
 	private UserService userService;
 	
 	@Autowired 
 	private TagService tagService;
+	
+	@Autowired 
+	private ArtistService artistService;
 	
 	interface PlaylistView extends Playlist.Basic, Playlist.Songs,Playlist.Tags, Song.Basic,Tag.Basic{}
 	
@@ -159,6 +169,75 @@ public class RestPlaylistController {
 			playlistService.save(newPlaylist);
 			userService.save(u);
 			return new ResponseEntity<>(newPlaylist,HttpStatus.CREATED);
+		}
+		else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+	}
+	
+interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,Song.Basic,Song.Artists,Tag.Basic{};
+	
+	@JsonView(EditPlaylistView.class)
+	@RequestMapping(value="/api/EditPlaylist/{idPlaylist}", method=RequestMethod.PUT)
+	public ResponseEntity<Playlist> EditPlaylist(@PathVariable long idPlaylist, 
+			@RequestParam(value = "title", defaultValue = "") String title,
+			@RequestParam(value = "description", defaultValue = "") String description, 
+			@RequestParam(value = "tagToRemove", defaultValue = "") String tagToRemove,
+			@RequestParam(value = "tagToAdd", defaultValue = "") String tagToAdd,
+			@RequestParam(value = "songToRemove",required=false) Long idSongToRemove,
+			@RequestParam(value = "titleSong", defaultValue = "") String titleSong,
+			@RequestParam(value = "artist", defaultValue = "") String artist,
+			@RequestParam(value = "favorite",required=false) Long idSongToAdd
+			) throws Exception{
+		Playlist p=playlistService.findOne(idPlaylist);
+		if(userComponent.getIdLoggedUser()==p.getCreatorId()){
+			//borrar cancion desde la playlist
+			if(idSongToRemove==null){}else{
+				Song s=songService.findOne(idSongToRemove);
+				p.removeSongOfPlaylist(s);
+				playlistService.save(p);
+			}
+			//quitar tag
+			if(!tagToRemove.equals("")){//si hay modifica del tag
+				Tag t=tagService.findByName(tagToRemove);
+				if(t==null){//si no hay ese tag no hace nada
+				}else{
+					p.removeTagOfPlaylist(t);
+					tagService.save(t);
+					playlistService.save(p);
+				}
+			}
+			//añadir tag
+			if(!tagToAdd.equals("")){//si hay modifica del tag
+				Tag t=tagService.findByName(tagToAdd);
+				if(t==null){//si no hay ese tag lo crea
+					t=new Tag(tagToAdd);
+				}
+				p.addTagOfPlaylist(t);
+				tagService.save(t);
+				playlistService.save(p);
+			}
+			//añadir cancion desde formulario
+			if(!titleSong.equals("") && !artist.equals("")){
+				List<Artist> artists=new ArrayList<>();
+				artists.add(artistService.findByName(artist));
+				Song songToAdd=songService.findByArtistsOfSongAndTitle(artists, titleSong);
+				p.addSongOfPlaylist(songToAdd);
+				playlistService.save(p);
+			}
+			
+			//añadir cancion desde las favoritas que aparecen
+			if(idSongToAdd!=null){
+				Song songToAdd=songService.findOne(idSongToAdd);
+				p.addSongOfPlaylist(songToAdd);
+				playlistService.save(p);
+			}
+			
+			if(!title.equals("")) p.setTitle(title);
+			if(!description.equals("")) p.setDescription(description);
+			playlistService.save(p);
+			
+			return new ResponseEntity<>(p,HttpStatus.OK);
 		}
 		else{
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

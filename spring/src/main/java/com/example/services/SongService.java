@@ -48,5 +48,9 @@ public class SongService {
 	public Page<Song> findByArtistsOfSong(List<Artist> artists,Pageable page){
 		return songRepository.findByArtistsOfSong(artists,page);
 	}
+	
+	public Song findByArtistsOfSongAndTitle(List<Artist> artists,String title){
+		return songRepository.findByArtistsOfSongAndTitle(artists, title);
+	}
 
 }

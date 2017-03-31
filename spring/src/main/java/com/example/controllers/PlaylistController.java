@@ -25,28 +25,35 @@ import com.example.repositories.SongRepository;
 import com.example.repositories.TagRepository;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
+import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 
 @Controller
 public class PlaylistController {
+
 	
 	@Autowired
-	private SongRepository songRepository;
+	private SongService songService;
 	
 	@Autowired
-	private ArtistRepository artistRepository;
+	private UserService userService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private ArtistService artistService;
 	
 	@Autowired
-	private PlaylistRepository playlistRepository;
+	private TagService tagService;
 	
 	@Autowired
-	private TagRepository tagRepository;
+	private PlaylistService playlistService;
 	
 	@Autowired
 	private UserComponent userComponent;
-		
+	
+	
 	//id de la playlist
 	@RequestMapping("/Playlist/{id}")
 	public String songsPlaylist(Model model, Pageable page,  HttpServletRequest request, @PathVariable long id,
@@ -57,23 +64,23 @@ public class PlaylistController {
 
 		if(login){
 			long idLogged=userComponent.getIdLoggedUser();
-			User u=userRepository.findOne(idLogged);
+			User u=userService.findOne(idLogged);
 
 			model.addAttribute("u",u);
 		}
 
 		model.addAttribute("login", login);
 
-		Playlist p=playlistRepository.findOne(id);
+		Playlist p=playlistService.findOne(id);
 
 		if(login){
-			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			User uLogged=userService.findOne(userComponent.getIdLoggedUser());
 			long idLogged=userComponent.getIdLoggedUser();
 			model.addAttribute("uLogged",uLogged);
 			if(like.equals("")){
 			}else{
 				p.addUserlikeOfPlaylist(uLogged);
-				playlistRepository.save(p);
+				playlistService.save(p);
 			}		
 
 			List<Playlist> likedPlaylist=uLogged.getLikedPlaylists();
@@ -94,7 +101,7 @@ public class PlaylistController {
 		List<Playlist> play = new ArrayList<>();
 		play.add(p);
 
-		Page<Song> songs = songRepository.findByPlaylistsOfSong(play, page);
+		Page<Song> songs = songService.findByPlaylistsOfSong(play, page);
 		List<Song> mySongs=songs.getContent();
 
 		int pageIndex = songs.getNumber();
@@ -110,10 +117,10 @@ public class PlaylistController {
 			if(id_song==null){
 			}else{
 				long idLogged=userComponent.getIdLoggedUser();
-				Song s=songRepository.findOne(id_song);
-				User u=userRepository.findOne(idLogged);
+				Song s=songService.findOne(id_song);
+				User u=userService.findOne(idLogged);
 				u.addFavoriteSong(s);
-				userRepository.save(u);
+				userService.save(u);
 			}
 		}
 
@@ -121,7 +128,7 @@ public class PlaylistController {
 		//			del usuario logeado
 		if(login){//si un usuario esta logeado
 			long idLogged=userComponent.getIdLoggedUser();
-			User uLogged=userRepository.findOne(idLogged);
+			User uLogged=userService.findOne(idLogged);
 			List<Song> favoriteByUser=uLogged.getFavoriteSongs();
 			for(int i=0;i<mySongs.size();++i){
 				Song s=mySongs.get(i);
@@ -137,11 +144,7 @@ public class PlaylistController {
 
 		model.addAttribute("songs",songs);
 
-		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
-		List<Playlist> topPlaylists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topPlaylists.add(playlistsTop.get(i));
-		}
+		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
 
 		model.addAttribute("topPlaylists",topPlaylists);
 
@@ -161,7 +164,7 @@ public class PlaylistController {
 			id=userComponent.getIdLoggedUser();
 			model.addAttribute("idLogged",id);
 
-			User u=userRepository.findOne(id);
+			User u=userService.findOne(id);
 
 
 			model.addAttribute("u",u);
@@ -181,32 +184,38 @@ public class PlaylistController {
 				@RequestParam(value = "tag", defaultValue = "") String tag){
 			
 			idUser=userComponent.getIdLoggedUser();
-			User u=userRepository.findOne(idUser);
+			User u=userService.findOne(idUser);
 			if(idUser!=userComponent.getIdLoggedUser()){
 				return "accessDenied";
 			}
 			Playlist p=new Playlist(title,u.getName(),u.getId_user());
 			p.setDescription(description);
-			Tag t=tagRepository.findByName(tag);
+			Tag t=tagService.findByName(tag);
 			if(t==null){//si no hay ese tag lo crea
 				t=new Tag(tag);
-				tagRepository.save(t);
+				tagService.save(t);
 			}
 			
 			p.addTagOfPlaylist(t);
-			tagRepository.save(t);
-			playlistRepository.save(p);
+			tagService.save(t);
+			playlistService.save(p);
 			
 			u.addCreatedPlaylist(p);
-			userRepository.save(u);
+			userService.save(u);
 			
 			
 			model.addAttribute("u",u);
 			model.addAttribute("tag",tag);
-			model.addAttribute("p",p);
+			
 			
 			List<Song> favoriteSongs=u.getFavoriteSongs();
 			model.addAttribute("favoriteSongs",favoriteSongs);
+			
+			if(!title.equals("")) p.setTitle(title);
+			if(!description.equals("")) p.setDescription(description);
+			playlistService.save(p);
+				
+			model.addAttribute("p",p);
 			
 			return "editPlaylist";
 		}
@@ -225,8 +234,12 @@ public class PlaylistController {
 				@RequestParam(value = "artist", defaultValue = "") String artist,
 				@RequestParam(value = "favorite",required=false) Long idSongToAdd){
 			
-			Playlist p=playlistRepository.findOne(idPlaylist);
+			Playlist p=playlistService.findOne(idPlaylist);
 			model.addAttribute("p",p);
+			
+			if(!title.equals("")) p.setTitle(title);
+			if(!description.equals("")) p.setDescription(description);
+			playlistService.save(p);
 			
 			long creator=p.getCreatorId();
 			if(creator!=userComponent.getIdLoggedUser()){
@@ -235,15 +248,14 @@ public class PlaylistController {
 			
 			//MostrarFavoritos
 			
-			User u=userRepository.findOne(creator);
+			User u=userService.findOne(creator);
 			
-			
-			//si hay el titulo en el RequestParam->borrar cancion de favoritos
+			//si se pincha al boton remove se quita la cancion
+			//desde la playlist
 			if(ToRemove==null){}else{
-				Song s=songRepository.findOne(idSongToRemove);
+				Song s=songService.findOne(idSongToRemove);
 				p.removeSongOfPlaylist(s);
-				playlistRepository.save(p);
-				songRepository.save(s);
+				playlistService.save(p);
 			}
 			
 			List<User> userPage=new ArrayList<>();
@@ -251,7 +263,7 @@ public class PlaylistController {
 			
 			//Pageable pageable = new PageRequest(pageIndex,10);
 			
-			Page<Song> favoriteSongs = songRepository.findByUsersFavoriteSong(userPage, page);
+			Page<Song> favoriteSongs = songService.findByUsersFavoriteSong(userPage, page);
 			
 			int pageIndex = favoriteSongs.getNumber();
 				
@@ -276,37 +288,37 @@ public class PlaylistController {
 			
 		
 			if(!tagToRemove.equals("")){//si hay modifica del tag
-				Tag t=tagRepository.findByName(tagToRemove);
+				Tag t=tagService.findByName(tagToRemove);
 				if(t==null){//si no hay ese tag no hace nada
 				}else{
 					p.removeTagOfPlaylist(t);
-					tagRepository.save(t);
-					playlistRepository.save(p);
+					tagService.save(t);
+					playlistService.save(p);
 				}
 			}
 			
 			if(!tagToAdd.equals("")){//si hay modifica del tag
-				Tag t=tagRepository.findByName(tagToAdd);
+				Tag t=tagService.findByName(tagToAdd);
 				if(t==null){//si no hay ese tag lo crea
 					t=new Tag(tagToAdd);
 				}
 				p.addTagOfPlaylist(t);
-				tagRepository.save(t);
-				playlistRepository.save(p);
+				tagService.save(t);
+				playlistService.save(p);
 			}
 			
 			if(!titleSong.equals("") && !artist.equals("")){
 				List<Artist> artists=new ArrayList<>();
-				artists.add(artistRepository.findByName(artist));
-				Song songToAdd=songRepository.findByArtistsOfSongAndTitle(artists, titleSong);
+				artists.add(artistService.findByName(artist));
+				Song songToAdd=songService.findByArtistsOfSongAndTitle(artists, titleSong);
 				p.addSongOfPlaylist(songToAdd);
-				playlistRepository.save(p);
+				playlistService.save(p);
 			}
 			
 			if(idSongToAdd!=null){
-				Song songToAdd=songRepository.findOne(idSongToAdd);
+				Song songToAdd=songService.findOne(idSongToAdd);
 				p.addSongOfPlaylist(songToAdd);
-				playlistRepository.save(p);
+				playlistService.save(p);
 			}
 			
 			

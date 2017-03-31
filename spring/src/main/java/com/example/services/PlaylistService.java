@@ -81,4 +81,5 @@ public class PlaylistService {
 	public List<Playlist> findByCreatorIdList(long id){
 		return playlistRepository.findByCreatorId(id);
 	}
+	
 }
