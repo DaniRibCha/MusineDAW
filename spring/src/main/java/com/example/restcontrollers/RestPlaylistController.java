@@ -249,10 +249,9 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 	@JsonView(DeletePlaylistView.class)
 	@RequestMapping(value="/api/DeletePlaylist/{idPlaylist}", method=RequestMethod.DELETE)
 	public ResponseEntity<Playlist> DeletePlaylist(@PathVariable long idPlaylist){
-		Playlist playlist=playlistService.findOne(idPlaylist);
-		playlistService.delete(idPlaylist);
-		
-		if (playlist != null) {
+		Playlist playlist=playlistService.findOne(idPlaylist);	
+		if (playlist != null && userComponent.getIdLoggedUser()==playlist.getCreatorId()) {
+			playlistService.delete(idPlaylist);
 			return new ResponseEntity<>(playlist, HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
