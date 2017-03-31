@@ -114,6 +114,10 @@ public class Song{
 	public void addArtistsOfSong(Artist artistOfSong) {
 		this.artistsOfSong.add(artistOfSong);
 	}
+	
+	public void removeArtistsOfSong(Artist artistOfSong) {
+		this.artistsOfSong.remove(artistOfSong);
+	}
 
 	@Override
 	public String toString() {
