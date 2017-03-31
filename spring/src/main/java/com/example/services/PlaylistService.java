@@ -66,6 +66,10 @@ public class PlaylistService {
 		return playlistRepository.findFirst100ByOrderByDateAsc();
 	}
 	
+	public Page<Playlist> findFirst100ByOrderByDateAsc(Pageable page){
+		return playlistRepository.findFirst100ByOrderByDateAsc(page);
+	}
+	
 	public List<Playlist> findByUserlikesOfPlaylist(List<User> users){
 		return playlistRepository.findByUserlikesOfPlaylist(users);
 	}

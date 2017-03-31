@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import java.sql.Date;
@@ -26,7 +27,6 @@ public class Playlist {
 	
 	public interface Tags{}
 	
-	public interface Creator{}
 	
 	@JsonView(Basic.class)
 	@Id
@@ -77,8 +77,9 @@ public class Playlist {
 		this.nLikes=0;
 		this.nTracks=0;
 		this.description="";
-		java.util.Date utilDate = new java.util.Date();
-		this.date = new java.sql.Date(utilDate.getTime());
+		Calendar calobj = Calendar.getInstance();
+		java.sql.Date currentSysDate = new java.sql.Date(calobj.getTime().getTime());
+		this.date = currentSysDate;
 		this.creatorName=creatorName;
 		this.creatorId=creatorId;
 		this.isIdLogged=false;

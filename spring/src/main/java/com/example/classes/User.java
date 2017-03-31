@@ -109,6 +109,13 @@ public class User {
 	}
 	
 	
+	
+	
+
+	public void setId_user(long id_user) {
+		this.id_user = id_user;
+	}
+
 
 	public boolean isIdLogged() {
 		return isIdLogged;

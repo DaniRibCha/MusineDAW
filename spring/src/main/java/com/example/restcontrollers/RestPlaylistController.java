@@ -1,11 +1,13 @@
 package com.example.restcontrollers;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +26,11 @@ import com.example.classes.User;
 import com.example.repositories.PlaylistRepository;
 import com.example.security.UserComponent;
 import com.example.services.PlaylistService;
+import com.example.services.TagService;
 import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
+
+import java.sql.Date;
 
 @RestController
 public class RestPlaylistController {
@@ -39,6 +45,9 @@ public class RestPlaylistController {
 	
 	@Autowired 
 	private UserService userService;
+	
+	@Autowired 
+	private TagService tagService;
 	
 	interface PlaylistView extends Playlist.Basic, Playlist.Songs,Playlist.Tags, Song.Basic,Tag.Basic{}
 	
@@ -70,6 +79,23 @@ public class RestPlaylistController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 	
+//	@JsonView(WallPlaylistView.class)
+//	@RequestMapping("/api/WallPlaylistsLogged/{id}")
+//	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id,
+//			@RequestParam (required=false) String page) throws Exception{
+//		if(userComponent.getIdLoggedUser()==id){
+//			if(page==null){
+//				Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(new PageRequest(0, 10));
+//				return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+//			}else{
+//				int numPage =  Integer.parseInt(page); 
+//				Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(new PageRequest(numPage, 10));
+//				return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+//			}
+//		}else
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//	}
+	
 	@JsonView(WallPlaylistView.class)
 	@RequestMapping("/api/WallPlaylistsNotLogged")
 	public ResponseEntity<List<Playlist>> getWallPlaylistsNotLogged() throws Exception{
@@ -95,26 +121,48 @@ public class RestPlaylistController {
 	interface PlaylistTagsView extends Playlist.Basic, Playlist.Tags, Tag.Basic{};
 	
 	@JsonView(PlaylistTagsView.class)
-	@RequestMapping("/PlaylistTags/{id}")
+	@RequestMapping("/api/PlaylistTags/{id}")
 	public ResponseEntity<List<Tag>> getPlaylistTags(@PathVariable long id) throws Exception{
 		Playlist p=playlistService.findOne(id);
 		List<Tag> tags=p.getTagsOfPlaylist();
 		return new ResponseEntity<>(tags,HttpStatus.OK);
 	}
 	
-	interface CreatePlaylistView extends Playlist.Basic, Playlist.Creator, Playlist.Tags{};
+	interface CreatePlaylistView extends Playlist.Basic, Playlist.Tags,Tag.Basic{};
 	
 	@JsonView(CreatePlaylistView.class)
-	@RequestMapping(value="/CreatePlaylist/{id}", method=RequestMethod.POST)
-	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Playlist> CreatePlaylist(@PathVariable long id, @RequestBody Playlist playlistnueva) throws Exception{
-		if (playlistService.findOne(id)==null){
-		Playlist p=playlistService.findOne(id);
-		p=playlistnueva;
-		return new ResponseEntity<>(p,HttpStatus.OK);
+	@RequestMapping(value="/api/CreatePlaylist/{id}", method=RequestMethod.POST)
+	public ResponseEntity<Playlist> CreatePlaylist(@PathVariable long id, 
+			@RequestBody Playlist newPlaylist,
+			@RequestParam(value = "tag") String tag,
+			@RequestParam(value = "description",required=false) String description
+			) throws Exception{
+		if(userComponent.getIdLoggedUser()==id){
+			User u=userService.findOne(id);
+			//primer tag obligatiorio como en el controlador web
+			//cheque para ver si el tag ya existe
+			if(tagService.findByName(tag)==null){
+				Tag firstTag=new Tag(tag);
+				tagService.save(firstTag);
+				newPlaylist.addTagOfPlaylist(firstTag);
+				
+			}else{
+				newPlaylist.addTagOfPlaylist(tagService.findByName(tag));
+			}
+			u.addCreatedPlaylist(newPlaylist);
+			//hay que poner la fecha
+			Calendar calobj = Calendar.getInstance();
+			java.sql.Date currentSysDate = new java.sql.Date(calobj.getTime().getTime());
+			newPlaylist.setDate(currentSysDate);
+			//si llega tambien la descripción
+			newPlaylist.setDescription(description);
+			playlistService.save(newPlaylist);
+			userService.save(u);
+			return new ResponseEntity<>(newPlaylist,HttpStatus.CREATED);
 		}
-		else
-		{return new ResponseEntity<>(HttpStatus.NOT_FOUND);}
+		else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 	
 	
