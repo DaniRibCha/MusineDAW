@@ -41,6 +41,18 @@
                             <li><a href="/Song/{{id_song}}">{{title}}</a> </li>
                         {{/SongList}}
                         </ul>
+                        <form class="form-playlist" action="/adminEditSong/{{idSong}}" method="post">
+                    <div class="form-group" style="color:black">
+                        <label>Artists:</label>
+                        {{#s.artistsOfSong}}
+                        {{name}},
+                        {{/s.artistsOfSong}}
+                        <input type="text" class="form-control" name="artistToRemove" placeholder="Artist to Remove" style="margin-bottom: 1em;" >
+                         <input type="text" class="form-control" name="artistToAdd" placeholder="Artist to Add" >
+                        		<input type="hidden" name="_csrf" value="{{token}}"/>
+                         </div>
+                        <input type="submit" style="color:black;" name="sendData" value="Save changes"/>
+                        </form>
                     </div>
                     <!-- /.row -->
                 </div>
@@ -48,10 +60,10 @@
              <div class="col-md-6">
                     <form action="/adminEditSong/{{idSong}}" method="post">
                         <label for="Bio">Song Title</label>
- 					<input type="text" class="form-control" name="title" placeholder="{{title}}" required>
+ 					<input type="text" class="form-control" name="title" placeholder="{{s.title}}" >
                 	<div class="form-group form-utent">
                         <label for="Link" id="artistcouny+try">Link Youtube</label>
-                        <input type="text" class="form-control" name="link_youtube" placeholder="{{link_youtube}}" required> 
+                        <input type="text" class="form-control" name="link_youtube" placeholder="{{s.link_youtube}}" > 
                     </div>
                     <div class="form-group form-utent">
                     <input type="hidden" name="_csrf" value="{{token}}"/>
