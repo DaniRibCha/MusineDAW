@@ -138,7 +138,7 @@ public class RestPlaylistController {
 		return new ResponseEntity<>(tags,HttpStatus.OK);
 	}
 	
-	interface CreatePlaylistView extends Playlist.Basic, Playlist.Tags,Tag.Basic{};
+	interface CreatePlaylistView extends Playlist.Basic, Playlist.Tags, Tag.Basic{};
 	
 	@JsonView(CreatePlaylistView.class)
 	@RequestMapping(value="/api/CreatePlaylist/{id}", method=RequestMethod.POST)
@@ -244,6 +244,40 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 		}
 	}
 	
+	interface DeletePlaylistView extends Playlist.Basic, Playlist.Tags, Tag.Basic{};
+	
+	@JsonView(DeletePlaylistView.class)
+	@RequestMapping(value="/api/DeletePlaylist/{idPlaylist}", method=RequestMethod.DELETE)
+	public ResponseEntity<Playlist> DeletePlaylist(@PathVariable long idPlaylist){
+		Playlist playlist=playlistService.findOne(idPlaylist);
+		playlistService.delete(idPlaylist);
+		
+		if (playlist != null) {
+			return new ResponseEntity<>(playlist, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	interface LikePlaylistView extends Playlist.Basic, User.Likes{};
+	@JsonView(DeletePlaylistView.class)
+	@RequestMapping(value="/api/LikePlaylist/{idPlaylist}", method=RequestMethod.PUT)
+	
+	public ResponseEntity<User> LikePlaylist(@PathVariable long idPlaylist){
+		Playlist playlist=playlistService.findOne(idPlaylist);
+		User u=userComponent.getLoggedUser();
+		u.addLikedPlaylist(playlist);
+		userService.save(u);
+		return new ResponseEntity<>(u , HttpStatus.OK);
+			
+		}
+		
+		
+		
+		
+		
+}
+		
+		
 	
 
-}
