@@ -142,6 +142,11 @@ public class Artist {
 		this.tagsOfArtist.add(tagOfArtist);
 		tagOfArtist.incNumberTag();
 	}
+	
+	public void removeTagOfArtist(Tag tagOfArtist) {
+		this.tagsOfArtist.remove(tagOfArtist);
+		tagOfArtist.decNumberTag();
+	}
 
 
 	public long getFollowers() {
