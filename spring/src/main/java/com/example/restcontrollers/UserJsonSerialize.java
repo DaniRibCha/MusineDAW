@@ -11,13 +11,13 @@ import org.springframework.boot.jackson.*;
 
 @JsonComponent
 public class UserJsonSerialize {
-	
-	  public static class SerializerUserFollow extends JsonSerializer<User> {
-		  
-//			[
-//			{"field1":"a1", "field":"a2"},
-//			{"field1":"b1", "field":"b2"}
-//			]
+
+	public static class SerializerUserFollow extends JsonSerializer<User> {
+
+		//			[
+		//			{"field1":"a1", "field":"a2"},
+		//			{"field1":"b1", "field":"b2"}
+		//			]
 
 		@Override
 		public void serialize(User user, JsonGenerator jsonGenerator, SerializerProvider arg2)
@@ -29,12 +29,12 @@ public class UserJsonSerialize {
 			jsonGenerator.writeStringField("country", user.getCountry());
 			jsonGenerator.writeStringField("city", user.getCity());
 			jsonGenerator.writeStringField("email", user.getEmail());
-//			ObjectMapper mapper = new ObjectMapper();
-//			ArrayNode array = mapper.createArrayNode();
+			//			ObjectMapper mapper = new ObjectMapper();
+			//			ArrayNode array = mapper.createArrayNode();
 			jsonGenerator.writeFieldName("followers");
 			jsonGenerator.writeStartObject();
 			for(User u : user.getFollowers()){
-//				//array.add(mapper.createArrayNode().add("" + u.getId_user()));
+				//				//array.add(mapper.createArrayNode().add("" + u.getId_user()));
 				jsonGenerator.writeNumberField("id_user", u.getId_user());
 				jsonGenerator.writeStringField("name", u.getName());
 				jsonGenerator.writeStringField("country", u.getCountry());
@@ -43,16 +43,27 @@ public class UserJsonSerialize {
 			}
 			//jsonGenerator.writeStringField("followers", mapper.writeValueAsString(array));
 			jsonGenerator.writeEndObject();
+			
+			jsonGenerator.writeFieldName("following");
+			jsonGenerator.writeStartObject();
+			for(User u : user.getFollowing()){
+				jsonGenerator.writeNumberField("id_user", u.getId_user());
+				jsonGenerator.writeStringField("name", u.getName());
+				jsonGenerator.writeStringField("country", u.getCountry());
+				jsonGenerator.writeStringField("city", u.getCity());
+				jsonGenerator.writeStringField("email", u.getEmail());
+			}
+			jsonGenerator.writeEndObject();
 			jsonGenerator.writeEndObject(); 
 
-			
+
 		}
-	        
-		
-		
-		
-		
-	    }
-	  
-	  
+
+
+
+
+
+
+
+	}
 }

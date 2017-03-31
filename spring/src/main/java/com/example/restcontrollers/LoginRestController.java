@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.classes.User;
-import com.example.restcontrollers.RestPublicPageController.UserFollowersView;
 import com.example.security.UserComponent;
 import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;

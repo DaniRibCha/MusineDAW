@@ -46,6 +46,15 @@ public class RestArtistController {
 		return new ResponseEntity<>(a,HttpStatus.OK);
 	}
 	
+	interface ArtistBasicView extends Artist.Basic{};
+	
+	@JsonView(ArtistBasicView.class)
+	@RequestMapping("/api/Top3Artists")
+	public ResponseEntity<List<Artist>> getTopArtists() throws Exception{
+		List<Artist> topArtists=artistService.findTop3ByOrderByFollowersDesc();
+		return new ResponseEntity<>(topArtists,HttpStatus.OK);
+	}
+	
 
 	interface ArtistFollowersView extends Artist.Basic,Artist.ArtistFollowers,User.Basic{};
 	
@@ -56,7 +65,7 @@ public class RestArtistController {
 		return new ResponseEntity<>(a,HttpStatus.OK);
 	}
 	
-interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
+	interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
 	
 	@JsonView(ArtistSongsView.class)
 	@RequestMapping("/api/SongsOfArtist/{id}")
@@ -76,6 +85,8 @@ interface ArtistSongsView extends Artist.Songs, Artist.Basic, Song.Basic{}
 //			artisttofollow.addFollowerOfArtist(uLogged);
 //					return new ResponseEntity<> (artistsfollowed,HttpStatus.OK);
 //	}
+	
+	
 
 	
 }

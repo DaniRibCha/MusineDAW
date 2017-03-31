@@ -49,20 +49,29 @@ public class PlaylistService {
 		return topPlaylists;
 	}
 	
+	public List<Playlist> findTop3ByOrderByNLikesDesc(){
+		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
+		List<Playlist> topPlaylists=new ArrayList<>();
+		for(int i=0;i<3;++i){
+			topPlaylists.add(playlistsTop.get(i));
+		}
+		return topPlaylists;
+	}
+	
 	public List<Playlist> findByTagsOfPlaylist(List<Tag> tags){
 		return playlistRepository.findByTagsOfPlaylist(tags);
 	}
 	
-	public Page<Playlist> findFirst100ByOrderByDateAsc(Pageable page){
-		return playlistRepository.findFirst100ByOrderByDateAsc(page);
+	public List<Playlist> findFirst100ByOrderByDateAsc(){
+		return playlistRepository.findFirst100ByOrderByDateAsc();
 	}
 	
-	public Page<Playlist> findByUserlikesOfPlaylist(List<User> users, Pageable page){
-		return playlistRepository.findByUserlikesOfPlaylist(users,page);
+	public List<Playlist> findByUserlikesOfPlaylist(List<User> users){
+		return playlistRepository.findByUserlikesOfPlaylist(users);
 	}
 	
-	public Page<Playlist> findByCreatorId(long id, Pageable page){
-		return playlistRepository.findByCreatorId(id,page);
+	public List<Playlist> findByCreatorId(long id){
+		return playlistRepository.findByCreatorId(id);
 	}
 	
 	public List<Playlist> findByCreatorIdList(long id){

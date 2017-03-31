@@ -49,6 +49,34 @@ public class RestPlaylistController {
 		return new ResponseEntity<>(p,HttpStatus.OK);
 	}
 	
+	interface TopPlaylistView extends Playlist.Basic{}
+	
+	@JsonView(PlaylistView.class)
+	@RequestMapping("/api/Top3Playlist")
+	public ResponseEntity<List<Playlist>> getTopPlaylist() throws Exception{
+		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
+		return new ResponseEntity<>(topPlaylists,HttpStatus.OK);
+	}
+	
+	interface WallPlaylistView extends Playlist.Basic,Playlist.Tags,Tag.Basic{}
+	
+	@JsonView(WallPlaylistView.class)
+	@RequestMapping("/api/WallPlaylistsLogged/{id}")
+	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
+		if(userComponent.getIdLoggedUser()==id){
+			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
+			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	}
+	
+	@JsonView(WallPlaylistView.class)
+	@RequestMapping("/api/WallPlaylistsNotLogged")
+	public ResponseEntity<List<Playlist>> getWallPlaylistsNotLogged() throws Exception{
+		List<Playlist> wallPlaylists=playlistService.findTop10ByOrderByNLikesDesc();
+		return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+	}
+
 	interface MyPlaylistsView extends Playlist.Basic, Playlist.Songs,Playlist.Tags, Song.Basic{}
 	
 	@JsonView(MyPlaylistsView.class)

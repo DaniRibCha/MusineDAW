@@ -22,6 +22,7 @@ import com.example.services.TagService;
 import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
 @RestController
 public class RestPublicPageController {
@@ -40,21 +41,13 @@ public class RestPublicPageController {
 	
 
 	
-	interface UserFollowersView extends User.Basic{};
-	@JsonView(UserFollowersView.class)
+	interface UserFollowView extends User.Basic{};
+	@JsonView(UserFollowView.class)
 	@RequestMapping("/api/UserFollowers/{id}")
-	public ResponseEntity<String> getUserFollowers(@PathVariable long id) throws Exception{
+	public ResponseEntity<String> getUserFollow(@PathVariable long id) throws Exception{
 		User u=userService.findOne(id);
 		String uSerialized = new ObjectMapper().writeValueAsString(u);
 		return new ResponseEntity<>(uSerialized,HttpStatus.OK);
-	}
-	
-	interface UserFollowingView extends User.Basic{};
-	@JsonView(UserFollowingView.class)
-	@RequestMapping("/api/UserFollowing/{id}")
-	public ResponseEntity<User> getUserFollowing(@PathVariable long id) throws Exception{
-		User u=userService.findOne(id);
-		return new ResponseEntity<>(u,HttpStatus.OK);
 	}
 	
 	interface UserPlaylistsView extends User.Basic,User.Playlists,Playlist.Basic{};
@@ -121,5 +114,15 @@ public class RestPublicPageController {
 		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
 		return new ResponseEntity<>(playlists,HttpStatus.OK);
 	}
+	
+	interface TopTagView extends Tag.Basic{};
+	@JsonView(TopTagView.class)
+	@RequestMapping("/api/Top3Tags")
+	public ResponseEntity<List<Tag>> getTopTags() throws Exception{
+		List<Tag>topTags=tagService.findTop3ByOrderByNumberTagDesc();
+		return new ResponseEntity<>(topTags,HttpStatus.OK);
+	}
+	
+	
 	
 }

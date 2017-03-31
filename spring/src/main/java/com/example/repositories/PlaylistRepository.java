@@ -14,13 +14,17 @@ import com.example.classes.User;
 public interface PlaylistRepository extends JpaRepository<Playlist, Long>  {
 	
 	List<Playlist> findByTitle(String title);
+	
 	List<Playlist> findByOrderByNLikesDesc();
+	
 	Page <Playlist> findFirst100ByOrderByDateAsc(Pageable page);
+	List <Playlist> findFirst100ByOrderByDateAsc();
+	
 	List<Playlist> findByTagsOfPlaylist(List<Tag> tags);
 	
 	Page<Playlist> findByUserlikesOfPlaylist(List<User> user, Pageable page);
+	List<Playlist> findByUserlikesOfPlaylist(List<User> user);
 	
 	Page<Playlist> findByCreatorId(long id, Pageable page);
-	
 	List<Playlist> findByCreatorId(long id);
 }

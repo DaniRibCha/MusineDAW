@@ -291,26 +291,24 @@ public class UserController {
 	public String config(Model model, @PathVariable long id,
 			@RequestParam(value = "biography", defaultValue = "") String biography,
 			@RequestParam(value = "country", defaultValue = "") String country, 
-			@RequestParam(value = "city", defaultValue = "") String city,
-			@RequestParam(value = "oldPassword", defaultValue = "") String oldPassword,
-			@RequestParam(value = "newPassword", defaultValue = "") String newPassword)
+			@RequestParam(value = "city", defaultValue = "") String city)
+//			@RequestParam(value = "oldPassword", defaultValue = "") String oldPassword,
+//			@RequestParam(value = "newPassword", defaultValue = "") String newPassword)
 					throws AuthenticationException{
 
 		id=userComponent.getIdLoggedUser();
 		User u=userRepository.findOne(id);
 
-		if(!oldPassword.equals("")){
-
-			if (!new BCryptPasswordEncoder().matches(oldPassword, u.getPasswordHash())) {
-				model.addAttribute("idLogged", userComponent.getIdLoggedUser());
-				return "wrongPass";
-			}else{
-				u.setPasswordHash(newPassword);
-				userRepository.save(u);
-			}
-		}
-
-
+//		if(!oldPassword.equals("")){
+//
+//			if (!new BCryptPasswordEncoder().matches(oldPassword, u.getPasswordHash())) {
+//				model.addAttribute("idLogged", userComponent.getIdLoggedUser());
+//				return "wrongPass";
+//			}else{
+//				u.setPasswordHash(newPassword);
+//				userRepository.save(u);
+//			}
+//		}
 
 		//si hay modificaciones les hace
 		if(!biography.equals("")) u.setBiography(biography);
