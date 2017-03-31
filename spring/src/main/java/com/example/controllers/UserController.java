@@ -23,25 +23,30 @@ import com.example.repositories.SongRepository;
 import com.example.repositories.TagRepository;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
+import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 
 @Controller
 public class UserController {
 
 	@Autowired
-	private SongRepository songRepository;
-
+	private SongService songService;
+	
 	@Autowired
-	private ArtistRepository artistRepository;
-
+	private UserService userService;
+	
 	@Autowired
-	private UserRepository userRepository;
-
+	private ArtistService artistService;
+	
 	@Autowired
-	private PlaylistRepository playlistRepository;
-
+	private TagService tagService;
+	
 	@Autowired
-	private TagRepository tagRepository;
-
+	private PlaylistService playlistService;
+	
 	@Autowired
 	private UserComponent userComponent;
 
@@ -55,12 +60,12 @@ public class UserController {
 			return "accessDenied";
 		}
 		id=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		if(likeIdPlaylist!=null){
-			Playlist pToRemove=playlistRepository.findOne(likeIdPlaylist);
+			Playlist pToRemove=playlistService.findOne(likeIdPlaylist);
 			pToRemove.removeUserlikeOfPlaylist(u);
-			playlistRepository.save(pToRemove);
+			playlistService.save(pToRemove);
 		}
 
 		model.addAttribute("u",u);
@@ -79,7 +84,7 @@ public class UserController {
 
 		//Pageable pageable = new PageRequest(pageIndex,10);
 
-		Page<Playlist> play = playlistRepository.findByUserlikesOfPlaylist(userPage, page);
+		Page<Playlist> play = playlistService.findByUserlikesOfPlaylist(userPage, page);
 
 		int pageIndex = play.getNumber();
 
@@ -115,21 +120,21 @@ public class UserController {
 		}
 
 		id=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		if(createdPlaylist==null){
 		}else{
-			Playlist pToDelete=playlistRepository.findOne(createdPlaylist);
+			Playlist pToDelete=playlistService.findOne(createdPlaylist);
 			u.removeCreatedPlaylist(pToDelete);
-			userRepository.save(u);
-			playlistRepository.delete(pToDelete);
+			userService.save(u);
+			playlistService.delete(pToDelete.getId_playlist());
 			return "redirect:/MyPlaylists/{id}";
 		}
 
 		model.addAttribute("u",u);
 
 		//Pageable pageable = new PageRequest(pageIndex,10);
-		Page<Playlist> playlistCreated = playlistRepository.findByCreatorId(id, page);
+		Page<Playlist> playlistCreated = playlistService.findByCreatorId(id, page);
 		//			
 		int pageIndex = playlistCreated.getNumber();
 		//				
@@ -173,14 +178,14 @@ public class UserController {
 		}
 
 		id=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 
 		//si hay el titulo en el RequestParam->borrar cancion de favoritos
 		if(id_song==null){}else{
-			Song s=songRepository.findOne(id_song);
+			Song s=songService.findOne(id_song);
 			u.removeFavoriteSong(s);
-			userRepository.save(u);
+			userService.save(u);
 		}
 
 		List<User> userPage=new ArrayList<>();
@@ -188,7 +193,7 @@ public class UserController {
 
 		//Pageable pageable = new PageRequest(pageIndex,10);
 
-		Page<Song> songs = songRepository.findByUsersFavoriteSong(userPage, page);
+		Page<Song> songs = songService.findByUsersFavoriteSong(userPage, page);
 
 		int pageIndex = songs.getNumber();
 
@@ -223,12 +228,12 @@ public class UserController {
 			return "accessDenied";
 		}
 		//id=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		List<User> following=new ArrayList<>();
 		following.add(u);
 
-		Page<User> userPage = userRepository.findByFollowers(following,page);
+		Page<User> userPage = userService.findByFollowers(following,page);
 
 		model.addAttribute("ident", id);
 		model.addAttribute("following",userPage);
@@ -242,9 +247,9 @@ public class UserController {
 		//si en el RequestParam hay el nombre del usuario
 		//se borra de los seguidores
 		if(followName==null){}else{
-			User u1=userRepository.findByName(followName);
+			User u1=userService.findByName(followName);
 			u.removeFollowing(u1);
-			userRepository.save(u);userRepository.save(u1);
+			userService.save(u);userService.save(u1);
 		}
 
 		model.addAttribute("u",u);
@@ -264,12 +269,12 @@ public class UserController {
 		}
 
 		id=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		List<User> followed=new ArrayList<>();
 		followed.add(u);
 
-		Page<User> userPage = userRepository.findByFollowing(followed,page);
+		Page<User> userPage = userService.findByFollowing(followed,page);
 
 
 		model.addAttribute("ident", id);
@@ -297,7 +302,7 @@ public class UserController {
 					throws AuthenticationException{
 
 		id=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 //		if(!oldPassword.equals("")){
 //
@@ -317,7 +322,7 @@ public class UserController {
 
 		if(!city.equals("")) u.setCity(city);
 
-		userRepository.save(u);
+		userService.save(u);
 
 		model.addAttribute("u",u);
 

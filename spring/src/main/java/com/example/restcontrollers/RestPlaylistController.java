@@ -120,7 +120,7 @@ public class RestPlaylistController {
 	public ResponseEntity<List<Playlist>> getPlaylists(@PathVariable long id) throws Exception{
 		//User uLogged=userComponent.getLoggedUser();
 		if(userComponent.getIdLoggedUser()==id){
-			List<Playlist> playlists=playlistService.findByCreatorIdList(id);
+			List<Playlist> playlists=playlistService.findByCreatorId(id);
 			return new ResponseEntity<>(playlists,HttpStatus.OK);
 	} else {
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);

@@ -30,6 +30,11 @@ import com.example.repositories.SongRepository;
 import com.example.repositories.TagRepository;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
+import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 import com.fasterxml.jackson.annotation.JsonView;
 
 //import java.sql.Date;
@@ -38,23 +43,25 @@ import java.util.Date;
 @Controller
 public class PublicPageController {
 
+	
 	@Autowired
-	private SongRepository songRepository;
-
+	private SongService songService;
+	
 	@Autowired
-	private ArtistRepository artistRepository;
-
+	private UserService userService;
+	
 	@Autowired
-	private UserRepository userRepository;
-
+	private ArtistService artistService;
+	
 	@Autowired
-	private PlaylistRepository playlistRepository;
-
+	private TagService tagService;
+	
 	@Autowired
-	private TagRepository tagRepository;
-
+	private PlaylistService playlistService;
+	
 	@Autowired
 	private UserComponent userComponent;
+	
 
 
 
@@ -63,7 +70,7 @@ public class PublicPageController {
 	public String getFavoritesByUser(Model model, Pageable page, @PathVariable long id,
 			@RequestParam(value = "follow", required=false) String followName){
 
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		boolean login=userComponent.isLoggedUser();
 
@@ -71,14 +78,14 @@ public class PublicPageController {
 		//pagina publica de los otros usuarios
 		if(login){
 			long idUserLogged=userComponent.getIdLoggedUser();
-			User uLogged=userRepository.findOne(idUserLogged);
+			User uLogged=userService.findOne(idUserLogged);
 			List<User> followingListUserLogged=uLogged.getFollowing();
 
 			if(followName==null){
 				//si no hay valor en el RequestParam no se hace nada
 			}else if(followName.equals("addFollow")){//si hay ese valor en ese RequestParam
 				uLogged.addFollowing(u);//se añade el usuario como seguido
-				userRepository.save(uLogged);userRepository.save(u);
+				userService.save(uLogged);userService.save(u);
 			}else{//si el RequestParam tiene un otro valor (stringa vacia) se borra la relacion
 				//se follow del usuario logueado
 				boolean findedFollow=false;
@@ -86,7 +93,7 @@ public class PublicPageController {
 					if(followingListUserLogged.get(i).getId_user()==u.getId_user())
 						findedFollow=true;
 					uLogged.removeFollowing(u);
-					userRepository.save(uLogged);userRepository.save(u);
+					userService.save(uLogged);userService.save(u);
 				}
 			}
 
@@ -115,7 +122,7 @@ public class PublicPageController {
 
 		//Pageable pageable = new PageRequest(pageIndex,10);
 
-		Page<Song> songs = songRepository.findByUsersFavoriteSong(userPage, page);
+		Page<Song> songs = songService.findByUsersFavoriteSong(userPage, page);
 
 		int pageIndex = songs.getNumber();
 
@@ -151,15 +158,15 @@ public class PublicPageController {
 	public String getUserLikes(Model model, @PathVariable long id, Pageable page,
 			@RequestParam(value = "follow", required=false) String followName){
 
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		boolean login=userComponent.isLoggedUser();
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
 		if(login){
 			long idUserLogged=userComponent.getIdLoggedUser();
-			User uLogged=userRepository.findOne(idUserLogged);
-			Page<Playlist> playlistCreated = playlistRepository.findByCreatorId(id, page);
+			User uLogged=userService.findOne(idUserLogged);
+			Page<Playlist> playlistCreated = playlistService.findByCreatorId(id, page);
 			//			
 			int pageIndex = playlistCreated.getNumber();
 
@@ -189,7 +196,7 @@ public class PublicPageController {
 				//si no hay valor en el RequestParam no se hace nada
 			}else if(followName.equals("addFollow")){//si hay ese valor en ese RequestParam
 				uLogged.addFollowing(u);//se añade el usuario como seguido
-				userRepository.save(uLogged);userRepository.save(u);
+				userService.save(uLogged);userService.save(u);
 			}else{//si el RequestParam tiene un otro valor (stringa vacia) se borra la relacion
 				//se follow del usuario logueado
 				boolean findedFollow=false;
@@ -197,7 +204,7 @@ public class PublicPageController {
 					if(followingListUserLogged.get(i).getId_user()==u.getId_user())
 						findedFollow=true;
 					uLogged.removeFollowing(u);
-					userRepository.save(uLogged);userRepository.save(u);
+					userService.save(uLogged);userService.save(u);
 				}
 
 			}
@@ -256,7 +263,7 @@ public class PublicPageController {
 	public String getUserCreated(Model model, Pageable page, @PathVariable long id, 
 			@RequestParam(value = "follow", required=false) String followName){
 
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		boolean login=userComponent.isLoggedUser();
 
@@ -265,14 +272,14 @@ public class PublicPageController {
 		//codigo para poner la posibilidad de seguir y no seguir en la
 		//pagina publica de los otros usuarios
 		if(login){
-			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			User uLogged=userService.findOne(userComponent.getIdLoggedUser());
 			long idUserLogged=userComponent.getIdLoggedUser();
 			List<User> followingListUserLogged=uLogged.getFollowing();
 			if(followName==null){
 				//si no hay valor en el RequestParam no se hace nada
 			}else if(followName.equals("addFollow")){//si hay ese valor en ese RequestParam
 				uLogged.addFollowing(u);//se añade el usuario como seguido
-				userRepository.save(uLogged);userRepository.save(u);
+				userService.save(uLogged);userService.save(u);
 			}else{//si el RequestParam tiene un otro valor (stringa vacia) se borra la relacion
 				//se follow del usuario logueado
 				boolean findedFollow=false;
@@ -280,7 +287,7 @@ public class PublicPageController {
 					if(followingListUserLogged.get(i).getId_user()==u.getId_user())
 						findedFollow=true;
 					uLogged.removeFollowing(u);
-					userRepository.save(uLogged);userRepository.save(u);
+					userService.save(uLogged);userService.save(u);
 				}
 
 			}
@@ -301,7 +308,7 @@ public class PublicPageController {
 
 		}
 
-		Page<Playlist> playlistCreated = playlistRepository.findByCreatorId(id, page);
+		Page<Playlist> playlistCreated = playlistService.findByCreatorId(id, page);
 		//		
 		int pageIndex = playlistCreated.getNumber();
 		//			
@@ -334,9 +341,9 @@ public class PublicPageController {
 
 		if (login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 
-		if (login) model.addAttribute("uLogged",userRepository.findOne(userComponent.getIdLoggedUser()));
+		if (login) model.addAttribute("uLogged",userService.findOne(userComponent.getIdLoggedUser()));
 
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		model.addAttribute("u",u);
 
@@ -345,7 +352,7 @@ public class PublicPageController {
 		List<User> followed=new ArrayList<>();
 		followed.add(u);
 
-		Page<User> userPage = userRepository.findByFollowing(followed,page);
+		Page<User> userPage = userService.findByFollowing(followed,page);
 		//ruta dinamica
 		if(login){
 			List<User> users=userPage.getContent();
@@ -372,13 +379,13 @@ public class PublicPageController {
 	public String getUserFollowing(Model model, @PathVariable long id, Pageable page){
 
 		boolean login=userComponent.isLoggedUser();
-		User u=userRepository.findOne(id);
+		User u=userService.findOne(id);
 
 		//Pageable followers=(Pageable)u.getFollowers();
 		List<User> following=new ArrayList<>();
 		following.add(u);
 
-		Page<User> userPage = userRepository.findByFollowers(following,page);
+		Page<User> userPage = userService.findByFollowers(following,page);
 		//Page<User> userPage = userRepository.findAll(page);
 		//ruta dinamica
 		if(login){
@@ -397,7 +404,7 @@ public class PublicPageController {
 
 		if (login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 
-		if (login) model.addAttribute("uLogged",userRepository.findOne(userComponent.getIdLoggedUser()));
+		if (login) model.addAttribute("uLogged",userService.findOne(userComponent.getIdLoggedUser()));
 
 		model.addAttribute("u",u);
 
@@ -427,42 +434,27 @@ public class PublicPageController {
 		model.addAttribute("login", login);
 
 
-		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
-		List<Playlist> topPlaylists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topPlaylists.add(playlistsTop.get(i));
-		}
-
+		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
 		model.addAttribute("topPlaylists",topPlaylists);
 
 
-		List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
-		List<Artist> topArtists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topArtists.add(artistsTop.get(i));
-		}
-
+		List<Artist> topArtists=artistService.findTop3ByOrderByFollowersDesc();
 		model.addAttribute("topArtists",topArtists);
 
-		List<Tag> topTags=new ArrayList<>();
-		List<Tag> tagsTop=tagRepository.findByOrderByNumberTagDesc();
-		for(int i=0;i<3;++i){
-			topTags.add(tagsTop.get(i));
-		}
-
+		List<Tag> topTags=tagService.findTop3ByOrderByNumberTagDesc();
 		model.addAttribute("topTags",topTags);
 
 
 
 		List<Playlist> playlists=new ArrayList<>();
 
-		Tag t=tagRepository.findByName(key);
+		Tag t=tagService.findByName(key);
 
 		//codigo para la busqueda por tags
 		if(t==null){}else{
 			List<Tag> tags=new ArrayList<>();
 			tags.add(t);
-			playlists=playlistRepository.findByTagsOfPlaylist(tags);
+			playlists=playlistService.findByTagsOfPlaylist(tags);
 			//cheque el atributo booelan idLogged
 			//para trazar la ruta dinamica de cada playlist desde la plantilla
 			if(login){
@@ -478,7 +470,7 @@ public class PublicPageController {
 			model.addAttribute("playlistsTag",playlists);
 		}
 
-		List<Playlist> pList=playlistRepository.findByTitle(key);
+		List<Playlist> pList=playlistService.findByTitle(key);
 		//chequea el atributo booelan idLogged
 		//para trazar la ruta dinamica de cada playlist desde la plantilla
 		if(pList==null){}else{
@@ -495,7 +487,7 @@ public class PublicPageController {
 			model.addAttribute("playlistsTitle",pList);
 		}
 
-		Artist a=artistRepository.findByName(key);
+		Artist a=artistService.findByName(key);
 		//busqueda por artista
 		if(a==null){}else{
 			model.addAttribute("a",a);
@@ -504,7 +496,7 @@ public class PublicPageController {
 		if(login) model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 		if(login) {
 			long idLogged=userComponent.getIdLoggedUser();
-			model.addAttribute("uLogged",userRepository.findOne(idLogged));
+			model.addAttribute("uLogged",userService.findOne(idLogged));
 		}
 		model.addAttribute("key",key);
 
@@ -522,42 +514,27 @@ public class PublicPageController {
 		model.addAttribute("login", login);
 
 
-		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
-		List<Playlist> topPlaylists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topPlaylists.add(playlistsTop.get(i));
-		}
-
+		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
 		model.addAttribute("topPlaylists",topPlaylists);
 
 
-		List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
-		List<Artist> topArtists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topArtists.add(artistsTop.get(i));
-		}
-
+		List<Artist> topArtists=artistService.findTop3ByOrderByFollowersDesc();
 		model.addAttribute("topArtists",topArtists);
 
-		List<Tag> topTags=new ArrayList<>();
-		List<Tag> tagsTop=tagRepository.findByOrderByNumberTagDesc();
-		for(int i=0;i<3;++i){
-			topTags.add(tagsTop.get(i));
-		}
-
+		List<Tag> topTags=tagService.findTop3ByOrderByNumberTagDesc();
 		model.addAttribute("topTags",topTags);
 
 
 
 		List<Playlist> playlists=new ArrayList<>();
 
-		Tag t=tagRepository.findByName(key);
+		Tag t=tagService.findByName(key);
 
 		//codigo para la busqueda por tags
 		if(t==null){}else{
 			List<Tag> tags=new ArrayList<>();
 			tags.add(t);
-			playlists=playlistRepository.findByTagsOfPlaylist(tags);
+			playlists=playlistService.findByTagsOfPlaylist(tags);
 			//cheque el atributo booelan idLogged
 			//para trazar la ruta dinamica de cada playlist desde la plantilla
 			if(login){
@@ -579,7 +556,7 @@ public class PublicPageController {
 
 		if(login) {
 			long idLogged=userComponent.getIdLoggedUser();
-			model.addAttribute("uLogged",userRepository.findOne(idLogged));
+			model.addAttribute("uLogged",userService.findOne(idLogged));
 		}
 
 		model.addAttribute("key",key);

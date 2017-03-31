@@ -36,6 +36,7 @@ public class PlaylistService {
 		playlistRepository.delete(id);
 	}
 	
+	
 	public List<Playlist> findByTitle(String title){
 		return playlistRepository.findByTitle(title);
 	}
@@ -74,11 +75,15 @@ public class PlaylistService {
 		return playlistRepository.findByUserlikesOfPlaylist(users);
 	}
 	
-	public List<Playlist> findByCreatorId(long id){
-		return playlistRepository.findByCreatorId(id);
+	public Page<Playlist> findByUserlikesOfPlaylist(List<User> users,Pageable page){
+		return playlistRepository.findByUserlikesOfPlaylist(users,page);
 	}
 	
-	public List<Playlist> findByCreatorIdList(long id){
+	public Page<Playlist> findByCreatorId(long id,Pageable page){
+		return playlistRepository.findByCreatorId(id,page);
+	}
+	
+	public List<Playlist> findByCreatorId(long id){
 		return playlistRepository.findByCreatorId(id);
 	}
 	

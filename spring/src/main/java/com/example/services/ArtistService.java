@@ -31,6 +31,10 @@ public class ArtistService {
 		artistRepository.delete(id);
 	}
 	
+	public void delete(Artist a) {
+		artistRepository.delete(a);
+	}
+	
 	public Artist findByName(String name) {
 		return artistRepository.findByName(name);
 	}

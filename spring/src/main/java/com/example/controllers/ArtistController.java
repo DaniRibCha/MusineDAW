@@ -22,24 +22,29 @@ import com.example.repositories.SongRepository;
 import com.example.repositories.TagRepository;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
+import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 
 @Controller
 public class ArtistController {
 	
 	@Autowired
-	private SongRepository songRepository;
+	private SongService songService;
 	
 	@Autowired
-	private ArtistRepository artistRepository;
+	private ArtistService artistService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@Autowired
-	private PlaylistRepository playlistRepository;
+	private PlaylistService playlistService;
 	
 	@Autowired
-	private TagRepository tagRepository;
+	private TagService tagService;
 	
 	@Autowired
 	private UserComponent userComponent;
@@ -58,16 +63,16 @@ public class ArtistController {
 		if(login){
 			model.addAttribute("idLogged",userComponent.getIdLoggedUser());
 			long idUserLogged=userComponent.getIdLoggedUser();
-			User uLogged=userRepository.findOne(idUserLogged);
-			Artist a=artistRepository.findOne(id);
+			User uLogged=userService.findOne(idUserLogged);
+			Artist a=artistService.findOne(id);
 			
 			if(followName==null){
 			}else if(followName.equals("removeFollow")){
 				a.removeFollowerOfArtist(uLogged);
-				artistRepository.save(a);
+				artistService.save(a);
 			}else if(followName.equals("addFollow")){
 				a.addFollowerOfArtist(uLogged);
-				artistRepository.save(a);
+				artistService.save(a);
 			}
 			
 			List<User> followersArtist=a.getFollowersOfArtist();
@@ -87,7 +92,7 @@ public class ArtistController {
 		
 		model.addAttribute("login",login);
 		
-		Artist a=artistRepository.findOne(id);
+		Artist a=artistService.findOne(id);
 		
 		model.addAttribute("a",a);
 		
@@ -99,10 +104,10 @@ public class ArtistController {
 		}else{
 			if(login){
 				long idLogged=userComponent.getIdLoggedUser();
-				Song s=songRepository.findOne(id_song);
-				User u=userRepository.findOne(idLogged);
+				Song s=songService.findOne(id_song);
+				User u=userService.findOne(idLogged);
 				u.addFavoriteSong(s);
-				userRepository.save(u);
+				userService.save(u);
 			}
 		}
 		
@@ -111,7 +116,7 @@ public class ArtistController {
 		
 		//Pageable pageable = new PageRequest(pageIndex,10);
 		
-		Page<Song> songs1 = songRepository.findByArtistsOfSong(artist, page);
+		Page<Song> songs1 = songService.findByArtistsOfSong(artist, page);
 		List<Song> mySongs=songs1.getContent();
 		int pageIndex = songs1.getNumber();
 			
@@ -121,7 +126,7 @@ public class ArtistController {
 //		del usuario logeado
 		if(login){//si un usuario esta logeado
 			long idUserLogged=userComponent.getIdLoggedUser();
-			User uLogged=userRepository.findOne(idUserLogged);
+			User uLogged=userService.findOne(idUserLogged);
 			List<Song> favoriteByUser=uLogged.getFavoriteSongs();
 			for(int i=0;i<mySongs.size();++i){
 				Song s=mySongs.get(i);
@@ -144,26 +149,15 @@ public class ArtistController {
 		
 		model.addAttribute("tags",a.getTagsOfArtist());
 		
-		List<Playlist> playlistsTop=playlistRepository.findByOrderByNLikesDesc();
-		List<Playlist> topPlaylists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topPlaylists.add(playlistsTop.get(i));
-		}
-		
-		model.addAttribute("topPlaylists",topPlaylists);
+		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
 		model.addAttribute("topPlaylists",topPlaylists);
 		
-		List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
-		List<Artist> topArtists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topArtists.add(artistsTop.get(i));
-		}
-		
+		List<Artist> topArtists=artistService.findTop3ByOrderByFollowersDesc();
 		model.addAttribute("topArtists",topArtists);
 		
 		if(login){
 			long idLogged1=userComponent.getIdLoggedUser();
-			model.addAttribute("u",userRepository.findOne(idLogged1));
+			model.addAttribute("u",userService.findOne(idLogged1));
 		}
 		
 		return "Artist";
@@ -177,7 +171,7 @@ public class ArtistController {
 		boolean login=userComponent.isLoggedUser();
 
 		if (login){
-			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			User uLogged=userService.findOne(userComponent.getIdLoggedUser());
 
 
 			model.addAttribute("u",uLogged);
@@ -185,14 +179,14 @@ public class ArtistController {
 			model.addAttribute("login",login);
 		}
 //		
-		Artist a=artistRepository.findOne(id);
+		Artist a=artistService.findOne(id);
 		
 		model.addAttribute("a",a);
 		
 		List<Artist> art=new ArrayList<>();
 		art.add(a);
 		
-		Page<User> userPage = userRepository.findByFollowingArtists(art,page);
+		Page<User> userPage = userService.findByFollowingArtists(art,page);
 		
 		
 		if(login){

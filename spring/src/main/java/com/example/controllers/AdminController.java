@@ -20,28 +20,29 @@ import com.example.repositories.SongRepository;
 import com.example.repositories.TagRepository;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
+import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 
 @Controller
 public class AdminController {
-	
-	private static final Object ArtistList = null;
-
-	private static final Object SongList = null;
 
 	@Autowired
-	private SongRepository songRepository;
+	private SongService songService;
 	
 	@Autowired
-	private ArtistRepository artistRepository;
+	private UserService userService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private ArtistService artistService;
 	
 	@Autowired
-	private PlaylistRepository playlistRepository;
+	private TagService tagService;
 	
 	@Autowired
-	private TagRepository tagRepository;
+	private PlaylistService playlistService;
 	
 	@Autowired
 	private UserComponent userComponent;
@@ -50,11 +51,11 @@ public class AdminController {
 
 	@RequestMapping("/admin")
 	public String adminPage(Model model){
-		Artist aEmpty=artistRepository.findByName("");
+		Artist aEmpty=artistService.findByName("");
 		if(aEmpty!=null){
-			artistRepository.delete(aEmpty);
+			artistService.delete(aEmpty);
 		}
-		List<Artist> artists=artistRepository.findAll();
+		List<Artist> artists=artistService.findAll();
 		model.addAttribute("artists",artists);
 		return "admin";
 	}
@@ -65,9 +66,9 @@ public class AdminController {
 			@RequestParam(value = "idArtist") Long idArtist){
 
 		Song s=new Song();
-		Artist a=artistRepository.findOne(idArtist);
+		Artist a=artistService.findOne(idArtist);
 		s.addArtistsOfSong(a);
-		songRepository.save(s);
+		songService.save(s);
 		model.addAttribute("a",a);
 		model.addAttribute("idSong",s.getId_song());
 
@@ -78,7 +79,7 @@ public class AdminController {
 	public String adminCreateArtist(Model model){
 
 		Artist a=new Artist("","");
-		artistRepository.save(a);
+		artistService.save(a);
 
 		model.addAttribute("idArtist",a.getId_artist());
 
@@ -97,20 +98,20 @@ public class AdminController {
 			model.addAttribute("name",name);
 			model.addAttribute("country",country);
 			model.addAttribute("idArtist",idArtist);
-			Artist a=artistRepository.findOne(idArtist);
+			Artist a=artistService.findOne(idArtist);
 			a.setName(name);a.setCountry(country);
-			artistRepository.save(a);
+			artistService.save(a);
 			model.addAttribute("a",a);
 			List<Song> songs=a.getSongsOfArtist();
 			model.addAttribute("songs",songs);
 		}else{//si no se esta editando un artista que ya estaba DESDE admin->primera modifica
-			Artist a=artistRepository.findOne(idArtist);
+			Artist a=artistService.findOne(idArtist);
 			name=a.getName();
 			country=a.getCountry();
 			model.addAttribute("name",name);
 			model.addAttribute("country",country);
 			model.addAttribute("idArtist",idArtist);
-			artistRepository.save(a);
+			artistService.save(a);
 			model.addAttribute("a",a);
 			List<Song> songs=a.getSongsOfArtist();
 			model.addAttribute("songs",songs);
@@ -131,9 +132,9 @@ public class AdminController {
 		model.addAttribute("title", title);
 		model.addAttribute("link_youtube",link_youtube);
 		model.addAttribute("idSong",idSong);
-		Song s=songRepository.findOne(idSong);
+		Song s=songService.findOne(idSong);
 		s.setTitle(title);s.setLink_youtube(link_youtube);
-		songRepository.save(s);
+		songService.save(s);
 		model.addAttribute("s",s);
 
 		//				model.addAttribute("SongList",SongList);

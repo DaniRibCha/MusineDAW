@@ -24,29 +24,33 @@ import com.example.repositories.PlaylistRepository;
 import com.example.repositories.TagRepository;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
 import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 
 
 @Controller
 public class LoginIndexController {
 	
-	@Autowired 
+	@Autowired
+	private SongService songService;
+	
+	@Autowired
+	private ArtistService artistService;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
 	private PlaylistService playlistService;
 	
 	@Autowired
-	private UserRepository userRepository;
+	private TagService tagService;
 	
 	@Autowired
 	private UserComponent userComponent;
-	
-	@Autowired
-	private PlaylistRepository playlistRepository;
-	
-	@Autowired
-	private ArtistRepository artistRepository;
-	
-	@Autowired
-	private TagRepository tagRepository;
 
     @RequestMapping("/login")
     public String login() {
@@ -64,7 +68,7 @@ public class LoginIndexController {
     	boolean login=userComponent.isLoggedUser();
     	
     	if(login){
-    		User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+    		User uLogged=userService.findOne(userComponent.getIdLoggedUser());
     		if(uLogged.getName().equals("admin")){
     			model.addAttribute("admin",true);
     			return "index";
@@ -76,20 +80,10 @@ public class LoginIndexController {
 		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
 		model.addAttribute("topPlaylists",topPlaylists);
 		
-		List<Artist> artistsTop=artistRepository.findByOrderByFollowersDesc();
-		List<Artist> topArtists=new ArrayList<>();
-		for(int i=0;i<3;++i){
-			topArtists.add(artistsTop.get(i));
-		}
-		
+		List<Artist> topArtists=artistService.findTop3ByOrderByFollowersDesc();
 		model.addAttribute("topArtists",topArtists);
 		
-		List<Tag> topTags=new ArrayList<>();
-		List<Tag> tagsTop=tagRepository.findByOrderByNumberTagDesc();
-		for(int i=0;i<3;++i){
-			topTags.add(tagsTop.get(i));
-		}
-		
+		List<Tag> topTags=tagService.findTop3ByOrderByNumberTagDesc();
 		model.addAttribute("topTags",topTags);
 		
 		if(!login){
@@ -97,8 +91,8 @@ public class LoginIndexController {
 			model.addAttribute("wallPlaylists",wallPlaylists);
 		}else{
 			long idLogged=userComponent.getIdLoggedUser();
-			User uLogged=userRepository.findOne(idLogged);
-			Page<Playlist> wallPlaylists=playlistRepository.findFirst100ByOrderByDateAsc(page);
+			User uLogged=userService.findOne(idLogged);
+			Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(page);
 						
 			int pageIndex = wallPlaylists.getNumber();
 			List<Playlist> recentPlaylists=wallPlaylists.getContent();
@@ -130,13 +124,13 @@ public class LoginIndexController {
 		
 		
 		if(login){
-			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			User uLogged=userService.findOne(userComponent.getIdLoggedUser());
 			List<Artist> artistsFollowedByLogged=uLogged.getFollowingArtists();
 			model.addAttribute("artistsFollowedByLogged",artistsFollowedByLogged);
 		}
 		
 		if(login){
-			User uLogged=userRepository.findOne(userComponent.getIdLoggedUser());
+			User uLogged=userService.findOne(userComponent.getIdLoggedUser());
 			model.addAttribute("uLogged",uLogged);
 		}
 		
