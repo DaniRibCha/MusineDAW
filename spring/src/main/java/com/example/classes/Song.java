@@ -20,6 +20,8 @@ public class Song{
 	public interface Artists{}
 	
 	public interface Playlists{}
+	
+	public interface Favorites{}
 	 
 	@JsonView(Basic.class)
 	@Id
@@ -44,6 +46,7 @@ public class Song{
 //	private List<User> usersFavoriteSong= new ArrayList<>();
 	
 	@ManyToMany(mappedBy="favoriteSongs")
+	@JsonView(Favorites.class)
 	private List<User> usersFavoriteSong= new ArrayList<>();
 	
 	private boolean isIdLogged;

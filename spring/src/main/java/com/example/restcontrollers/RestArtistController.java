@@ -75,16 +75,35 @@ public class RestArtistController {
 		return new ResponseEntity<>(songs,HttpStatus.OK);
 	}
 	
-//Seguir a un artista (PUT)
-//	@RequestMapping(value="/api/FollowArtist/{id}", method=RequestMethod.PUT)
-//	public  ResponseEntity<List<Artist>> followArtist(@PathVariable long id, @RequestBody List<Artist> artistfollowed) throws Exception{
-//			User uLogged=userComponent.getLoggedUser();
-//			Artist artisttofollow=artistService.findOne(id);
-//			List<Artist> artistsfollowed=uLogged.getFollowingArtists();
-//			artistsfollowed.add(artisttofollow);
-//			artisttofollow.addFollowerOfArtist(uLogged);
-//					return new ResponseEntity<> (artistsfollowed,HttpStatus.OK);
-//	}
+	
+	@JsonView(ArtistFollowersView.class)
+	@RequestMapping(value="/api/FollowNotFollowArtist/{idArtist}", method=RequestMethod.PUT)
+	public ResponseEntity<Artist> favoriteNotFavoriteSong(@PathVariable long idArtist){
+		Artist a=artistService.findOne(idArtist);
+		if(a!=null){
+			long idUser=userComponent.getIdLoggedUser();
+			User u=userService.findOne(idUser);
+			List<User> followers=a.getFollowersOfArtist();
+			boolean finded=false;
+			for(int i=0;i<followers.size() && !finded;++i){
+				if(followers.get(i).getId_user()==idUser){
+					finded=true;
+				}
+			}
+			if(finded){
+				a.removeFollowerOfArtist(u);
+				artistService.save(a);
+				return new ResponseEntity<>(a , HttpStatus.OK);
+			}else{
+				a.addFollowerOfArtist(u);
+				artistService.save(a);
+				return new ResponseEntity<>(a , HttpStatus.OK);
+			}
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+			
+		}
 	
 	
 

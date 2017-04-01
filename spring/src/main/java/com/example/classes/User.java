@@ -32,11 +32,11 @@ public class User {
 	
 	public interface Basic{}
 	
+	public interface Favorites{}
+	
 	public interface Playlists{}
 	
 	public interface Likes{}
-	
-	public interface Favorites{}
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -64,8 +64,20 @@ public class User {
 	
 	private boolean isIdLogged;
 	
+	@ManyToMany
+	@JsonView(Favorites.class)
+	private List<Song> favoriteSongs = new ArrayList<>();
+	
+	@OneToMany(cascade=CascadeType.ALL)
+	@JsonView(Playlists.class)
+	private List<Playlist> createdPlaylists= new ArrayList<>();
+	
+	@ManyToMany(mappedBy="userlikesOfPlaylist")
+	@JsonView(Likes.class)
+	private List<Playlist> likedPlaylists= new ArrayList<>();
+	
 	@ElementCollection(fetch = FetchType.EAGER) 
-	private List<String> roles = new ArrayList<>();;
+	private List<String> roles = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="followersOfArtist")
 	@JsonIgnore
@@ -75,21 +87,12 @@ public class User {
 	@JsonIgnore
 	private List<User> following = new ArrayList<>();
 	
-	@JsonIgnore
+	
 	@ManyToMany(mappedBy="following")
+	@JsonIgnore
 	private List<User> followers = new ArrayList<>();	
 	
-	@ManyToMany
-	@JsonIgnore
-	private List<Song> favoriteSongs = new ArrayList<>();
 	
-	@ManyToMany(mappedBy="userlikesOfPlaylist")
-	@JsonIgnore
-	private List<Playlist> likedPlaylists= new ArrayList<>();
-	
-	@OneToMany(cascade=CascadeType.ALL)
-	@JsonIgnore
-	private List<Playlist> createdPlaylists= new ArrayList<>();
 	
 	public User() {
 	}
