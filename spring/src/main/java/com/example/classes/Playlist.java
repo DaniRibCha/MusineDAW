@@ -27,6 +27,8 @@ public class Playlist {
 	
 	public interface Tags{}
 	
+	public interface Likes{}
+	
 	
 	@JsonView(Basic.class)
 	@Id
@@ -62,6 +64,7 @@ public class Playlist {
 	@ManyToMany
 	private List<Tag> tagsOfPlaylist= new ArrayList<>();
 	
+	@JsonView(Likes.class)
 	@ManyToMany
 	private List<User> userlikesOfPlaylist= new ArrayList<>();
 	

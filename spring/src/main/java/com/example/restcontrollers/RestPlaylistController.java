@@ -244,36 +244,56 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 		}
 	}
 	
-	interface DeletePlaylistView extends Playlist.Basic, Playlist.Tags, User.Playlists{};
+	interface DeletePlaylistView extends Playlist.Basic{};
 	
 	@JsonView(DeletePlaylistView.class)
 	@RequestMapping(value="/api/DeletePlaylist/{idPlaylist}", method=RequestMethod.DELETE)
 	public ResponseEntity<Playlist> DeletePlaylist(@PathVariable long idPlaylist){
 		Playlist playlist=playlistService.findOne(idPlaylist);
-		User u=userComponent.getLoggedUser();
-		if (playlist != null && u.getId_user()==playlist.getCreatorId()) {
+		if (playlist != null) {
+			long idUser=userComponent.getIdLoggedUser();
+			User u=userService.findOne(idUser);
+			if(idUser==playlist.getCreatorId()){
 				u.removeCreatedPlaylist(playlist);
-				userService.save(u);
 				playlistService.delete(playlist.getId_playlist());
-				List<Playlist> playlists=u.getCreatedPlaylists();
-				playlistService.save(playlist);
-			
-			return new ResponseEntity<>(playlist, HttpStatus.OK);
+				userService.save(u);
+				return new ResponseEntity<>(playlist, HttpStatus.OK);
+			}else{
+				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			}	
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+	interface LikeUnlikePlaylistView extends Playlist.Basic, Playlist.Likes,User.Basic{};
 	
-	interface LikePlaylistView extends Playlist.Basic, User.Likes{};
-	@JsonView(DeletePlaylistView.class)
-	@RequestMapping(value="/api/LikePlaylist/{idPlaylist}", method=RequestMethod.PUT)
-	
-	public ResponseEntity<User> LikePlaylist(@PathVariable long idPlaylist){
+	@JsonView(LikeUnlikePlaylistView.class)
+	@RequestMapping(value="/api/LikeUnlikePlaylist/{idPlaylist}", method=RequestMethod.PUT)
+	public ResponseEntity<Playlist> LikePlaylist(@PathVariable long idPlaylist){
 		Playlist playlist=playlistService.findOne(idPlaylist);
-		User u=userComponent.getLoggedUser();
-		u.addLikedPlaylist(playlist);
-		userService.save(u);
-		return new ResponseEntity<>(u , HttpStatus.OK);
+		if(playlist!=null){
+			long idUser=userComponent.getIdLoggedUser();
+			User u=userService.findOne(idUser);
+			List<User> likes=playlist.getUserlikesOfPlaylist();
+			boolean finded=false;
+			for(int i=0;i<likes.size() && !finded;++i){
+				if(likes.get(i).getId_user()==idUser){
+					finded=true;
+				}
+			}
+			if(finded){
+				playlist.removeUserlikeOfPlaylist(u);
+				playlistService.save(playlist);
+				return new ResponseEntity<>(playlist , HttpStatus.OK);
+			}else{
+				playlist.addUserlikeOfPlaylist(u);
+				playlistService.save(playlist);
+				return new ResponseEntity<>(playlist , HttpStatus.OK);
+			}
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
 			
 		}
 		
