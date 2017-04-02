@@ -37,13 +37,26 @@ public class RestSongController {
 	private UserComponent userComponent;
 	
 	
-	interface SongView extends Song.Basic, Song.Artists,Song.Playlists{};
+	interface SongView extends Song.Basic, Song.Artists{};
 	
 	@JsonView(SongView.class)
 	@RequestMapping("/api/Song/{id}")
 	public ResponseEntity<Song> getArtistSongs(@PathVariable long id) throws Exception{
 		Song s=songService.findOne(id);
 		return new ResponseEntity<>(s,HttpStatus.OK);
+	}
+	
+	@JsonView(SongView.class)
+	@RequestMapping("/api/MyFavorites/{id}")
+	public ResponseEntity<List<Song>> getFavoritesSong(@PathVariable long id) throws Exception{
+		//User uLogged=userComponent.getLoggedUser();
+		if(userComponent.getIdLoggedUser()==id){
+			User u=userService.findOne(id);
+			List<Song> songs=u.getFavoriteSongs();
+			return new ResponseEntity<>(songs,HttpStatus.OK);
+	} else {
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	}
 	}
 	
 //	interface AddFavoriteSongView extends Song.Basic, Song.Playlists, Song.Artists{};
@@ -116,6 +129,8 @@ interface FavoriteNotFavoriteView extends Song.Basic, Song.Favorites,User.Basic{
 
 			
 		}
+	
+	
 
 	
 }

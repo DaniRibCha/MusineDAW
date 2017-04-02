@@ -127,6 +127,19 @@ public class RestPlaylistController {
 	}
 	}
 	
+	@JsonView(MyPlaylistsView.class)
+	@RequestMapping("/api/MyLikes/{id}")
+	public ResponseEntity<List<Playlist>> getLikedPlaylists(@PathVariable long id) throws Exception{
+		//User uLogged=userComponent.getLoggedUser();
+		if(userComponent.getIdLoggedUser()==id){
+			User u=userService.findOne(id);
+			List<Playlist> playlists=u.getLikedPlaylists();
+			return new ResponseEntity<>(playlists,HttpStatus.OK);
+	} else {
+		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+	}
+	}
+	
 	
 	interface PlaylistTagsView extends Playlist.Basic, Playlist.Tags, Tag.Basic{};
 	
