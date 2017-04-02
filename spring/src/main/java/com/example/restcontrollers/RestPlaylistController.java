@@ -128,6 +128,17 @@ public class RestPlaylistController {
 	}
 	
 	@JsonView(MyPlaylistsView.class)
+	@RequestMapping("/api/UserPlaylists/{id}")
+	public ResponseEntity<List<Playlist>> getUserPlaylists(@PathVariable long id) throws Exception{
+		List<Playlist> playlists=playlistService.findByCreatorId(id);
+		if(playlists!=null){
+			return new ResponseEntity<>(playlists,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@JsonView(MyPlaylistsView.class)
 	@RequestMapping("/api/MyLikes/{id}")
 	public ResponseEntity<List<Playlist>> getLikedPlaylists(@PathVariable long id) throws Exception{
 		//User uLogged=userComponent.getLoggedUser();
@@ -138,6 +149,18 @@ public class RestPlaylistController {
 	} else {
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
+	}
+	
+	@JsonView(MyPlaylistsView.class)
+	@RequestMapping("/api/UserLikes/{id}")
+	public ResponseEntity<List<Playlist>> getUserLikes(@PathVariable long id) throws Exception{
+		User u=userService.findOne(id);
+		List<Playlist> playlists=u.getLikedPlaylists();
+		if(playlists!=null){
+			return new ResponseEntity<>(playlists,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	

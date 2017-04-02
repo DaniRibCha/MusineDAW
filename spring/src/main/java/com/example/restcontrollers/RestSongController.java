@@ -59,6 +59,18 @@ public class RestSongController {
 	}
 	}
 	
+	@JsonView(SongView.class)
+	@RequestMapping("/api/UserFavorites/{id}")
+	public ResponseEntity<List<Song>> getUserFavoritesSong(@PathVariable long id) throws Exception{
+		User u=userService.findOne(id);
+		List<Song> songs=u.getFavoriteSongs();
+		if(songs!=null){
+			return new ResponseEntity<>(songs,HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
 //	interface AddFavoriteSongView extends Song.Basic, Song.Playlists, Song.Artists{};
 //		
 //		@JsonView(AddFavoriteSongView.class)
