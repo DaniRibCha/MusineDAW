@@ -48,34 +48,70 @@ Steph Poleo
 
 El mapa de Vistas se encuentra en la carpeta de Mapadevistas a la altura del readme.
 
-A continuación se muestran imagenes donde se refleja el diagram de controllers y templates. Los controllers estan representados en color verde mientras que cada template está representado con el color morado.
+ #### - Estructura del proyecto
+ El proyecto ahora mismo está dividido en paquetes para mejorar la estructura y la eficiencia a la hora del desarrollo. Los paquetes son los siguientes:
+ - Example: contiene el ejecutable del proyecto.
+ - Classes: Contiene las entidades y sus correspondientes clases con metodos y atributos necesarios para realizar operaciones básicas con objetos de estas clases.
+ - Controllers: Contiene los controladores que se usaron para crear una web con arquitectura tradicional.
+ - Repositories: Contiene los repositorios correspondientes a las entidades del proyecto.
+ - Restcontrollers: Contiene los controladores que se usaron para desarrollar la API Rest.
+ - Security: Contiene las clases relacionadas con la seguridad del proyecto.
+ - Services: Contiene las clases Service generadas en la fase de desarrollo de APi Rest.
+ 
+Aquí se deja un enlace al documento API.md que contiene la información de cada recurso implementado en la fase de API Rest.
+https://github.com/DaniRibCha/MusineDAW/blob/master/API.md
+
+A continuación se muestran imagenes donde se refleja el diagrama de controllers (correspondientes al paquete controllers) y los templates. Los controllers estan representados en color verde mientras que cada template está representado con el color morado. Estos esquemas Template-Controlador valen tanto para la configuración de arquitectura de web tradicional como para la configuración con API Rest.
 
 <p align="center">
-  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Controllers_y_Templates/AdminController.PNG"/>
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Controllers_y_Templates/TemplatesNuevoEsquema.PNG"/>
 </p>
 
 <p align="center">
-  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Controllers_y_Templates/WebController.PNG"/>
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Controllers_y_Templates/Relacion%20PublicPage.PNG"/>
 </p>
+
+- A continuación se muestran los diagramas de clases de cada uno de los paquetes mencionados anteriormente. Cada paquete se ve en la imagen representado por la imagen de paquete usada en UML.
+
+Aquí se muestra el diagrama de clases. Los Repositorios están en azul, los controllers en marrón, las clases component en amarillo.
 
 <p align="center">
-  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Controllers_y_Templates/MainController.PNG"/>
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/Paquete%20Controllers%20y%20Repositorios.png"/>
 </p>
 
-Aquí se muestra el diagrama de clases. Los Repositorios están en azul, los controllers en marrón, los componentes en amarillo, y lo relacionado con la seguridad en verde, excepto la autenticación que está en color rojo:
+Las clases relacionadas con la seguridad se verán en color verde, las cajas azules representarán los repositorios y las clases component en amarillo.
 
 <p align="center">
-  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/AdminyWebControllers.PNG"/>
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/Paquete%20Security.PNG"/>
 </p>
+
+Aquí las clases Service se ven en color morado mientras que los repositorios siguen en color azul.
 
 <p align="center">
-  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/Controllers%20de%20Entidades.PNG"/>
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/Paquete%20Service.PNG"/>
 </p>
 
-<p align="center">
-  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/UploadandSecurity.PNG"/>
-</p>
+A continuación se mostrarán las relaciones entre los controladores de tipo Rest y los Servicios y componentes apropiados. Ya que no hay una homogeneidad que se pueda aplicar a todos los controladores rest como pasa con los controladores y repositories, representaremos las relaciones con una tabla:
 
+| Clases | 1 | 2 | 3 | 4 | 5 | 6 |
+|--------|---|---|---|---|---|---|
+| LoginRestController |  |  |  |  | X | X |
+| RestAdminController | X |  | X | X | X | X |
+| RestArtistController | X |  |  |  | X | X |
+| RestPlaylistController | X | X | X | X | X | X |
+| RestPublicPageController | X | X |  |  | X | X |
+| RestSongController | X |  | X |  | X | X |
+| RestUserController | X |  | X |  | X | X |
+
+Las 'X' corresponderán a que la clase tiene un atributo de ese tipo Service con multiplicidad "0..1" como se indicaba en los demás paquetes.
+- Cada numero corresponde a las siguientes clases Service o Component:
+  - 1-ArtistaService
+  - 2-TagService
+  - 3-PlayistService
+  - 4-SongService
+  - 5-UserService
+  - 6-UserComponent
+  
 Y por último aquí se muestra el diagrama con las relaciones entre entidades. Las relaciones que solo tienen multiplicidad se interpretan como que la relación A contiene a/es contenida por la relación B:
 
 <p align="center">
