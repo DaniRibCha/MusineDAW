@@ -23,9 +23,20 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// URLs that need authentication to access to it
 		//http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/logIn").authenticated();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyPlaylists/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyFavorites/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyLikes/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/FollowNotFollowArtist/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/WallPlaylistsLogged/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/CreatePlaylist/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/EditPlaylist/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/DeletePlaylist/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/LikeUnlikePlaylist/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/FavoriteNotFavoriteSong/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/ConfigUserData/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/FollowNotFollowUser/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminEditArtist/**").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminCreateArtist").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminCreateSongOfArtist/**").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/AdminCreateArtist").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/AdminCreateSongOfArtist/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminAddArtistInSong/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminRemoveArtistBySong/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminEditSong/**").hasAnyRole("ADMIN");
