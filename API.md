@@ -16,7 +16,7 @@
 | Editar un artista | /api/Artist/{id} | PUT | |
 | Crear un artista | /api/AdminCreateArtist | POST | Artista | Artista |
 | Crear un cancion para un artista | /api/AdminCreateSongOfArtist/{idArtist} | POST | Cancion | Cancion |
-| Añadir artista a una cancion | Artista |/api/AdminAddArtistInSong/{idSong} | PUT | | Artista |
+| Añadir artista a una cancion | /api/AdminAddArtistInSong/{idSong} | PUT | | Artista |
 | Borrar artista de uan cancion | /api/AdminRemoveArtistBySong/{idSong} | PUT | | Artista |
 | Editar una cancion | /api/AdminEditSong/{idSong} | PUT | | Cancion |
 
