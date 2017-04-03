@@ -211,7 +211,7 @@ public class RestPlaylistController {
 		}
 	}
 	
-interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,Song.Basic,Song.Artists,Tag.Basic{};
+interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,Song.Basic,Song.Artists,Tag.Basic,Artist.Basic{};
 	
 	@JsonView(EditPlaylistView.class)
 	@RequestMapping(value="/api/EditPlaylist/{idPlaylist}", method=RequestMethod.PUT)

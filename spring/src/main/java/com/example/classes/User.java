@@ -50,6 +50,7 @@ public class User {
 	@JsonView(Basic.class)
 	private String country;
 	
+	@JsonView(Basic.class)
 	private String biography;
 	
 	@JsonView(Basic.class)

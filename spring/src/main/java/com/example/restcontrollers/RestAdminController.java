@@ -72,6 +72,7 @@ public class RestAdminController {
 				Tag t=tagService.findByName(tagToAdd);
 				if(t==null){//si no hay ese tag lo crea
 					t=new Tag(tagToAdd);
+					tagService.save(t);
 				}
 				a.addTagOfArtist(t);
 				artistService.save(a);
