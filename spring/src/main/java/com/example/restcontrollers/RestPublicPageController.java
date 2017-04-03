@@ -50,29 +50,7 @@ public class RestPublicPageController {
 		return new ResponseEntity<>(uSerialized,HttpStatus.OK);
 	}
 	
-	interface UserPlaylistsView extends User.Basic,User.Playlists,Playlist.Basic{};
-	@JsonView(UserPlaylistsView.class)
-	@RequestMapping("/api/UserPlaylists/{id}")
-	public ResponseEntity<User> getUserPlaylists(@PathVariable long id) throws Exception{
-		User u=userService.findOne(id);
-		return new ResponseEntity<>(u,HttpStatus.OK);
-	}
 	
-	interface UserLikesView extends User.Basic,User.Likes,Playlist.Basic{};
-	@JsonView(UserLikesView.class)
-	@RequestMapping("/api/UserLikes/{id}")
-	public ResponseEntity<User> getUserLikes(@PathVariable long id) throws Exception{
-		User u=userService.findOne(id);
-		return new ResponseEntity<>(u,HttpStatus.OK);
-	}
-	
-	interface UserFavoritesView extends User.Basic,User.Favorites,Song.Basic{};
-	@JsonView(UserFavoritesView.class)
-	@RequestMapping("/api/UserFavorites/{id}")
-	public ResponseEntity<User> getUserFavorites(@PathVariable long id) throws Exception{
-		User u=userService.findOne(id);
-		return new ResponseEntity<>(u,HttpStatus.OK);
-	}
 	
 	interface SearchParamTagView extends Playlist.Basic,Playlist.Tags,Tag.Basic{};
 	@JsonView(SearchParamTagView.class)
