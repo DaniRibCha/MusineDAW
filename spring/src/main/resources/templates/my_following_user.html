@@ -72,7 +72,7 @@
     </div>
     <div class="row">
     {{#following}}
-        <div class="col-md-6 follow">
+        <div class="col-md-6 follow" id="pag">
         <form action="/MyFollowing/{{u.id_user}}" method="post">
             <div><a href="/UserPlaylists/{{id_user}}"><img src="/image/{{profileImage}}" width="200" height="200" class="img-circle" /> <span>{{name}}</span></a>
             <input type="hidden" name="follow" value="{{name}}" />
@@ -86,19 +86,17 @@
     <!-- Paginacion --> 
     
     {{#showPrev}}
-	<a href="/MyFollowing/{{ident}}?page={{prevPage}}">
 	  <div class="col-md-12" style="text-align:center">
                 <button type="button" class="btn btn-danger">Previous</button>
         </div>
-	</a>
 	{{/showPrev}}
     
     {{#showNext}}
-	<a href="/MyFollowing/{{ident}}?page={{nextPage}}">
+
 	 <div class="col-md-12" style="text-align:center">
                 <button type="button" class="btn btn-danger" id="loadMore">Next</button>
         </div>
-	</a>
+
 	{{/showNext}}
 	
 	<div class="col-md-12" style="text-align:center" id="spin"></div>
