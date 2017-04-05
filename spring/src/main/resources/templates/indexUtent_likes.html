@@ -102,7 +102,7 @@
             <h3><b>Playlists</b></h3></td>
         <div class="row wall">
         {{#playlists}}
-             <div class="col-md-6">
+             <div class="col-md-6" id="pag">
                 <table>
                     <tr>
                         <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by 
@@ -133,24 +133,13 @@
         
         <!-- Paginacion --> 
     
-    {{#showPrev}}
-	<a href="/MyLikes/{{ident}}?page={{prevPage}}">
-	  <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger">Previous</button>
-        </div>
-	</a>
-	{{/showPrev}}
-    
     {{#showNext}}
-	<a href="/MyLikes/{{ident}}?page={{nextPage}}">
 	 <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+	 <input type="hidden" id="url" value="/MyLikes/{{ident}}?page={{nextPage}} ">
+	 <div class="col-md-12" style="text-align:center" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
         </div>
-	</a>
 	{{/showNext}}
-	
-	<div class="col-md-12" style="text-align:center" id="spin"></div>
-	<div id='more'></div>
         
     <!-- /.row -->
     <!-- Footer -->

@@ -105,7 +105,7 @@
                 <div class="panel panel-default" id="canciones-artista">
                     <div class="panel-heading"> Songs </div>
                     <div class="container">
-                        <div class="col-md-8">
+                        <div class="col-md-8" id="pag">
                             <div class="text-center"> <span>List tracks</span> </div>
                             {{#songs}}
                     <hr>
@@ -119,7 +119,7 @@
                     {{/isIdLogged}}
                     
                     {{/login}}
-                        <div><span>Title: </span>{{title}} <a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
+                        <div style="text-align:left"><span>Title: </span>{{title}} <a href="{{link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i> Link Youtube</a>
                             <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span></p>
                         </div>
                     {{/songs}}
@@ -127,25 +127,13 @@
                         </div>
                         
                         <!-- Paginacion --> 
-    
-    {{#showPrev}}
-	<a href="/Artist/{{ident}}?page={{prevPage}}">
-	  <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger">Previous</button>
-        </div>
-	</a>
-	{{/showPrev}}
-    
     {{#showNext}}
-	<a href="/Artist/{{ident}}?page={{nextPage}}">
 	 <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+	 <input type="hidden" id="url" value="/Artist/{{ident}}?page={{nextPage}} ">
+	 <div class="col-md-12" style="text-align:center" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
         </div>
-	</a>
 	{{/showNext}}
-	
-	<div class="col-md-12" style="text-align:center" id="spin"></div>
-	<div id='more'></div>
                         
                     </div>
                     <div class="panel-body"> </div>

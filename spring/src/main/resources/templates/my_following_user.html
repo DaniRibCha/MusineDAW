@@ -85,21 +85,13 @@
     
     <!-- Paginacion --> 
     
-    {{#showPrev}}
-	  <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger">Previous</button>
-        </div>
-	{{/showPrev}}
-    
     {{#showNext}}
-
 	 <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+	 <input type="hidden" id="url" value="/MyFollowing/{{ident}}?page={{nextPage}} ">
+	 <div class="col-md-12" style="text-align:center" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
         </div>
-
 	{{/showNext}}
-	
-	<div class="col-md-12" style="text-align:center" id="spin"></div>
     
     <hr>
     <div class="row save-return">

@@ -103,7 +103,7 @@
             <hr>
             <div class="row">
             {{#songs}}
-                <div class="col-md-12">
+                <div class="col-md-12" id="pag">
                 <form action="/MyFavorites/{{u.id_user}}" method="post">
                 <input type="submit" value="Remove" class="pull-right"><span class="glyphicon glyphicon-trash pull-right"></span>
                 <input type="hidden" name="favorite" value="{{id_song}}" >
@@ -118,24 +118,13 @@
             
              <!-- Paginacion --> 
     
-    {{#showPrev}}
-	<a href="/MyFavorites/{{ident}}?page={{prevPage}}">
-	  <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger">Previous</button>
-        </div>
-	</a>
-	{{/showPrev}}
-    
     {{#showNext}}
-	<a href="/MyFavorites/{{ident}}?page={{nextPage}}">
 	 <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+	 <input type="hidden" id="url" value="/MyFavorites/{{ident}}?page={{nextPage}} ">
+	 <div class="col-md-12" style="text-align:center" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
         </div>
-	</a>
 	{{/showNext}}
-	
-	<div class="col-md-12" style="text-align:center" id="spin"></div>
-	<div id='more'></div>
             
         </div>
     </div>

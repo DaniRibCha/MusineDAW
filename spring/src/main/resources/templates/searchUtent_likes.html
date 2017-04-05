@@ -13,6 +13,7 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  	<script src="../js/paginacion.js"></script>
     <!-- Custom CSS -->
     <link href="../css/homestyle.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -124,7 +125,7 @@
             <h3><b>Playlists</b></h3></td>
         <div class="row wall">
            {{#playlists}}
-            <div class="col-md-6">
+            <div class="col-md-6" id="pag">
                 <table>
                     <tr>
                         <th><a href="/Playlist/{{id_playlist}}">{{title}} </a><span class="posted">Posted by 
@@ -146,6 +147,17 @@
                 </table>
             </div>
             {{/playlists}}
+            
+             <!-- Paginacion --> 
+    
+	{{#showNext}}
+	 <div class="col-md-12" style="text-align:center">
+	 <input type="hidden" id="url" value="/UserLikes/{{ident}}?page={{nextPage}} ">
+	 <div class="col-md-12" style="text-align:center" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
+        </div>
+	{{/showNext}}
+            
         </div>
     </div>
     <!-- /.container -->
