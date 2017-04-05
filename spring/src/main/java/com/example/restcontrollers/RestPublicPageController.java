@@ -41,13 +41,14 @@ public class RestPublicPageController {
 	
 
 	
-	interface UserFollowView extends User.Basic{};
-	@JsonView(UserFollowView.class)
 	@RequestMapping("/api/UserFollowers/{id}")
-	public ResponseEntity<String> getUserFollow(@PathVariable long id) throws Exception{
+	public ResponseEntity<User> getUserFollow(@PathVariable long id) throws Exception{
 		User u=userService.findOne(id);
-		String uSerialized = new ObjectMapper().writeValueAsString(u);
-		return new ResponseEntity<>(uSerialized,HttpStatus.OK);
+		if(u!=null){
+			return new ResponseEntity<>(u,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(u,HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	

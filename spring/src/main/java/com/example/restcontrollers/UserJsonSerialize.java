@@ -28,32 +28,12 @@ public class UserJsonSerialize {
 			jsonGenerator.writeStringField("name", user.getName());
 			jsonGenerator.writeStringField("country", user.getCountry());
 			jsonGenerator.writeStringField("city", user.getCity());
+			jsonGenerator.writeStringField("biography", user.getBiography());
 			jsonGenerator.writeStringField("email", user.getEmail());
-			//			ObjectMapper mapper = new ObjectMapper();
-			//			ArrayNode array = mapper.createArrayNode();
-			jsonGenerator.writeFieldName("followers");
-			jsonGenerator.writeStartObject();
-			for(User u : user.getFollowers()){
-				//				//array.add(mapper.createArrayNode().add("" + u.getId_user()));
-				jsonGenerator.writeNumberField("id_user", u.getId_user());
-				jsonGenerator.writeStringField("name", u.getName());
-				jsonGenerator.writeStringField("country", u.getCountry());
-				jsonGenerator.writeStringField("city", u.getCity());
-				jsonGenerator.writeStringField("email", u.getEmail());
-			}
-			//jsonGenerator.writeStringField("followers", mapper.writeValueAsString(array));
-			jsonGenerator.writeEndObject();
-			
-			jsonGenerator.writeFieldName("following");
-			jsonGenerator.writeStartObject();
-			for(User u : user.getFollowing()){
-				jsonGenerator.writeNumberField("id_user", u.getId_user());
-				jsonGenerator.writeStringField("name", u.getName());
-				jsonGenerator.writeStringField("country", u.getCountry());
-				jsonGenerator.writeStringField("city", u.getCity());
-				jsonGenerator.writeStringField("email", u.getEmail());
-			}
-			jsonGenerator.writeEndObject();
+			//jsonGenerator.writeFieldName("followers");
+			//jsonGenerator.writeObject(user.getFollowers());
+			//jsonGenerator.writeFieldName("following");
+			//jsonGenerator.writeObject(user.getFollowing());
 			jsonGenerator.writeEndObject(); 
 
 

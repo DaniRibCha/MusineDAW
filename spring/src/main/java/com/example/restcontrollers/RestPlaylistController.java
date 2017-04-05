@@ -79,33 +79,29 @@ public class RestPlaylistController {
 	
 	interface WallPlaylistView extends Playlist.Basic,Playlist.Tags,Tag.Basic{}
 	
-	@JsonView(WallPlaylistView.class)
-	@RequestMapping("/api/WallPlaylistsLogged/{id}")
-	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
-		if(userComponent.getIdLoggedUser()==id){
-			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
-			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
-		}else
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-	}
-	
 //	@JsonView(WallPlaylistView.class)
 //	@RequestMapping("/api/WallPlaylistsLogged/{id}")
-//	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id,
-//			@RequestParam (required=false) String page) throws Exception{
+//	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
 //		if(userComponent.getIdLoggedUser()==id){
-//			if(page==null){
-//				Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(new PageRequest(0, 10));
-//				return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
-//			}else{
-//				int numPage =  Integer.parseInt(page); 
-//				Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(new PageRequest(numPage, 10));
-//				return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
-//			}
+//			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
+//			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
 //		}else
 //			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 //	}
 	
+	@JsonView(WallPlaylistView.class)
+	@RequestMapping("/api/WallPlaylistsLogged/{id}")
+	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id, 
+			Pageable page) throws Exception{
+		if(userComponent.getIdLoggedUser()==id){
+			Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(page);
+			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+		}else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
+	}
+
+
 	@JsonView(WallPlaylistView.class)
 	@RequestMapping("/api/WallPlaylistsNotLogged")
 	public ResponseEntity<List<Playlist>> getWallPlaylistsNotLogged() throws Exception{

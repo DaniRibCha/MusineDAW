@@ -32,19 +32,12 @@ public class User {
 	
 	public interface Basic{}
 	
-	public interface Favorites{}
-	
-	public interface Playlists{}
-	
-	public interface Likes{}
-	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@JsonView(Basic.class)
 	private long id_user;
 	
-	@JsonView(Basic.class)
 	@Column(unique=true)
+	@JsonView(Basic.class)
 	private String name;
 	
 	@JsonView(Basic.class)
@@ -61,36 +54,31 @@ public class User {
 	@JsonView(Basic.class)
 	private String email;
 	
+	@JsonView(Basic.class)
 	private String profileImage;
 	
 	private boolean isIdLogged;
 	
 	@ManyToMany
-	@JsonView(Favorites.class)
 	private List<Song> favoriteSongs = new ArrayList<>();
 	
 	@OneToMany(cascade=CascadeType.ALL)
-	@JsonView(Playlists.class)
 	private List<Playlist> createdPlaylists= new ArrayList<>();
 	
 	@ManyToMany(mappedBy="userlikesOfPlaylist")
-	@JsonView(Likes.class)
 	private List<Playlist> likedPlaylists= new ArrayList<>();
 	
 	@ElementCollection(fetch = FetchType.EAGER) 
 	private List<String> roles = new ArrayList<>();
 	
 	@ManyToMany(mappedBy="followersOfArtist")
-	@JsonIgnore
 	private List<Artist> followingArtists= new ArrayList<>();
 	
 	@ManyToMany
-	@JsonIgnore
 	private List<User> following = new ArrayList<>();
 	
 	
 	@ManyToMany(mappedBy="following")
-	@JsonIgnore
 	private List<User> followers = new ArrayList<>();	
 	
 	

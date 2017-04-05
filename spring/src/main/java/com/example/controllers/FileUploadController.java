@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.classes.User;
 import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.UserService;
 
 @Controller
 public class FileUploadController {
@@ -30,7 +31,7 @@ public class FileUploadController {
 	
 	
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 	
 	@Autowired
 	private UserComponent userComponent;
@@ -43,7 +44,7 @@ public class FileUploadController {
 
 		//String fileName = file.getOriginalFilename() + ".jpg";
 		long idLogged=userComponent.getIdLoggedUser();
-		User u=userRepository.findOne(idLogged);
+		User u=userService.findOne(idLogged);
 		String fileName =idLogged  + ".jpg";
 
 		if (!file.isEmpty()) {
@@ -58,7 +59,7 @@ public class FileUploadController {
 				file.transferTo(uploadedFile);
 				
 				u.setProfileImage(fileName);
-				userRepository.save(u);
+				userService.save(u);
 				model.addAttribute("u",u);
 				return "config";
 

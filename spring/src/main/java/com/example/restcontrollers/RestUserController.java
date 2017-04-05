@@ -19,7 +19,6 @@ import com.example.classes.Playlist;
 import com.example.classes.Song;
 import com.example.classes.User;
 import com.example.restcontrollers.RestPlaylistController.LikeUnlikePlaylistView;
-import com.example.restcontrollers.RestPublicPageController.UserFollowView;
 import com.example.security.UserComponent;
 import com.example.services.ArtistService;
 import com.example.services.SongService;
@@ -43,9 +42,7 @@ public class RestUserController {
 	@Autowired 
 	SongService songService;
 	
-	interface UserFollowView extends User.Basic{};
 	
-	@JsonView(UserFollowView.class)
 	@RequestMapping(value="/api/ConfigUserData/{id}",method=RequestMethod.PUT)
 	public ResponseEntity<User> setUserData(@PathVariable long id,
 			@RequestParam(value = "biography", defaultValue = "") String biography,
@@ -62,44 +59,14 @@ public class RestUserController {
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
+
 	
-//	@JsonView(UserFollowView.class)
-//	@RequestMapping(value="/api/FollowNotFollowUser/{idUserToFollow}", method=RequestMethod.PUT)
-//	public ResponseEntity<User> favoriteNotFavoriteSong(@PathVariable long idUserToFollow){
-//		User uToFollow=userService.findOne(idUserToFollow);
-//		if(uToFollow!=null){
-//			long idUserLogged=userComponent.getIdLoggedUser();
-//			User uLogged=userService.findOne(idUserLogged);
-//			List<User> followingByLogged=uLogged.getFollowing();
-//			boolean finded=false;
-//			for(int i=0;i<followingByLogged.size() && !finded;++i){
-//				if(followingByLogged.get(i).getId_user()==idUserToFollow){
-//					finded=true;
-//				}
-//			}
-//			if(finded){
-//				uLogged.removeFollowing(uToFollow);
-//				userService.save(uLogged);
-//				return new ResponseEntity<>(uLogged , HttpStatus.OK);
-//			}else{
-//				uLogged.addFollowing(uToFollow);
-//				userService.save(uLogged);
-//				return new ResponseEntity<>(uLogged , HttpStatus.OK);
-//			}
-//		}else
-//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//
-//			
-//		}
-	
-	@JsonView(UserFollowView.class)
 	@RequestMapping(value="/api/FollowNotFollowUser/{idUserToFollow}", method=RequestMethod.PUT)
-	public ResponseEntity<String> favoriteNotFavoriteSong(@PathVariable long idUserToFollow) throws JsonProcessingException{
+	public ResponseEntity<List<User>> favoriteNotFavoriteSong(@PathVariable long idUserToFollow) throws JsonProcessingException{
 		User uToFollow=userService.findOne(idUserToFollow);
 		if(uToFollow!=null){
 			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userService.findOne(idUserLogged);
-			String uSerialized = new ObjectMapper().writeValueAsString(uLogged);
 			List<User> followingByLogged=uLogged.getFollowing();
 			boolean finded=false;
 			for(int i=0;i<followingByLogged.size() && !finded;++i){
@@ -109,20 +76,57 @@ public class RestUserController {
 			}
 			if(finded){
 				uLogged.removeFollowing(uToFollow);
-				userService.save(uLogged);
-				String following=new ObjectMapper().writeValueAsString(uLogged.getFollowing());
-				return new ResponseEntity<>(following , HttpStatus.OK);
 			}else{
 				uLogged.addFollowing(uToFollow);
-				userService.save(uLogged);
-				String following=new ObjectMapper().writeValueAsString(uLogged.getFollowing());
-				return new ResponseEntity<>(following , HttpStatus.OK);
 			}
+			userService.save(uLogged);
+			List<User> following=uLogged.getFollowing();
+			return new ResponseEntity<>(following , HttpStatus.OK);
+			
 		}else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
 			
 		}
+	
+	
+	
+	private static final String USER_IMAGE_FOLDER = "src/main/resources/static/imgProfile";
+	
+	@RequestMapping(value = "/api/image/upload", method = RequestMethod.POST)
+	public ResponseEntity<User> handleFileUpload(
+			@RequestParam("file") MultipartFile file) {
+
+		//String fileName = file.getOriginalFilename() + ".jpg";
+		long idLogged=userComponent.getIdLoggedUser();
+		User u=userService.findOne(idLogged);
+		String fileName =idLogged  + ".jpg";
+
+		if (!file.isEmpty()) {
+			try {
+
+				File filesFolder = new File(USER_IMAGE_FOLDER);
+				if (!filesFolder.exists()) {
+					filesFolder.mkdirs();
+				}
+
+				File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
+				file.transferTo(uploadedFile);
+				
+				u.setProfileImage(fileName);
+				userService.save(u);
+				
+				return new ResponseEntity<>(u, HttpStatus.OK);
+
+
+			} catch (Exception e) {
+				return new ResponseEntity<>(u, HttpStatus.NOT_FOUND);
+			}
+		} else {
+			return new ResponseEntity<>(u, HttpStatus.NOT_FOUND);
+			
+		}
+	}
 		
 
 

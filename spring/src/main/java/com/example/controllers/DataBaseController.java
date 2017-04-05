@@ -18,32 +18,34 @@ import com.example.classes.Song;
 import com.example.classes.Tag;
 import com.example.classes.User;
 import com.example.repositories.ArtistRepository;
-import com.example.repositories.PlaylistRepository;
 import com.example.repositories.SongRepository;
-import com.example.repositories.TagRepository;
-import com.example.repositories.UserRepository;
 import com.example.security.UserComponent;
+import com.example.services.ArtistService;
+import com.example.services.PlaylistService;
+import com.example.services.SongService;
+import com.example.services.TagService;
+import com.example.services.UserService;
 
 @Controller
 public class DataBaseController {
 	
 	@Autowired
-	private SongRepository songRepository;
-	
-	@Autowired
-	private ArtistRepository artistRepository;
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private PlaylistRepository playlistRepository;
-	
-	@Autowired
-	private TagRepository tagRepository;
-	
-	@Autowired
 	private UserComponent userComponent;
+	
+	@Autowired 
+	private PlaylistService playlistService;
+	
+	@Autowired 
+	private SongService songService;
+	
+	@Autowired 
+	private UserService userService;
+	
+	@Autowired 
+	private TagService tagService;
+	
+	@Autowired 
+	private ArtistService artistService;
 	
 	@PostConstruct
 	public void init(){
@@ -74,29 +76,29 @@ public class DataBaseController {
 				Artist a23=new Artist("Daughtry", "USA");
 				
 				
-				artistRepository.save(a1);
-				artistRepository.save(a2);
-				artistRepository.save(a3);
-				artistRepository.save(a4);
-				artistRepository.save(a5);
-				artistRepository.save(a6);
-				artistRepository.save(a7);
-				artistRepository.save(a8);
-				artistRepository.save(a9);
-				artistRepository.save(a10);
-				artistRepository.save(a11);
-				artistRepository.save(a12);
-				artistRepository.save(a13);
-				artistRepository.save(a14);
-				artistRepository.save(a15);
-				artistRepository.save(a16);
-				artistRepository.save(a17);
-				artistRepository.save(a18);
-				artistRepository.save(a19);
-				artistRepository.save(a20);
-				artistRepository.save(a21);
-				artistRepository.save(a22);
-				artistRepository.save(a23);
+				artistService.save(a1);
+				artistService.save(a2);
+				artistService.save(a3);
+				artistService.save(a4);
+				artistService.save(a5);
+				artistService.save(a6);
+				artistService.save(a7);
+				artistService.save(a8);
+				artistService.save(a9);
+				artistService.save(a10);
+				artistService.save(a11);
+				artistService.save(a12);
+				artistService.save(a13);
+				artistService.save(a14);
+				artistService.save(a15);
+				artistService.save(a16);
+				artistService.save(a17);
+				artistService.save(a18);
+				artistService.save(a19);
+				artistService.save(a20);
+				artistService.save(a21);
+				artistService.save(a22);
+				artistService.save(a23);
 				
 				Song s1=new Song("closer","https://www.youtube.com/watch?v=RvK8SKZbBWg");
 				s1.addArtistsOfSong(a1);
@@ -230,55 +232,55 @@ public class DataBaseController {
 				Song s43=new Song("dive","https://www.youtube.com/watch?v=Wv2rLZmbPMA");
 				s43.addArtistsOfSong(a4);
 				
-				songRepository.save(s1);
-				songRepository.save(s2);
-				songRepository.save(s3);
-				songRepository.save(s4);
-				songRepository.save(s5);
-				songRepository.save(s6);
-				songRepository.save(s7);
-				songRepository.save(s8);
-				songRepository.save(s9);
-				songRepository.save(s10);
-				songRepository.save(s11);
-				songRepository.save(s12);
-				songRepository.save(s13);
-				songRepository.save(s14);
-				songRepository.save(s15);
-				songRepository.save(s16);
-				songRepository.save(s17);
-				songRepository.save(s18);
-				songRepository.save(s19);
-				songRepository.save(s20);
-				songRepository.save(s21);
-				songRepository.save(s22);
-				songRepository.save(s23);
-				songRepository.save(s24);
-				songRepository.save(s25);
-				songRepository.save(s26);
-				songRepository.save(s27);
-				songRepository.save(s28);
-				songRepository.save(s29);
-				songRepository.save(s30);
-				songRepository.save(s31);
-				songRepository.save(s32);
-				songRepository.save(s33);
-				songRepository.save(s34);
-				songRepository.save(s35);
-				songRepository.save(s36);
-				songRepository.save(s37);
-				songRepository.save(s38);
-				songRepository.save(s39);
-				songRepository.save(s40);
-				songRepository.save(s41);
-				songRepository.save(s42);
-				songRepository.save(s43);
+				songService.save(s1);
+				songService.save(s2);
+				songService.save(s3);
+				songService.save(s4);
+				songService.save(s5);
+				songService.save(s6);
+				songService.save(s7);
+				songService.save(s8);
+				songService.save(s9);
+				songService.save(s10);
+				songService.save(s11);
+				songService.save(s12);
+				songService.save(s13);
+				songService.save(s14);
+				songService.save(s15);
+				songService.save(s16);
+				songService.save(s17);
+				songService.save(s18);
+				songService.save(s19);
+				songService.save(s20);
+				songService.save(s21);
+				songService.save(s22);
+				songService.save(s23);
+				songService.save(s24);
+				songService.save(s25);
+				songService.save(s26);
+				songService.save(s27);
+				songService.save(s28);
+				songService.save(s29);
+				songService.save(s30);
+				songService.save(s31);
+				songService.save(s32);
+				songService.save(s33);
+				songService.save(s34);
+				songService.save(s35);
+				songService.save(s36);
+				songService.save(s37);
+				songService.save(s38);
+				songService.save(s39);
+				songService.save(s40);
+				songService.save(s41);
+				songService.save(s42);
+				songService.save(s43);
 				//fin Artista-Canciones
 				
 		
 		//Users
 		User admin=new User("admin", "","adminpass","admin@gmail.com","ROLE_USER","ROLE_ADMIN");
-		userRepository.save(admin);
+		userService.save(admin);
 				
 		User u1=new User("Davide", "Italy","pass","davide@gmail.com","ROLE_USER");
 		User u2=new User("Dani","Spain","pass","dani@gmail.com","ROLE_USER");
@@ -331,31 +333,33 @@ public class DataBaseController {
 		u4.addFavoriteSong(s22);
 		u4.addFavoriteSong(s23);
 		
-		userRepository.save(u1);userRepository.save(u2);
-		userRepository.save(u3);userRepository.save(u4);
-		userRepository.save(u5);userRepository.save(u6);
-		userRepository.save(u7);userRepository.save(u8);
-		userRepository.save(u9);userRepository.save(u10);
-		userRepository.save(u11);userRepository.save(u12);
-		userRepository.save(u13);userRepository.save(u14);
-		userRepository.save(u15);userRepository.save(u16);
-		userRepository.save(u17);userRepository.save(u18);
-		userRepository.save(u19);userRepository.save(u20);
-		userRepository.save(u21);userRepository.save(u22);
-		userRepository.save(u23);userRepository.save(u24);
+		userService.save(u1);
+		userService.save(u2);
+		userService.save(u3);userService.save(u4);
+		userService.save(u5);userService.save(u6);
+		userService.save(u7);userService.save(u8);
+		userService.save(u9);userService.save(u10);
+		userService.save(u11);userService.save(u12);
+		userService.save(u13);userService.save(u14);
+		userService.save(u15);userService.save(u16);
+		userService.save(u17);userService.save(u18);
+		userService.save(u19);userService.save(u20);
+		userService.save(u21);userService.save(u22);
+		userService.save(u23);userService.save(u24);
 		
 		
 		//following de Davide
 		u1.addFollowing(u2);
 		u1.addFollowing(u4);
+		userService.save(u1);
 				//fin User-Canciones favoritas
 		
 		
 		//prueba Artistas-Seguidores,Tags
 		Tag t1=new Tag("Pop"); Tag t2=new Tag("2016");
-		tagRepository.save(t1); tagRepository.save(t2); 
+		tagService.save(t1); tagService.save(t2); 
 		Tag t3=new Tag("2015"); Tag t4=new Tag("Latino");
-		tagRepository.save(t3); tagRepository.save(t4); 
+		tagService.save(t3); tagService.save(t4); 
 		
 		a4.addFollowerOfArtist(u1); a4.addFollowerOfArtist(u2);
 		a4.addFollowerOfArtist(u3); a4.addFollowerOfArtist(u4);
@@ -371,8 +375,8 @@ public class DataBaseController {
 		a4.addFollowerOfArtist(u23); a4.addFollowerOfArtist(u24);
 		a1.addTagOfArtist(t1); a1.addTagOfArtist(t2);
 		a4.addTagOfArtist(t1); a4.addTagOfArtist(t2);
-		tagRepository.save(t1);tagRepository.save(t2);
-		artistRepository.save(a1);artistRepository.save(a4);
+		tagService.save(t1);tagService.save(t2);
+		artistService.save(a1);artistService.save(a4);
 		//fin Artistas-Seguidores,Tags
 
 		
@@ -381,7 +385,7 @@ public class DataBaseController {
 		pCreated1.addTagOfPlaylist(t1);
 		pCreated1.addSongOfPlaylist(s1);
 		pCreated1.setDate(new java.sql.Date(20,12,31));
-		tagRepository.save(t1);
+		tagService.save(t1);
 		
 		Playlist pCreated2=new Playlist("myPlaylistCreated2",u2.getName(),u2.getId_user());
 		pCreated2.addTagOfPlaylist(t2);
@@ -409,239 +413,239 @@ public class DataBaseController {
 		pCreated2.addSongOfPlaylist(s22);
 		pCreated2.addSongOfPlaylist(s23);
 		pCreated2.setDate(new java.sql.Date(20,12,31));
-		tagRepository.save(t2);
+		tagService.save(t2);
 		
 		Playlist pCreated3=new Playlist("myPlaylistCreated3",u3.getName(),u3.getId_user());
 		pCreated3.addTagOfPlaylist(t1);
 		pCreated3.addSongOfPlaylist(s1);
-		tagRepository.save(t1);
+		tagService.save(t1);
 		
 		Playlist pCreated4=new Playlist("myPlaylistCreated4",u4.getName(),u4.getId_user());
 		pCreated4.addTagOfPlaylist(t1);pCreated4.addTagOfPlaylist(t4);
 		pCreated4.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated5=new Playlist("myPlaylistCreated5",u3.getName(),u3.getId_user());
 		pCreated5.addTagOfPlaylist(t1);pCreated5.addTagOfPlaylist(t4);
 		pCreated5.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated6=new Playlist("myPlaylistCreated6",u13.getName(),u13.getId_user());
 		pCreated6.addTagOfPlaylist(t2);pCreated6.addTagOfPlaylist(t3);
 		pCreated6.addSongOfPlaylist(s2);
-		tagRepository.save(t2);tagRepository.save(t3);
+		tagService.save(t2);tagService.save(t3);
 		
 		Playlist pCreated7=new Playlist("myPlaylistCreated7",u6.getName(),u6.getId_user());
 		pCreated7.addTagOfPlaylist(t1);
 		pCreated7.addSongOfPlaylist(s2);
-		tagRepository.save(t1);
+		tagService.save(t1);
 		
 		Playlist pCreated8=new Playlist("myPlaylistCreated8",u15.getName(),u15.getId_user());
 		pCreated8.addTagOfPlaylist(t4);
 		pCreated8.addSongOfPlaylist(s2);
-		tagRepository.save(t4);
+		tagService.save(t4);
 		
 		Playlist pCreated9=new Playlist("myPlaylistCreated9",u20.getName(),u20.getId_user());
 		pCreated9.addTagOfPlaylist(t2);pCreated9.addTagOfPlaylist(t4);
 		pCreated9.addSongOfPlaylist(s2);
-		tagRepository.save(t2);tagRepository.save(t4);
+		tagService.save(t2);tagService.save(t4);
 		
 		Playlist pCreated10=new Playlist("myPlaylistCreated10",u19.getName(),u19.getId_user());
 		pCreated10.addTagOfPlaylist(t1);pCreated10.addTagOfPlaylist(t4);
 		pCreated10.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated11=new Playlist("myPlaylistCreated11",u23.getName(),u23.getId_user());
 		pCreated11.addTagOfPlaylist(t3);
 		pCreated11.addSongOfPlaylist(s2);
-		tagRepository.save(t3);
+		tagService.save(t3);
 		
 		Playlist pCreated12=new Playlist("myPlaylistCreated12",u17.getName(),u17.getId_user());
 		pCreated12.addTagOfPlaylist(t1);pCreated12.addTagOfPlaylist(t4);
 		pCreated12.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated13=new Playlist("myPlaylistCreated13",u6.getName(),u6.getId_user());
 		pCreated13.addTagOfPlaylist(t4);
 		pCreated13.addSongOfPlaylist(s2);
-		tagRepository.save(t4);
+		tagService.save(t4);
 		
 		Playlist pCreated14=new Playlist("myPlaylistCreated14",u3.getName(),u3.getId_user());
 		pCreated14.addTagOfPlaylist(t1);pCreated14.addTagOfPlaylist(t4);
 		pCreated14.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated15=new Playlist("myPlaylistCreated15",u12.getName(),u12.getId_user());
 		pCreated15.addTagOfPlaylist(t1);
 		pCreated15.addSongOfPlaylist(s2);
-		tagRepository.save(t1);
+		tagService.save(t1);
 		
 		Playlist pCreated16=new Playlist("myPlaylistCreated16",u8.getName(),u8.getId_user());
 		pCreated16.addTagOfPlaylist(t1);pCreated16.addTagOfPlaylist(t4);
 		pCreated16.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated17=new Playlist("myPlaylistCreated17",u18.getName(),u18.getId_user());
 		pCreated17.addTagOfPlaylist(t1);
 		pCreated17.addSongOfPlaylist(s2);
-		tagRepository.save(t1);
+		tagService.save(t1);
 		
 		Playlist pCreated18=new Playlist("myPlaylistCreated18",u5.getName(),u5.getId_user());
 		pCreated18.addTagOfPlaylist(t1);pCreated18.addTagOfPlaylist(t4);
 		pCreated18.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated19=new Playlist("myPlaylistCreated19",u2.getName(),u2.getId_user());
 		pCreated19.addTagOfPlaylist(t1);
 		pCreated19.addSongOfPlaylist(s2);
-		tagRepository.save(t1);
+		tagService.save(t1);
 		
 		Playlist pCreated20=new Playlist("myPlaylistCreated20",u3.getName(),u3.getId_user());
 		pCreated20.addTagOfPlaylist(t1);pCreated20.addTagOfPlaylist(t4);
 		pCreated20.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated21=new Playlist("myPlaylistCreated21",u23.getName(),u23.getId_user());
 		pCreated21.addTagOfPlaylist(t1);pCreated21.addTagOfPlaylist(t4);
 		pCreated21.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated22=new Playlist("myPlaylistCreated22",u4.getName(),u4.getId_user());
 		pCreated22.addTagOfPlaylist(t3);
 		pCreated22.addSongOfPlaylist(s2);
-		tagRepository.save(t3);
+		tagService.save(t3);
 		
 		Playlist pCreated23=new Playlist("myPlaylistCreated23",u17.getName(),u17.getId_user());
 		pCreated23.addTagOfPlaylist(t3);pCreated23.addTagOfPlaylist(t4);
 		pCreated23.addSongOfPlaylist(s2);
-		tagRepository.save(t3);tagRepository.save(t4);
+		tagService.save(t3);tagService.save(t4);
 		
 		Playlist pCreated24=new Playlist("myPlaylistCreated24",u7.getName(),u7.getId_user());
 		pCreated24.addTagOfPlaylist(t1);pCreated24.addTagOfPlaylist(t4);
 		pCreated24.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated25=new Playlist("myPlaylistCreated25",u3.getName(),u3.getId_user());
 		pCreated25.addTagOfPlaylist(t1);pCreated25.addTagOfPlaylist(t4);
 		pCreated25.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		//Playlist especificamente para probar la paginacion con Dani
 		
 		Playlist pCreated26=new Playlist("myPlaylistCreated26",u2.getName(),u2.getId_user());
 		pCreated26.addTagOfPlaylist(t1);pCreated26.addTagOfPlaylist(t4);
 		pCreated26.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated27=new Playlist("myPlaylistCreated27",u2.getName(),u2.getId_user());
 		pCreated27.addTagOfPlaylist(t1);pCreated27.addTagOfPlaylist(t4);
 		pCreated27.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 
 		Playlist pCreated28=new Playlist("myPlaylistCreated28",u2.getName(),u2.getId_user());
 		pCreated28.addTagOfPlaylist(t1);pCreated28.addTagOfPlaylist(t4);
 		pCreated28.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated29=new Playlist("myPlaylistCreated29",u2.getName(),u2.getId_user());
 		pCreated29.addTagOfPlaylist(t1);pCreated29.addTagOfPlaylist(t4);
 		pCreated29.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated30=new Playlist("myPlaylistCreated30",u2.getName(),u2.getId_user());
 		pCreated30.addTagOfPlaylist(t1);pCreated30.addTagOfPlaylist(t4);
 		pCreated30.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated31=new Playlist("myPlaylistCreated31",u2.getName(),u2.getId_user());
 		pCreated31.addTagOfPlaylist(t1);pCreated31.addTagOfPlaylist(t4);
 		pCreated31.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated32=new Playlist("myPlaylistCreated32",u2.getName(),u2.getId_user());
 		pCreated32.addTagOfPlaylist(t1);pCreated32.addTagOfPlaylist(t4);
 		pCreated32.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated33=new Playlist("myPlaylistCreated33",u2.getName(),u2.getId_user());
 		pCreated33.addTagOfPlaylist(t1);pCreated33.addTagOfPlaylist(t4);
 		pCreated33.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated34=new Playlist("myPlaylistCreated34",u2.getName(),u2.getId_user());
 		pCreated34.addTagOfPlaylist(t1);pCreated34.addTagOfPlaylist(t4);
 		pCreated34.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated35=new Playlist("myPlaylistCreated35",u2.getName(),u2.getId_user());
 		pCreated35.addTagOfPlaylist(t1);pCreated35.addTagOfPlaylist(t4);
 		pCreated35.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated36=new Playlist("myPlaylistCreated36",u2.getName(),u2.getId_user());
 		pCreated36.addTagOfPlaylist(t1);pCreated36.addTagOfPlaylist(t4);
 		pCreated36.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated37=new Playlist("myPlaylistCreated37",u2.getName(),u2.getId_user());
 		pCreated37.addTagOfPlaylist(t1);pCreated37.addTagOfPlaylist(t4);
 		pCreated37.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated38=new Playlist("myPlaylistCreated38",u2.getName(),u2.getId_user());
 		pCreated38.addTagOfPlaylist(t1);pCreated38.addTagOfPlaylist(t4);
 		pCreated38.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated39=new Playlist("myPlaylistCreated39",u2.getName(),u2.getId_user());
 		pCreated39.addTagOfPlaylist(t1);pCreated39.addTagOfPlaylist(t4);
 		pCreated39.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated40=new Playlist("myPlaylistCreated40",u2.getName(),u2.getId_user());
 		pCreated40.addTagOfPlaylist(t1);pCreated40.addTagOfPlaylist(t4);
 		pCreated40.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated41=new Playlist("myPlaylistCreated41",u2.getName(),u2.getId_user());
 		pCreated41.addTagOfPlaylist(t1);pCreated41.addTagOfPlaylist(t4);
 		pCreated41.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated42=new Playlist("myPlaylistCreated42",u2.getName(),u2.getId_user());
 		pCreated42.addTagOfPlaylist(t1);pCreated42.addTagOfPlaylist(t4);
 		pCreated42.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated43=new Playlist("myPlaylistCreated43",u2.getName(),u2.getId_user());
 		pCreated43.addTagOfPlaylist(t1);pCreated43.addTagOfPlaylist(t4);
 		pCreated43.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated44=new Playlist("myPlaylistCreated44",u2.getName(),u2.getId_user());
 		pCreated44.addTagOfPlaylist(t1);pCreated44.addTagOfPlaylist(t4);
 		pCreated44.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated45=new Playlist("myPlaylistCreated45",u2.getName(),u2.getId_user());
 		pCreated45.addTagOfPlaylist(t1);pCreated45.addTagOfPlaylist(t4);
 		pCreated45.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated46=new Playlist("myPlaylistCreated46",u2.getName(),u2.getId_user());
 		pCreated46.addTagOfPlaylist(t1);pCreated46.addTagOfPlaylist(t4);
 		pCreated46.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated47=new Playlist("myPlaylistCreated47",u2.getName(),u2.getId_user());
 		pCreated47.addTagOfPlaylist(t1);pCreated47.addTagOfPlaylist(t4);
 		pCreated47.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		Playlist pCreated48=new Playlist("myPlaylistCreated48",u2.getName(),u2.getId_user());
 		pCreated48.addTagOfPlaylist(t1);pCreated48.addTagOfPlaylist(t4);
 		pCreated48.addSongOfPlaylist(s2);
-		tagRepository.save(t1);tagRepository.save(t4);
+		tagService.save(t1);tagService.save(t4);
 		
 		u2.addCreatedPlaylist(pCreated1);
 	    u2.addCreatedPlaylist(pCreated2);
@@ -670,9 +674,9 @@ public class DataBaseController {
 		u2.addCreatedPlaylist(pCreated48);
 		u3.addCreatedPlaylist(pCreated3);
 		//u4.addCreatedPlaylist(pCreated4);
-		userRepository.save(u2);
-		userRepository.save(u3);
-		userRepository.save(u4);
+		userService.save(u2);
+		userService.save(u3);
+		userService.save(u4);
 		
 		// fin Usuarios-Playlists creadas
 		
@@ -703,97 +707,97 @@ public class DataBaseController {
 		pCreated24.addUserlikeOfPlaylist(u2);
 		pCreated25.addUserlikeOfPlaylist(u2);
 		
-		playlistRepository.save(pCreated1); 
-		playlistRepository.save(pCreated2);
-		playlistRepository.save(pCreated3);
-		playlistRepository.save(pCreated4);
-		playlistRepository.save(pCreated5);
-		playlistRepository.save(pCreated6);
-		playlistRepository.save(pCreated7);
-		playlistRepository.save(pCreated8);
-		playlistRepository.save(pCreated9);
-		playlistRepository.save(pCreated10);
-		playlistRepository.save(pCreated11);
-		playlistRepository.save(pCreated12);
-		playlistRepository.save(pCreated13);
-		playlistRepository.save(pCreated14);
-		playlistRepository.save(pCreated15);
-		playlistRepository.save(pCreated16);
-		playlistRepository.save(pCreated17);
-		playlistRepository.save(pCreated18);
-		playlistRepository.save(pCreated19);
-		playlistRepository.save(pCreated20);
-		playlistRepository.save(pCreated21);
-		playlistRepository.save(pCreated22);
-		playlistRepository.save(pCreated23);
-		playlistRepository.save(pCreated24);
-		playlistRepository.save(pCreated25);
-		playlistRepository.save(pCreated26);
-		playlistRepository.save(pCreated27);
-		playlistRepository.save(pCreated28);
-		playlistRepository.save(pCreated29);
-		playlistRepository.save(pCreated30);
-		playlistRepository.save(pCreated31);
-		playlistRepository.save(pCreated32);
-		playlistRepository.save(pCreated33);
-		playlistRepository.save(pCreated34);
-		playlistRepository.save(pCreated35);
-		playlistRepository.save(pCreated36);
-		playlistRepository.save(pCreated37);
-		playlistRepository.save(pCreated38);
-		playlistRepository.save(pCreated39);
-		playlistRepository.save(pCreated40);
-		playlistRepository.save(pCreated41);
-		playlistRepository.save(pCreated42);
-		playlistRepository.save(pCreated43);
-		playlistRepository.save(pCreated44);
-		playlistRepository.save(pCreated45);
-		playlistRepository.save(pCreated46);
-		playlistRepository.save(pCreated47);
-		playlistRepository.save(pCreated48);
+		playlistService.save(pCreated1); 
+		playlistService.save(pCreated2);
+		playlistService.save(pCreated3);
+		playlistService.save(pCreated4);
+		playlistService.save(pCreated5);
+		playlistService.save(pCreated6);
+		playlistService.save(pCreated7);
+		playlistService.save(pCreated8);
+		playlistService.save(pCreated9);
+		playlistService.save(pCreated10);
+		playlistService.save(pCreated11);
+		playlistService.save(pCreated12);
+		playlistService.save(pCreated13);
+		playlistService.save(pCreated14);
+		playlistService.save(pCreated15);
+		playlistService.save(pCreated16);
+		playlistService.save(pCreated17);
+		playlistService.save(pCreated18);
+		playlistService.save(pCreated19);
+		playlistService.save(pCreated20);
+		playlistService.save(pCreated21);
+		playlistService.save(pCreated22);
+		playlistService.save(pCreated23);
+		playlistService.save(pCreated24);
+		playlistService.save(pCreated25);
+		playlistService.save(pCreated26);
+		playlistService.save(pCreated27);
+		playlistService.save(pCreated28);
+		playlistService.save(pCreated29);
+		playlistService.save(pCreated30);
+		playlistService.save(pCreated31);
+		playlistService.save(pCreated32);
+		playlistService.save(pCreated33);
+		playlistService.save(pCreated34);
+		playlistService.save(pCreated35);
+		playlistService.save(pCreated36);
+		playlistService.save(pCreated37);
+		playlistService.save(pCreated38);
+		playlistService.save(pCreated39);
+		playlistService.save(pCreated40);
+		playlistService.save(pCreated41);
+		playlistService.save(pCreated42);
+		playlistService.save(pCreated43);
+		playlistService.save(pCreated44);
+		playlistService.save(pCreated45);
+		playlistService.save(pCreated46);
+		playlistService.save(pCreated47);
+		playlistService.save(pCreated48);
 		//fin Usuarios-Playlists gustadas
 		
 		//followers davide
 		u5.addFollowing(u1);
-		userRepository.save(u5);
+		userService.save(u5);
 		u7.addFollowing(u1);
-		userRepository.save(u7);
+		userService.save(u7);
 		u16.addFollowing(u1);
-		userRepository.save(u16);
+		userService.save(u16);
 		u2.addFollowing(u1);
-		userRepository.save(u2);
+		userService.save(u2);
 		u10.addFollowing(u1);
-		userRepository.save(u10);
+		userService.save(u10);
 		u11.addFollowing(u1);
-		userRepository.save(u11);
+		userService.save(u11);
 		u22.addFollowing(u1);
-		userRepository.save(u22);
+		userService.save(u22);
 		u20.addFollowing(u1);
-		userRepository.save(u20);
+		userService.save(u20);
 		u15.addFollowing(u1);
-		userRepository.save(u15);
+		userService.save(u15);
 		u18.addFollowing(u1);
-		userRepository.save(u18);
+		userService.save(u18);
 		u23.addFollowing(u1);
-		userRepository.save(u23);
+		userService.save(u23);
 		u8.addFollowing(u1);
-		userRepository.save(u8);
+		userService.save(u8);
 		u9.addFollowing(u1);
-		userRepository.save(u9);
+		userService.save(u9);
 		u6.addFollowing(u1);
-		userRepository.save(u6);
+		userService.save(u6);
 		u13.addFollowing(u1);
-		userRepository.save(u13);
+		userService.save(u13);
 		u14.addFollowing(u1);
-		userRepository.save(u14);
+		userService.save(u14);
 		u19.addFollowing(u1);
-		userRepository.save(u19);
+		userService.save(u19);
 		u12.addFollowing(u1);
-		userRepository.save(u12);
+		userService.save(u12);
 		u3.addFollowing(u1);
-		userRepository.save(u3);
+		//userService.save(u3);
 		u21.addFollowing(u1);
-		userRepository.save(u21);
+		userService.save(u21);
 		
 		
 		u4.addFollowing(u1);
@@ -819,6 +823,11 @@ public class DataBaseController {
 		u4.addFollowing(u22);
 		u4.addFollowing(u23);
 		
-		userRepository.save(u4);	
+		userService.save(u4);
+		
+		u3.addFollowing(u2);
+		
+		userService.save(u3);
+		
 	}
 }
