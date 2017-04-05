@@ -30,10 +30,26 @@ public class UserJsonSerialize {
 			jsonGenerator.writeStringField("city", user.getCity());
 			jsonGenerator.writeStringField("biography", user.getBiography());
 			jsonGenerator.writeStringField("email", user.getEmail());
-			//jsonGenerator.writeFieldName("followers");
-			//jsonGenerator.writeObject(user.getFollowers());
-			//jsonGenerator.writeFieldName("following");
-			//jsonGenerator.writeObject(user.getFollowing());
+			jsonGenerator.writeStringField("profileImage", user.getProfileImage());
+			
+			jsonGenerator.writeArrayFieldStart("followers");
+			for(User u : user.getFollowers()){
+				jsonGenerator.writeStartObject();
+				jsonGenerator.writeNumberField("id_user", u.getId_user());
+				jsonGenerator.writeStringField("name", u.getName());
+				jsonGenerator.writeEndObject(); 
+			}
+			jsonGenerator.writeEndArray();
+			
+			jsonGenerator.writeArrayFieldStart("following");
+			for(User u : user.getFollowing()){
+				jsonGenerator.writeStartObject();
+				jsonGenerator.writeNumberField("id_user", u.getId_user());
+				jsonGenerator.writeStringField("name", u.getName());
+				jsonGenerator.writeEndObject(); 
+			}
+			jsonGenerator.writeEndArray();
+			
 			jsonGenerator.writeEndObject(); 
 
 

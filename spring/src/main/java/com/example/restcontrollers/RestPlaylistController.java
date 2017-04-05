@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -79,27 +80,27 @@ public class RestPlaylistController {
 	
 	interface WallPlaylistView extends Playlist.Basic,Playlist.Tags,Tag.Basic{}
 	
-//	@JsonView(WallPlaylistView.class)
-//	@RequestMapping("/api/WallPlaylistsLogged/{id}")
-//	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
-//		if(userComponent.getIdLoggedUser()==id){
-//			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
-//			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
-//		}else
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//	}
-	
 	@JsonView(WallPlaylistView.class)
 	@RequestMapping("/api/WallPlaylistsLogged/{id}")
-	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id, 
-			Pageable page) throws Exception{
+	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
 		if(userComponent.getIdLoggedUser()==id){
-			Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(page);
+			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
 			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
-		}else{
+		}else
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-		}
 	}
+	
+//	@JsonView(WallPlaylistView.class)
+//	@RequestMapping("/api/WallPlaylistsLogged/{id}")
+//	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id, 
+//			Pageable page) throws Exception{
+//		if(userComponent.getIdLoggedUser()==id){
+//			Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(page);
+//			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+//		}else{
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//	}
 
 
 	@JsonView(WallPlaylistView.class)

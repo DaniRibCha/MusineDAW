@@ -1,12 +1,18 @@
 package com.example.restcontrollers;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -93,41 +99,62 @@ public class RestUserController {
 	
 	private static final String USER_IMAGE_FOLDER = "src/main/resources/static/imgProfile";
 	
-	@RequestMapping(value = "/api/image/upload", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/image/upload/{idUser}", method = RequestMethod.POST)
 	public ResponseEntity<User> handleFileUpload(
-			@RequestParam("file") MultipartFile file) {
+			@RequestBody MultipartFile file,
+			@PathVariable long idUser) {
 
 		//String fileName = file.getOriginalFilename() + ".jpg";
 		long idLogged=userComponent.getIdLoggedUser();
-		User u=userService.findOne(idLogged);
-		String fileName =idLogged  + ".jpg";
+		if(idLogged==idUser){
+			User u=userService.findOne(idLogged);
+			String fileName =idLogged  + ".jpg";
+			if (!file.isEmpty()) {
+				try {
+					File filesFolder = new File(USER_IMAGE_FOLDER);
+					if (!filesFolder.exists()) {
+						filesFolder.mkdirs();
+					}
+					
+					File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
+					file.transferTo(uploadedFile);
 
-		if (!file.isEmpty()) {
-			try {
+					u.setProfileImage(fileName);
+					userService.save(u);
 
-				File filesFolder = new File(USER_IMAGE_FOLDER);
-				if (!filesFolder.exists()) {
-					filesFolder.mkdirs();
+					return new ResponseEntity<>(u, HttpStatus.OK);
+
+
+				} catch (Exception e) {
+					return new ResponseEntity<>(u, HttpStatus.NOT_FOUND);
 				}
-
-				File uploadedFile = new File(filesFolder.getAbsolutePath(), fileName);
-				file.transferTo(uploadedFile);
-				
-				u.setProfileImage(fileName);
-				userService.save(u);
-				
-				return new ResponseEntity<>(u, HttpStatus.OK);
-
-
-			} catch (Exception e) {
+			} else {
 				return new ResponseEntity<>(u, HttpStatus.NOT_FOUND);
+
 			}
-		} else {
-			return new ResponseEntity<>(u, HttpStatus.NOT_FOUND);
+		}else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 			
+	}
+	
+	@RequestMapping("/api/image/{fileName}")
+	public void handleFileDownload(@PathVariable String fileName,
+			HttpServletResponse res) throws FileNotFoundException, IOException {
+
+		File file = new File(USER_IMAGE_FOLDER, fileName + ".jpg");
+		//File file = new File(FILES_FOLDER, fileName);
+
+		if (file.exists()) {
+			res.setContentType("image/jpeg");
+			res.setContentLength(new Long(file.length()).intValue());
+			FileCopyUtils
+					.copy(new FileInputStream(file), res.getOutputStream());
+		} else {
+			res.sendError(404, "File" + fileName + "(" + file.getAbsolutePath()
+					+ ") does not exist");
 		}
 	}
-		
 
 
 }

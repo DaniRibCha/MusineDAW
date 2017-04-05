@@ -284,7 +284,7 @@ public class DataBaseController {
 				
 		User u1=new User("Davide", "Italy","pass","davide@gmail.com","ROLE_USER");
 		User u2=new User("Dani","Spain","pass","dani@gmail.com","ROLE_USER");
-		User u3=new User("Ruben","Spain","pass","ruben@gmail.com");
+		User u3=new User("Ruben","Spain","pass","ruben@gmail.com","ROLE_USER");
 		User u4=new User("Stephanie","Venezuela","pass","stephanie@gmail.com","ROLE_USER");
 		User u5=new User("Carlos","Mexico","pass","carlos@gmail.com","ROLE_USER");
 		User u6=new User("Patricia","Republica Dominicana","pass","patricia@gmail.com","ROLE_USER");
