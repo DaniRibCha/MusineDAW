@@ -129,17 +129,19 @@
                     <p><span>Artist:{{#artistsOfSong}} <a href="/Artist/{{id_artist}}"> {{name}} {{/artistsOfSong}}</a></span> </p>
                 </div>
             {{/songs}}
+            
+	{{#showNext}}
+	 <div style="text-align:center">
+	 <input type="hidden" id="url" value="/UserFavorites/{{ident}}?page={{nextPage}} ">
+	 <div style="text-align:left; padding-left: 15px; padding-right: 15px;" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
+        </div>
+	{{/showNext}}
             </div>
             
             <!-- Paginacion --> 
     
-	{{#showNext}}
-	 <div class="col-md-12" style="text-align:center">
-	 <input type="hidden" id="url" value="/UserFavorites/{{ident}}?page={{nextPage}} ">
-	 <div class="col-md-12" style="text-align:center" id="spin"></div>
-                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
-        </div>
-	{{/showNext}}
+	
             
         </div>
     </div>

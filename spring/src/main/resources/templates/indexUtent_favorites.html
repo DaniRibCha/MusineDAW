@@ -114,17 +114,18 @@
                 
                 </div>
             {{/songs}}
+            {{#showNext}}
+	 <div style="text-align:center">
+	 <input type="hidden" id="url" value="/MyFavorites/{{ident}}?page={{nextPage}} ">
+	 <div style="text-align:-webkit-left;" id="spin"></div>
+                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
+        </div>
+	{{/showNext}}
             </div>
             
              <!-- Paginacion --> 
     
-    {{#showNext}}
-	 <div class="col-md-12" style="text-align:center">
-	 <input type="hidden" id="url" value="/MyFavorites/{{ident}}?page={{nextPage}} ">
-	 <div class="col-md-12" style="text-align:center" id="spin"></div>
-                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
-        </div>
-	{{/showNext}}
+    
             
         </div>
     </div>
