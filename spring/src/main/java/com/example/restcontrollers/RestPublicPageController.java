@@ -96,7 +96,7 @@ public class RestPublicPageController {
 	
 	interface TopTagView extends Tag.Basic{};
 	@JsonView(TopTagView.class)
-	@RequestMapping("/api/Top3Tags")
+	@RequestMapping("/api/Tag/Top3")
 	public ResponseEntity<List<Tag>> getTopTags() throws Exception{
 		List<Tag>topTags=tagService.findTop3ByOrderByNumberTagDesc();
 		return new ResponseEntity<>(topTags,HttpStatus.OK);

@@ -72,7 +72,7 @@ public class RestPlaylistController {
 	interface TopPlaylistView extends Playlist.Basic{}
 	
 	@JsonView(PlaylistView.class)
-	@RequestMapping("/api/Top3Playlist")
+	@RequestMapping("/api/Playlist/Top3")
 	public ResponseEntity<List<Playlist>> getTopPlaylist() throws Exception{
 		List<Playlist> topPlaylists=playlistService.findTop3ByOrderByNLikesDesc();
 		return new ResponseEntity<>(topPlaylists,HttpStatus.OK);
@@ -80,18 +80,8 @@ public class RestPlaylistController {
 	
 	interface WallPlaylistView extends Playlist.Basic,Playlist.Tags,Tag.Basic{}
 	
-//	@JsonView(WallPlaylistView.class)
-//	@RequestMapping("/api/WallPlaylistsLogged/{id}")
-//	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
-//		if(userComponent.getIdLoggedUser()==id){
-//			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
-//			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
-//		}else
-//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
-//	}
-	
 	@JsonView(WallPlaylistView.class)
-	@RequestMapping("/api/WallPlaylistsLogged/{id}")
+	@RequestMapping("/api/Playlist/WallLogged/{id}")
 	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id, 
 			Pageable page) throws Exception{
 		if(userComponent.getIdLoggedUser()==id){
@@ -104,7 +94,7 @@ public class RestPlaylistController {
 
 
 	@JsonView(WallPlaylistView.class)
-	@RequestMapping("/api/WallPlaylistsNotLogged")
+	@RequestMapping("/api/Playlist/WallNotLogged")
 	public ResponseEntity<List<Playlist>> getWallPlaylistsNotLogged() throws Exception{
 		List<Playlist> wallPlaylists=playlistService.findTop10ByOrderByNLikesDesc();
 		return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
@@ -136,7 +126,7 @@ public class RestPlaylistController {
 	}
 	
 	@JsonView(MyPlaylistsView.class)
-	@RequestMapping("/api/MyLikes/{id}")
+	@RequestMapping("/api/Playlist/MyLikes/{id}")
 	public ResponseEntity<List<Playlist>> getLikedPlaylists(@PathVariable long id) throws Exception{
 		//User uLogged=userComponent.getLoggedUser();
 		if(userComponent.getIdLoggedUser()==id){
@@ -149,7 +139,7 @@ public class RestPlaylistController {
 	}
 	
 	@JsonView(MyPlaylistsView.class)
-	@RequestMapping("/api/UserLikes/{id}")
+	@RequestMapping("/api/Playlist/UserLikes/{id}")
 	public ResponseEntity<List<Playlist>> getUserLikes(@PathVariable long id) throws Exception{
 		User u=userService.findOne(id);
 		List<Playlist> playlists=u.getLikedPlaylists();

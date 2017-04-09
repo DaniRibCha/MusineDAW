@@ -49,7 +49,7 @@ public class RestArtistController {
 	interface ArtistBasicView extends Artist.Basic{};
 	
 	@JsonView(ArtistBasicView.class)
-	@RequestMapping("/api/Top3Artists")
+	@RequestMapping("/api/Artist/Top3")
 	public ResponseEntity<List<Artist>> getTopArtists() throws Exception{
 		List<Artist> topArtists=artistService.findTop3ByOrderByFollowersDesc();
 		return new ResponseEntity<>(topArtists,HttpStatus.OK);
