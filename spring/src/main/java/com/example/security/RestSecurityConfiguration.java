@@ -21,7 +21,7 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.antMatcher("/api/**");
 		
 		// URLs that need authentication to access to it
-		//http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/logIn").authenticated();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/logIn").authenticated();
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyPlaylists/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyFavorites/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyLikes/**").hasRole("USER");
@@ -30,8 +30,10 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/CreatePlaylist/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/EditPlaylist/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/DeletePlaylist/**").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/LikeUnlikePlaylist/**").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/FavoriteNotFavoriteSong/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/Playlist/Like").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/Playlist/NotLike").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/Song/AddFavorite").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/Song/DeleteFavorite").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/ConfigUserData/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/image/upload/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/FollowNotFollowUser/**").hasRole("USER");

@@ -60,7 +60,7 @@ public class RestPlaylistController {
 	@Autowired 
 	private ArtistService artistService;
 	
-	interface PlaylistView extends Playlist.Basic, Playlist.Songs,Playlist.Tags, Song.Basic,Tag.Basic{}
+	interface PlaylistView extends Playlist.Basic, Playlist.Songs,Playlist.Tags, Song.Basic,Tag.Basic,Song.Artists,Artist.Basic{}
 	
 	@JsonView(PlaylistView.class)
 	@RequestMapping("/api/Playlist/{id}")
@@ -289,35 +289,36 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 		}
 	}
 
-	interface LikeUnlikePlaylistView extends Playlist.Basic, Playlist.Likes,User.Basic{};
+	interface LikePlaylistView extends Playlist.Basic, Playlist.Likes,User.Basic{};
 	
-	@JsonView(LikeUnlikePlaylistView.class)
-	@RequestMapping(value="/api/LikeUnlikePlaylist/{idPlaylist}", method=RequestMethod.PUT)
-	public ResponseEntity<Playlist> LikePlaylist(@PathVariable long idPlaylist){
+	@JsonView(LikePlaylistView.class)
+	@RequestMapping(value="/api/Playlist/Like", method=RequestMethod.POST)
+	public ResponseEntity<Playlist> LikePlaylist(@RequestParam long idPlaylist){
 		Playlist playlist=playlistService.findOne(idPlaylist);
 		if(playlist!=null){
 			long idUser=userComponent.getIdLoggedUser();
 			User u=userService.findOne(idUser);
-			List<User> likes=playlist.getUserlikesOfPlaylist();
-			boolean finded=false;
-			for(int i=0;i<likes.size() && !finded;++i){
-				if(likes.get(i).getId_user()==idUser){
-					finded=true;
-				}
-			}
-			if(finded){
-				playlist.removeUserlikeOfPlaylist(u);
-				playlistService.save(playlist);
-				return new ResponseEntity<>(playlist , HttpStatus.OK);
-			}else{
-				playlist.addUserlikeOfPlaylist(u);
-				playlistService.save(playlist);
-				return new ResponseEntity<>(playlist , HttpStatus.OK);
-			}
+			playlist.addUserlikeOfPlaylist(u);
+			playlistService.save(playlist);
+			return new ResponseEntity<>(playlist , HttpStatus.OK);
 		}else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-			
+	
+		}
+	
+	@JsonView(LikePlaylistView.class)
+	@RequestMapping(value="/api/Playlist/NotLike", method=RequestMethod.DELETE)
+	public ResponseEntity<Playlist> NotLikePlaylist(@RequestParam long idPlaylist){
+		Playlist playlist=playlistService.findOne(idPlaylist);
+		if(playlist!=null){
+			long idUser=userComponent.getIdLoggedUser();
+			User u=userService.findOne(idUser);
+			playlist.removeUserlikeOfPlaylist(u);
+			playlistService.save(playlist);
+			return new ResponseEntity<>(playlist , HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	
 		}
 		
 		
