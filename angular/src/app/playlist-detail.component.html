@@ -1,0 +1,83 @@
+<div class="col-md-12" id="degradado">
+        <div class="container" id="reproductor">
+            <img class="img-responsive" src="../img/cascos.jpg" alt="">
+        </div>
+    </div>
+    <div class="col-md-12" id="degradadoinverso">
+        <div class="col-md-8">
+            <div class="well" id="general-info">
+                <h3 id="titulo-playlist">{{playlist?.title}}</h3>
+                <div class="btn-group" id="suscripcion"> 
+                <span><a href="/UserPlaylists/{{playlist?.creatorId}}">{{playlist?.creatorName}} </a></span>
+                </div>
+                <p id="descripcion">{{playlist?.description}}</p>
+                <div class="container">
+                    <div class="row" id="playlist-buttons">
+                        <div class="col-md-6" id="actions">
+                            <div *ngIf="login" class="btn-group">
+                                 <form action="/Playlist/{{playlist?.id_playlist}}" method="post">
+                                <input type="hidden" name="like" value="{{playlist?.title}}" >
+                    			<input type="submit" value="Like">
+                            	</form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="visible" id="tracklist">
+                <div class="well">
+                    <div class="text-center"> <span>List tracks</span> </div>
+                    
+                    <hr>
+                
+                    <form *ngIf="login" action="/Playlist/{{playlist?.id_playlist}}" method="post">
+                    <input type="hidden" name="favorite" value="{{id_song}}" >
+                    <input type="submit" value="Add favorites"><span class="glyphicon glyphicon-star"></span>
+                    </form>
+                    
+                        <div *ngFor="let song of playlist.songsOfPlaylist"><span>Title: </span>{{song.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
+                            <p><span>Artist: <a *ngFor="let artist of song.artistsOfSong" href="/Artist/{{id_artist}}"> {{artist?.name}}</a></span></p>
+                        </div>
+                   
+                </div>
+                <!-- Paginacion --> 
+    
+   
+
+
+
+
+
+
+
+
+
+
+	<a href="/Playlist/{{ident}}?page={{nextPage}}">
+	 <div class="col-md-12" style="text-align:center">
+                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
+        </div>
+	</a>
+	
+	<div class="col-md-12" style="text-align:center" id="spin"></div>
+	<div id='more'></div>
+                
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="recomendaciones">
+                <h3>Recommendation Playlists</h3>
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>Top Playlists</h4>
+                    <div class="row">
+                        <ul class="list-unstyled" style="margin-left:15px">
+                       
+                           <li *ngFor="let p of topPlaylists"><a [routerLink]="['/playlist', p.id_playlist]"> {{p.title}}</a></li>
+                    
+                        </ul>
+                    </div>
+                    <!-- /.row -->
+                </div>
+    		</div>
+    	</div>
