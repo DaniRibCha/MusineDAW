@@ -59,10 +59,16 @@ public class RestPublicPageController {
 	public ResponseEntity<List<Playlist>> getSearchByParamTag(
 			@RequestParam(value = "key") String key) throws Exception{
 		Tag t=tagService.findByName(key);
-		List<Tag> tags=new ArrayList<>();
-		tags.add(t);
-		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
-		return new ResponseEntity<>(playlists,HttpStatus.OK);
+		if(t!=null){
+			List<Tag> tags=new ArrayList<>();
+			tags.add(t);
+			List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
+			if(playlists!=null){
+				return new ResponseEntity<>(playlists,HttpStatus.OK);
+			}else
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	interface SearchParamTitleView extends Playlist.Basic,Playlist.Tags,Tag.Basic{};
@@ -71,28 +77,34 @@ public class RestPublicPageController {
 	public ResponseEntity<List<Playlist>> getSearchByParamTitle(
 			@RequestParam(value = "key") String key) throws Exception{
 		List<Playlist> playlists=playlistService.findByTitle(key);
-		return new ResponseEntity<>(playlists,HttpStatus.OK);
+		if(playlists!=null){
+			return new ResponseEntity<>(playlists,HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 	interface SearchParamArtistView extends Artist.Basic{};
 	@JsonView(SearchParamArtistView.class)
-	@RequestMapping("/api/Artist/SearchByArtist")
+	@RequestMapping("/api/Artist/SearchByName")
 	public ResponseEntity<Artist> getSearchByParamArtist(
 			@RequestParam(value = "key") String key) throws Exception{
 		Artist artist=artistService.findByName(key);
-		return new ResponseEntity<>(artist,HttpStatus.OK);
+		if(artist!=null){
+			return new ResponseEntity<>(artist,HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-	interface SearchView extends Tag.Basic,Tag.TagPlaylists,Playlist.Basic{};
-	@JsonView(SearchView.class)
-	@RequestMapping("/api/Playlist/Search/{key}")
-	public ResponseEntity<List<Playlist>> getSearchByTag(@PathVariable String key) throws Exception{
-		Tag t=tagService.findByName(key);
-		List<Tag> tags=new ArrayList<>();
-		tags.add(t);
-		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
-		return new ResponseEntity<>(playlists,HttpStatus.OK);
-	}
+//	interface SearchView extends Tag.Basic,Tag.TagPlaylists,Playlist.Basic{};
+//	@JsonView(SearchView.class)
+//	@RequestMapping("/api/Playlist/SearchByTag")
+//	public ResponseEntity<List<Playlist>> getSearchByTag(@RequestParam(value = "key") String key) throws Exception{
+//		Tag t=tagService.findByName(key);
+//		List<Tag> tags=new ArrayList<>();
+//		tags.add(t);
+//		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
+//		return new ResponseEntity<>(playlists,HttpStatus.OK);
+//	}
 	
 	interface TopTagView extends Tag.Basic{};
 	@JsonView(TopTagView.class)

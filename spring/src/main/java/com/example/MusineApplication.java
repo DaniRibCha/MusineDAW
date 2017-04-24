@@ -15,15 +15,15 @@ public class MusineApplication {
 	}
 	
 
-	/*@Bean
-    public WebMvcConfigurerAdapter corsConfigurer() {
-        return new WebMvcConfigurerAdapter() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("*");
-            }
-        };
-    }*/
+//	@Bean
+//    public WebMvcConfigurerAdapter corsConfigurer() {
+//        return new WebMvcConfigurerAdapter() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**").allowedOrigins("*");
+//            }
+//        };
+//    }
 	
 	//Posible Bean por si algo falla con el de arriba
 	
