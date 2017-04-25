@@ -1,100 +1,62 @@
 <div class="jumbotron" style="background-color:grey;">
-        <div class="container">
-            <div class="col-md-4 name-jumbotron">
-                <p>{{artist?.name}}</p>
-                <form action="/Artist/{{a.id_artist}}" method="post" style="textalign:center;position: relative;left: 10em;">
-                    <input type="hidden" name="follow" value="removeFollow">
-                    <input type="hidden" name="_csrf" value="{{token}}"/>
-                    <button type="submit" class="btn btn-success follow-btn" >Following<span class="glyphicon glyphicon-ok"></span> </button>
-                </form>
-                
-                <!--
-                <form action="/Artist/{{a.id_artist}}" method="post" style="textalign:center;position: relative;left: 10em;">
-                    <input type="hidden" name="follow" value="addFollow">
-                    <input type="hidden" name="_csrf" value="{{token}}"/>
-                	<button type="submit" class="btn btn-danger follow-btn">Not Following</button>
-                </form>-->
-                
-                <p><img class="img-responsive" id="userlogo" src="../img/artist.png" width="60" height="55"> </p>
-            </div>
-            <div class="col-md-2 description">
-                 <a href="/ArtistFollowers/{{a.id_artist}}">
-                    <button type="button" class="btn btn-primary btn-lg cajas">{{artist?.followers}}</button>
-                </a>
-                <p>Followers</p>
-            </div>
-            <div class="col-md-4 description">
-                <div id="Caja4">
-                    <p>Related tags:</p><u><b> <a class="tag" *ngFor='let tag of artist?.tagsOfArtist' href="/SearchPlaylist/{{name}}"> {{tag?.name}}  </a></b></u></div>
-            </div>
-            <div class="col-md-2 description">
-                <p>{{artist?.country}}</p>
-            </div>
+    <div class="container">
+        <div class="col-md-4 name-jumbotron">
+         <p>{{artist?.name}}</p>
+         <button type="submit" class="btn btn-success follow-btn">Following<span class="glyphicon glyphicon-ok"></span> </button>
+         <p><img class="img-responsive" id="userlogo" src="../img/artist.png" width="60" height="55"> </p>
+        </div>
+        <div class="col-md-2 description">
+                <button type="button" class="btn btn-primary btn-lg cajas">{{artist?.followers}}</button>
+            <p>Followers</p>
+        </div>
+        <div class="col-md-4 description">
+            <div id="Caja4">
+                <p>Related tags:</p><u><b> <a class="tag" *ngFor='let tag of artist?.tagsOfArtist' href="/SearchPlaylist/{{name}}"> {{tag?.name}}  </a></b></u></div>
+        </div>
+        <div class="col-md-2 description">
+            <p>{{artist?.country}}</p>
         </div>
     </div>
-    <br clear="all">
-    <div id="musica">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="panel panel-default" id="canciones-artista">
-                    <div class="panel-heading"> Songs </div>
-                    <div class="container">
-                        <div class="col-md-8" >
-                            <div class="text-center"> <span>List tracks</span> </div>
-                            
-                            <div *ngFor="let song of artist.songsOfArtist" style="text-align:left" id="pag">
-                    <hr>
-                   
-                    <form action="/Artist/{{a.id_artist}}" method="post">
-                    <input type="hidden" name="favorite" value="{{id_song}}" >
-                    <input type="hidden" name="_csrf" value="{{token}}"/>
-                    <input type="submit" value="Add favorites"><span class="glyphicon glyphicon-star"></span>
-                    </form>
-            
-                        <span>Title: </span>{{song?.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
-                            <p><span>Artist: <a *ngFor="let a of song.artistsOfSong" href="/Artist/{{id_artist}}"> {{a?.name}}</a></span></p>
-                        <hr>
-                        </div>     
-                        
-                    
-	 <div style="text-align:center">
-	 <input type="hidden" id="url" value="/Artist/{{ident}}?page={{nextPage}} ">
-	 <div style="text-align:center" id="spin"></div>
-                <button type="button" class="btn btn-primary" id="loadMore">Load More</button>
+</div>
+<br clear="all">
+<div id="musica">
+    <div class="row">
+        <div class="col-md-8">
+             <div class="panel panel-default" id="canciones-artista">
+                 <div class="panel-heading"> Songs </div>
+                 <div class="container">
+                     <div class="col-md-8">
+                          <div class="text-center"> <span>List tracks</span> </div>
+                          <div *ngFor="let song of artist?.songsOfArtist" style="text-align:left" id="pag">
+                            <hr>
+                            <p><button class="button">Add Favorite</button><p>
+                            <span>Title: </span>{{song?.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
+                            <hr> </div>
+                     </div>
+                 </div>
+             </div>
         </div>
-                            
-                        </div>
-                        
-                        <!-- Paginacion --> 
-   
-                        
-                    </div>
-                    <div class="panel-body"> </div>
+        <div id="playlists-grupo" class="col-md-4">
+            <div class="well">
+                <h4>Top Artists</h4>
+                <div class="row">
+                    <ul class="list-unstyled" style="margin-left:15px">
+                        <li *ngFor="let a of topArtists"><a [routerLink]="['/artist', a.id_artist]">  {{a?.name}} </a></li>
+                    </ul>
                 </div>
+                <!-- /.row -->
             </div>
-            <div id="playlists-grupo" class="col-md-4">
-                 <div class="well">
-                    <h4>Top Artists</h4>
-                    <div class="row">
-                        <ul class="list-unstyled" style="margin-left:15px">
-                       
-                           <li *ngFor="let a of topArtists"><a [routerLink]="['/artist', a.id_artist]">  {{a?.name}} </a></li>
-                    
-                        </ul>
-                    </div>
-                    <!-- /.row -->
-                </div>
-                <div class="well">
+            <div class="well">
                     <h4>Top Tags</h4>
                     <div class="row">
                        <ul class="list-unstyled" style="margin-left:15px">
                        
-                           <li *ngFor="let tag of topTags"> {{tag?.name}} </li>
+                           <li *ngFor="let tag of topTags"> <a [routerLink]="['/search', tag.name]">{{tag.name}} </a></li>
                     
                         </ul>
                     </div>
                     <!-- /.row -->
                 </div>
-            </div>
         </div>
     </div>
+</div>

@@ -22,17 +22,16 @@ export class ArtistDetailComponent {
   constructor(private router: Router, activatedRoute: ActivatedRoute, private artistService: ArtistService,
         private playlistService: PlaylistService,private loginService: LoginService,
         private tagService: TagService) {
-    let id_artist = activatedRoute.params.suscribe(params => {
- +            
- +        this.artistService.getArtist(params['id']).subscribe(
+    let id_artist = activatedRoute.params.subscribe(params => {            
+       this.artistService.getArtist(params['id_artist']).subscribe(
     artist => {this.artist=artist 
               },
-   error =>  console.error(error)
+    error =>  console.error(error)
    );
-    //this.getTopTag();
-    //this.getArtist(id_artist);
- //this.login=loginService.isLogged;
-    });
+  });
+    this.getTopTag();
+    this.getTopArtist();
+    //this.login=loginService.isLogged;
   }
 
   getArtist(id_artist:number){

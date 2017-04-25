@@ -48,7 +48,7 @@ export class LoginService {
         const userPass = user + ':' + pass;
 
         const headers = new Headers({
-            'Access-Control-Allow-Origin': '*',
+            //'Access-Control-Allow-Origin': '*',
             'Authorization': 'Basic ' + utf8_to_b64(userPass),
             'X-Requested-With': 'XMLHttpRequest'
         });

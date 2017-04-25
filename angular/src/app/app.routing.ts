@@ -12,7 +12,7 @@ const appRoutes = [
   { path: 'search/:key', component: SearchComponent},
   { path: 'new', component: HomeComponent},
   { path: 'login', component: LoginComponent },
-  //{ path: '', redirectTo: 'new', pathMatch: 'full' }
+  { path: '', redirectTo: 'new', pathMatch: 'full' }
 ]
 
 export const routing = RouterModule.forRoot(appRoutes);

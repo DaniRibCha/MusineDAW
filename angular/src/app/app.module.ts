@@ -18,7 +18,7 @@ import { LoginService } from './login.service';
 import { routing }  from './app.routing';
 
 @NgModule({
-  declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,ArtistDetailComponent,SearchComponent],
+  declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,ArtistDetailComponent],
   imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, routing],
   bootstrap: [AppComponent],
   providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService]
