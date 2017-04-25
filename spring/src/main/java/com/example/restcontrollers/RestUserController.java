@@ -48,6 +48,16 @@ public class RestUserController {
 	SongService songService;
 	
 	
+	@RequestMapping(value="/api/User/{id}",method=RequestMethod.GET)
+	public ResponseEntity<User> getUser(@PathVariable long id) throws Exception{
+		User u=userService.findOne(id);
+		if(u!=null){
+			return new ResponseEntity<>(u,HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
+	
 	@RequestMapping(value="/api/ConfigUserData/{id}",method=RequestMethod.PUT)
 	public ResponseEntity<User> setUserData(@PathVariable long id,
 			@RequestParam(value = "biography", defaultValue = "") String biography,

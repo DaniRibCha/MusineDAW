@@ -36,7 +36,7 @@
                     </form>
                     
                         <div *ngFor="let song of playlist.songsOfPlaylist"><span>Title: </span>{{song.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
-                            <p><span>Artist: <a *ngFor="let artist of song.artistsOfSong" href="/Artist/{{id_artist}}"> {{artist?.name}}</a></span></p>
+                            <p><span>Artist: <a *ngFor="let artist of song.artistsOfSong" [routerLink]="['/artist', artist.id_artist]"> {{artist?.name}}</a></span></p>
                         </div>
                    
                 </div>

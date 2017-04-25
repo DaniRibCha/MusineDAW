@@ -38,7 +38,7 @@ public class RestSongController {
 	private UserComponent userComponent;
 	
 	
-	interface SongView extends Song.Basic, Song.Artists{};
+	interface SongView extends Song.Basic, Song.Artists,Artist.Basic{};
 	
 	@JsonView(SongView.class)
 	@RequestMapping("/api/Song/{id}")

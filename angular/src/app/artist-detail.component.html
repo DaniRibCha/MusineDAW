@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-4 description">
             <div id="Caja4">
-                <p>Related tags:</p><u><b> <a class="tag" *ngFor='let tag of artist?.tagsOfArtist' href="/SearchPlaylist/{{name}}"> {{tag?.name}}  </a></b></u></div>
+                <p>Related tags:</p><u><b> <a class="tag" *ngFor='let tag of artist?.tagsOfArtist' [routerLink]="['/search', tag.name]"> {{tag?.name}}  </a></b></u></div>
         </div>
         <div class="col-md-2 description">
             <p>{{artist?.country}}</p>
@@ -51,7 +51,7 @@
                     <div class="row">
                        <ul class="list-unstyled" style="margin-left:15px">
                        
-                           <li *ngFor="let tag of topTags"> <a [routerLink]="['/search', tag.name]">{{tag.name}} </a></li>
+                           <li *ngFor="let tag of topTags"> <a [routerLink]="['/search', tag.name]" class="tag">{{tag.name}} </a></li>
                     
                         </ul>
                     </div>

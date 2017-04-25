@@ -8,6 +8,9 @@ import { HomeComponent } from './home-playlist.component';
 import { LoginComponent } from './login.component';
 import { PlaylistDetailComponent } from './playlist-detail.component';
 import { ArtistDetailComponent } from './artist-detail.component';
+import {UserPlaylistComponent} from './user-playlist.component'
+import {UserLikeComponent} from './user-likes.component'
+import {UserFavoriteComponent} from './user-favorites.component'
 import { SearchComponent } from './search.component';
 import { PlaylistService } from './playlist.service';
 import { ArtistService } from './artist.service';
@@ -18,7 +21,8 @@ import { LoginService } from './login.service';
 import { routing }  from './app.routing';
 
 @NgModule({
-  declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,ArtistDetailComponent],
+  declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,
+  UserPlaylistComponent,ArtistDetailComponent,UserLikeComponent,UserFavoriteComponent],
   imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, routing],
   bootstrap: [AppComponent],
   providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService]

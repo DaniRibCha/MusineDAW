@@ -5,23 +5,61 @@ import { Observable } from "rxjs/Observable";
 
 @Injectable()
 export class UserService {
-    private userLogged;
+    private user;
     constructor(private http: Http) { };
 
-    login(){
-    let url="https://localhost:8443/api/logIn"
+    getUserPlaylist(id_user:number){
+    let url="https://localhost:8443/api/UserPlaylists/"+id_user;
+    console.log(url);
     
     return this.http.get(url).map(
-      response => this.setUserLogged(response))
-      .catch(error => Observable.throw('Server error'))
-    }
+      response => response.json())
+      //response => this.extractPlaylist(response))
+      .catch(error =>this.handleError(error))
+  }
 
-    private setUserLogged(response: Response) {
-        return response.json().map( userLogged => this.userLogged=userLogged)
-    }
+  getUserLike(id_user:number){
+    let url="https://localhost:8443/api/Playlist/UserLikes/"+id_user;
+    console.log(url);
+    
+    return this.http.get(url).map(
+      response => response.json())
+      //response => this.extractPlaylist(response))
+      .catch(error =>this.handleError(error))
+  }
 
-    private isUserLogged() {
-        return this.userLogged!=null;
-    }
+  getUserFavorites(id_user:number){
+    let url="https://localhost:8443/api/UserFavorites/"+id_user;
+    console.log(url);
+    
+    return this.http.get(url).map(
+      response => response.json())
+      //response => this.extractPlaylist(response))
+      .catch(error =>this.handleError(error))
+  }
 
+  getUser(id_user:number){
+    let url="https://localhost:8443/api/User/"+id_user;
+    console.log(url);
+    
+    return this.http.get(url).map(
+      response => response.json())
+      //response => this.extractPlaylist(response))
+      .catch(error =>this.handleError(error))
+  }
+
+  getProfileImage(profileImage:string){
+    let url="https://localhost:8443/api/image/"+profileImage;
+    console.log(url);
+    
+    return this.http.get(url).map(
+      response => response.json())
+      //response => this.extractPlaylist(response))
+      .catch(error =>this.handleError(error))
+  }
+
+  private handleError(error: any) {
+        console.error(error);
+        return Observable.throw('Server error (' + error.status + '): ' + error.text);
+    }
 }

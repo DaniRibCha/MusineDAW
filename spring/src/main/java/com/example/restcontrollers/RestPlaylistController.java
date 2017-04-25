@@ -100,7 +100,7 @@ public class RestPlaylistController {
 		return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
 	}
 
-	interface MyPlaylistsView extends Playlist.Basic, Playlist.Songs,Playlist.Tags, Song.Basic{}
+	interface MyPlaylistsView extends Playlist.Basic, Playlist.Songs,Playlist.Tags,Tag.Basic, Song.Basic{}
 	
 	@JsonView(MyPlaylistsView.class)
 	@RequestMapping("/api/MyPlaylists/{id}")

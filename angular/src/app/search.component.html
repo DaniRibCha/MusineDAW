@@ -39,7 +39,7 @@
                     <div class="row">
                        <ul class="list-unstyled" style="margin-left:15px">
                        
-                           <li *ngFor="let tag of topTags"> <a [routerLink]="['/search', tag.name]">{{tag.name}} </a></li>
+                           <li *ngFor="let tag of topTags"> <a [routerLink]="['/search', tag.name]" class="tag">{{tag.name}} </a></li>
                     
                         </ul>
                     </div>
