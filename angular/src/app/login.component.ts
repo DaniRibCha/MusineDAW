@@ -22,7 +22,8 @@ export class LoginComponent {
 
     this.loginService.logIn(user, pass).subscribe(
       u => console.log(u),
-      error => alert('Invalid user or password')
+      //error => alert('Invalid user or password')
+      error=>console.log(error)
     );
   }
 
