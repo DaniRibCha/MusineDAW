@@ -14,16 +14,19 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent {
 
-  constructor(private loginService: LoginService) { }
+  constructor(private router: Router, private loginService: LoginService) { }
 
   logIn(event: any, user: string, pass: string) {
 
     event.preventDefault();
 
     this.loginService.logIn(user, pass).subscribe(
-      u => console.log(u),
+      u =>{ console.log(u),
+      this.navigate();
+      },
       //error => alert('Invalid user or password')
-      error=>console.log(error)
+      error=>{console.log(error),
+      alert('Invalid user or password')}
     );
   }
 
@@ -32,6 +35,9 @@ export class LoginComponent {
       response => { },
       error => console.log('Error when trying to log out: ' + error)
     );
+  }
+  navigate(){
+     this.router.navigate(['/']);
   }
 
 }

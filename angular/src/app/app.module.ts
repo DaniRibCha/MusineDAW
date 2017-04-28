@@ -19,10 +19,10 @@ import { UserService } from './user.service';
 import { SongService } from './song.service';
 import { LoginService } from './login.service';
 import { routing }  from './app.routing';
-
+import { MyNavbarComponent } from './mynavbar.component';
 @NgModule({
   declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,
-  UserPlaylistComponent,ArtistDetailComponent,UserLikeComponent,UserFavoriteComponent],
+  UserPlaylistComponent,ArtistDetailComponent,UserLikeComponent,UserFavoriteComponent, MyNavbarComponent],
   imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, routing],
   bootstrap: [AppComponent],
   providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService]

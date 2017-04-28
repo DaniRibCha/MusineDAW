@@ -18,6 +18,7 @@ export class ArtistDetailComponent {
   topTags:Tag[];
   visible:boolean;
   login:boolean;
+  
 
   constructor(private router: Router, activatedRoute: ActivatedRoute, private artistService: ArtistService,
         private playlistService: PlaylistService,private loginService: LoginService,

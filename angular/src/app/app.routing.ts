@@ -15,6 +15,7 @@ const appRoutes = [
   { path: 'user-playlist/:id_user', component: UserPlaylistComponent},
   { path: 'user-likes/:id_user', component: UserLikeComponent},
   { path: 'user-favorites/:id_user', component: UserFavoriteComponent},
+  //{ path: 'my-playlists/:id_user', component: PlaylistComponent},
   { path: 'search/:key', component: SearchComponent},
   { path: 'new', component: HomeComponent},
   { path: 'login', component: LoginComponent },

@@ -1,26 +1,7 @@
 <!doctype html>
 <html>
 <body>
-  <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-            <div class="navbar-header" id="header"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <a class="navbar-brand" [routerLink]="['/new']">Musine</a> <img class="img-responsive" id="logo-navbar" src="../img/musine.png" width="60" height="55"> </div>
-            <form class="navbar-form navbar-left" action="/SearchPlaylist">
-                <div class="input-group" id="search">
-                    <input type="text" class="form-control" placeholder="Search" name="key" [(ngModel)]="key">
-                    <input type="hidden" name="_csrf" value="{{token}}"/>
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" (click)="search()" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
-                    </div>
-                </div>
-            </form>
-            <div id="navbar">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="/login#toregister"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                    <li><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+     
     <router-outlet></router-outlet>
   <footer>
         <div class="row">
