@@ -1,0 +1,25 @@
+<nav class="navbar navbar-inverse" style="height: 5.5em;">
+        <div class="navbar-header" id="header"><span class="icon-bar"></span> <a class="navbar-brand" [routerLink]="['/new']"><span>Musine</span></a> <img class="img-responsive" id="logo-navbar" src="../assets/img/musine.png" width="60" height="55"> </div>
+            <form class="navbar-form navbar-left" action="/SearchPlaylist">
+                <div class="input-group" id="search">
+                    <input type="text" class="form-control" placeholder="Search" name="key" [(ngModel)]="key">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" (click)="search()" id="search-button" > <i class="glyphicon glyphicon-search"></i></button>
+                    </div>
+                </div>
+            </form>
+                <img *ngIf="userLogged" class="img-responsive img-circle" src="api/image/{{userLogged.profileImage}}" width="60" height="55" style="position: relative;left: 54%;">
+                <div *ngIf="userLogged" id="navbar" class="dropdown" dropdown [dropdownToggle]="true">
+                    <a class="dropdown-toggle" data-toggle="dropdown" dropdown-open style="margin-top: 0;position: relative;bottom: 2.5em;">My Account<span class="caret"></span></a>
+                    <ul class="dropdown-menu" id="dropdown-options">
+                        <li><a [routerLink]="['/config',userLogged.id_user]" (click)="goToConfig()">My Profile</a></li>
+                        <li><a [routerLink]="['/my-playlists',userLogged.id_user]" (click)="goToMyPlaylists()">My Playlists</a></li>
+                        <li><a [routerLink]="['/new']" (click)="logout()">Log Out</a></li>
+                    </ul>
+                </div>
+             <div *ngIf="!userLogged" id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+                    <li><a [routerLink]="['/login']"><span class="glyphicon glyphicon-log-in"> Login</span></a></li>
+                </ul>
+             </div>
+    </nav>

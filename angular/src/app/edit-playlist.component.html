@@ -1,0 +1,84 @@
+ <MyNavbar></MyNavbar>
+ <div class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6" style="text-align: -webkit-center;"> <img class="img-responsive edit-logo" src="../assets/img/playlist.png">
+                
+            </div>
+            <div *ngIf="playlist" class="col-md-6">
+                    <div class="form-group">
+                        <label>Title of the playlist</label>
+                        <input #title type="text" class="form-control" name="title" placeholder="{{playlist.title}}" >
+                    </div>
+                    <div class="form-group">
+                        <label>Description:</label>
+                        <textarea #description class="form-control" rows="5" name="description" placeholder="{{playlist.description}}" ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <a *ngFor="let tag of tags" class="tag" [routerLink]="['/search', tag.name]"> {{tag.name}}  </a>
+                        <input  #tagToRemove type="text" class="form-control" name="tagToRemove" placeholder="Tag to Remove" style="margin-bottom: 1em;" >
+                         <input  #tagToAdd type="text" class="form-control" name="tagToAdd" placeholder="Tag to add" >
+                         </div>
+                        <button type="button" (click)="changeUserPlaylist($event,title.value,description.value,tagToRemove.value,tagToAdd.value)" style="color:black;" name="sendData">Save Changes</button>
+            </div>
+        </div>
+    </div>
+
+            
+    
+    <div class="container">
+        <div class="well">
+            <div class="text-center"> <span>List tracks</span> </div>
+            <hr>
+            <div class="row" *ngFor="let song of songs">
+                <div class="col-md-12">
+                <button type="button" (click)="removeSong($event,song.id_song)" name="ToRemove" class="pull-right">Remove</button><span class="glyphicon glyphicon-trash pull-right"></span>
+                
+                <span>Title: {{song.title}} </span><a href="{{song.link_youtube}}" class="pull-right"> Link Youtube</a>
+                    <p><span>Artist: <a *ngFor="let artist of song.artistsOfSong" [routerLink]="['/artist', artist.id_artist]"> {{artist?.name}}</a></span> </p>
+                    
+             </div>
+            </div>
+             <div class="row">
+                <div class="form-group">
+                    <label>Title of the song:</label>
+                    <input #titleSong type="text" class="form-control" name="titleSong"> </div>
+                <div class="form-group">
+                    <label>Artists:</label>
+                    <input #artist type="text" class="form-control" name="artist"> </div>
+                <div class="form-group">
+                <div class="col-md-12" style="text-align:right">
+      		
+                   <button type="button" (click)="addSong($event,titleSong.value,artist.value)" name="addFromForm">Add Song</button>
+             
+                </div>
+               
+            </div>
+             </div>
+
+    
+            <div class="text-center"> <span>List Favorite Songs</span> </div>
+            <hr>
+            <div class="row" *ngIf="favoriteSongs">
+                <div *ngFor="let song of favoriteSongs" class="col-md-12">
+                
+                <button type="button" (click)="addFavoriteSongToPlaylist($event,song.id_song)" name="add" class="pull-right">Add</button>
+            
+                <span>Title: {{song.title}} </span><a href="{{song.link_youtube}}" class="pull-right"> Link Youtube</a>
+                    <p><span>Artist: <a *ngFor="let artist of song.artistsOfSong" [routerLink]="['/artist', artist.id_artist]"> {{artist.name}}</a></span> </p>
+                
+                </div>
+            </div>
+
+
+     
+
+     </div>
+     <div class="row save-return">
+        <div class="col-md-12" style="text-align:right">
+            <a [routerLink]="['/my-playlists', user.id_user]">
+                <button type="button" class="btn btn-danger">Return</button>
+            </a>
+        </div>
+    </div>
+        </div>  

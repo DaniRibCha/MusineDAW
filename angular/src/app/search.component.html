@@ -1,0 +1,101 @@
+<MyNavbar></MyNavbar>
+<div class="container">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <h1 class="page-header">
+                    Searched by:
+                    <small>{{key}}</small>
+                </h1> <img class="img-responsive" src="../assets/img/cascos.jpg" alt="">
+                <hr>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, veritatis, tempora, necessitatibus inventore nisi quam quia repellat ut tempore laborum possimus eum dicta id animi corrupti debitis ipsum officiis rerum.</p>
+                <hr> </div>
+            <div class="col-md-4">
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>Top Playlists</h4>
+                    <div class="row">
+                        <ul class="list-unstyled" style="margin-left:15px">
+                       
+                           <li *ngFor="let playlist of topPlaylists"><a [routerLink]="['/playlist', playlist.id_playlist]"> {{playlist.title}}</a> </li>
+                    
+                        </ul>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <!-- Side Widget Well -->
+                <div class="well">
+                    <h4>Top Artists</h4>
+                    <div class="row">
+                        <ul class="list-unstyled" style="margin-left:15px">
+                       
+                           <li *ngFor="let artist of topArtists"><a [routerLink]="['/artist', artist.id_artist]">  {{artist.name}} </a></li>
+                    
+                        </ul>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                <div class="well">
+                    <h4>Top Tags</h4>
+                    <div class="row">
+                       <ul class="list-unstyled" style="margin-left:15px">
+                       
+                           <li *ngFor="let tag of topTags"> <a [routerLink]="['/search', tag.name]" class="tag">{{tag.name}} </a></li>
+                    
+                        </ul>
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+        </div>
+        <td>
+            <h3><b>Results</b></h3></td>
+       <div class="row wall" *ngIf="tagPlaylists!=undefined || titlePlaylists!=undefined">
+             
+             <div class="col-md-6" *ngFor="let playlist of tagPlaylists">
+                 <table id="table">
+                    <tr>
+                         <th><a [routerLink]="['/playlist', playlist.id_playlist]">{{playlist.title}} </a><span class="posted">Posted by  
+        	
+                    		<a href="UserPlaylists/{{creatorId}}">{{playlist.creatorName}}</a></span> </th>
+                    </tr>
+                    <tr style="height:200px;">
+                        <th><img class="img-responsive" src="../assets/img/playlist.png"></th>
+                        <th>
+                            <ul>
+                                <p><span class="glyphicon glyphicon-time"></span> Posted on date {{playlist.date}}</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{playlist.nLikes}} <span class="glyphicon glyphicon-list"></span> {{playlist.nTracks}}</p>
+                                <p><a *ngFor="let tag of playlist.tagsOfPlaylist" class="tag" title="tag"  [routerLink]="['/search', tag.name]">{{tag.name}}</a></p>
+                                <p style="text-align:right"><a class="opcion_playlist"></a> </p>
+                            </ul>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+         
+
+          
+             <div class="col-md-6" *ngFor="let playlist of titlePlaylists">
+                 <table>
+                    <tr>
+                         <th><a [routerLink]="['/playlist', playlist.id_playlist]">{{playlist.title}} </a><span class="posted">Posted by  
+        	
+                    		<a href="UserPlaylists/{{creatorId}}">{{playlist.creatorName}}</a></span> </th>
+                    </tr>
+                    <tr style="height:200px;">
+                        <th><img class="img-responsive" src="img/playlist.png"></th>
+                        <th>
+                            <ul>
+                                <p><span class="glyphicon glyphicon-time"></span> Posted on date {{playlist.date}}</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{playlist.nLikes}} <span class="glyphicon glyphicon-list"></span> {{playlist.nTracks}}</p>
+                                <p><a *ngFor="let tag of playlist.tagsOfPlaylist" class="tag" title="tag" href="/SearchPlaylist/{{name}}">{{tag.name}}</a></p>
+                                <p style="text-align:right"><a class="opcion_playlist"></a> </p>
+                            </ul>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+           
+        </div>

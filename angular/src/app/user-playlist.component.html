@@ -1,0 +1,74 @@
+<MyNavbar></MyNavbar>
+<div *ngIf="user" class="jumbotron" style="background-color:grey;">
+        <div class="container">
+            <div class="col-md-3" id="name-jumbotron">
+                <p>{{user.name}}
+                     <button *ngIf="userLogged && followed" (click)="removeFollow(user.id_user)" type="submit" class="btn btn-success follow-btn">Following<span class="glyphicon glyphicon-ok"></span> </button>
+                     <button *ngIf="userLogged && !followed" (click)="addFollow(user.id_user)" type="submit" class="btn btn-danger follow-btn">Not Following</button>
+                </p>
+                <p><img class="img-responsive" id="userlogo" src="api/image/{{user.profileImage}}" width="60" height="55"> </p>
+            </div>
+            <div class="col-md-3" id="description">
+                <p>{{playlists?.length}}</p>
+                <p>Created playlist</p>
+            </div>
+          <div class="col-md-3" id="description">
+                <a>
+                    <button type="button" (click)="goToFollowers(user.id_user)" class="btn btn-primary btn-lg" id="cajas">{{user.followers.length}}</button>
+                </a>
+                <p>Followers</p>
+            </div>
+            <div class="col-md-3" id="description">
+                <a>
+                    <button type="button" (click)="goToFollowing(user.id_user)" class="btn btn-primary btn-lg" id="cajas">{{user.following.length}}</button>
+                </a>
+                <p>Following</p>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-default" *ngIf="user">
+        <div class="col-md-4 utent_button">
+            <a [routerLink]="['/user-playlist', user.id_user]">
+                <button type="button" class="btn btn-default btn-lg active"><span class="glyphicon glyphicon-cd"></span> PLAYLISTS</button>
+            </a>
+        </div>
+        <div class="col-md-4 utent_button">
+            <a [routerLink]="['/user-likes', user.id_user]"> 
+                <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon-thumbs-up"></span> LIKES</button>
+            </a>
+        </div>
+        <div class="col-md-4 utent_button">
+            <a [routerLink]="['/user-favorites', user.id_user]">
+                <button type="button" class="btn btn-default btn-lg"><span class="glyphicon glyphicon glyphicon-star-empty"></span> FAVORITE TRACKS</button>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+     <div class="container">
+         <td>
+            <h3><b>Playlists</b></h3>
+        <div class="row wall" *ngIf="playlists">
+             <div class="col-md-6" *ngFor="let playlist of playlists">
+                 <table id="table">
+                    <tr>
+                         <th><a [routerLink]="['/playlist', playlist.id_playlist]">{{playlist.title}} </a><span class="posted">Posted by  
+        	
+                    		<a [routerLink]="['/user-playlist', playlist.creatorId]">{{playlist.creatorName}}</a></span> </th>
+                    </tr>
+                    <tr style="height:200px;">
+                        <th><img class="img-responsive" src="../assets/img/playlist.png"></th>
+                        <th>
+                            <ul>
+                                <p><span class="glyphicon glyphicon-time"></span> Posted on date {{playlist.date}}</p>
+                                <hr>
+                                <p><span class="glyphicon glyphicon-thumbs-up"></span> {{playlist.nLikes}} <span class="glyphicon glyphicon-list"></span> {{playlist.nTracks}}</p>
+                                <p><a *ngFor="let tag of playlist.tagsOfPlaylist" class="tag" title="tag" [routerLink]="['/search', tag.name]">{{tag.name}}</a></p>
+                                <p style="text-align:right"><a class="opcion_playlist"></a> </p>
+                            </ul>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+            </div>
+     </div>

@@ -1,0 +1,27 @@
+<MyNavbar></MyNavbar>
+<div class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6"> <img class="img-responsive editlogo" src="../assets/img/playlist.png" width="250em">
+            </div>
+            <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Title for your playlist:</label>
+                        <input #title type="text" class="form-control" name='title' required> </div>
+                    <div class="form-group">
+                        <label for="comment">Description:</label>
+                        <textarea #description class="form-control" rows="5" name="description"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tag (only the first)</label>
+                        <input #tag type="text" class="form-control" name="tag" required> </div>
+                    <button type="button" (click)="createPlaylist(title.value,description.value,tag.value)" style="color:black;" name="sendData">Add new playlist</button> 
+            </div>
+        </div>
+    </div>
+    <div class="row save-return">
+        <div class="col-md-12" style="text-align:right">
+            <a [routerLink]="['/my-playlists', user.id_user]">
+                <button type="button" class="btn btn-danger">Return</button>
+            </a>
+        </div>
+    </div>
