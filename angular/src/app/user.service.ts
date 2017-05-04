@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response,Headers, RequestOptions } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from "rxjs/Observable";
+import {User} from './user.model'
 
 @Injectable()
 export class UserService {
-    private user;
     constructor(private http: Http) { };
 
     getUserPlaylist(id_user:number){
@@ -79,6 +79,18 @@ export class UserService {
     return this.http.get(url).map(
       response => response.json())
       .catch(error =>this.handleError(error))
+  }
+
+  createNewUser(user:User){
+    let url="http://localhost:4200/api/NewUser";
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      //'X-Requested-With': 'XMLHttpRequest'
+    });
+    
+   return this.http.post(url,user, headers)
+        .map(response => response.json())
+        .catch(error => this.handleError(error));
   }
 
   getArtistsFollowed(id_user:number){

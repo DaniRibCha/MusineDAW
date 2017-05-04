@@ -22,12 +22,10 @@
         <section>
             <div id="container_demo">
                 <!--Seccion que permite hacer el cambio entre log in y sing up -->
-                <a class="hiddenanchor" id="toregister"></a>
                 <a class="hiddenanchor" id="tologin"></a>
                 <div id="wrapper">
                     <div id="login" class="animate form" style="margin-top: 2em;background-color: #18BC9C;">
                         <!--Formulario que venia por defecto en la plantilla, al cual se le cambiaron aspectos textuales -->
-                        <form id="formulario" autocomplete="on">
                             <h1>Log in</h1>
                             <p>
                                 <label for="username" class="uname"> Enter your username: </label>
@@ -38,9 +36,8 @@
 
                             <p class="btnLogin">
                                 
-                                <button type="submit" (click)="logIn($event, user.value, pass.value)">Log In</button>	</p>
-                            
-                        </form>
+                                <button type="button" (click)="logIn($event, user.value, pass.value)">Log In</button>	</p>
+                                <p class="change_link"> Not registered? <a [routerLink]="['/sign-in']" class="to_register">Register</a> </p>
                     </div>
                 </div>
             </div>

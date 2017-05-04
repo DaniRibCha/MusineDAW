@@ -24,6 +24,7 @@ import {AdminCreateArtistComponent} from './admin-create-artist.component';
 import {AdminEditArtistComponent} from './admin-edit-artist.component';
 import {AdminEditSongComponent} from './admin-edit-song.component';
 import {AdminCreateSongComponent} from './admin-create-song.component';
+import {SignInComponent} from './sign-in.component';
 
 const appRoutes = [
   { path: 'playlist/:id_playlist', component: PlaylistDetailComponent},
@@ -50,6 +51,7 @@ const appRoutes = [
   { path: 'admin-create-song/:id_artist', component: AdminCreateSongComponent},
   { path: 'new', component: HomeComponent},
   { path: 'login', component: LoginComponent },
+  { path: 'sign-in', component: SignInComponent },
   { path: '', redirectTo: 'new', pathMatch: 'full' }
 ]
 

@@ -25,9 +25,6 @@ export class CreatePlaylistComponent {
     }//constructor
      
     createPlaylist(title:string,description:string,tag:string){
-        console.log("title:"+title);
-        console.log("description:"+description);
-        console.log("tag:"+tag);
         this.tag={id_tag:1,name:tag};
         this.tags.push(this.tag);
         this.date=new Date();
@@ -35,9 +32,13 @@ export class CreatePlaylistComponent {
         this.playlist={ title: title, creatorName:this.user.name,
             creatorId:this.user.id_user};
         this.playlistService.createPlaylist(this.playlist,this.user.id_user,description,tag).subscribe(
-      playlist => console.log(playlist),
-      error => console.error(error)
-    )
+            playlist => this.goToEditPlaylist(playlist.id_playlist),
+            error => console.error(error)
+        )
+    }
+
+    goToEditPlaylist(id_playlist:number){
+         this.router.navigate(['edit-playlist',id_playlist]);
     }
 
 }

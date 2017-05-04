@@ -38,6 +38,7 @@ import {AdminCreateArtistComponent} from './admin-create-artist.component';
 import {AdminEditArtistComponent} from './admin-edit-artist.component';
 import {AdminEditSongComponent} from './admin-edit-song.component';
 import {AdminCreateSongComponent} from './admin-create-song.component';
+import {SignInComponent} from './sign-in.component';
 
 @NgModule({
   declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,
@@ -45,7 +46,7 @@ import {AdminCreateSongComponent} from './admin-create-song.component';
   MyPlaylistsComponent,MyLikesComponent,MyFavoritesComponent,EditPlaylistComponent,CreatePlaylistComponent,
   ArtistFollowersComponent,MyFollowersComponent,MyFollowingComponent,UserFollowersComponent,UserFollowingComponent,
   ConfigComponent,AdminHomeComponent,AdminCreateArtistComponent,AdminEditArtistComponent,AdminEditSongComponent,
-  AdminCreateSongComponent],
+  AdminCreateSongComponent,SignInComponent],
   imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, routing,DropdownModule],
   bootstrap: [AppComponent],
   providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService,AdminService]

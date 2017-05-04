@@ -1,0 +1,29 @@
+
+    <MyNavbar></MyNavbar>
+    <!--Contenedor de toda la pagina -->
+    <div class="container">
+        <!-- Codrops top bar -->
+        <section>
+            <div id="container_demo">
+                <!--Seccion que permite hacer el cambio entre log in y sing up -->
+                <div id="wrapper">
+                    <div id="login" class="animate form" style="margin-top: 2em;background-color: #18BC9C;">
+                        <!--Formulario que venia por defecto en la plantilla, al cual se le cambiaron aspectos textuales -->
+                            <h1> Register </h1>
+                            <p>
+                                <label for="usernamesignup" class="uname">User</label>
+                                <input #username id="usernamesignup" name="username" required="required" type="text" placeholder="Username" /> </p>
+                            <p>
+                                <label for="emailsignup" class="youmail"> Email</label>
+                                <input #email id="emailsignup" name="email" required="required" type="email" placeholder="Email" /> </p>
+                            <p>
+                                <label for="passwordsignup" class="youpasswd">Password </label>
+                                <input #password id="passwordsignup" name="password" required="required" type="password" placeholder="************" /> </p>
+                            <p class="signin button">
+                                <button (click)="signIn($event,username.value,email.value,password.value)" type="button">Sign in</button> </p>
+                            <p class="change_link"> Already a member? <a [routerLink]="['/login']" class="to_register">Log in</a> </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
