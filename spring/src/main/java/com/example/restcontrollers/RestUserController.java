@@ -58,6 +58,7 @@ public class RestUserController {
 	}
 	
 	
+	
 	@RequestMapping(value="/api/ConfigUserData/{id}",method=RequestMethod.PUT)
 	public ResponseEntity<User> setUserData(@PathVariable long id,
 			@RequestParam(value = "biography", defaultValue = "") String biography,
@@ -76,28 +77,58 @@ public class RestUserController {
 	}
 
 	
-	@RequestMapping(value="/api/FollowNotFollowUser/{idUserToFollow}", method=RequestMethod.PUT)
-	public ResponseEntity<List<User>> favoriteNotFavoriteSong(@PathVariable long idUserToFollow) throws JsonProcessingException{
+//	@RequestMapping(value="/api/FollowNotFollowUser/{idUserToFollow}", method=RequestMethod.PUT)
+//	public ResponseEntity<List<User>> favoriteNotFavoriteSong(@PathVariable long idUserToFollow) throws JsonProcessingException{
+//		User uToFollow=userService.findOne(idUserToFollow);
+//		if(uToFollow!=null){
+//			long idUserLogged=userComponent.getIdLoggedUser();
+//			User uLogged=userService.findOne(idUserLogged);
+//			List<User> followingByLogged=uLogged.getFollowing();
+//			boolean finded=false;
+//			for(int i=0;i<followingByLogged.size() && !finded;++i){
+//				if(followingByLogged.get(i).getId_user()==idUserToFollow){
+//					finded=true;
+//				}
+//			}
+//			if(finded){
+//				uLogged.removeFollowing(uToFollow);
+//			}else{
+//				uLogged.addFollowing(uToFollow);
+//			}
+//			userService.save(uLogged);
+//			List<User> following=uLogged.getFollowing();
+//			return new ResponseEntity<>(following , HttpStatus.OK);
+//			
+//		}else
+//			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//
+//			
+//		}
+	
+	@RequestMapping(value="/api/FollowUser/{idUserToFollow}", method=RequestMethod.POST)
+	public ResponseEntity<User> followUser(@PathVariable long idUserToFollow) throws JsonProcessingException{
 		User uToFollow=userService.findOne(idUserToFollow);
 		if(uToFollow!=null){
 			long idUserLogged=userComponent.getIdLoggedUser();
 			User uLogged=userService.findOne(idUserLogged);
-			List<User> followingByLogged=uLogged.getFollowing();
-			boolean finded=false;
-			for(int i=0;i<followingByLogged.size() && !finded;++i){
-				if(followingByLogged.get(i).getId_user()==idUserToFollow){
-					finded=true;
-				}
-			}
-			if(finded){
-				uLogged.removeFollowing(uToFollow);
-			}else{
-				uLogged.addFollowing(uToFollow);
-			}
+			uLogged.addFollowing(uToFollow);
 			userService.save(uLogged);
-			List<User> following=uLogged.getFollowing();
-			return new ResponseEntity<>(following , HttpStatus.OK);
+			return new ResponseEntity<>(uLogged , HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
 			
+		}
+	
+	@RequestMapping(value="/api/NotFollowUser/{idUserToFollow}", method=RequestMethod.DELETE)
+	public ResponseEntity<User> notFollowUser(@PathVariable long idUserToFollow) throws JsonProcessingException{
+		User uToFollow=userService.findOne(idUserToFollow);
+		if(uToFollow!=null){
+			long idUserLogged=userComponent.getIdLoggedUser();
+			User uLogged=userService.findOne(idUserLogged);
+			uLogged.removeFollowing(uToFollow);
+			userService.save(uLogged);
+			return new ResponseEntity<>(uLogged , HttpStatus.OK);
 		}else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 

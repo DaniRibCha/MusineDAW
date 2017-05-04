@@ -49,6 +49,7 @@ public class Song{
 	@JsonView(Favorites.class)
 	private List<User> usersFavoriteSong= new ArrayList<>();
 	
+	@JsonView(Basic.class)
 	private boolean isIdLogged;
 	
 	public Song(String title, String link_youtube) {

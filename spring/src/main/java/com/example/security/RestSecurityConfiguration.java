@@ -25,9 +25,12 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		// URLs that need authentication to access to it
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyPlaylists/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyFavorites/**").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/MyLikes/**").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/FollowNotFollowArtist/**").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/WallPlaylistsLogged/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/Playlist/MyLikes/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/FollowUser/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/NotFollowUser/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/FollowArtist").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/NotFollowArtist").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/Playlist/WallLogged/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/CreatePlaylist/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/EditPlaylist/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/DeletePlaylist/**").hasRole("USER");
@@ -37,12 +40,12 @@ public class RestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/Song/DeleteFavorite").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/ConfigUserData/**").hasRole("USER");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/image/upload/**").hasRole("USER");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/FollowNotFollowUser/**").hasRole("USER");
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/api/AdminArtists").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminEditArtist/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/AdminCreateArtist").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/AdminCreateSongOfArtist/**").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminAddArtistInSong/**").hasAnyRole("ADMIN");
-		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminRemoveArtistBySong/**").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/AdminAddArtistInSong/**").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers(HttpMethod.DELETE, "/api/AdminRemoveArtistBySong/**").hasAnyRole("ADMIN");
 		http.authorizeRequests().antMatchers(HttpMethod.PUT, "/api/AdminEditSong/**").hasAnyRole("ADMIN");
 		
 		

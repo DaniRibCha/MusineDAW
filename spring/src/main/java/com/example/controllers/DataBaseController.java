@@ -309,6 +309,8 @@ public class DataBaseController {
 		
 		//prueba User-Canciones favoritas
 		u1.addFavoriteSong(s1);
+		u2.addFavoriteSong(s1);
+		u2.addFavoriteSong(s41);
 		u4.addFavoriteSong(s1);
 		u4.addFavoriteSong(s2);
 		u4.addFavoriteSong(s3);

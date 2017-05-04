@@ -41,6 +41,10 @@ public class SongService {
 		return songRepository.findByUsersFavoriteSong(users,page);
 	}
 	
+	public List<Song> findByUsersFavoriteSong(List<User> users){
+		return songRepository.findByUsersFavoriteSong(users);
+	}
+	
 	public Page<Song> findByPlaylistsOfSong(List<Playlist> playlist, Pageable page){
 		return songRepository.findByPlaylistsOfSong(playlist,page);
 	}

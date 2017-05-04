@@ -1,6 +1,7 @@
 package com.example.restcontrollers;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,6 +86,12 @@ public class RestAdminController {
 
 	}
 	
+	@JsonView(ArtistView.class)
+	@RequestMapping(value="/api/AdminArtists", method=RequestMethod.GET)
+	public ResponseEntity<List<Artist>> getAllArtists() throws Exception{
+		return new ResponseEntity<>(artistService.findAll(),HttpStatus.OK);
+	}
+	
 	
 	@JsonView(ArtistView.class)
 	@RequestMapping(value="/api/AdminCreateArtist", method=RequestMethod.POST)
@@ -106,7 +113,7 @@ public class RestAdminController {
 	}
 	
 	@JsonView(SongView.class)
-	@RequestMapping(value="/api/AdminAddArtistInSong/{idSong}", method=RequestMethod.PUT)
+	@RequestMapping(value="/api/AdminAddArtistInSong/{idSong}", method=RequestMethod.POST)
 	public ResponseEntity<Song> addArtistInSong(@PathVariable long idSong,
 			@RequestParam(value = "nameArtist") String nameArtist) throws Exception{
 		Song s=songService.findOne(idSong);
@@ -120,7 +127,7 @@ public class RestAdminController {
 	}
 	
 	@JsonView(SongView.class)
-	@RequestMapping(value="/api/AdminRemoveArtistBySong/{idSong}", method=RequestMethod.PUT)
+	@RequestMapping(value="/api/AdminRemoveArtistBySong/{idSong}", method=RequestMethod.DELETE)
 	public ResponseEntity<Song> removeArtistInSong(@PathVariable long idSong,
 			@RequestParam(value = "nameArtist") String nameArtist) throws Exception{
 		Song s=songService.findOne(idSong);

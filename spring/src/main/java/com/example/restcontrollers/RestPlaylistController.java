@@ -80,12 +80,23 @@ public class RestPlaylistController {
 	
 	interface WallPlaylistView extends Playlist.Basic,Playlist.Tags,Tag.Basic{}
 	
+//	@JsonView(WallPlaylistView.class)
+//	@RequestMapping("/api/Playlist/WallLogged/{id}")
+//	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id, 
+//			Pageable page) throws Exception{
+//		if(userComponent.getIdLoggedUser()==id){
+//			Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(page);
+//			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
+//		}else{
+//			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//		}
+//	}
+	
 	@JsonView(WallPlaylistView.class)
 	@RequestMapping("/api/Playlist/WallLogged/{id}")
-	public ResponseEntity<Page<Playlist>> getWallPlaylistsLogged(@PathVariable long id, 
-			Pageable page) throws Exception{
+	public ResponseEntity<List<Playlist>> getWallPlaylistsLogged(@PathVariable long id) throws Exception{
 		if(userComponent.getIdLoggedUser()==id){
-			Page<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc(page);
+			List<Playlist> wallPlaylists=playlistService.findFirst100ByOrderByDateAsc();
 			return new ResponseEntity<>(wallPlaylists,HttpStatus.OK);
 		}else{
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -266,12 +277,32 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 		}
 	}
+
+//@JsonView(EditPlaylistView.class)
+//@RequestMapping(value="/api/EditPlaylist/{idPlaylist}", method=RequestMethod.PUT)
+//public ResponseEntity<Playlist> EditPlaylist(@PathVariable long idPlaylist, 
+//		@RequestBody Playlist updatedPlaylist) throws Exception{
+//	Playlist p=playlistService.findOne(idPlaylist);
+//	if(p!=null){
+//		List<Tag> tagsOfPlaylist=p.getTagsOfPlaylist();
+//		for(int i=0;i<tagsOfPlaylist.size();++i){
+//			Tag tag=tagsOfPlaylist.get(i);
+//			updatedPlaylist.addTagOfPlaylist(tag);
+//		}
+//		updatedPlaylist.setId_playlist(idPlaylist);
+//		playlistService.save(updatedPlaylist);
+//		return new ResponseEntity<>(updatedPlaylist,HttpStatus.OK);
+//	}
+//	else{
+//		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+//	}
+//}
 	
 	interface DeletePlaylistView extends Playlist.Basic{};
 	
 	@JsonView(DeletePlaylistView.class)
 	@RequestMapping(value="/api/DeletePlaylist/{idPlaylist}", method=RequestMethod.DELETE)
-	public ResponseEntity<Playlist> DeletePlaylist(@PathVariable long idPlaylist){
+	public ResponseEntity<List<Playlist>> DeletePlaylist(@PathVariable long idPlaylist){
 		Playlist playlist=playlistService.findOne(idPlaylist);
 		if (playlist != null) {
 			long idUser=userComponent.getIdLoggedUser();
@@ -280,7 +311,8 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 				u.removeCreatedPlaylist(playlist);
 				playlistService.delete(playlist.getId_playlist());
 				userService.save(u);
-				return new ResponseEntity<>(playlist, HttpStatus.OK);
+				List<Playlist> playlists=playlistService.findByCreatorId(idUser);
+				return new ResponseEntity<>(playlists, HttpStatus.OK);
 			}else{
 				return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 			}	
@@ -293,14 +325,17 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 	
 	@JsonView(LikePlaylistView.class)
 	@RequestMapping(value="/api/Playlist/Like", method=RequestMethod.POST)
-	public ResponseEntity<Playlist> LikePlaylist(@RequestParam long idPlaylist){
+	public ResponseEntity<List<Playlist>> LikePlaylist(@RequestParam long idPlaylist){
 		Playlist playlist=playlistService.findOne(idPlaylist);
 		if(playlist!=null){
 			long idUser=userComponent.getIdLoggedUser();
 			User u=userService.findOne(idUser);
 			playlist.addUserlikeOfPlaylist(u);
 			playlistService.save(playlist);
-			return new ResponseEntity<>(playlist , HttpStatus.OK);
+			List<User> users=new ArrayList<>();
+			users.add(u);
+			List<Playlist> playlists=playlistService.findByUserlikesOfPlaylist(users);
+			return new ResponseEntity<>(playlists , HttpStatus.OK);
 		}else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	
@@ -308,14 +343,17 @@ interface EditPlaylistView extends Playlist.Basic, Playlist.Tags,Playlist.Songs,
 	
 	@JsonView(LikePlaylistView.class)
 	@RequestMapping(value="/api/Playlist/NotLike", method=RequestMethod.DELETE)
-	public ResponseEntity<Playlist> NotLikePlaylist(@RequestParam long idPlaylist){
+	public ResponseEntity<List<Playlist>> NotLikePlaylist(@RequestParam long idPlaylist){
 		Playlist playlist=playlistService.findOne(idPlaylist);
 		if(playlist!=null){
 			long idUser=userComponent.getIdLoggedUser();
 			User u=userService.findOne(idUser);
 			playlist.removeUserlikeOfPlaylist(u);
 			playlistService.save(playlist);
-			return new ResponseEntity<>(playlist , HttpStatus.OK);
+			List<User> users=new ArrayList<>();
+			users.add(u);
+			List<Playlist> playlists=playlistService.findByUserlikesOfPlaylist(users);
+			return new ResponseEntity<>(playlists , HttpStatus.OK);
 		}else
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	

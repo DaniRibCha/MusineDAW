@@ -92,6 +92,11 @@ public class Playlist {
 	public Playlist() {}
 	
 	
+	
+	public void setId_playlist(long id_playlist) {
+		this.id_playlist = id_playlist;
+	}
+
 	public boolean isLikedByLogged() {
 		return likedByLogged;
 	}

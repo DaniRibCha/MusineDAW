@@ -21,7 +21,7 @@ public class Artist {
 	
 	public interface Tags{}
 	
-	public interface ArtistFollowers{}
+	public interface Followers{}
 	
 	@JsonView(Basic.class)
 	@Id
@@ -41,7 +41,7 @@ public class Artist {
 	@ManyToMany(mappedBy="artistsOfSong")
 	private List<Song> songsOfArtist= new ArrayList<>();
 	
-	@JsonView(ArtistFollowers.class)
+	@JsonView(Followers.class)
 	@ManyToMany
 	private List<User> followersOfArtist= new ArrayList<>();
 	
@@ -49,6 +49,7 @@ public class Artist {
 	@ManyToMany
 	private List<Tag> tagsOfArtist= new ArrayList<>();
 	
+	@JsonView(Basic.class)
 	private boolean idLogged;
 	
 	public Artist() {

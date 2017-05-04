@@ -1,8 +1,11 @@
 package com.example.restcontrollers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -73,35 +76,60 @@ public class RestSongController {
 	}
 	
 	interface FavoriteSongView extends Song.Basic, Song.Playlists, Song.Artists{};
-		
-		@JsonView(FavoriteSongView.class)
-		@RequestMapping(value="/api/Song/AddFavorite", method=RequestMethod.POST)
-		public ResponseEntity<Song> AddFavoriteSong(@RequestParam long id){
-			Song favoriteSong=songService.findOne(id);
-			User u=userComponent.getLoggedUser();
-			List<Song> l=u.getFavoriteSongs();
-			l.add(favoriteSong);
-			songService.save(favoriteSong);	
-			userService.save(u);
-			if (favoriteSong != null) {
-				return new ResponseEntity<>(favoriteSong, HttpStatus.OK);
-				}
-				else {
-				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-			}
+
+	@JsonView(FavoriteSongView.class)
+	@RequestMapping(value="/api/Song/AddFavorite", method=RequestMethod.POST)
+	public ResponseEntity<List<Song>> AddFavoriteSong(@RequestParam long id){
+		Song favoriteSong=songService.findOne(id);
+		User u=userService.findOne(userComponent.getIdLoggedUser());
+		List<Song> l=u.getFavoriteSongs();
+		l.add(favoriteSong);
+		songService.save(favoriteSong);	
+		userService.save(u);
+		List<User> users=new ArrayList<>();
+		users.add(u);
+		List<Song> songs=songService.findByUsersFavoriteSong(users);
+		if (favoriteSong != null) {
+			return new ResponseEntity<>(songs, HttpStatus.OK);
 		}
+		else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
 	
+	@RequestMapping("/api/Song/isFavoritedByUser")
+	public ResponseEntity<Boolean> isFavoritedByUser(@RequestParam long idSong){
+		Song s=songService.findOne(idSong);
+		if(s!=null){
+			User u=userService.findOne(userComponent.getIdLoggedUser());
+			List<User> users=new ArrayList<>();
+			users.add(u);
+			List<Song> favoriteSongs=songService.findByUsersFavoriteSong(users);
+			boolean favorited=false;
+			for(int i=0;i<favoriteSongs.size() && !favorited;++i){
+				if(favoriteSongs.get(i).getId_song()==idSong){
+					favorited=true;
+				}		
+			}
+			return new ResponseEntity<>(favorited, HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
 	@JsonView(FavoriteSongView.class)
 	@RequestMapping(value="/api/Song/DeleteFavorite", method=RequestMethod.DELETE)
-	public ResponseEntity<Song> DeleteFavoriteSong(@RequestParam long id){
+	public ResponseEntity<List<Song>> DeleteFavoriteSong(@RequestParam long id){
 		Song favoriteSong=songService.findOne(id);
-		User u=userComponent.getLoggedUser();
+		User u=userService.findOne(userComponent.getIdLoggedUser());
 		List<Song> l=u.getFavoriteSongs();
 		l.remove(favoriteSong);
 		songService.save(favoriteSong);	
 		userService.save(u);
+		List<User> users=new ArrayList<>();
+		users.add(u);
+		List<Song> songs=songService.findByUsersFavoriteSong(users);
 		if (favoriteSong != null) {
-			return new ResponseEntity<>(favoriteSong, HttpStatus.OK);
+			return new ResponseEntity<>(songs, HttpStatus.OK);
 			}
 			else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

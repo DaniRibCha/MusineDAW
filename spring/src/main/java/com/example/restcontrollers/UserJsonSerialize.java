@@ -32,11 +32,19 @@ public class UserJsonSerialize {
 			jsonGenerator.writeStringField("email", user.getEmail());
 			jsonGenerator.writeStringField("profileImage", user.getProfileImage());
 			
+			jsonGenerator.writeArrayFieldStart("roles");
+			for(String rol : user.getRoles()){
+				jsonGenerator.writeString(rol);
+			}
+			jsonGenerator.writeEndArray();
+			
+			
 			jsonGenerator.writeArrayFieldStart("followers");
 			for(User u : user.getFollowers()){
 				jsonGenerator.writeStartObject();
 				jsonGenerator.writeNumberField("id_user", u.getId_user());
 				jsonGenerator.writeStringField("name", u.getName());
+				jsonGenerator.writeStringField("profileImage", u.getProfileImage());
 				jsonGenerator.writeEndObject(); 
 			}
 			jsonGenerator.writeEndArray();
@@ -46,6 +54,7 @@ public class UserJsonSerialize {
 				jsonGenerator.writeStartObject();
 				jsonGenerator.writeNumberField("id_user", u.getId_user());
 				jsonGenerator.writeStringField("name", u.getName());
+				jsonGenerator.writeStringField("profileImage", u.getProfileImage());
 				jsonGenerator.writeEndObject(); 
 			}
 			jsonGenerator.writeEndArray();
