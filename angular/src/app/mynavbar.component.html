@@ -8,7 +8,7 @@
                     </div>
                 </div>
             </form>
-                <img *ngIf="userLogged" class="img-responsive img-circle" src="api/image/{{userLogged.profileImage}}" width="60" height="55" style="position: relative;left: 54%;">
+                <img *ngIf="userLogged" class="img-responsive img-circle" src="api/image/{{userLogged.profileImage}}" style="height: 55px;width: 60px;position: relative;left: 54%;">
                 <div *ngIf="userLogged" id="navbar" class="dropdown" dropdown [dropdownToggle]="true">
                     <a class="dropdown-toggle" data-toggle="dropdown" dropdown-open style="margin-top: 0;position: relative;bottom: 2.5em;">My Account<span class="caret"></span></a>
                     <ul class="dropdown-menu" id="dropdown-options">

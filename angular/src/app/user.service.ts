@@ -145,17 +145,20 @@ export class UserService {
       .catch(error =>this.handleError(error))
   }
 
-  changeImage(id_user:number,file:File){
-    const body=file;
+  changeImage(id_user:number,files){
     let url="http://localhost:4200/api/image/upload/"+id_user;
     let formData = new FormData();
-    formData.append("file", file);
-    console.log(formData);
+    for (let file of files) {
+             formData.append('file', file);
+        }
+    //console.log(files[0]);
     let headers = new Headers({
-        'Content-Type': 'multipart/form-data'
+        //'Content-Type': 'multipart/form-data'
+        //'Accept': 'application/json'
+        //'Content-Type': image/jpg
     });
-    const options = new RequestOptions({ withCredentials: true});
-    
+    const options = new RequestOptions({ withCredentials: true,headers});
+    headers.delete("Content-Type");
     return this.http.post(url,formData,options).map(
       response => response.json())
       .catch(error =>this.handleError(error))

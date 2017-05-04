@@ -6,9 +6,8 @@
                 <p><img class="img-responsive" id="userlogo" src="api/image/{{userLogged.profileImage}}" width="60" height="55"> </p>
                 <div enctype="multipart/form-data" id="form-image">
                     <!-- (change)="selectFile($event)"-->
-					<div><input #file type="file" name="file" id="input-image" /></div>
+					<div><input #file type="file" (change)="changeImage($event)" name="file" id="input-image" /></div>
 								
-				 <button type="button" (click)="changeImage(file.value)" class="btn btn-primary btn-lg uploadImg">Change Image</button>
                 </div>
                
               

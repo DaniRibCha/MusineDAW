@@ -44,10 +44,14 @@ changeData(biography: string, country: string, city: string){
     )
   }
 
-  changeImage(file:File){
-      console.log(file);
-      this.userService.changeImage(this.userLogged.id_user,file).subscribe(
-            user => {this.userLogged=user},
+  changeImage(event:any){
+      let files = event.target.files;
+      console.log(files);
+      this.userService.changeImage(this.userLogged.id_user,files).subscribe(
+            user => {
+              this.userLogged=user;
+              this.loginService.reqIsLogged();
+            },
             error =>  console.error(error)
           );
   }
