@@ -6,8 +6,8 @@ export interface Song {
     id_song?: number;
     title: string;
     link_youtube: string;
-    artistsOfSong:Artist[];
-    playlistsOfSong:Playlist[];
-    usersFavoriteSong:User[];
-    isIdLogged:boolean;
+    artistsOfSong?:Artist[];
+    playlistsOfSong?:Playlist[];
+    usersFavoriteSong?:User[];
+    isIdLogged?:boolean;
 }

@@ -1,5 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
+import { Router, ActivatedRoute } from '@angular/router';
 import {User} from './user.model';
 import 'rxjs/Rx';
 
@@ -13,7 +14,7 @@ export class LoginService {
     isAdmin = false;
     user: User;
 
-    constructor(private http: Http) {
+    constructor(private http: Http,private router: Router) {
         //this.reqIsLogged();
     }
 
@@ -64,12 +65,12 @@ export class LoginService {
     }
 
     logOut() {
-        
         //return this.http.get('https://localhost:8443/api' + '/logOut', { withCredentials: true}).map(
             return this.http.get(URL + '/logOut', { withCredentials: true}).map(
             response => {
                 this.isLogged = false;
                 this.isAdmin = false;
+                this.user=null;
                 return response;
             }
         );

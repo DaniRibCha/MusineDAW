@@ -32,7 +32,7 @@
                           <div class="text-center"> <span>List tracks</span> </div>
                           <div *ngFor="let song of songs" style="text-align:left" id="pag">
                             <hr>
-                            <p ><button *ngIf="user && !song.isIdLogged" class="button" (click)="addFavorite(song.id_song)">Add Favorite</button><p>
+                            <p><button *ngIf="user && !song.isIdLogged" class="button" (click)="addFavorite(song.id_song)">Add Favorite</button><p>
                             <span>Title: </span>{{song?.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
                             <hr> </div>
                      </div>

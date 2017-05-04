@@ -1,0 +1,46 @@
+<MyNavbar></MyNavbar>
+<div class="jumbotron" *ngIf="userLogged" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6" id="name-jumbotron">
+                <p>{{userLogged.name}} </p>
+                <p><img class="img-responsive" id="userlogo" src="api/image/{{userLogged.profileImage}}" width="60" height="55"> </p>
+                <div enctype="multipart/form-data" id="form-image">
+                    <!-- (change)="selectFile($event)"-->
+					<div><input #file type="file" name="file" id="input-image" /></div>
+								
+				 <button type="button" (click)="changeImage(file.value)" class="btn btn-primary btn-lg uploadImg">Change Image</button>
+                </div>
+               
+              
+            </div>
+            <div class="col-md-6">
+                <div class="form-group form-utent">
+                    <label for="Bio">Biography</label>
+                    		
+<!--                     <input type="text" class="form-control" name="biography" placeholder="{{u.biography}}"> -->
+ 					<textarea #biography class="form-control" rows="5" name="biography" placeholder="{{userLogged.biography}}"></textarea>
+                </div>
+                <div class="form-group form-utent">
+                    <label for="Country">Country</label>
+                    <select #country id="listaDeshabilitada" class="form-control" name="country">
+                        <option>{{userLogged.country}}</option>
+                        <option>Spain</option>
+                        <option>Italy</option>
+                        <option>France</option>
+                        <option>Portugal</option>
+                        <option>U.K</option>
+                        <option>U.S.A</option>
+                        <option>China</option>
+                        <option>Japan</option>
+                        <option>Mexico</option>
+                        <option>Venezuela</option>
+                    </select>
+                </div>
+                <div class="form-group form-utent">
+                    <label for="City">City</label>
+                    <textarea #city class="form-control" rows="1" name="city" placeholder="{{userLogged.city}}"></textarea>
+                    <button type="button" (click)="changeData(biography.value, country.value, city.value)" style="color:black;margin-top:5px">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>

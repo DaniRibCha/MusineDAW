@@ -1,0 +1,21 @@
+<div *ngIf="artist" class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6">
+            
+                <div class="form-group form-utent">
+                	<div class="form-group form-utent">
+                        <label for="Bio">Song Title</label>
+ 					    <input #title type="text" class="form-control" name="title" placeholder="" required>
+                        <label for="Link" id="artistcouny+try">Link Youtube</label>
+                        <input #link type="text" class="form-control" name="link_youtube" placeholder="" required> 
+                    </div>
+                    <div class="form-group form-utent">
+                        <button type="button" (click)="createSong($event,title.value,link.value)" style="color:black;" name="sendData">Create</button>
+                    </div>
+                 <div class="form-group form-utent">
+                        <button type="button" (click)="goToAdminHome()" style="color:black;" name="back">Back</button>
+                        </div>
+                
+            </div>
+            </div>
+            </div>

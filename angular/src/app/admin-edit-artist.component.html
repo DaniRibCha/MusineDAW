@@ -1,0 +1,54 @@
+<MyNavbar></MyNavbar>
+<div *ngIf="artist" class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-12">
+            
+                <div class="well">
+                    <h4>Artists</h4>
+                    <div class="row">
+                    <button type="button" (click)="goToCreateSong(artist.id_artist)" style="color:black;margin-bottom:5px" name="sendData">Create Song</button>
+                    <div class="form-group" style="color:black">
+                        <label>Tags:</label>
+                        <a *ngFor="let tag of artist.tagsOfArtist" class="tag">{{tag.name}}</a>
+                        <input type="text" #tagToRemove class="form-control" name="tagToRemove" placeholder="Tag to Remove" style="margin-bottom: 1em;" >
+                         <input type="text" #tagToAdd class="form-control" name="tagToAdd" placeholder="Tag to Add" >
+                    </div>
+                        <button type="button" (click)="editTag($event,tagToRemove.value,tagToAdd.value)" style="color:black;" name="sendData">Save Changes</button>
+                    </div>
+                    <!-- /.row -->
+                </div>
+                
+                
+
+            </div>
+            <div class="form-group form-utent">
+                    <label for="Bio">Artist Name</label>
+ 					<input #nameArtist type="text" class="form-control" name="name" placeholder="{{artist.name}}" required>
+                	<div class="form-group form-utent">
+                        <label for="Link" id="artistcouny+try">Country</label>
+                        <input #countryArtist type="text" class="form-control" name="country" placeholder="{{artist.country}}" required> 
+                    </div>
+                    <div class="form-group form-utent">
+                        <button (click)="editArtist($event,nameArtist.value,countryArtist.value)" type="button" style="color:black;" name="sendData">Save Changes</button>
+                    </div>
+                    
+                        
+                       <div class="form-group form-utent">
+                        <a [routerLink]="['/admin-home']">
+                        <input type="button" style="color:black;" name="back" value="Back"/>
+                        </a>
+                        </div>
+                
+            </div>
+            </div>
+
+            <div class="container">
+                <div class="row"> Songs
+                         <div class="col-md-12">
+                            <ul>
+                                <li *ngFor="let song of artist.songsOfArtist"><a style="color:white" [routerLink]="['/admin-edit-song',song.id_song]">{{song.title}}</a> </li>                        
+                            </ul>
+                          </div>
+                </div>
+            </div>
+</div>

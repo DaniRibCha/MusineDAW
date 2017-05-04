@@ -1,0 +1,27 @@
+<MyNavbar></MyNavbar>
+<div *ngIf="user" class="jumbotron" style="background-color:grey;">
+        <div class="container">
+            <div class="col-md-3 name-jumbotron">
+                <p>Admin Menu  </p>
+                <p><img class="img-responsive" id="userlogo" src="../assets/img/user.jpg" width="60" height="55"> </p>
+            </div>
+            <div class="col-md-3 description">
+            <a [routerLink]="['/admin-create-artist']">
+                <button type="button" class="btn btn-primary btn-lg cajas">Create Artists</button>
+                </a>
+            </div>
+       
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+        <div class="col-md-12">
+        Artists
+        <ul class="list-unstyled" style="margin-left:15px">
+                            <li *ngFor="let artist of artists"><a [routerLink]="['/admin-edit-artist',artist.id_artist]">{{artist.name}}</a> </li>
+       </ul>
+   
+    </div>
+    </div>
+    </div>

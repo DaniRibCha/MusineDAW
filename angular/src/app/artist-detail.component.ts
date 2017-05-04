@@ -82,7 +82,7 @@ export class ArtistDetailComponent {
       favoriteSongs => {
         this.loginService.reqIsLogged,
         this.favoriteSongs=favoriteSongs,
-        this.isFavorite();
+        this.isFavorite(favoriteSongs);
       },
       error => console.error(error)
     )
@@ -93,17 +93,17 @@ export class ArtistDetailComponent {
       this.userService.getMyFavorites(this.user.id_user).subscribe(
             favoriteSongs=>{
               this.favoriteSongs=favoriteSongs,
-              this.isFavorite();
+              this.isFavorite(favoriteSongs);
             },
             error=>console.error(error)
             );
     }
   }
 
-  isFavorite(){
+  isFavorite(favoriteSongs:Song[]){
     if(this.loginService.isLogged){
       for(let song of this.songs){
-          for(let favoriteSong of this.favoriteSongs){
+          for(let favoriteSong of favoriteSongs){
             if (song.id_song===favoriteSong.id_song)
               song.isIdLogged=true;
           }//secondfor

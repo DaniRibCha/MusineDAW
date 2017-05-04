@@ -4,59 +4,37 @@
             <img class="img-responsive" src="../assets/img/cascos.jpg" alt="">
         </div>
     </div>
-    <div class="col-md-12" id="degradadoinverso">
+    <div *ngIf="playlist" class="col-md-12" id="degradadoinverso">
         <div class="col-md-8">
             <div class="well" id="general-info">
-                <h3 id="titulo-playlist">{{playlist?.title}}</h3>
+                <h3 id="titulo-playlist">{{playlist.title}}</h3>
                 <div class="btn-group" id="suscripcion"> 
-                <span><a href="/UserPlaylists/{{playlist?.creatorId}}">{{playlist?.creatorName}} </a></span>
+                <span><a href="/UserPlaylists/{{playlist.creatorId}}">{{playlist.creatorName}} </a></span>
                 </div>
-                <p id="descripcion">{{playlist?.description}}</p>
+                <p id="descripcion">{{playlist.description}}</p>
                 <div class="container">
                     <div class="row" id="playlist-buttons">
                         <div class="col-md-6" id="actions">
-                            <div *ngIf="login" class="btn-group">
+                            <div *ngIf="user && !playlist.isIdLogged" class="btn-group">
                                  <button (click)="addLike(playlist.id_playlist)" type="button">Like</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngIf="visible" id="tracklist">
+            <div *ngIf="songs" id="tracklist">
                 <div class="well">
                     <div class="text-center"> <span>List tracks</span> </div>
                     
                     <hr>
-                
-                    <form *ngIf="login" action="/Playlist/{{playlist?.id_playlist}}" method="post">
-                    <input type="hidden" name="favorite" value="{{id_song}}" >
-                    <input type="submit" value="Add favorites"><span class="glyphicon glyphicon-star"></span>
-                    </form>
-                    
-                        <div *ngFor="let song of playlist.songsOfPlaylist"><span>Title: </span>{{song.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
+                        <div *ngFor="let song of songs">
+                            <p><button *ngIf="user && !song.isIdLogged" class="button" (click)="addFavorite(song.id_song)">Add Favorite</button><p>
+                            <span>Title: </span>{{song.title}} <a href="{{song.link_youtube}}" class="pull-right"><i class="fa fa-play-circle-o"></i>Link Youtube </a>
                             <p><span>Artist: <a *ngFor="let artist of song.artistsOfSong" [routerLink]="['/artist', artist.id_artist]"> {{artist?.name}}</a></span></p>
                         </div>
                    
                 </div>
-                <!-- Paginacion --> 
-    
-   
-
-
-
-
-
-
-
-
-
-
-	<a href="/Playlist/{{ident}}?page={{nextPage}}">
-	 <div class="col-md-12" style="text-align:center">
-                <button type="button" class="btn btn-danger" id="loadMore">Next</button>
-        </div>
-	</a>
-	
+                
 	<div class="col-md-12" style="text-align:center" id="spin"></div>
 	<div id='more'></div>
                 

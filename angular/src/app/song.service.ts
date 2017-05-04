@@ -7,9 +7,18 @@ import { Observable } from "rxjs/Observable";
 export class SongService {
     constructor(private http: Http) { };
 
+    getSong(id_song:number){
+      let url="http://localhost:4200/api/Song/"+id_song;
+
+    const options = new RequestOptions({ withCredentials: true });
+    
+    return this.http.get(url,options).map(
+      response => response.json())
+      .catch(error =>this.handleError(error))
+    }
+
     addFavorite(id_song:number){
     let url="http://localhost:4200/api/Song/AddFavorite?id="+id_song;
-    console.log(url);
 
     const headers = new Headers({
       'Content-Type': 'application/json',

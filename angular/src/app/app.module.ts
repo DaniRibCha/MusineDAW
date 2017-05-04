@@ -19,6 +19,7 @@ import { TagService } from './tag.service';
 import { UserService } from './user.service';
 import { SongService } from './song.service';
 import { LoginService } from './login.service';
+import { AdminService } from './admin.service';
 import { routing }  from './app.routing';
 import { MyNavbarComponent } from './mynavbar.component';
 import {DropdownModule} from "ngx-dropdown";
@@ -31,15 +32,23 @@ import {MyFollowersComponent} from './my-followers.component';
 import {MyFollowingComponent} from './my-following.component';
 import {UserFollowersComponent} from './user-followers.component';
 import {UserFollowingComponent} from './user-following.component';
+import {ConfigComponent} from './config.component';
+import {AdminHomeComponent} from './admin-home.component';
+import {AdminCreateArtistComponent} from './admin-create-artist.component';
+import {AdminEditArtistComponent} from './admin-edit-artist.component';
+import {AdminEditSongComponent} from './admin-edit-song.component';
+import {AdminCreateSongComponent} from './admin-create-song.component';
 
 @NgModule({
   declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,
   UserPlaylistComponent,ArtistDetailComponent,UserLikeComponent,UserFavoriteComponent, MyNavbarComponent,
   MyPlaylistsComponent,MyLikesComponent,MyFavoritesComponent,EditPlaylistComponent,CreatePlaylistComponent,
-  ArtistFollowersComponent,MyFollowersComponent,MyFollowingComponent,UserFollowersComponent,UserFollowingComponent],
+  ArtistFollowersComponent,MyFollowersComponent,MyFollowingComponent,UserFollowersComponent,UserFollowingComponent,
+  ConfigComponent,AdminHomeComponent,AdminCreateArtistComponent,AdminEditArtistComponent,AdminEditSongComponent,
+  AdminCreateSongComponent],
   imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, routing,DropdownModule],
   bootstrap: [AppComponent],
-  providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService]
+  providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService,AdminService]
 })
 export class AppModule { }
 

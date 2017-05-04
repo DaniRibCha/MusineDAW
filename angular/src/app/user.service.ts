@@ -118,6 +118,37 @@ export class UserService {
         .catch(error => this.handleError(error));
   }
 
+  changeData(id_user:number,biography:string,country:string,city:string){
+    let params='?biography='+biography+'&country='+country+'&city='+city;
+    let url="http://localhost:4200/api/ConfigUserData/"+id_user+params;
+    console.log(url);
+     const headers = new Headers({
+      'Content-Type': 'application/json',
+      //'X-Requested-With': 'XMLHttpRequest'
+    });
+    const options = new RequestOptions({ withCredentials: true,headers});
+    
+    return this.http.put(url,options).map(
+      response => response.json())
+      .catch(error =>this.handleError(error))
+  }
+
+  changeImage(id_user:number,file:File){
+    const body=file;
+    let url="http://localhost:4200/api/image/upload/"+id_user;
+    let formData = new FormData();
+    formData.append("file", file);
+    console.log(formData);
+    let headers = new Headers({
+        'Content-Type': 'multipart/form-data'
+    });
+    const options = new RequestOptions({ withCredentials: true});
+    
+    return this.http.post(url,formData,options).map(
+      response => response.json())
+      .catch(error =>this.handleError(error))
+  }
+
 
   private handleError(error: any) {
         console.error(error);

@@ -1,0 +1,27 @@
+<MyNavbar></MyNavbar>
+<div class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-12">
+            
+                <div class="form-group form-utent">
+                    <label for="Bio">Artist Name</label>
+ 					<input #nameArtist type="text" class="form-control" name="name" placeholder="" required>
+                	<div class="form-group form-utent">
+                        <label for="Link" id="artistcouny+try">Country</label>
+                        <input #countryArtist type="text" class="form-control" name="country" placeholder="" required> 
+                    </div>
+                    <div class="form-group form-utent">
+                        <button (click)="createArtist($event,nameArtist.value,countryArtist.value)" type="button" style="color:black;" name="sendData">Create</button>
+                    </div>
+                    
+                        
+                       <div class="form-group form-utent">
+                        <a [routerLink]="['/admin-home']">
+                        <input type="button" style="color:black;" name="back" value="Back"/>
+                        </a>
+                        </div>
+                
+            </div>
+            </div>
+            </div>
+            </div>

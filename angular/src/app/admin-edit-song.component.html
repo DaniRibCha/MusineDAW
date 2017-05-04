@@ -1,0 +1,37 @@
+ <MyNavbar></MyNavbar>
+ <div *ngIf="song" class="jumbotron" style="background-color:grey;">
+        <div class="container uploadImg">
+            <div class="col-md-6">
+            
+                <div class="well">
+                    <h4>Artists</h4>
+                    <div class="row">
+                    <div class="form-group" style="color:black">
+                        <span *ngFor="let artist of artists">{{artist.name}}, </span>
+                        <input type="text" #artistToRemove class="form-control" name="artistToRemove" placeholder="Artist to Remove" style="margin-bottom: 1em;" >
+                         <input type="text" #artistToAdd class="form-control" name="artistToAdd" placeholder="Artist to Add" >
+                    </div>
+                        <button type="button" (click)="editArtistSong($event,artistToRemove.value,artistToAdd.value)" style="color:black;" name="sendData">Save Changes</button>
+                    </div>
+                    <!-- /.row -->
+                </div>
+            </div>
+             <div class="col-md-6">
+                        
+                	<div class="form-group form-utent">
+                        <label for="Bio">Song Title</label>
+ 					    <input #title type="text" class="form-control" name="title" placeholder="{{song.title}}" >
+                        <label for="Link" id="artistcouny+try">Link Youtube</label>
+                        <input #link type="text" class="form-control" name="link_youtube" placeholder="{{song.link_youtube}}" > 
+                    </div>
+                    <div class="form-group form-utent">
+                        <button type="button" (click)="editSong($event,title.value,link.value)" style="color:black;" name="sendData">Save changes</button>
+                    </div>
+                 <div class="form-group form-utent">
+                        
+                        <button type="button" (click)="goToAdminHome()" style="color:black;" name="back">Back</button>
+                       
+                        </div>
+            </div>
+        </div>
+ </div>

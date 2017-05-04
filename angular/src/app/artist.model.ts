@@ -6,9 +6,9 @@ export interface Artist {
     id_artist?: number;
     name: string;
     country: string;
-    followers:number;
-    songsOfArtist:Song[];
-    followersOfArtist:User[];
-    tagsOfArtist:Tag[];
-    idLogged:boolean;
+    followers?:number;
+    songsOfArtist?:Song[];
+    followersOfArtist?:User[];
+    tagsOfArtist?:Tag[];
+    idLogged?:boolean;
 }

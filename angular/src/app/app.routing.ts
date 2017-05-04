@@ -18,6 +18,12 @@ import {MyFollowersComponent} from './my-followers.component';
 import {MyFollowingComponent} from './my-following.component';
 import {UserFollowersComponent} from './user-followers.component';
 import {UserFollowingComponent} from './user-following.component';
+import {ConfigComponent} from './config.component';
+import {AdminHomeComponent} from './admin-home.component';
+import {AdminCreateArtistComponent} from './admin-create-artist.component';
+import {AdminEditArtistComponent} from './admin-edit-artist.component';
+import {AdminEditSongComponent} from './admin-edit-song.component';
+import {AdminCreateSongComponent} from './admin-create-song.component';
 
 const appRoutes = [
   { path: 'playlist/:id_playlist', component: PlaylistDetailComponent},
@@ -34,8 +40,14 @@ const appRoutes = [
   { path: 'user-followers/:id_user', component: UserFollowersComponent},
   { path: 'user-following/:id_user', component: UserFollowingComponent},
   { path: 'search/:key', component: SearchComponent},
+  { path: 'config/:id_user', component: ConfigComponent},
   { path: 'edit-playlist/:id_playlist', component: EditPlaylistComponent},
   { path: 'create-playlist', component: CreatePlaylistComponent},
+  { path: 'admin-home', component: AdminHomeComponent},
+  { path: 'admin-create-artist', component: AdminCreateArtistComponent},
+  { path: 'admin-edit-artist/:id_artist', component: AdminEditArtistComponent},
+  { path: 'admin-edit-song/:id_song', component: AdminEditSongComponent},
+  { path: 'admin-create-song/:id_artist', component: AdminCreateSongComponent},
   { path: 'new', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'new', pathMatch: 'full' }

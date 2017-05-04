@@ -24,7 +24,7 @@ export class MyNavbarComponent{
      logout(){
          this.loginService.logOut().subscribe(
       response => {console.log(response),
-      this.router.navigate(['/']);},
+      this.router.navigate(['/login']);},
       error => console.error(error)
     )
 
