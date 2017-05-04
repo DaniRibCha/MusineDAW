@@ -62,6 +62,18 @@ public class LoginIndexController {
     	return "loginerror";
     }
     
+    @RequestMapping("/signIn")
+    public String signIn(@RequestParam(value = "username") String username,
+    		@RequestParam(value = "email") String email,
+    		@RequestParam(value = "password") String password){
+    	User u=new User(username,"",password,email,"ROLE_USER");
+    	u.setBiography("");
+		u.setCity("");
+		u.setProfileImage("user.jpg");
+    	userService.save(u);
+    	return "login";
+    }
+    
     @RequestMapping("/")
 	public String getIndex(Model model, Pageable page, HttpServletRequest request,
 			@RequestParam(value = "likeId", required=false) Long likeId){	

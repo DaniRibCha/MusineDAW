@@ -57,6 +57,15 @@ public class RestUserController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
+	@RequestMapping(value="/api/NewUser",method=RequestMethod.POST)
+	public ResponseEntity<User> newUser(@RequestBody User u) throws Exception{
+		u.setBiography("");
+		u.setCity("");
+		u.setProfileImage("user.jpg");
+		userService.save(u);
+		return new ResponseEntity<>(u,HttpStatus.OK);
+	}
+	
 	
 	
 	@RequestMapping(value="/api/ConfigUserData/{id}",method=RequestMethod.PUT)
