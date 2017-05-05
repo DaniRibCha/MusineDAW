@@ -422,116 +422,116 @@ public class DataBaseController {
 		pCreated3.addSongOfPlaylist(s1);
 		tagService.save(t1);
 		
-		Playlist pCreated4=new Playlist("myPlaylistCreated4",u4.getName(),u4.getId_user());
-		pCreated4.addTagOfPlaylist(t1);pCreated4.addTagOfPlaylist(t4);
-		pCreated4.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated5=new Playlist("myPlaylistCreated5",u3.getName(),u3.getId_user());
-		pCreated5.addTagOfPlaylist(t1);pCreated5.addTagOfPlaylist(t4);
-		pCreated5.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated6=new Playlist("myPlaylistCreated6",u13.getName(),u13.getId_user());
-		pCreated6.addTagOfPlaylist(t2);pCreated6.addTagOfPlaylist(t3);
-		pCreated6.addSongOfPlaylist(s2);
-		tagService.save(t2);tagService.save(t3);
-		
-		Playlist pCreated7=new Playlist("myPlaylistCreated7",u6.getName(),u6.getId_user());
-		pCreated7.addTagOfPlaylist(t1);
-		pCreated7.addSongOfPlaylist(s2);
-		tagService.save(t1);
-		
-		Playlist pCreated8=new Playlist("myPlaylistCreated8",u15.getName(),u15.getId_user());
-		pCreated8.addTagOfPlaylist(t4);
-		pCreated8.addSongOfPlaylist(s2);
-		tagService.save(t4);
-		
-		Playlist pCreated9=new Playlist("myPlaylistCreated9",u20.getName(),u20.getId_user());
-		pCreated9.addTagOfPlaylist(t2);pCreated9.addTagOfPlaylist(t4);
-		pCreated9.addSongOfPlaylist(s2);
-		tagService.save(t2);tagService.save(t4);
-		
-		Playlist pCreated10=new Playlist("myPlaylistCreated10",u19.getName(),u19.getId_user());
-		pCreated10.addTagOfPlaylist(t1);pCreated10.addTagOfPlaylist(t4);
-		pCreated10.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated11=new Playlist("myPlaylistCreated11",u23.getName(),u23.getId_user());
-		pCreated11.addTagOfPlaylist(t3);
-		pCreated11.addSongOfPlaylist(s2);
-		tagService.save(t3);
-		
-		Playlist pCreated12=new Playlist("myPlaylistCreated12",u17.getName(),u17.getId_user());
-		pCreated12.addTagOfPlaylist(t1);pCreated12.addTagOfPlaylist(t4);
-		pCreated12.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated13=new Playlist("myPlaylistCreated13",u6.getName(),u6.getId_user());
-		pCreated13.addTagOfPlaylist(t4);
-		pCreated13.addSongOfPlaylist(s2);
-		tagService.save(t4);
-		
-		Playlist pCreated14=new Playlist("myPlaylistCreated14",u3.getName(),u3.getId_user());
-		pCreated14.addTagOfPlaylist(t1);pCreated14.addTagOfPlaylist(t4);
-		pCreated14.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated15=new Playlist("myPlaylistCreated15",u12.getName(),u12.getId_user());
-		pCreated15.addTagOfPlaylist(t1);
-		pCreated15.addSongOfPlaylist(s2);
-		tagService.save(t1);
-		
-		Playlist pCreated16=new Playlist("myPlaylistCreated16",u8.getName(),u8.getId_user());
-		pCreated16.addTagOfPlaylist(t1);pCreated16.addTagOfPlaylist(t4);
-		pCreated16.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated17=new Playlist("myPlaylistCreated17",u18.getName(),u18.getId_user());
-		pCreated17.addTagOfPlaylist(t1);
-		pCreated17.addSongOfPlaylist(s2);
-		tagService.save(t1);
-		
-		Playlist pCreated18=new Playlist("myPlaylistCreated18",u5.getName(),u5.getId_user());
-		pCreated18.addTagOfPlaylist(t1);pCreated18.addTagOfPlaylist(t4);
-		pCreated18.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated19=new Playlist("myPlaylistCreated19",u2.getName(),u2.getId_user());
-		pCreated19.addTagOfPlaylist(t1);
-		pCreated19.addSongOfPlaylist(s2);
-		tagService.save(t1);
-		
-		Playlist pCreated20=new Playlist("myPlaylistCreated20",u3.getName(),u3.getId_user());
-		pCreated20.addTagOfPlaylist(t1);pCreated20.addTagOfPlaylist(t4);
-		pCreated20.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated21=new Playlist("myPlaylistCreated21",u23.getName(),u23.getId_user());
-		pCreated21.addTagOfPlaylist(t1);pCreated21.addTagOfPlaylist(t4);
-		pCreated21.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated22=new Playlist("myPlaylistCreated22",u4.getName(),u4.getId_user());
-		pCreated22.addTagOfPlaylist(t3);
-		pCreated22.addSongOfPlaylist(s2);
-		tagService.save(t3);
-		
-		Playlist pCreated23=new Playlist("myPlaylistCreated23",u17.getName(),u17.getId_user());
-		pCreated23.addTagOfPlaylist(t3);pCreated23.addTagOfPlaylist(t4);
-		pCreated23.addSongOfPlaylist(s2);
-		tagService.save(t3);tagService.save(t4);
-		
-		Playlist pCreated24=new Playlist("myPlaylistCreated24",u7.getName(),u7.getId_user());
-		pCreated24.addTagOfPlaylist(t1);pCreated24.addTagOfPlaylist(t4);
-		pCreated24.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
-		Playlist pCreated25=new Playlist("myPlaylistCreated25",u3.getName(),u3.getId_user());
-		pCreated25.addTagOfPlaylist(t1);pCreated25.addTagOfPlaylist(t4);
-		pCreated25.addSongOfPlaylist(s2);
-		tagService.save(t1);tagService.save(t4);
-		
+//		Playlist pCreated4=new Playlist("myPlaylistCreated4",u4.getName(),u4.getId_user());
+//		pCreated4.addTagOfPlaylist(t1);pCreated4.addTagOfPlaylist(t4);
+//		pCreated4.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated5=new Playlist("myPlaylistCreated5",u3.getName(),u3.getId_user());
+//		pCreated5.addTagOfPlaylist(t1);pCreated5.addTagOfPlaylist(t4);
+//		pCreated5.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated6=new Playlist("myPlaylistCreated6",u13.getName(),u13.getId_user());
+//		pCreated6.addTagOfPlaylist(t2);pCreated6.addTagOfPlaylist(t3);
+//		pCreated6.addSongOfPlaylist(s2);
+//		tagService.save(t2);tagService.save(t3);
+//		
+//		Playlist pCreated7=new Playlist("myPlaylistCreated7",u6.getName(),u6.getId_user());
+//		pCreated7.addTagOfPlaylist(t1);
+//		pCreated7.addSongOfPlaylist(s2);
+//		tagService.save(t1);
+//		
+//		Playlist pCreated8=new Playlist("myPlaylistCreated8",u15.getName(),u15.getId_user());
+//		pCreated8.addTagOfPlaylist(t4);
+//		pCreated8.addSongOfPlaylist(s2);
+//		tagService.save(t4);
+//		
+//		Playlist pCreated9=new Playlist("myPlaylistCreated9",u20.getName(),u20.getId_user());
+//		pCreated9.addTagOfPlaylist(t2);pCreated9.addTagOfPlaylist(t4);
+//		pCreated9.addSongOfPlaylist(s2);
+//		tagService.save(t2);tagService.save(t4);
+//		
+//		Playlist pCreated10=new Playlist("myPlaylistCreated10",u19.getName(),u19.getId_user());
+//		pCreated10.addTagOfPlaylist(t1);pCreated10.addTagOfPlaylist(t4);
+//		pCreated10.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated11=new Playlist("myPlaylistCreated11",u23.getName(),u23.getId_user());
+//		pCreated11.addTagOfPlaylist(t3);
+//		pCreated11.addSongOfPlaylist(s2);
+//		tagService.save(t3);
+//		
+//		Playlist pCreated12=new Playlist("myPlaylistCreated12",u17.getName(),u17.getId_user());
+//		pCreated12.addTagOfPlaylist(t1);pCreated12.addTagOfPlaylist(t4);
+//		pCreated12.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated13=new Playlist("myPlaylistCreated13",u6.getName(),u6.getId_user());
+//		pCreated13.addTagOfPlaylist(t4);
+//		pCreated13.addSongOfPlaylist(s2);
+//		tagService.save(t4);
+//		
+//		Playlist pCreated14=new Playlist("myPlaylistCreated14",u3.getName(),u3.getId_user());
+//		pCreated14.addTagOfPlaylist(t1);pCreated14.addTagOfPlaylist(t4);
+//		pCreated14.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated15=new Playlist("myPlaylistCreated15",u12.getName(),u12.getId_user());
+//		pCreated15.addTagOfPlaylist(t1);
+//		pCreated15.addSongOfPlaylist(s2);
+//		tagService.save(t1);
+//		
+//		Playlist pCreated16=new Playlist("myPlaylistCreated16",u8.getName(),u8.getId_user());
+//		pCreated16.addTagOfPlaylist(t1);pCreated16.addTagOfPlaylist(t4);
+//		pCreated16.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated17=new Playlist("myPlaylistCreated17",u18.getName(),u18.getId_user());
+//		pCreated17.addTagOfPlaylist(t1);
+//		pCreated17.addSongOfPlaylist(s2);
+//		tagService.save(t1);
+//		
+//		Playlist pCreated18=new Playlist("myPlaylistCreated18",u5.getName(),u5.getId_user());
+//		pCreated18.addTagOfPlaylist(t1);pCreated18.addTagOfPlaylist(t4);
+//		pCreated18.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated19=new Playlist("myPlaylistCreated19",u2.getName(),u2.getId_user());
+//		pCreated19.addTagOfPlaylist(t1);
+//		pCreated19.addSongOfPlaylist(s2);
+//		tagService.save(t1);
+//		
+//		Playlist pCreated20=new Playlist("myPlaylistCreated20",u3.getName(),u3.getId_user());
+//		pCreated20.addTagOfPlaylist(t1);pCreated20.addTagOfPlaylist(t4);
+//		pCreated20.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated21=new Playlist("myPlaylistCreated21",u23.getName(),u23.getId_user());
+//		pCreated21.addTagOfPlaylist(t1);pCreated21.addTagOfPlaylist(t4);
+//		pCreated21.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated22=new Playlist("myPlaylistCreated22",u4.getName(),u4.getId_user());
+//		pCreated22.addTagOfPlaylist(t3);
+//		pCreated22.addSongOfPlaylist(s2);
+//		tagService.save(t3);
+//		
+//		Playlist pCreated23=new Playlist("myPlaylistCreated23",u17.getName(),u17.getId_user());
+//		pCreated23.addTagOfPlaylist(t3);pCreated23.addTagOfPlaylist(t4);
+//		pCreated23.addSongOfPlaylist(s2);
+//		tagService.save(t3);tagService.save(t4);
+//		
+//		Playlist pCreated24=new Playlist("myPlaylistCreated24",u7.getName(),u7.getId_user());
+//		pCreated24.addTagOfPlaylist(t1);pCreated24.addTagOfPlaylist(t4);
+//		pCreated24.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
+//		Playlist pCreated25=new Playlist("myPlaylistCreated25",u3.getName(),u3.getId_user());
+//		pCreated25.addTagOfPlaylist(t1);pCreated25.addTagOfPlaylist(t4);
+//		pCreated25.addSongOfPlaylist(s2);
+//		tagService.save(t1);tagService.save(t4);
+//		
 		//Playlist especificamente para probar la paginacion con Dani
 		
 		Playlist pCreated26=new Playlist("myPlaylistCreated26",u2.getName(),u2.getId_user());
@@ -687,53 +687,53 @@ public class DataBaseController {
 		pCreated1.addUserlikeOfPlaylist(u2);
 		pCreated2.addUserlikeOfPlaylist(u2);
 		pCreated3.addUserlikeOfPlaylist(u2);
-		pCreated4.addUserlikeOfPlaylist(u2);
-		pCreated5.addUserlikeOfPlaylist(u2);
-		pCreated6.addUserlikeOfPlaylist(u2);
-		pCreated7.addUserlikeOfPlaylist(u2);
-		pCreated8.addUserlikeOfPlaylist(u2);
-		pCreated9.addUserlikeOfPlaylist(u2);
-		pCreated10.addUserlikeOfPlaylist(u2);
-		pCreated11.addUserlikeOfPlaylist(u2);
-		pCreated12.addUserlikeOfPlaylist(u2);
-		pCreated13.addUserlikeOfPlaylist(u2);
-		pCreated15.addUserlikeOfPlaylist(u2);
-		pCreated16.addUserlikeOfPlaylist(u2);
-		pCreated17.addUserlikeOfPlaylist(u2);
-		pCreated18.addUserlikeOfPlaylist(u2);
-		pCreated19.addUserlikeOfPlaylist(u2);
-		pCreated20.addUserlikeOfPlaylist(u2);
-		pCreated21.addUserlikeOfPlaylist(u2);
-		pCreated22.addUserlikeOfPlaylist(u2);
-		pCreated23.addUserlikeOfPlaylist(u2);
-		pCreated24.addUserlikeOfPlaylist(u2);
-		pCreated25.addUserlikeOfPlaylist(u2);
+//		pCreated4.addUserlikeOfPlaylist(u2);
+//		pCreated5.addUserlikeOfPlaylist(u2);
+//		pCreated6.addUserlikeOfPlaylist(u2);
+//		pCreated7.addUserlikeOfPlaylist(u2);
+//		pCreated8.addUserlikeOfPlaylist(u2);
+//		pCreated9.addUserlikeOfPlaylist(u2);
+//		pCreated10.addUserlikeOfPlaylist(u2);
+//		pCreated11.addUserlikeOfPlaylist(u2);
+//		pCreated12.addUserlikeOfPlaylist(u2);
+//		pCreated13.addUserlikeOfPlaylist(u2);
+//		pCreated15.addUserlikeOfPlaylist(u2);
+//		pCreated16.addUserlikeOfPlaylist(u2);
+//		pCreated17.addUserlikeOfPlaylist(u2);
+//		pCreated18.addUserlikeOfPlaylist(u2);
+//		pCreated19.addUserlikeOfPlaylist(u2);
+//		pCreated20.addUserlikeOfPlaylist(u2);
+//		pCreated21.addUserlikeOfPlaylist(u2);
+//		pCreated22.addUserlikeOfPlaylist(u2);
+//		pCreated23.addUserlikeOfPlaylist(u2);
+//		pCreated24.addUserlikeOfPlaylist(u2);
+//		pCreated25.addUserlikeOfPlaylist(u2);
 		
 		playlistService.save(pCreated1); 
 		playlistService.save(pCreated2);
 		playlistService.save(pCreated3);
-		playlistService.save(pCreated4);
-		playlistService.save(pCreated5);
-		playlistService.save(pCreated6);
-		playlistService.save(pCreated7);
-		playlistService.save(pCreated8);
-		playlistService.save(pCreated9);
-		playlistService.save(pCreated10);
-		playlistService.save(pCreated11);
-		playlistService.save(pCreated12);
-		playlistService.save(pCreated13);
-		playlistService.save(pCreated14);
-		playlistService.save(pCreated15);
-		playlistService.save(pCreated16);
-		playlistService.save(pCreated17);
-		playlistService.save(pCreated18);
-		playlistService.save(pCreated19);
-		playlistService.save(pCreated20);
-		playlistService.save(pCreated21);
-		playlistService.save(pCreated22);
-		playlistService.save(pCreated23);
-		playlistService.save(pCreated24);
-		playlistService.save(pCreated25);
+//		playlistService.save(pCreated4);
+//		playlistService.save(pCreated5);
+//		playlistService.save(pCreated6);
+//		playlistService.save(pCreated7);
+//		playlistService.save(pCreated8);
+//		playlistService.save(pCreated9);
+//		playlistService.save(pCreated10);
+//		playlistService.save(pCreated11);
+//		playlistService.save(pCreated12);
+//		playlistService.save(pCreated13);
+//		playlistService.save(pCreated14);
+//		playlistService.save(pCreated15);
+//		playlistService.save(pCreated16);
+//		playlistService.save(pCreated17);
+//		playlistService.save(pCreated18);
+//		playlistService.save(pCreated19);
+//		playlistService.save(pCreated20);
+//		playlistService.save(pCreated21);
+//		playlistService.save(pCreated22);
+//		playlistService.save(pCreated23);
+//		playlistService.save(pCreated24);
+//		playlistService.save(pCreated25);
 		playlistService.save(pCreated26);
 		playlistService.save(pCreated27);
 		playlistService.save(pCreated28);
