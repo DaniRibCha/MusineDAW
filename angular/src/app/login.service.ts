@@ -15,7 +15,7 @@ export class LoginService {
     user: User;
 
     constructor(private http: Http,private router: Router) {
-        //this.reqIsLogged();
+        this.reqIsLogged();
     }
 
     reqIsLogged() {
@@ -45,7 +45,7 @@ export class LoginService {
     }
 
     logIn(user: string, pass: string) {
-
+        
         const userPass = user + ':' + pass;
 
         const headers = new Headers({
@@ -65,6 +65,7 @@ export class LoginService {
     }
 
     logOut() {
+        //this.reqIsLogged();
         //return this.http.get('https://localhost:8443/api' + '/logOut', { withCredentials: true}).map(
             return this.http.get(URL + '/logOut', { withCredentials: true}).map(
             response => {

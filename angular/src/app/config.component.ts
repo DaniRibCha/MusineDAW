@@ -51,6 +51,7 @@ changeData(biography: string, country: string, city: string){
             user => {
               this.userLogged=user;
               this.loginService.reqIsLogged();
+              this.router.navigate(['/config',this.userLogged.id_user]);
             },
             error =>  console.error(error)
           );

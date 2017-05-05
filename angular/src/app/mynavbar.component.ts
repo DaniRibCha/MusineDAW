@@ -15,9 +15,12 @@ import {DropdownModule} from "ngx-dropdown";
 export class MyNavbarComponent{ 
   userLogged:User;
   key:string;
-  constructor(private router: Router,
+  constructor(private router: Router,activatedRoute: ActivatedRoute,
     private loginService: LoginService) {
-    this.userLogged=loginService.user;
+    activatedRoute.params.subscribe(params=>{
+             this.userLogged=loginService.user;
+        });
+
     
      }
 

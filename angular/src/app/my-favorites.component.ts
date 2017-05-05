@@ -19,6 +19,7 @@ export class MyFavoritesComponent {
     constructor(private router: Router, activatedRoute: ActivatedRoute, private songService: SongService,
         private userService: UserService,private loginService: LoginService) {
         activatedRoute.params.subscribe(params=>{
+             loginService.reqIsLogged();
             this.user=this.loginService.user;
             let id_user=this.user.id_user;
             this.userService.getMyFavorites(params['id_user']).subscribe(

@@ -112,12 +112,7 @@ export class PlaylistService {
   getWallPlaylistsLogged(id_user:number){
     let url="http://localhost:4200/api/Playlist/WallLogged/"+id_user;
 
-    const headers = new Headers({
-      'Content-Type': 'application/json',
-      //'X-Requested-With': 'XMLHttpRequest'
-    });
-
-    const options = new RequestOptions({ withCredentials: true, headers });
+    const options = new RequestOptions({ withCredentials: true });
     
     return this.http.get(url,options).map(
       //response => this.extractPlaylists(response))

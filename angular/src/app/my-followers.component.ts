@@ -25,6 +25,7 @@ export class MyFollowersComponent {
         private userService: UserService,private loginService: LoginService,
         private tagService: TagService) {
     let id_user = activatedRoute.params.subscribe(params => {
+       loginService.reqIsLogged();
         this.user=loginService.user;            
         this.followers=this.user.followers;
     });

@@ -43,3 +43,10 @@
             </div>
         </div>
     </div>
+    <div *ngIf="userLogged" class="row save-return">
+        <div class="col-md-12" style="text-align:right">
+            <a [routerLink]="['/my-playlists', userLogged.id_user]">
+                <button type="button" class="btn btn-danger">Return</button>
+            </a>
+        </div>
+    </div>
