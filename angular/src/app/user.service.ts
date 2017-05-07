@@ -81,6 +81,15 @@ export class UserService {
       .catch(error =>this.handleError(error))
   }
 
+  getUserByName(name:string){
+    let url="http://localhost:4200/api/User/SearchByName?key="+name;
+    console.log(url);
+    
+    return this.http.get(url).map(
+      response => response.json())
+      .catch(error =>this.handleError(error))
+  }
+
   createNewUser(user:User){
     let url="http://localhost:4200/api/NewUser";
     const headers = new Headers({

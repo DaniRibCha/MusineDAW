@@ -50,6 +50,9 @@
         </div>
         <td>
             <h3><b>Results</b></h3></td>
+            <div class="row wall" *ngIf="userByName">
+                <a [routerLink]="['/user-playlist', userByName.id_user]">{{userByName.name}}</a>
+            </div>
        <div class="row wall" *ngIf="tagPlaylists!=undefined || titlePlaylists!=undefined">
              
              <div class="col-md-6" *ngFor="let playlist of tagPlaylists">
@@ -57,7 +60,7 @@
                     <tr>
                          <th><a [routerLink]="['/playlist', playlist.id_playlist]">{{playlist.title}} </a><span class="posted">Posted by  
         	
-                    		<a href="UserPlaylists/{{creatorId}}">{{playlist.creatorName}}</a></span> </th>
+                    		<a [routerLink]="['/user-playlist', playlist.creatorId]">{{playlist.creatorName}}</a></span> </th>
                     </tr>
                     <tr style="height:200px;">
                         <th><img class="img-responsive" src="../assets/img/playlist.png"></th>

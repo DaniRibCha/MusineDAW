@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { PlaylistService } from './playlist.service';
-import { ArtistService } from './artist.service';
+import { UserService } from './user.service';
 import { TagService } from './tag.service';
 import { LoginService } from './login.service';
+import { ArtistService } from './artist.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {Playlist} from './playlist.model'
-import {Artist} from './artist.model'
+import {User} from './user.model'
 
 @Component({
   templateUrl:'./search.component.html',
@@ -21,10 +22,12 @@ export class SearchComponent {
   topPlaylists:string[] = [];
   topTags:string[]=[];
   login:boolean;
+  userByName:User;
 
   constructor(private router: Router, activatedRoute: ActivatedRoute,
-  private playlistService: PlaylistService,private artistService: ArtistService,
-  private tagService: TagService,private loginService: LoginService) {
+  private playlistService: PlaylistService,private artistService:ArtistService,
+  private tagService: TagService,private userService: UserService,
+  private loginService: LoginService) {
     
     let key = activatedRoute.params.subscribe(params=>{
       this.tagPlaylists=[];
@@ -41,6 +44,11 @@ export class SearchComponent {
       this.key=activatedRoute.snapshot.params['key'];},
       error => console.error(error)
     )
+
+      this.userService.getUserByName(params['key']).subscribe(
+        user=> {this.userByName=user},
+        error=>console.log(error)
+      )
     });
     this.getTopPlaylist();
     this.getTopArtist();
@@ -69,11 +77,6 @@ export class SearchComponent {
     )
   }
   
-  getPlaylistByTitle(key:string){
-    this.playlistService.getPlaylistByTitle(key).subscribe(
-      titlePlaylists => this.titlePlaylists=titlePlaylists,
-      error => console.error(error)
-    )
-  }
+ 
   
 }
