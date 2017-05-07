@@ -95,16 +95,14 @@ public class RestPublicPageController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-//	interface SearchView extends Tag.Basic,Tag.TagPlaylists,Playlist.Basic{};
-//	@JsonView(SearchView.class)
-//	@RequestMapping("/api/Playlist/SearchByTag")
-//	public ResponseEntity<List<Playlist>> getSearchByTag(@RequestParam(value = "key") String key) throws Exception{
-//		Tag t=tagService.findByName(key);
-//		List<Tag> tags=new ArrayList<>();
-//		tags.add(t);
-//		List<Playlist> playlists=playlistService.findByTagsOfPlaylist(tags);
-//		return new ResponseEntity<>(playlists,HttpStatus.OK);
-//	}
+	@RequestMapping("/api/User/SearchByName")
+	public ResponseEntity<User> getSearchByName(@RequestParam(value = "key") String key) throws Exception{
+		User u=userService.findByName(key);
+		if(u!=null){
+			return new ResponseEntity<>(u,HttpStatus.OK);
+		}else
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
 	
 	interface TopTagView extends Tag.Basic{};
 	@JsonView(TopTagView.class)
