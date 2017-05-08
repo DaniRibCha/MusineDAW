@@ -50,6 +50,8 @@ El mapa de Vistas se encuentra en la carpeta de Mapadevistas a la altura del rea
 
 A continuación se añade un link a youtube con un vídeo resumiendo las funcionalidades más importantes de la aplicación.
 
+https://www.youtube.com/watch?v=hFN1iYU0L6E
+
  #### - Estructura del proyecto
  El proyecto ahora mismo está dividido en paquetes para mejorar la estructura y la eficiencia a la hora del desarrollo. Los paquetes son los siguientes:
  - Example: contiene el ejecutable del proyecto.
