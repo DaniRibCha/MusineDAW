@@ -46,7 +46,9 @@ stephaniepoleo@hotmail.com
 
 Steph Poleo
 
-El mapa de Vistas se encuentra en la carpeta de Mapadevistas a la altura del readme.
+El mapa de Vistas se encuentra en la carpeta de Mapadevistas a la altura del readme en la raíz del proyecto.
+
+A continuación se añade un link a youtube con un vídeo resumiendo las funcionalidades más importantes de la aplicación.
 
  #### - Estructura del proyecto
  El proyecto ahora mismo está dividido en paquetes para mejorar la estructura y la eficiencia a la hora del desarrollo. Los paquetes son los siguientes:
@@ -116,4 +118,18 @@ Y por último aquí se muestra el diagrama con las relaciones entre entidades. L
 
 <p align="center">
   <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/Clases%20Simples.PNG"/>
+</p>
+
+A continuación se añaden los diagramas correpondientes a la parte realizada sobre angular:
+
+<p align="center">
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20angular/service.png"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20angular/model.png"/>
+</p>
+
+<p align="center">
+  <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20angular/component.png"/>
 </p>
