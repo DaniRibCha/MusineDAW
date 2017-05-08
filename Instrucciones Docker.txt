@@ -1,0 +1,2 @@
+El único comando que habría que introducir para empezar la dockerización sería el $~docker-compose up,
+que en principio tendría que montar todos los contenedores a la vez pero no conseguimos que funcionen los contenedores de angular.
