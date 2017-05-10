@@ -1,30 +1,30 @@
-version: "2.0"
-
-services: 
-  musinehost:
-    image: daniribeiro/musine-mysql
+version: '2'
+ 
+services:
+  mysql:
+    image: mysql
+    container_name: mysql-spring
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=musine
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=
-  webapp:
-    image: daniribeiro/musine
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=test
+    #restart: always
+    networks:
+      - spring_mysql_network
+ 
+  musine:
     depends_on:
-      - musinehost
+      - mysql
+    image: davidefregonese/musine
+    container_name: musine
     ports:
       - 8443:8443
+    links:
+      - mysql:mysql
+    networks:
+      - spring_mysql_network
     environment:
-      - DATABASE_HOST=daniribeirohost
-      - DATABASE_USER=root
-      - DATABASE_PASSWORD=
-      - DATABASE_NAME=daniribeiro
-      - DATABASE_PORT=3306
-  daniribeiroAngular:
-    image: daniribeiro/musine-angular
-    depends_on:
-      - webapp
-    ports:
-      - 4200:80
-    environment:
-      - API_URL=webapp
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/test
+
+networks:
+  spring_mysql_network:
+    driver: bridge
