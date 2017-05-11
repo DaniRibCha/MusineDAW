@@ -1,0 +1,22 @@
+/*navbar default buttons*/
+
+.navbar-default {
+    margin-bottom: 0;
+    padding: 0px;
+}
+
+.btn-default.active {
+    width: 100%;
+    border-style: outset;
+}
+
+.btn-default {
+    width: 100%;
+    border-style: outset;
+}
+
+.utent_button {
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
