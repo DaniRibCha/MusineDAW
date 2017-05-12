@@ -1,0 +1,6 @@
+1)download the repository
+2)create a file .jar, run as->maven install
+3)from the directory of spring: $~docker build -t davidefregonese/musine .
+4)put the file docker-compose.yml in the directory of spring.
+4)from the same directory (spring): $~docker-compose up
+Could be necessary use the option sudo.
