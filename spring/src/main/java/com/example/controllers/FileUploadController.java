@@ -27,8 +27,7 @@ import com.example.services.UserService;
 @Controller
 public class FileUploadController {
 
-	private static final String USER_IMAGE_FOLDER = "src/main/resources/static/imgProfile";
-	
+	private static final String USER_IMAGE_FOLDER = "src/main/resources/static/imgProfile/";
 	
 	@Autowired
 	private UserService userService;
@@ -42,10 +41,10 @@ public class FileUploadController {
 	public String handleFileUpload(Model model, 
 			@RequestParam("file") MultipartFile file) {
 
-		//String fileName = file.getOriginalFilename() + ".jpg";
+		String fileName = file.getOriginalFilename();
 		long idLogged=userComponent.getIdLoggedUser();
 		User u=userService.findOne(idLogged);
-		String fileName =idLogged  + ".jpg";
+		//String fileName =idLogged  + ".jpg";
 
 		if (!file.isEmpty()) {
 			try {

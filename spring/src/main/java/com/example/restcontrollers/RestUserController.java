@@ -146,18 +146,18 @@ public class RestUserController {
 	
 	
 	
-	private static final String USER_IMAGE_FOLDER = "src/main/resources/static/imgProfile";
+	private static final String USER_IMAGE_FOLDER = "src/main/resources/static/imgProfile/";
 	
 	@RequestMapping(value = "/api/image/upload/{idUser}", method = RequestMethod.POST)
 	public ResponseEntity<User> handleFileUpload(
 			@RequestBody MultipartFile file,
 			@PathVariable long idUser) {
 
-		//String fileName = file.getOriginalFilename() + ".jpg";
+		String fileName = file.getOriginalFilename();
 		long idLogged=userComponent.getIdLoggedUser();
 		if(idLogged==idUser){
 			User u=userService.findOne(idLogged);
-			String fileName =idLogged  + ".jpg";
+			//String fileName =idLogged  + ".jpg";
 			if (!file.isEmpty()) {
 				try {
 					File filesFolder = new File(USER_IMAGE_FOLDER);
