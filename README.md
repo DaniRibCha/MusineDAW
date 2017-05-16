@@ -122,16 +122,30 @@ Y por último aquí se muestra el diagrama con las relaciones entre entidades. L
   <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20de%20clases/Clases%20Simples.PNG"/>
 </p>
 
-A continuación se añaden los diagramas correpondientes a la parte realizada sobre angular:
+A continuación se añaden los diagramas correpondientes a la parte realizada sobre angular. En el siguiente diagrama se muestran las clases que se han utilizado como servicio en esta última parte del proyecto:
 
 <p align="center">
   <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20angular/service.png"/>
 </p>
 
+Debajo se muestran las clases que han necesitado un modelo. 
+
 <p align="center">
   <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20angular/model.png"/>
 </p>
 
+Por último se muestra un resumen con todas las clases utilizadas para esta última parte del proyeccto que no refieren ni a la configuración del proyecto, ni a los modelos, ni a los servicios; ya definidos en las imágenes previas. Cada caja aquí debajo contiene dentro su propio fichero typeScript y su correspondiente vista HTML. 
+
+En el caso de que una caja sea hija de otra significará que el nombre de la clase está compuesto de la siguiente manera:
+padre-hijo.ts
+padre-hijo.html
+
+Si se diera el caso de que hubiera más de una relación padre-hijo encadenada el nombre pasaría a ser:
+abuelo-padre-hijo.ts
+abuelo-padre-hijo.html
+
 <p align="center">
   <img src="https://github.com/DaniRibCha/MusineDAW/blob/master/Mapa%20de%20vistas/Diagrama%20angular/component.png"/>
 </p>
+
+En cuanto a la configuración del proyecto, las clases app.component.spec.ts , app.routing.ts y app.module.ts, hemos decidido no representarlas en el diagrama ya que son, en cierto modo, ajenas a todas la demás clases y no hay nigún lazo relevante (aparte de señalar importaciones de clases, rutas o declaraciones de los componentes).
