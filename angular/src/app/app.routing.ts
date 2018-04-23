@@ -1,58 +1,54 @@
 import { Routes, RouterModule } from '@angular/router';
 
-import { HomeComponent } from './home-playlist.component';
-import { LoginComponent } from './login.component';
-import { PlaylistDetailComponent } from './playlist-detail.component';
-import { ArtistDetailComponent } from './artist-detail.component';
-import { ArtistFollowersComponent } from './artist-followers.component';
-import {UserPlaylistComponent} from './user-playlist.component';
-import {UserLikeComponent} from './user-likes.component';
-import {UserFavoriteComponent} from './user-favorites.component'
+import { AppComponent } from './app.component';
+import { AddProductComponent } from './addProduct.component';
+import { AdministrationComponent } from './administration.component';
+import { AdministrationProductComponent } from './administrationProduct.component';
+import { CartComponent } from './cart.component';
+import { EditProductComponent } from './editProduct.component';
+import { EditProfileComponent } from './editProfile.component';
+import { ErrorComponent } from './error.component';
+
+import { topProductsComponent } from './topProducts.component';
+import { LoginErrorComponent } from './loginerror.component';
+import { ManageUserComponent } from './manageUser.component';
+import { OrderComponent } from './order.component';
+import { OrderlistComponent } from './orderlist.component';
+import { PaymentComponent } from './payment.component';
+import { ProductComponent } from './product.component';
 import { SearchComponent } from './search.component';
-import {MyPlaylistsComponent} from './my-playlists.component';
-import {MyLikesComponent} from './my-likes.component';
-import {MyFavoritesComponent} from './my-favorites.component';
-import {EditPlaylistComponent} from './edit-playlist.component';
-import {CreatePlaylistComponent} from './create-playlist.component';
-import {MyFollowersComponent} from './my-followers.component';
-import {MyFollowingComponent} from './my-following.component';
-import {UserFollowersComponent} from './user-followers.component';
-import {UserFollowingComponent} from './user-following.component';
-import {ConfigComponent} from './config.component';
-import {AdminHomeComponent} from './admin-home.component';
-import {AdminCreateArtistComponent} from './admin-create-artist.component';
-import {AdminEditArtistComponent} from './admin-edit-artist.component';
-import {AdminEditSongComponent} from './admin-edit-song.component';
-import {AdminCreateSongComponent} from './admin-create-song.component';
-import {SignInComponent} from './sign-in.component';
+import { NavigationComponent } from './navigation.component';
+import { FooterComponent } from './footer.component';
+
+import { userprofileComponent } from './userprofile.component';
+import { LoginComponent } from './login.component';
+import { SignUpComponent } from './signUp.component';
+import { HomeComponent } from './home.component';
+
 
 const appRoutes = [
-  { path: 'playlist/:id_playlist', component: PlaylistDetailComponent},
-  { path: 'artist/:id_artist', component: ArtistDetailComponent},
-  { path: 'artist-followers/:id_artist', component: ArtistFollowersComponent},
-  { path: 'user-playlist/:id_user', component: UserPlaylistComponent},
-  { path: 'user-likes/:id_user', component: UserLikeComponent},
-  { path: 'user-favorites/:id_user', component: UserFavoriteComponent},
-  { path: 'my-playlists/:id_user', component: MyPlaylistsComponent},
-  { path: 'my-likes/:id_user', component: MyLikesComponent},
-  { path: 'my-favorites/:id_user', component: MyFavoritesComponent},
-  { path: 'my-followers/:id_user', component: MyFollowersComponent},
-  { path: 'my-following/:id_user', component: MyFollowingComponent},
-  { path: 'user-followers/:id_user', component: UserFollowersComponent},
-  { path: 'user-following/:id_user', component: UserFollowingComponent},
-  { path: 'search/:key', component: SearchComponent},
-  { path: 'config/:id_user', component: ConfigComponent},
-  { path: 'edit-playlist/:id_playlist', component: EditPlaylistComponent},
-  { path: 'create-playlist', component: CreatePlaylistComponent},
-  { path: 'admin-home', component: AdminHomeComponent},
-  { path: 'admin-create-artist', component: AdminCreateArtistComponent},
-  { path: 'admin-edit-artist/:id_artist', component: AdminEditArtistComponent},
-  { path: 'admin-edit-song/:id_song', component: AdminEditSongComponent},
-  { path: 'admin-create-song/:id_artist', component: AdminCreateSongComponent},
-  { path: 'new', component: HomeComponent},
-  { path: 'login', component: LoginComponent },
-  { path: 'sign-in', component: SignInComponent },
-  { path: '', redirectTo: 'new', pathMatch: 'full' }
+
+  { path: 'order/:id', component: OrderComponent},
+  { path: 'adminproducts', component: AdministrationProductComponent},
+  { path: 'editproduct/:id', component: EditProductComponent},
+  { path: 'addproduct', component: AddProductComponent},
+  { path: 'manageusers', component: ManageUserComponent},
+  { path: 'admin', component: AdministrationComponent},
+  { path: 'customer/:id', component: userprofileComponent},
+  { path: 'home', component:HomeComponent },
+  { path: 'editprofile/:id', component:EditProfileComponent },
+  { path: 'myorders/:id', component:OrderlistComponent },
+  { path: 'cart/:id', component:CartComponent },
+  { path: 'login', component:LoginComponent },
+  { path: 'loginError', component:LoginErrorComponent },
+  { path: 'signUp', component: SignUpComponent},
+  { path: 'product/:id', component:ProductComponent },
+  { path: 'search/:searchtext', component:SearchComponent},
+  { path: 'payment/:id', component:PaymentComponent },  
+
+  { path: '', redirectTo: 'home', pathMatch: 'full' }
+
+  
 ]
 
 export const routing = RouterModule.forRoot(appRoutes);

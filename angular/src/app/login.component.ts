@@ -1,45 +1,38 @@
 import { Component } from '@angular/core';
-import { PlaylistService } from './playlist.service';
-import { ArtistService } from './artist.service';
-import { TagService } from './tag.service';
-import { UserService } from './user.service';
-import { Http } from '@angular/http';
-
+import {CustomerService} from './customer.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LoginService } from './login.service';
-
 @Component({
-  selector: 'login',
-  templateUrl: './login.component.html',
-  styleUrls:['../assets/css/homestyle.css','../assets/css/bootstrap.min.css','../assets/css/animate-custom.css',
-    '../assets/css/loginstyle.css','../assets/css/styleLogInSignUp.css',]
-})
-export class LoginComponent {
+    selector: 'login',
+    templateUrl: './login.component.html'
+  })
+  export class LoginComponent {
+  	 constructor(private router: Router, activatedRoute: ActivatedRoute, private customerService: CustomerService) { }
 
-  constructor(private router: Router, private loginService: LoginService) { }
-
-  logIn(event: any, user: string, pass: string) {
+logIn(event: any, email: string, password: string) {
 
     event.preventDefault();
 
-    this.loginService.logIn(user, pass).subscribe(
+    this.customerService.logIn(email, password).subscribe(
       u =>{ console.log(u),
       this.navigate();
       },
       //error => alert('Invalid user or password')
       error=>{console.log(error),
-      alert('Invalid user or password')}
-    );
-  }
+      //alert('Invalid user or password')}
+      this.router.navigate(['/loginError'])}
+    );}
 
   logOut() {
-    this.loginService.logOut().subscribe(
+    this.customerService.logOut().subscribe(
       response => { },
       error => console.log('Error when trying to log out: ' + error)
     );
   }
-  navigate(){
+
+      navigate(){
      this.router.navigate(['/']);
+     
   }
+
 
 }

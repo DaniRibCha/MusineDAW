@@ -1,0 +1,102 @@
+
+<navigation></navigation>
+<body>
+ 
+    
+    <br>
+    <div class="container">
+
+      <div class="row">
+  
+      
+
+        <div *ngIf="product"  class="col-lg-8">
+           
+
+          <div  class="card mt-4">
+            
+            <img class="card-img-top img-fluid" src={{product.imageUrl}} alt="">
+               
+            <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    
+                    <h3 class="card-title">{{product.name}}</h3>
+                </div>
+               
+                <div class="col-md-3">
+                    <h2 style="text-align: right">{{product.price}}€</h2>
+                </div>
+                
+                <div class="col-md-1" style="text-align: right">
+                   
+                    
+                    <button class="btn btn-primary" type="button" (click)="AddToCart(product.id)"><img id="icon" src="./assets/img/carrito.png"></button>
+                
+</div>
+
+            </div>
+              <p class="card-text">{{product.description}}</p>
+
+            </div>
+        
+
+          </div>
+          
+
+          <div class="card card-outline-secondary my-4">
+      
+            <div class="card-header">
+                <h3>Comments</h3>
+            </div>
+            <div class="card-body">
+            
+             <div *ngFor="let comment of comments">
+         <h6>Comment by {{comment.customer.firstName}}</h6>
+              <p>{{comment.date}}</p>
+              <p>{{comment.comment}}</p>
+                 </div>
+              
+
+              
+           
+            </div>
+          </div>
+       <div *ngIf="product">
+	 
+ Add your comment: <input #commentinfo type="text" name="commentinfo">
+     <button class="btn btn-primary" type="button" (click)="AddComment(product.id,commentinfo.value)">Add Comment</button>
+
+</div>
+
+          </div>
+     
+        <div class="col-lg-4">
+
+          <h4 style="padding-bottom: 5px; padding-top: 5px">Top<!-- {{product.label}}--></h4>
+                <div *ngIf="product" class="list-group">
+
+                    <a [routerLink]="['/product/product.id']" class="list-group-item list-group-item-action">
+                        <img class="img-fluid col-lg-4" src="{{product.imageUrl}}">{{product.name}}
+                    </a>
+           
+                </div>
+<toplabelproducts></toplabelproducts>
+ 
+        </div>
+     
+
+      </div>
+        
+       <br>
+       <br>
+  
+
+    </div>
+
+
+
+
+  </body> 
+
+   <footercomponent></footercomponent> 

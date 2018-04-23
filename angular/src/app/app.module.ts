@@ -1,55 +1,75 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { HttpModule, JsonpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home-playlist.component';
+import { topLabelProductsComponent } from './topLabelProducts.component';
+import { topProductsComponent } from './topProducts.component';
+import { SignUpComponent } from './signUp.component';
+import { NavigationComponent } from './navigation.component';
+import { FooterComponent } from './footer.component';
+import { AddProductComponent } from './addProduct.component';
+import { AdministrationComponent } from './administration.component';
+import { AdministrationProductComponent } from './administrationProduct.component';
+import { CartComponent } from './cart.component';
+import { EditProductComponent } from './editProduct.component';
+import { EditProfileComponent } from './editProfile.component';
+import { ErrorComponent } from './error.component';
+import { HomeComponent } from './home.component';
 import { LoginComponent } from './login.component';
-import { PlaylistDetailComponent } from './playlist-detail.component';
-import { ArtistDetailComponent } from './artist-detail.component';
-import { ArtistFollowersComponent } from './artist-followers.component';
-import {UserPlaylistComponent} from './user-playlist.component'
-import {UserLikeComponent} from './user-likes.component'
-import {UserFavoriteComponent} from './user-favorites.component'
+import { LoginErrorComponent } from './loginerror.component';
+import { ManageUserComponent } from './manageUser.component';
+import { OrderComponent } from './order.component';
+import { OrderlistComponent } from './orderlist.component';
+import { PaymentComponent } from './payment.component';
+import { ProductComponent } from './product.component';
 import { SearchComponent } from './search.component';
-import { PlaylistService } from './playlist.service';
-import { ArtistService } from './artist.service';
-import { TagService } from './tag.service';
-import { UserService } from './user.service';
-import { SongService } from './song.service';
-import { LoginService } from './login.service';
-import { AdminService } from './admin.service';
-import { routing }  from './app.routing';
-import { MyNavbarComponent } from './mynavbar.component';
-import {DropdownModule} from "ngx-dropdown";
-import {MyPlaylistsComponent} from './my-playlists.component';
-import {MyLikesComponent} from './my-likes.component';
-import {MyFavoritesComponent} from './my-favorites.component';
-import {EditPlaylistComponent} from './edit-playlist.component';
-import {CreatePlaylistComponent} from './create-playlist.component';
-import {MyFollowersComponent} from './my-followers.component';
-import {MyFollowingComponent} from './my-following.component';
-import {UserFollowersComponent} from './user-followers.component';
-import {UserFollowingComponent} from './user-following.component';
-import {ConfigComponent} from './config.component';
-import {AdminHomeComponent} from './admin-home.component';
-import {AdminCreateArtistComponent} from './admin-create-artist.component';
-import {AdminEditArtistComponent} from './admin-edit-artist.component';
-import {AdminEditSongComponent} from './admin-edit-song.component';
-import {AdminCreateSongComponent} from './admin-create-song.component';
-import {SignInComponent} from './sign-in.component';
+import { userprofileComponent } from './userprofile.component';
+
+import { CommentService } from './comment.service';
+import { ProductService } from './product.service';
+import { PedidoService } from './pedido.service';
+import { CustomerService } from './customer.service';
+import { routing } from './app.routing';
+
 
 @NgModule({
-  declarations: [AppComponent,PlaylistDetailComponent, HomeComponent,LoginComponent,SearchComponent,
-  UserPlaylistComponent,ArtistDetailComponent,UserLikeComponent,UserFavoriteComponent, MyNavbarComponent,
-  MyPlaylistsComponent,MyLikesComponent,MyFavoritesComponent,EditPlaylistComponent,CreatePlaylistComponent,
-  ArtistFollowersComponent,MyFollowersComponent,MyFollowingComponent,UserFollowersComponent,UserFollowingComponent,
-  ConfigComponent,AdminHomeComponent,AdminCreateArtistComponent,AdminEditArtistComponent,AdminEditSongComponent,
-  AdminCreateSongComponent,SignInComponent],
-  imports: [BrowserModule, FormsModule, HttpModule, JsonpModule, routing,DropdownModule],
-  bootstrap: [AppComponent],
-  providers: [PlaylistService,ArtistService,TagService,UserService,SongService,LoginService,AdminService]
+  declarations: [
+    AdministrationProductComponent ,
+    AppComponent,
+    EditProductComponent,
+    AddProductComponent,
+    AdministrationComponent,
+    EditProfileComponent,
+    ManageUserComponent, 
+    OrderComponent,
+    PaymentComponent,
+    OrderlistComponent,
+    userprofileComponent,
+    CartComponent,
+    topProductsComponent,
+    topLabelProductsComponent,
+    SearchComponent,
+    ProductComponent,
+    LoginComponent,
+    LoginErrorComponent,
+    HomeComponent,
+    SignUpComponent,
+    NavigationComponent,
+    FooterComponent
+  
+  
+  ],
+  imports: [
+
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    JsonpModule,
+    routing
+  ],
+  providers: [CommentService,ProductService,PedidoService,CustomerService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
-

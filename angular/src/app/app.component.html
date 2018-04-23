@@ -1,17 +1,276 @@
-<!doctype html>
-<html>
-<body>
-     
-    <router-outlet></router-outlet>
-  <footer>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="intro-text">
-                    <hr class="star-light"> <span class="footer">Musine </span> </div>
+   
+<!-- dejar solo esta etiqueta -->
+<router-outlet></router-outlet>
+
+
+
+
+
+
+<!-- ///////////////////////////////////////////////////////////////////////////////////
+    hay que mover estos contenidos al home.component.html 
+--> 
+
+<!-- //////////////////////////////////////////////////////////////////////////////////   
+
+    <header>
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+
+-->
+
+                                               
+       
+                    <!-- ////////////////////////////////////////////////////////////////////////
+    </header>
+
+-->
+
+    <!-- Page Content -->
+
+<!-- ///////////////////////////////////////////////////////////////////////
+
+    <div class="container-fluid">
+
+        <h3 class="my-4">Our products</h3>
+       
+-->     
+        <!-- Marketing Icons Section -->
+
+<!-- ////////////////////////////////////////////////////////////////////////
+
+        <div id="product-list1" class="row">
+         {{#products}}
+            <div class="col-lg-3 portfolio-item">
+                <div id="product-card" class="card h-100">
+                    <div class="card-header">
+                    	<a href="/product/{{id}}">
+                        <img id="card-image" src={{imageUrl}} class="card-img-top">
+                        </a>
+                    </div>
+                    <div class="card-block">
+                        <h6 class="card-title" style="padding-top:12px">{{name}}</h6>
+                        <p class="card-text">{{description}}</p>
+
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <a href="/product/{{id}}" class="btn btn-primary">Check it!</a>
+                                </div>
+                                <div class="col-md-7">
+                                    <h2 id="card-price">{{price}}€</h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/products}}  
+            </div>
+            
+            
+           
+            
+        </div>
+
+-->
+
+        <!-- /.row -->
+
+        <!-- Features Section -->
+
+<!-- ///////////////////////////////////////////////////////////////////////
+
+        <div class="row" style="padding-left: 20px; padding-bottom: 20px">
+            <div class="col-lg-8">
+                <div>
+                <h4 style="padding-bottom: 5px">Our recomendations</h4>
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators2" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators2" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators2" data-slide-to="2"></li>
+            </ol>
+
+-->            
+
+            <!-- ******************************* Carousels ********************************* -->
+
+            
+<!-- ///////////////////////////////////////////////////////////////////////////
+
+            <div class="carousel-inner portfolio-item" role="listbox">
+
+-->
+
+                <!-- Slide One - Set the background image for this slide in the line below -->
+
+<!-- ///////////////////////////////////////////////////////////////////////////
+
+                <div class="carousel-item active" style="background-image: url(../img/camara.png)">
+                    <a href="/product">
+                        <div class="carousel-caption d-none d-md-block">
+                            <a href="/product/34"> <h1>Sony Alpha 6000</h1></a>
+                            <p>Not digital, not reflex; mirrorless is the solution</p>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Slide Two - Set the background image for this slide in the line below -->
+
+<!-- //////////////////////////////////////////////////////////////////////////
+
+                <div class="carousel-item" style="background-image: url(../img/iphonex.png)">
+                    <a href="/product" >
+                        <div class="carousel-caption d-none d-md-block">
+                            <a href="/product/7"><h1>iPhone X</h1></a>
+                            <p>The next-level of the next-level smartphones </p>
+                        </div>
+                    </a>
+                </div>
+
+-->
+
+                <!-- Slide Three - Set the background image for this slide in the line below -->
+
+<!-- ///////////////////////////////////////////////////////////////////////
+
+                <div class="carousel-item" style="background-image: url(../img/mercurial.png)">
+                    <a href="/product" >
+                        <div class="carousel-caption d-none d-md-block">
+                            <a href="/product/35"><h1>Mercurial Puro Fenomeno</h1></a>
+                            <p>Go on the pitch wtih Neymar's electricity</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+        </div>
+                </div>
+            </div>
+            <div class="col-lg-3 portfolio-item  pull-left">
+                <h4 style="padding-bottom: 5px">January's best products</h4>
+                <div class="list-group">
+                {{#best}}
+                    <a href="/product/{{id}}" class="list-group-item list-group-item-action">
+                        <img class="img-fluid col-lg-4" src="{{imageUrl}}">{{name}}
+                    </a>
+                {{/best}}
+                </div>
+            </div>
+
+        </div>
+        </div>
+
+-->
+
+        <!-- /.row -->
+
+        
+        <!-- Portfolio Section -->
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////
+
+        <h2>Categories</h2>
+
+
+
+        <div class="row" style="padding: 15px">
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-50">
+                <img class="card-img-top" src="http://theoscillation.com/publishing-books/?view_iaq=publishing+books.jpg" alt="">
+                    <a href="/search"  >  <form action="search/{searchtext}" method="post">
+                    
+                     <input type="hidden" name="searchtext" value="Books" >
+                    <input type="submit"  class="btn btn-primary" value="Books">
+                     <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-50">
+                <img class="card-img-top" src="https://www.lovevalencia.com/wp-content/uploads/2015/11/arago-cinema-700x400.jpg">
+                    <a href="/search"  >  <form action="search/{searchtext}" method="post">
+                    
+                     <input type="hidden" name="searchtext" value="Movies" >
+                    <input type="submit"  class="btn btn-primary" value="Movies">
+                     <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-50">
+                <img class="card-img-top" src="http://canalnewsecuador.com/wp-content/uploads/2017/07/smartphones_latam_populares.png">
+                    <a href="/search"  >  <form action="search/{searchtext}" method="post">
+                    
+                     <input type="hidden" name="searchtext" value="Smartphones" >
+                    <input type="submit"  class="btn btn-primary" value="Smartphones">
+                     <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-50">
+                <img class="card-img-top" src="https://gazettereview.com/wp-content/uploads/2016/07/most-popular-video-games.png">
+                    <a href="/search"  >  <form action="search/{searchtext}" method="post">
+                    
+                     <input type="hidden" name="searchtext" value="Videogames" >
+                    <input type="submit"  class="btn btn-primary" value="Videogames">
+                     <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-50">
+                <img class="card-img-top" src="https://www.elpaisdelosjovenes.com/wp-content/uploads/2017/09/competencia-dj2.jpg">
+                    <a href="/search"  >  <form action="search/{searchtext}" method="post">
+                    
+                     <input type="hidden" name="searchtext" value="Music" >
+                    <input type="submit"  class="btn btn-primary" value="Music">
+                     <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form></a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-6 portfolio-item">
+                <div class="card h-50">
+                <img class="card-img-top" src="https://sofecom.com/wp-content/uploads/2018/01/Impacto-Meltdown-y-Spectre.jpg">
+                    <a href="/search"  >  <form action="search/{searchtext}" method="post">
+                    
+                     <input type="hidden" name="searchtext" value="Electronic" >
+                    <input type="submit"  class="btn btn-primary" value="Electronic">
+                     <input type="hidden" name="_csrf" value="{{token}}"/>
+                    </form></a>
+                </div>
             </div>
         </div>
+
+-->
+
         <!-- /.row -->
-    </footer>
-</body>
-</html>
- 
+
+<!-- //////////////////////////////////////////////////////////////////////////////
+        <hr>
+
+-->
+
+        <!-- Call to Action Section -->
+        
+<!-- //////////////////////////////////////////////////////////////////////////
+    </div>
+-->
+
+    <!-- /.container -->
+
+
+    

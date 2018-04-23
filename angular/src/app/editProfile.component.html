@@ -1,0 +1,89 @@
+<navigation></navigation>
+<body>
+
+   
+    <form class="form-horizontal">
+
+
+        <div>
+            <h3 id="tit">Edit Profile</h3>
+        </div>
+
+        <div class="container">
+          <div *ngIf="customer" class="row">
+            <div class="col-sm">
+            </div>
+            <div class="col-sm">
+            	
+               <img id ="userphoto" src={{customer.imageUrl}}>
+               <div class="form-group">
+               <form action="/image/upload" method="post"enctype="multipart/form-data" id="form-image">
+					<div>
+						<input type="file" name="file" id="input-image" />
+					</div>
+				 	<button type="submit" class="btn btn-primary btn-lg uploadImg">Change Image</button>
+				</form>
+				</div>
+           
+            </div>
+               
+
+            <div class="col-sm">
+
+            <div class="form-group"> 
+  
+                <label class="control-label" id="lab" for="textinput">Name</label>  
+               <input #firstname id="firstname" name="firstname" placeholder="{{customer.firstName}}" required="required" class="form-control input-md" type="text">
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="control-label" id="lab" for="textinput">Last Name</label>  
+                <input #lastname id="textinput" name="lastname" placeholder="{{customer.lastName}}" required="required"  class="form-control input-md" required="" type="text">
+
+            </div>
+            
+          
+
+            <div class="form-group">
+
+                <label class="control-label" id="lab" for="textinput">Mail</label>  
+                <input #mail id=mail name="mail" placeholder="{{customer.mail}}" required="required" class="form-control input-md" type="text">
+
+            </div>
+            
+
+                <label class="control-label" id="lab" for="textinput">Telephone:</label>  
+                <input #telephone id="textinput" name="telephone" placeholder="{{customer.telephone}}" required="required"  class="form-control input-md" required="" type="text">
+ 
+            </div>
+            <div class="form-group">
+
+                <label class="control-label" id="lab" for="textarea">Address</label>
+                 <textarea #address class="form-control" id="textarea" required="required" placeholder="{{customer.address}}" name="address"></textarea>
+
+            </div>
+
+
+
+            <div class="form-group">
+                <label class="control-label" for="btnCancel"></label>
+                <div *ngIf="customer"class="col-md-8">
+                    <button id="btnCancel" name="btnCancel" class="btn btn-primary" [routerLink]="['/customer',customer.id]">Cancel</button>
+                    <button type="submit "id="btnSave" name="btnSave" (click)="editProfile(firstname.value, lastname.value, mail.value, telephone.value, address.value)" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </div>
+            <div class="col-sm">
+              
+            </div>
+          </div>
+       
+
+    </form>
+
+
+  </body>
+
+<footercomponent></footercomponent>
